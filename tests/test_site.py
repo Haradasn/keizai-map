@@ -38,8 +38,11 @@ def test_internal_links_resolve():
             assert (S/href).exists(),f"{name}.html -> {href}"
 
 def test_sitemap_matches_pages():
-    sm=(S/"sitemap.xml").read_text(); paths=set(re.findall(r"keizai-atlas\.com(/[a-z]*)</loc>",sm))
-    assert paths=={"/"}|{f"/{p}" for p in PAGES if p!="index"}
+    sm=(S/"sitemap.xml").read_text(); paths=re.findall(r"keizai-atlas\.com(/[\w/]*)</loc>",sm)
+    assert len(paths)==len(set(paths))
+    for p in paths: assert (S/(("index" if p=="/" else p[1:])+".html")).exists(),p
+    assert {"/","/explorer","/similarity","/latest","/international","/about","/industries"}<=set(paths)
+    assert sum(p.startswith("/industry/") for p in paths)==145
 
 def test_index_cards_have_distinct_targets():
     h=(S/"index.html").read_text(encoding="utf-8")
@@ -168,3 +171,29 @@ def test_derived_metrics_sane():
     M=metrics()
     assert 0<float(M["sppi_avg_0"])<300 and float(M["fuel_peak"])>float(M["fuel_0"])
     assert M["sppi_last"].endswith("月") and M["meti_last"].endswith("月")
+
+
+# ---- 個別産業ページ
+def _industry_files(): return sorted((S/"industry").glob("*.html"))
+
+def test_industry_pages_complete_and_valid():
+    fs=_industry_files(); assert len(fs)==145            # 108産業 + 37部門
+    titles=set()
+    for f in fs:
+        h=f.read_text(encoding="utf-8")
+        assert "<h1" in h and 'rel="canonical"' in h and '<base href="/">' in h,f.name
+        assert not re.search(r"\bnan\b|None|{{",h),f.name
+        t=re.search(r"<title>(.*?)</title>",h).group(1); assert t not in titles,t; titles.add(t)
+        assert f'/industry/{f.stem}"' in h                   # canonical
+        for href in re.findall(r'href="(industry/[\w]+\.html)"',h): assert (S/href).exists(),(f.name,href)
+
+def test_industries_index_links_all():
+    h=(S/"industries.html").read_text(encoding="utf-8")
+    for f in _industry_files(): assert f'href="industry/{f.name}"' in h,f.name
+
+def test_industry_page_browser(browser,base):
+    pg=browser.new_page(viewport={"width":390,"height":800}); errs=[]; pg.on("pageerror",lambda e:errs.append(str(e)))
+    pg.goto(f"{base}/industry/663.html",wait_until="domcontentloaded"); pg.wait_for_timeout(600)
+    assert "自動車整備" in pg.inner_text("h1") and pg.evaluate("document.documentElement.scrollWidth")<=392
+    pg.click("table a >> nth=0"); pg.wait_for_timeout(300); assert "/industry/" in pg.url   # 内部リンクで別の産業ページへ
+    assert errs==[]; pg.close()

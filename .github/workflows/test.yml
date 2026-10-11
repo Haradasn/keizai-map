@@ -11,7 +11,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: {python-version: "3.12"}
-      - run: pip install pytest playwright && playwright install --with-deps chromium
+      - run: pip install pytest playwright pandas && playwright install --with-deps chromium
       - uses: actions/setup-node@v4
         with: {node-version: "22"}
       - run: python3 scripts/build_site.py
