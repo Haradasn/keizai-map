@@ -23,6 +23,10 @@ npm install
 python3 scripts/build_site.py && npm run build:css
 npx serve site   # または python3 -m http.server -d site
 ```
+## 最新動向の自動更新
+`.github/workflows/monthly-update.yml` が毎週月曜に日銀・経産省・財務省の最新データを取得し（`scripts/fetch_latest.sh`）、更新があれば PR を自動作成します。本文の数字は `scripts/derive.py` がデータから計算して `pages/*.html` の `{{名前}}` に差し込みます。解釈の文章は人間（または Claude）が確認します。
+PR 作成には、GitHub の Settings > Actions > General > Workflow permissions で「Allow GitHub Actions to create and approve pull requests」を有効にしてください。
+
 ## テスト
 ```
 pip install pytest playwright && playwright install chromium
