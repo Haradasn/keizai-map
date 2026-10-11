@@ -45,6 +45,13 @@ h=h.replace("<title>",'<script>try{var t=localStorage.getItem("theme");if(t!=="n
 (S/"explorer.html").write_text(h,encoding="utf-8")
 
 (S/"robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {SITE_URL}/sitemap.xml\n",encoding="utf-8")
-import datetime
-T=datetime.date.today().isoformat()
-(S/"sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+"".join(f"<url><loc>{SITE_URL}{p}</loc><lastmod>{T}</lastmod></url>\n" for p in ("/","/explorer","/similarity","/latest","/international","/about"))+"</urlset>\n",encoding="utf-8")
+import datetime,hashlib
+# lastmod: ページ内容のハッシュが変わった日だけ更新(pages/lastmod.json に記録)。変更が無ければ何日ビルドしても同じ。
+LM_F=R/"pages"/"lastmod.json"; LM=json.loads(LM_F.read_text(encoding="utf-8")) if LM_F.exists() else {}
+today=datetime.date.today().isoformat(); urls=[]
+for p in ("/","/explorer","/similarity","/latest","/international","/about"):
+    f=S/(("index" if p=="/" else p[1:])+".html"); hsh=hashlib.sha256(f.read_bytes()).hexdigest()[:16]
+    if LM.get(p,{}).get("hash")!=hsh: LM[p]={"hash":hsh,"date":today}
+    urls.append(f"<url><loc>{SITE_URL}{p}</loc><lastmod>{LM[p]['date']}</lastmod></url>\n")
+LM_F.write_text(json.dumps(LM,indent=1,ensure_ascii=False)+"\n",encoding="utf-8")
+(S/"sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+"".join(urls)+"</urlset>\n",encoding="utf-8")

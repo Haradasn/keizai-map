@@ -11,7 +11,12 @@ jobs:
       - uses: actions/setup-python@v5
         with: {python-version: "3.12"}
       - run: pip install pytest playwright && playwright install --with-deps chromium
+      - uses: actions/setup-node@v4
+        with: {node-version: "22"}
       - run: python3 scripts/build_site.py
+      - run: npm install --no-audit --no-fund && npm run build:css
+      - name: コミット済みの site/ が最新のビルド結果か
+        run: git diff --exit-code -- site pages/lastmod.json || { echo "::error::site/ が最新ではありません。python3 scripts/build_site.py && npm run build:css を実行してコミットしてください"; exit 1; }
       - name: pytest
         run: |
           set -o pipefail

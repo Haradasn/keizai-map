@@ -6,10 +6,10 @@
 </head><body class="bg-base-200 text-base-content font-sans min-h-screen flex flex-col">
 <header class="navbar bg-base-100/80 backdrop-blur border-b border-base-300 sticky top-0 z-50 px-4">
  <div class="flex-1"><a href="index.html" class="text-lg font-bold tracking-tight">Keizai Atlas <span class="text-xs font-normal text-base-content/60 ml-2 hidden sm:inline">経済の地図帳</span></a></div>
- <nav class="flex-none gap-1"><a class="btn btn-ghost btn-sm" href="explorer.html">産業マップ</a><a class="btn btn-ghost btn-sm" href="similarity.html">近さの地図</a><a class="btn btn-ghost btn-sm" href="latest.html">最新動向</a><a class="btn btn-ghost btn-sm" href="international.html">国際比較</a><a class="btn btn-ghost btn-sm" href="about.html">方法と出典</a>
+ <nav class="flex-none gap-1 items-center flex"><span class="hidden md:flex gap-1"><a class="btn btn-ghost btn-sm" href="explorer.html">産業マップ</a><a class="btn btn-ghost btn-sm" href="similarity.html">近さの地図</a><a class="btn btn-ghost btn-sm" href="latest.html">最新動向</a><a class="btn btn-ghost btn-sm" href="international.html">国際比較</a><a class="btn btn-ghost btn-sm" href="about.html">方法と出典</a></span><div class="dropdown dropdown-end md:hidden"><label tabindex="0" class="btn btn-ghost btn-sm" aria-label="メニュー">☰</label><ul tabindex="0" class="menu dropdown-content z-50 mt-2 p-2 shadow bg-base-100 border border-base-300 rounded-box w-44"><li><a href="explorer.html">産業マップ</a></li><li><a href="similarity.html">近さの地図</a></li><li><a href="latest.html">最新動向</a></li><li><a href="international.html">国際比較</a></li><li><a href="about.html">方法と出典</a></li></ul></div>
  <label class="swap swap-rotate btn btn-ghost btn-sm btn-circle" aria-label="テーマ切替"><input type="checkbox" id="thm"><span class="swap-on">☀</span><span class="swap-off">☾</span></label></nav>
 </header>
-<main class="flex-1 max-w-5xl mx-auto px-4 py-10 space-y-10">
+<main class="flex-1 w-full max-w-5xl mx-auto px-4 py-10 space-y-10">
 <header class="space-y-3"><h1 class="text-3xl font-bold">国際比較：日・米・中・独・韓</h1>
 <p class="text-base-content/80">OECD の国際産業連関表（ICIO 2025年版、2016〜2022年）から、各国の産業が「何を仕入れているか」を比べます。指標は<b>中間投入（原材料・サービスの仕入れ）全体に占める割合</b>です。輸入分も含みます。</p>
 <div role="alert" class="alert alert-warning"><span>日本の表（総務省の産業連関表）とは部門の切り方が違うため、数値は国内版と一致しません。解釈は筆者の仮説です。</span></div></header>

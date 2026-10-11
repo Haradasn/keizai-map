@@ -6,16 +6,16 @@
 </head><body class="bg-base-200 text-base-content font-sans min-h-screen flex flex-col">
 <header class="navbar bg-base-100/80 backdrop-blur border-b border-base-300 sticky top-0 z-50 px-4">
  <div class="flex-1"><a href="index.html" class="text-lg font-bold tracking-tight">Keizai Atlas <span class="text-xs font-normal text-base-content/60 ml-2 hidden sm:inline">経済の地図帳</span></a></div>
- <nav class="flex-none gap-1"><a class="btn btn-ghost btn-sm" href="explorer.html">産業マップ</a><a class="btn btn-ghost btn-sm" href="similarity.html">近さの地図</a><a class="btn btn-ghost btn-sm" href="latest.html">最新動向</a><a class="btn btn-ghost btn-sm" href="international.html">国際比較</a><a class="btn btn-ghost btn-sm" href="about.html">方法と出典</a>
+ <nav class="flex-none gap-1 items-center flex"><span class="hidden md:flex gap-1"><a class="btn btn-ghost btn-sm" href="explorer.html">産業マップ</a><a class="btn btn-ghost btn-sm" href="similarity.html">近さの地図</a><a class="btn btn-ghost btn-sm" href="latest.html">最新動向</a><a class="btn btn-ghost btn-sm" href="international.html">国際比較</a><a class="btn btn-ghost btn-sm" href="about.html">方法と出典</a></span><div class="dropdown dropdown-end md:hidden"><label tabindex="0" class="btn btn-ghost btn-sm" aria-label="メニュー">☰</label><ul tabindex="0" class="menu dropdown-content z-50 mt-2 p-2 shadow bg-base-100 border border-base-300 rounded-box w-44"><li><a href="explorer.html">産業マップ</a></li><li><a href="similarity.html">近さの地図</a></li><li><a href="latest.html">最新動向</a></li><li><a href="international.html">国際比較</a></li><li><a href="about.html">方法と出典</a></li></ul></div>
  <label class="swap swap-rotate btn btn-ghost btn-sm btn-circle" aria-label="テーマ切替"><input type="checkbox" id="thm"><span class="swap-on">☀</span><span class="swap-off">☾</span></label></nav>
 </header>
-<main class="flex-1 max-w-5xl mx-auto px-4 py-10 space-y-6">
+<main class="flex-1 w-full max-w-5xl mx-auto px-4 py-10 space-y-6">
 <header class="space-y-3"><h1 class="text-3xl font-bold">近さの地図：取引の相手が似ている産業</h1>
 <p class="text-base-content/80">108の産業を、<b>「誰から買い、誰に売っているか」の似かた</b>で平面に並べました。<b>近いほど取引の相手が似ていて、遠いほど違います</b>（産業マップの配置は見やすさ重視で、距離に意味はありません）。ブルーオーシャン候補の4グループ（金色の輪）が、地図のどこにいるかも見られます。</p>
 <div role="alert" class="alert alert-warning"><span>2次元に落とすため、距離は完全には再現できません（元の非類似度と地図上の距離の順位相関 ρ=<b id="rho"></b>）。近い＝似ている、の目安として見てください。</span></div></header>
 <section class="space-y-3">
 <div class="flex flex-wrap gap-2 items-center"><span class="text-sm">色:</span>
-<div class="join"><button class="btn btn-sm join-item btn-active" data-m="grp">産業の大分類</button><button class="btn btn-sm join-item" data-m="g">成長率（2015→2020）</button><button class="btn btn-sm join-item" data-m="bo">ブルーオーシャン候補</button></div></div>
+<div class="flex flex-wrap gap-1"><button class="btn btn-sm btn-outline btn-active" data-m="grp">産業の大分類</button><button class="btn btn-sm btn-outline" data-m="g">成長率（2015→2020）</button><button class="btn btn-sm btn-outline" data-m="bo">ブルーオーシャン候補</button></div></div>
 <div class="card bg-base-100 border border-base-300"><div class="card-body p-2 sm:p-4"><div id="sm"></div></div></div>
 <div id="legend" class="flex flex-wrap gap-x-4 gap-y-1 text-xs"></div>
 <div id="info" class="card bg-base-100 border border-base-300"><div class="card-body text-sm"><p class="text-base-content/70">点にカーソルを合わせる（スマホはタップ）と、その産業と「取引の相手が似ている」上位3産業が出ます。</p></div></div>
