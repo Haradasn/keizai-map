@@ -47,23 +47,24 @@ function col(d){if(mode=="grp")return PAL[d.grp%8];
 var sel=null,lab=[];
 function draw(){
  var s='<svg viewBox="0 0 '+W+' '+H+'" width="100%" role="img" aria-label="108産業の近さの地図" style="font-size:11px;touch-action:manipulation">';
- // links from selected to its 3 nearest
- if(sel){sel.nb.forEach(function(nm){var q=N.filter(function(d){return d.n==nm})[0];if(q)s+='<line x1="'+sel.px+'" y1="'+sel.py+'" x2="'+q.px+'" y2="'+q.py+'" stroke="currentColor" opacity=".5" stroke-dasharray="4 3"/>'})}
  N.slice().sort(function(a,b){return b.o-a.o}).forEach(function(d){
   s+='<circle data-i="'+N.indexOf(d)+'" cx="'+d.px+'" cy="'+d.py+'" r="'+d.r+'" fill="'+col(d)+'" fill-opacity="'+((mode=="bo"&&!d.bo)?.35:.78)+'" stroke="'+(d.bo?"#f59e0b":"currentColor")+'" stroke-opacity="'+(d.bo?1:.25)+'" stroke-width="'+(d.bo?2.4:.6)+'" style="cursor:pointer"/>'});
  // labels: blue-ocean members + big ones, greedy declutter
  var cand=N.slice().sort(function(a,b){return (b.bo?1e3:0)+b.o-((a.bo?1e3:0)+a.o)}),placed=[];
- cand.forEach(function(d){if(!d.bo&&d.o<5&&d!==sel)return;var w=d.n.length*11+4,bx=d.px+d.r+3,by=d.py-6,ok=true;
+ cand.forEach(function(d){if(!d.bo&&d.o<5)return;var w=d.n.length*11+4,bx=d.px+d.r+3,by=d.py-6,ok=true;
   if(bx+w>W-4)bx=d.px-d.r-3-w;
   placed.forEach(function(p){if(bx<p.x+p.w&&bx+w>p.x&&by<p.y+13&&by+13>p.y)ok=false});
-  if(ok||d===sel){placed.push({x:bx,y:by,w:w});var short=d.n.replace(/（.*$/,"");s+='<text x="'+(bx+2)+'" y="'+(by+10)+'" fill="currentColor" font-weight="'+(d.bo?700:400)+'" opacity="'+(d.bo?1:.8)+'" style="paint-order:stroke;stroke:var(--b3,#0b1120);stroke-width:3px;pointer-events:none">'+short+'</text>'}});
- document.getElementById("sm").innerHTML=s+'</svg>';
+  if(ok){placed.push({x:bx,y:by,w:w});var short=d.n.replace(/（.*$/,"");s+='<text x="'+(bx+2)+'" y="'+(by+10)+'" fill="currentColor" font-weight="'+(d.bo?700:400)+'" opacity="'+(d.bo?1:.8)+'" style="paint-order:stroke;stroke:var(--b3,#0b1120);stroke-width:3px;pointer-events:none">'+short+'</text>'}});
+ document.getElementById("sm").innerHTML=s+'<g id="ov" style="pointer-events:none"></g></svg>';ov();
  var L="";
  if(mode=="grp")D.grpnames.forEach(function(g,i){L+='<span><i style="display:inline-block;width:10px;height:10px;border-radius:50%;background:'+PAL[i%8]+'"></i> '+g+'</span>'});
  else if(mode=="g")L='<span><i style="display:inline-block;width:10px;height:10px;border-radius:50%;background:hsl(190,90%,47%)"></i> 年+6%以上</span><span><i style="display:inline-block;width:10px;height:10px;border-radius:50%;background:hsl(20,90%,47%)"></i> 年−6%以下</span><span>灰=データなし</span>';
  else L='<span><i style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#f59e0b"></i> G1〜G4の構成部門</span>';
  document.getElementById("legend").innerHTML=L;
- Array.prototype.forEach.call(document.querySelectorAll("#sm circle"),function(c){var d=N[+c.dataset.i];c.onmouseenter=c.onclick=function(){sel=d;info(d);draw()}})}
+ Array.prototype.forEach.call(document.querySelectorAll("#sm circle"),function(c){var d=N[+c.dataset.i];c.onmouseenter=c.onclick=function(){sel=d;info(d);ov()}})}
+function ov(){var g=document.getElementById("ov");if(!g||!sel)return;var h="";
+ sel.nb.forEach(function(nm){var q=N.filter(function(d){return d.n==nm})[0];if(q)h+='<line x1="'+sel.px+'" y1="'+sel.py+'" x2="'+q.px+'" y2="'+q.py+'" stroke="currentColor" opacity=".55" stroke-dasharray="4 3"/><circle cx="'+q.px+'" cy="'+q.py+'" r="'+(q.r+3)+'" fill="none" stroke="currentColor" opacity=".7"/>'});
+ h+='<circle cx="'+sel.px+'" cy="'+sel.py+'" r="'+(sel.r+4)+'" fill="none" stroke="currentColor" stroke-width="2"/><text x="'+(sel.px+sel.r+6)+'" y="'+(sel.py-sel.r-2)+'" fill="currentColor" font-weight="700" style="paint-order:stroke;stroke:var(--b3,#0b1120);stroke-width:3px">'+sel.n.replace(/（.*$/,"")+'</text>';g.innerHTML=h}
 function info(d){var g=d.bo?D.groups[d.bo].name:null;
  document.getElementById("info").innerHTML='<div class="card-body text-sm space-y-1"><h3 class="font-bold text-base">'+d.n+'<span class="ml-2 text-xs font-normal text-base-content/60">'+d.p+'</span></h3>'
  +'<p>産出額（2020年）<b>'+d.o.toFixed(1)+'兆円</b>'+(d.g!=null?'　実質成長（2015→2020年）<b>'+(d.g>0?"+":"")+d.g+'%/年</b>':'')+(g?'　<span class="badge badge-warning badge-outline">'+d.bo+' '+g+'</span>':'')+'</p>'
