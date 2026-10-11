@@ -13,6 +13,74 @@ def lqbars(items):
         y=4+i*26; w=bw*v/mx
         s+=f'<text x="{L-8}" y="{y+15}" text-anchor="end" fill="currentColor">{esc(n)}</text><rect x="{L}" y="{y+3}" width="{w:.1f}" height="16" rx="2" fill="#38bdf8"/><text x="{L+w+6:.1f}" y="{y+16}" fill="currentColor">{v:.2f}</text>'
     return s+'</svg>'
+
+JIS={"hokkaido":1,"tochigi":9,"gunma":10,"saitama":11,"chiba":12,"tokyo":13,"kanagawa":14,"niigata":15,"toyama":16,"fukui":18,"yamanashi":19,"mie":24,"shiga":25,"kyoto":26,"osaka":27,"hyogo":28,"wakayama":30,"tottori":31,"okayama":33,"fukuoka":40,"kumamoto":43,"kagoshima":46,"okinawa":47,"aichi":23}
+MAPJS=r"""(function(){
+var DATA=window.PREF_MAP, INDS=DATA.inds, P=DATA.prefs, sel=document.getElementById('pm-ind'), box=document.getElementById('pm-map'), list=document.getElementById('pm-list'), note=document.getElementById('pm-note');
+function ok(){try{var c=document.createElement('canvas');return !!(c.getContext('webgl2')||c.getContext('webgl'))}catch(e){return false}}
+if(!ok()||!window.maplibregl){box.innerHTML='<p class="p-6 text-sm">この環境では3D地図を表示できません。下の一覧をご覧ください。</p>';}
+var map=null,geo=null;
+function lerp(a,b,t){return Math.round(a+(b-a)*t)}
+function col(lq){ // 特化係数: 1未満はくすんだ灰青、1を超えると濃い青緑へ
+  if(lq==null)return '#cbd5e1'; var t=Math.max(0,Math.min(1,(lq-0.5)/3.5));
+  var A=[203,213,225],B=[14,116,144]; return 'rgb('+lerp(A[0],B[0],t)+','+lerp(A[1],B[1],t)+','+lerp(A[2],B[2],t)+')';}
+function values(k){ // 県ごと{h:産出額(兆円), lq, name}
+  var out={};Object.keys(P).forEach(function(id){var p=P[id],v=null,lq=null;
+    if(k==='all'){v=p.t;lq=null;}else{var s=p.s[k];if(s){v=s[0];lq=s[1];}}
+    out[id]={name:p.n,slug:p.g,v:v,lq:lq,va:p.va};});return out;}
+function render(){
+  var k=sel.value,V=values(k),mx=0;Object.keys(V).forEach(function(i){if(V[i].v>mx)mx=V[i].v;});
+  var rows=[];
+  geo.features.forEach(function(f){var d=V[f.properties.id],has=d&&d.v!=null;
+    f.properties.h=has?Math.sqrt(d.v/mx)*260000:3000; f.properties.c=has?(k==='all'?col(1+(d.va-0.4)*12):col(d.lq)):'#e2e8f0';
+    if(d&&has)rows.push(d);});
+  if(map&&map.getSource('pref'))map.getSource('pref').setData(geo);
+  rows.sort(function(a,b){return b.v-a.v});
+  var nm=k==='all'?'総産出額':INDS[k];
+  list.innerHTML='<caption class="text-left text-sm font-bold pb-2">'+nm+'（産出額の大きい順）</caption><thead><tr><th>都道府県</th><th class="text-right">産出額（兆円）</th><th class="text-right">'+(k==='all'?'付加価値率':'特化係数')+'</th></tr></thead><tbody>'+rows.map(function(d){return '<tr><td><a class="link" href="prefecture/'+d.slug+'.html">'+d.name+'</a></td><td class="text-right">'+d.v.toFixed(2)+'</td><td class="text-right">'+(k==='all'?(d.va*100).toFixed(1)+'%':(d.lq==null?'−':d.lq.toFixed(2)))+'</td></tr>'}).join('')+'</tbody>';
+  note.textContent=k==='all'?'高さ＝総産出額、色＝付加価値率（濃いほど高い）。':'高さ＝その産業の産出額、色＝特化係数（濃いほど全国平均より集中）。灰色はデータなし、または部門を合算していて比べられない県です。';
+}
+fetch('vendor/japan-pref.json').then(function(r){return r.json()}).then(function(g){geo=g;
+  if(map===null&&window.maplibregl&&ok()){
+    var cv=document.createElement('canvas');cv.width=cv.height=1;var cx=cv.getContext('2d');cx.fillStyle=getComputedStyle(document.body).backgroundColor;cx.fillRect(0,0,1,1);var px=cx.getImageData(0,0,1,1).data,bg='rgb('+px[0]+','+px[1]+','+px[2]+')';   // oklch等はMapLibreが読めないのでRGBに直す
+    map=new maplibregl.Map({container:box,style:{version:8,sources:{},layers:[{id:'bg',type:'background',paint:{'background-color':bg}}]},center:[137.5,37.2],zoom:window.innerWidth<640?3.6:4.6,pitch:45,bearing:-12,minZoom:2.5,maxZoom:8,attributionControl:{compact:true,customAttribution:'境界: 地球地図日本(国土地理院)'}});
+    map.addControl(new maplibregl.NavigationControl({visualizePitch:true}),'top-right');
+    map.on('load',function(){map.addSource('pref',{type:'geojson',data:geo});
+      map.addLayer({id:'ext',type:'fill-extrusion',source:'pref',paint:{'fill-extrusion-color':['get','c'],'fill-extrusion-height':['get','h'],'fill-extrusion-base':0,'fill-extrusion-opacity':0.92}});
+      var pop=new maplibregl.Popup({closeButton:false,closeOnClick:false});
+      map.on('mousemove','ext',function(e){var f=e.features[0],V=values(sel.value)[f.properties.id];if(!V)return;map.getCanvas().style.cursor='pointer';
+        pop.setLngLat(e.lngLat).setHTML('<b>'+f.properties.name+'</b><br>'+(V.v==null?'データなし':'産出額 '+V.v.toFixed(2)+'兆円'+(V.lq!=null?'<br>特化係数 '+V.lq.toFixed(2):''))).addTo(map);});
+      map.on('mouseleave','ext',function(){map.getCanvas().style.cursor='';pop.remove();});
+      map.on('click','ext',function(e){var V=values(sel.value)[e.features[0].properties.id];if(V)location.href='prefecture/'+V.slug+'.html';});
+      render();});
+  }
+  render();});
+sel.addEventListener('change',render);
+document.getElementById('pm-flat').addEventListener('click',function(){if(map)map.easeTo({pitch:0,bearing:0,duration:600});});
+document.getElementById('pm-tilt').addEventListener('click',function(){if(map)map.easeTo({pitch:45,bearing:-12,duration:600});});
+})();"""
+def build_map(page,D):
+    nat=json.loads((R/"data"/"explorer_data.json").read_text(encoding="utf-8"))["nodes"]
+    inds={n["id"]:n["name"] for n in nat if n["id"] not in ("69",)}
+    prefs={}
+    for k,p in D.items():
+        s={}
+        for o in p["sectors"]:
+            if o["c"]=="HQ" or len(o.get("nat_codes",[o["c"]]))!=1: continue      # 本社(東京のみ)と、北海道の合算部門は除く
+            s[o.get("nat_codes",[o["c"]])[0]]=[round(o["out"]/1e6,4),(round(o["lq"],3) if o["lq"] else None)]
+        prefs[JIS[k]]=dict(n=p["name"],g=k,t=round(p["total_out"]/1e6,3),va=round(p["total_va"]/p["total_out"],3),s=s)
+    opts='<option value="all">すべての産業（総産出額）</option>'+"".join(f'<option value="{c}">{esc(n)}</option>' for c,n in inds.items())
+    body=f"""<main class="flex-1 w-full max-w-5xl mx-auto px-4 py-10 space-y-6">
+<header class="space-y-2"><h1 class="text-3xl font-bold">県別の産業を立体地図で見る</h1><p class="text-base-content/80">産業を選ぶと、その産業の産出額が大きい県ほど高く立ち上がります。色は<a class="link" href="glossary.html#tokka-keisu">特化係数</a>（全国より集中している産業ほど濃い色）です。ドラッグで回転、右ボタンまたは2本指で傾き、ホイールで拡大できます。県をクリックすると詳細ページに進みます。</p></header>
+<div class="flex flex-wrap gap-2 items-center"><label class="font-bold" for="pm-ind">産業</label><select id="pm-ind" class="select select-bordered select-sm max-w-full">{opts}</select><button id="pm-flat" type="button" class="btn btn-sm btn-ghost">真上から</button><button id="pm-tilt" type="button" class="btn btn-sm btn-ghost">傾ける</button></div>
+<link rel="stylesheet" href="vendor/maplibre-gl.css">
+<div id="pm-map" class="w-full rounded-box border border-base-300 overflow-hidden" style="height:min(72vh,640px);min-height:380px" role="img" aria-label="都道府県を産出額の高さで表した立体地図。同じ内容を下の表でも示しています"></div>
+<p id="pm-note" class="text-sm text-base-content/70"></p>
+<p class="text-xs text-base-content/60">高さは、見やすさのために産出額の平方根で表示しています（高さが2倍でも、産出額は4倍）。データがあるのは{len(D)}都道府県です。北海道は部門を粗くまとめているため、一部の産業では表示されません。東京都の「本社」部門は含みません。</p>
+<section class="overflow-x-auto"><table id="pm-list" class="table table-sm"></table></section>
+<p class="text-xs text-base-content/60">出典：各都道府県「2020年（令和2年）産業連関表」を筆者が集計。県の境界は地球地図日本（国土地理院）を簡略化したものです。政府・自治体が作成したものではありません。<a class="link" href="prefectures.html">県別の産業構造に戻る</a></p></main>
+<script src="vendor/maplibre-gl.js"></script><script>window.PREF_MAP={json.dumps(dict(inds=inds,prefs=prefs),ensure_ascii=False,separators=(",",":"))};</script><script>{MAPJS}</script>"""
+    page("prefecture-map.html","県別の産業を立体地図で見る｜Keizai Atlas","産業を選ぶと、その産業の産出額が大きい県が立ち上がる3D地図。色は特化係数。各都道府県の2020年産業連関表から作成。",body)
 def build(page,S,SITE_URL):
     D=json.loads((R/"data"/"pref_37.json").read_text(encoding="utf-8")); (S/"prefecture").mkdir(exist_ok=True); paths=["prefectures"]
     for slug,p in D.items():
@@ -55,10 +123,11 @@ def build(page,S,SITE_URL):
         hm+=f'<tr><td class="whitespace-nowrap">{esc(n["name"])}</td>'+"".join(cell(next((o for o in D[k]["sectors"] if o["c"]==n["id"]),None)) for k in order)+'</tr>'
     hm+='</tbody></table></div>'
     body=f'''<main class="flex-1 w-full max-w-4xl mx-auto px-4 py-10 space-y-8">
-<header class="space-y-3"><h1 class="text-3xl font-bold">県別の産業構造</h1><p class="text-base-content/80">各都道府県が公表した2020年の産業連関表から、産業の構成を全国と比べます。現在は{len(D)}都道府県（{'・'.join(p['name'] for p in D.values())}）です。公表された表が機械で読める県から順に追加します。</p></header>
+<header class="space-y-3"><h1 class="text-3xl font-bold">県別の産業構造</h1><p class="text-base-content/80">各都道府県が公表した2020年の産業連関表から、産業の構成を全国と比べます。現在は{len(D)}都道府県（{'・'.join(p['name'] for p in D.values())}）です。公表された表が機械で読める県から順に追加します。<a class="link link-primary" href="prefecture-map.html">3Dの立体地図</a>でも見られます。</p></header>
 <section class="grid sm:grid-cols-2 gap-3">{cards}</section>
 <section class="space-y-2"><h2 class="text-xl font-bold">都道府県の比較</h2>{table(sorted(trs,key=lambda r:-float(r[1])),["都道府県","産出額（兆円）","付加価値率","移輸出（産出額比）","移輸入（産出額比）"])}</section>
 <section class="space-y-2"><h2 class="text-xl font-bold">産業×都道府県の特化係数</h2><p class="text-sm text-base-content/70">全国の割合を1としたときの、各都府県の産業の集中度です（<a class="link" href="glossary.html#tokka-keisu">特化係数</a>）。青が濃いほど、その産業が全国平均より集中しています。産出額の割合が0.5%未満の産業は、値が不安定なため色をつけていません。列は産出額の大きい順です。北海道は部門の分け方が異なるため、この表には入れていません（<a class="link" href="prefecture/hokkaido.html">北海道のページ</a>を見てください）。</p>{hm}</section>
 <p class="text-xs text-base-content/60">出典：各都道府県「2020年（令和2年）産業連関表」を筆者が集計。政府・自治体が作成したものではありません。<a class="link" href="about.html">方法と出典</a></p></main>'''
     page("prefectures.html",f"県別の産業構造（東京・愛知・大阪など{len(D)}都道府県）｜Keizai Atlas",f"{'・'.join(p['name'] for p in D.values())}の2020年産業連関表から、産業構造と全国との違い（特化係数）、移輸出入の割合を比べる。",body)
+    build_map(page,D); paths.append("prefecture-map")
     return paths
