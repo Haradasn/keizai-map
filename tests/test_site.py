@@ -277,3 +277,14 @@ def test_prefecture_3d_map(browser,base):
     assert pg.locator("#pm-list tbody tr").count()>=20                      # 表(WebGLがなくても読める)
     pg.select_option("#pm-ind","20"); pg.wait_for_timeout(300)
     assert "化学製品" in pg.inner_text("#pm-list caption"); pg.close()
+
+
+def test_index_hero_map(browser,base):
+    pg=browser.new_page(viewport={"width":390,"height":800}); errs=[]
+    pg.on("pageerror",lambda e:errs.append(str(e)))
+    pg.goto(f"{base}/index.html",wait_until="load"); pg.wait_for_timeout(2500)
+    assert pg.evaluate("document.documentElement.scrollWidth")<=392 and not errs,errs
+    assert "あなたの県" in pg.inner_text("h1")
+    assert "表示中" in pg.inner_text("#pm-cap")                              # WebGLがなくても、選択中の産業と上位の県は文字で出る
+    pg.click('.pm-chip[data-k="35"]'); pg.wait_for_timeout(300)
+    assert "輸送機械" in pg.inner_text("#pm-cap"); pg.close()
