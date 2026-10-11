@@ -8,6 +8,11 @@
 - `pipeline/` データ加工スクリプト（元データはe-Statから取得。パスは各スクリプト冒頭を参照）
 - `data/` 加工済みCSV/JSON
 
+## データ加工パイプライン（`pipeline/`）
+- `build_explorer.py` 産業マップ用データ / `similarity_map.py` 近さの地図（MDS）
+- `icio_agg.py` OECD ICIO 国際比較 / `boj_nowcast.py` 日銀 / `nowcast2.py` 経産省・財務省
+- 大きな元データ（ICIO等）はリポジトリに含めない。各スクリプト冒頭の引数を参照。
+
 ## 開発
 ```
 npm install
@@ -18,4 +23,4 @@ npx serve site   # または python3 -m http.server -d site
 Cloudflare（Workers 静的アセット、商用可）: Build command `npm install && npm run build:css`、Deploy command `npx wrangler deploy`（公開フォルダは `wrangler.jsonc` で `site`）。Vercel Hobbyは非商用のみ。
 
 ## 出典・ライセンス
-データ出典：総務省ほか「産業連関表」、経済産業省「延長産業連関表」（政府統計の総合窓口 e-Stat）。本リポジトリの数値・図は筆者による加工物で、政府が作成したものではありません。ストーリーは筆者の仮説です。
+データ出典：総務省ほか「産業連関表」、経済産業省「延長産業連関表」「第3次産業活動指数」、財務省「貿易統計」、日本銀行、OECD ICIO（政府統計の総合窓口 e-Stat）。本リポジトリの数値・図は筆者による加工物で、政府が作成したものではありません。ストーリーは筆者の仮説です。
