@@ -4,7 +4,7 @@ import re,json,pathlib,threading,http.server,functools
 import pytest
 from playwright.sync_api import sync_playwright
 R=pathlib.Path(__file__).resolve().parent.parent; S=R/"site"
-PAGES=["index","explorer","similarity","latest","international","about"]
+PAGES=["index","explorer","similarity","latest","international","about","guide","glossary"]
 
 @pytest.fixture(scope="session")
 def base():
@@ -41,7 +41,7 @@ def test_sitemap_matches_pages():
     sm=(S/"sitemap.xml").read_text(); paths=re.findall(r"keizai-atlas\.com(/[\w/]*)</loc>",sm)
     assert len(paths)==len(set(paths))
     for p in paths: assert (S/(("index" if p=="/" else p[1:])+".html")).exists(),p
-    assert {"/","/explorer","/similarity","/latest","/international","/about","/industries"}<=set(paths)
+    assert {"/","/explorer","/similarity","/latest","/international","/about","/industries","/guide","/glossary"}<=set(paths)
     assert sum(p.startswith("/industry/") for p in paths)==145
 
 def test_index_cards_have_distinct_targets():
@@ -197,3 +197,22 @@ def test_industry_page_browser(browser,base):
     assert "自動車整備" in pg.inner_text("h1") and pg.evaluate("document.documentElement.scrollWidth")<=392
     pg.click("table a >> nth=0"); pg.wait_for_timeout(300); assert "/industry/" in pg.url   # 内部リンクで別の産業ページへ
     assert errs==[]; pg.close()
+
+
+def test_guide_faq_matches_ldjson():
+    import json, re
+    h = (S / "guide.html").read_text(encoding="utf-8")
+    m = re.search(r'"@type":\s*"FAQPage".*?</script>', h, re.S)
+    assert m, "FAQPage JSON-LD missing"
+    faq = json.loads((R / "pages/guide_faq.json").read_text(encoding="utf-8"))
+    for item in faq:
+        q = item.get("q") or item.get("question")
+        assert q and q in h
+
+
+def test_glossary_anchors():
+    import json
+    gl = json.loads((R / "pages/glossary.json").read_text(encoding="utf-8"))
+    h = (S / "glossary.html").read_text(encoding="utf-8")
+    assert "__GLOSSARY__" not in h and "__FAQ" not in (S / "guide.html").read_text(encoding="utf-8")
+    assert h.count("<dt") >= 20
