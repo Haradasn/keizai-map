@@ -3,39 +3,51 @@
 (function(){
 var root=document.querySelector('[data-prefmap]'); if(!root||!window.PREF_MAP)return;
 var HERO=root.getAttribute('data-prefmap')==='hero', DATA=window.PREF_MAP, INDS=DATA.inds, P=DATA.prefs;
-var sel=document.getElementById('pm-ind'), box=root, list=document.getElementById('pm-list'), note=document.getElementById('pm-note'), cap=document.getElementById('pm-cap');
+var sel=document.getElementById('pm-ind'), box=root, list=document.getElementById('pm-list'), note=document.getElementById('pm-note'), cap=document.getElementById('pm-cap'), ins=document.getElementById('pm-insight');
 var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
 function ok(){try{var c=document.createElement('canvas');return !!(c.getContext('webgl2')||c.getContext('webgl'))}catch(e){return false}}
 function lerp(a,b,t){return Math.round(a+(b-a)*t)}
-function col(lq){if(lq==null)return '#cbd5e1';var t=Math.max(0,Math.min(1,(lq-0.5)/3.5)),A=[203,213,225],B=[14,116,144];return 'rgb('+lerp(A[0],B[0],t)+','+lerp(A[1],B[1],t)+','+lerp(A[2],B[2],t)+')';}
+function mix(a,b,t){return [lerp(a[0],b[0],t),lerp(a[1],b[1],t),lerp(a[2],b[2],t)]}
+function css(c){return 'rgb('+c[0]+','+c[1]+','+c[2]+')'}
+var TH=null; // テーマ(背景色から計算。nord/night どちらでも使える)
+function theme(){if(TH)return TH;var m=rgb().match(/\d+/g).map(Number),dark=(0.2126*m[0]+0.7152*m[1]+0.0722*m[2])<128;
+  TH={bg:m,dark:dark,off:css(dark?mix(m,[255,255,255],0.07):mix(m,[0,0,0],0.07)),lo:dark?[28,72,104]:[190,222,242],hi:dark?[125,211,252]:[3,105,161],mid:dark?[56,189,248]:[14,135,200]};return TH;}
+function ramp(t){var T=theme();t=Math.max(0,Math.min(1,t));return css(t<0.6?mix(T.lo,T.mid,t/0.6):mix(T.mid,T.hi,(t-0.6)/0.4));}
+function col(lq){return ramp((lq-0.5)/3.5);}
 function values(k){var out={};Object.keys(P).forEach(function(id){var p=P[id],v=null,lq=null;if(k==='all'){v=p.t}else{var s=p.s[k];if(s){v=s[0];lq=s[1];}}out[id]={name:p.n,slug:p.g,v:v,lq:lq,va:p.va};});return out;}
 var map=null,geo=null,grow=HERO&&!reduce?0:1,pending=false;
 function render(){
-  if(!geo)return; var k=sel.value,V=values(k),mx=0,rows=[];
-  Object.keys(V).forEach(function(i){if(V[i].v>mx)mx=V[i].v;});
+  if(!geo)return; var k=sel.value,V=values(k),mx=0,rows=[],vmin=1,vmax=0;
+  Object.keys(V).forEach(function(i){if(V[i].v>mx)mx=V[i].v;if(V[i].va<vmin)vmin=V[i].va;if(V[i].va>vmax)vmax=V[i].va;});
   geo.features.forEach(function(f){var d=V[f.properties.id],has=d&&d.v!=null;
-    f.properties.h=has?Math.sqrt(d.v/mx)*260000*grow+2000:2000;
-    f.properties.c=has?(k==='all'?col(1+(d.va-0.4)*12):col(d.lq)):'#e2e8f0'; if(d&&has)rows.push(d);});
+    f.properties.h=has?Math.sqrt(d.v/mx)*260000*grow+2000:600;
+    f.properties.c=has?(k==='all'?ramp((d.va-vmin)/((vmax-vmin)||1)):col(d.lq==null?0.5:d.lq)):theme().off; if(d&&has)rows.push(d);});
   if(map&&map.getSource&&map.getSource('pref'))map.getSource('pref').setData(geo);
   rows.sort(function(a,b){return b.v-a.v});
   var nm=k==='all'?'すべての産業':INDS[k];
   if(list){list.innerHTML='<caption class="text-left text-sm font-bold pb-2">'+(k==='all'?'総産出額':nm)+'（産出額の大きい順）</caption><thead><tr><th>都道府県</th><th class="text-right">産出額（兆円）</th><th class="text-right">'+(k==='all'?'付加価値率':'特化係数')+'</th></tr></thead><tbody>'+rows.map(function(d){return '<tr><td><a class="link" href="prefecture/'+d.slug+'.html">'+d.name+'</a></td><td class="text-right">'+d.v.toFixed(2)+'</td><td class="text-right">'+(k==='all'?(d.va*100).toFixed(1)+'%':(d.lq==null?'−':d.lq.toFixed(2)))+'</td></tr>'}).join('')+'</tbody>';}
   if(note)note.textContent=k==='all'?'高さ＝総産出額、色＝付加価値率（濃いほど高い）。':'高さ＝その産業の産出額、色＝特化係数（濃いほど全国平均より集中）。灰色はデータなし、または部門を合算していて比べられない県です。';
   if(cap){var top=rows.slice(0,3).map(function(d){return d.name}).join('・');cap.textContent='表示中：'+nm+'　産出額が大きい県：'+top+'（データのある'+Object.keys(P).length+'都道府県のうち）';}
-  document.querySelectorAll('.pm-chip').forEach(function(b){b.classList.toggle('btn-primary',b.getAttribute('data-k')===k);b.classList.toggle('btn-outline',b.getAttribute('data-k')!==k);});
+  document.querySelectorAll('.pm-chip').forEach(function(b){var on=b.getAttribute('data-k')===k;b.classList.toggle('pm-on',on);b.setAttribute('aria-pressed',on?'true':'false');});
+  if(ins){var h='';
+    if(k==='all'){var t=rows[0];if(t)h='<span class="pm-ins-n">'+t.name+'</span><span class="pm-ins-v">'+t.v.toFixed(1)+'<small>兆円</small></span><span class="pm-ins-d">総産出額が最も大きい県</span>';}
+    else{var best=null;Object.keys(P).forEach(function(id){var p=P[id],s=p.s[k];if(s&&s[1]!=null&&p.t>0&&s[0]/p.t>=0.005&&(!best||s[1]>best.lq))best={n:p.n,lq:s[1]};});
+      if(best)h='<span class="pm-ins-n">'+best.n+'</span><span class="pm-ins-v">'+best.lq.toFixed(1)+'<small>倍</small></span><span class="pm-ins-d">全国平均と比べた集中度（特化係数）</span>';}
+    ins.innerHTML=h;}
 }
 function loadLib(cb){if(window.maplibregl)return cb();var l=document.createElement('link');l.rel='stylesheet';l.href='vendor/maplibre-gl.css';document.head.appendChild(l);var s=document.createElement('script');s.src='vendor/maplibre-gl.js';s.onload=cb;document.head.appendChild(s);}
 function rgb(){var cv=document.createElement('canvas');cv.width=cv.height=1;var cx=cv.getContext('2d');cx.fillStyle=getComputedStyle(document.body).backgroundColor;cx.fillRect(0,0,1,1);var p=cx.getImageData(0,0,1,1).data;return 'rgb('+p[0]+','+p[1]+','+p[2]+')';}   // oklch等はMapLibreが読めない
 function init(){
   var small=window.innerWidth<640;
-  map=new maplibregl.Map({container:box,style:{version:8,sources:{},layers:[{id:'bg',type:'background',paint:{'background-color':rgb()}}]},
+  map=new maplibregl.Map({container:box,style:{version:8,sources:{},layers:[{id:'bg',type:'background',paint:{'background-color':rgb()}}],light:{anchor:'viewport',color:'#ffffff',intensity:0.35,position:[1.5,200,35]}},
     center:[137.5,37.2],zoom:HERO?(small?3.4:4.4):(small?3.6:4.6),pitch:HERO?52:45,bearing:-12,minZoom:2.5,maxZoom:8,
     cooperativeGestures:HERO,attributionControl:{compact:true,customAttribution:'境界: 地球地図日本(国土地理院)'}});
   if(!HERO)map.addControl(new maplibregl.NavigationControl({visualizePitch:true}),'top-right');
-  if(HERO){var c=document.getElementById('hero-card'),bt=document.getElementById('hero-bottom');map.setPadding(small?{top:(c?c.offsetHeight:340)+50,left:0,right:0,bottom:(bt?bt.offsetHeight:150)+10}:{top:20,left:window.innerWidth>=1024?360:0,right:0,bottom:60});}
+  if(HERO){var c=document.getElementById('hero-card'),bt=document.getElementById('hero-bottom');map.setPadding(small?{top:(c?c.offsetHeight:340)+50,left:0,right:0,bottom:(bt?bt.offsetHeight:150)+10}:{top:20,left:window.innerWidth>=1024?480:(window.innerWidth>=640?300:0),right:0,bottom:90});}
   map.on('load',function(){
     map.addSource('pref',{type:'geojson',data:geo});
-    map.addLayer({id:'ext',type:'fill-extrusion',source:'pref',paint:{'fill-extrusion-color':['get','c'],'fill-extrusion-height':['get','h'],'fill-extrusion-base':0,'fill-extrusion-opacity':0.92}});
+    map.addLayer({id:'ext',type:'fill-extrusion',source:'pref',paint:{'fill-extrusion-color':['get','c'],'fill-extrusion-height':['get','h'],'fill-extrusion-base':0,'fill-extrusion-opacity':0.94,'fill-extrusion-vertical-gradient':true}});
+    if(window.MutationObserver)new MutationObserver(function(){TH=null;map.setPaintProperty('bg','background-color',rgb());render();}).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
     var pop=new maplibregl.Popup({closeButton:false,closeOnClick:false});
     map.on('mousemove','ext',function(e){var f=e.features[0],V=values(sel.value)[f.properties.id];if(!V)return;map.getCanvas().style.cursor='pointer';pop.setLngLat(e.lngLat).setHTML('<b>'+f.properties.name+'</b><br>'+(V.v==null?'データなし':'産出額 '+V.v.toFixed(2)+'兆円'+(V.lq!=null?'<br>特化係数 '+V.lq.toFixed(2):''))).addTo(map);});
     map.on('mouseleave','ext',function(){map.getCanvas().style.cursor='';pop.remove();});

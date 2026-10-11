@@ -10,20 +10,46 @@
  <label class="swap swap-rotate btn btn-ghost btn-sm btn-circle" aria-label="テーマ切替"><input type="checkbox" id="thm"><span class="swap-on">☀</span><span class="swap-off">☾</span></label></nav>
 </header>
 <main class="flex-1">
-<section class="relative overflow-hidden bg-gradient-to-b from-primary/20 to-transparent sm:min-h-[min(86vh,640px)]" style="--h:0">
+<section class="relative overflow-hidden sm:min-h-[min(86vh,660px)]" style="--h:0">
+ <style>
+  .pm-seg{display:inline-flex;gap:2px;padding:3px;border-radius:9999px;background:oklch(var(--b1)/.55);border:1px solid oklch(var(--bc)/.14);backdrop-filter:blur(6px)}
+  .pm-chip{flex:none;white-space:nowrap;border-radius:9999px;padding:.3rem .85rem;font-size:.8125rem;line-height:1.25rem;color:oklch(var(--bc)/.75);transition:background-color .15s,color .15s}
+  .pm-chip:hover{color:oklch(var(--bc))}
+  .pm-chip:focus-visible{outline:2px solid #38bdf8;outline-offset:1px}
+  .pm-chip.pm-on{background:#38bdf8;color:#04283d;font-weight:700}
+  .pm-ins-n{display:block;font-size:.8125rem;color:oklch(var(--bc)/.75)}
+  .pm-ins-v{display:block;font-size:2.75rem;line-height:1;font-weight:800;letter-spacing:-.02em;color:#38bdf8}
+  .pm-ins-v small{font-size:1.25rem;margin-left:.1em;font-weight:700}
+  .pm-ins-d{display:block;font-size:.6875rem;color:oklch(var(--bc)/.6);margin-top:.25rem}
+  [data-theme=nord] .pm-ins-v{color:#0369a1}
+  [data-theme=nord] .pm-chip.pm-on{background:#0369a1;color:#fff}
+  [data-prefmap=hero] .maplibregl-ctrl-attrib{background:oklch(var(--b1)/.45);color:oklch(var(--bc)/.5);font-size:10px;border-radius:4px;margin:0 6px 4px 0}
+  [data-prefmap=hero] .maplibregl-ctrl-attrib a{color:inherit}
+  [data-prefmap=hero] .maplibregl-ctrl-attrib.maplibregl-compact{background:transparent}
+  [data-prefmap=hero] .maplibregl-ctrl-attrib-button{background-color:transparent;opacity:.45;filter:var(--pm-ic,invert(1))}
+  #pm-legend{--pm-lo:#1c4868;--pm-mid:#38bdf8;--pm-hi:#7dd3fc}
+  [data-theme=nord] #pm-legend{--pm-lo:#bedef2;--pm-mid:#0e87c8;--pm-hi:#0369a1}
+  [data-theme=nord] [data-prefmap=hero]{--pm-ic:none}
+ </style>
  <div class="absolute inset-0"><div id="pm-map" data-prefmap="hero" style="width:100%;height:100%" role="img" aria-label="都道府県を産出額の高さで表した、ゆっくり回る日本の立体地図"></div></div>
+ <div class="absolute inset-0 pointer-events-none bg-gradient-to-b sm:bg-gradient-to-r from-base-200 from-0% via-base-200/70 via-25% to-transparent to-55% sm:via-base-200/60 sm:via-30% sm:to-65%" aria-hidden="true"></div>
+ <div class="absolute inset-x-0 bottom-0 h-44 pointer-events-none bg-gradient-to-t from-base-200/90 to-transparent sm:hidden" aria-hidden="true"></div>
  <div class="relative z-10 max-w-5xl mx-auto px-4 pt-10 pb-6 flex flex-col gap-4 pointer-events-none sm:min-h-[inherit]">
-  <div id="hero-card" class="max-w-md space-y-3 pointer-events-auto rounded-box bg-base-100/70 backdrop-blur-sm p-4 sm:p-5">
-   <p class="badge badge-outline">Keizai Atlas · 産業連関表で見る日本経済</p>
-   <h1 class="text-3xl sm:text-4xl font-bold tracking-tight leading-tight">あなたの県は、<br>何で稼いでいる？</h1>
-   <p class="text-base-content/80 text-sm sm:text-base">産業を選ぶと、その産業が強い県が立ち上がります。公的統計（産業連関表）を趣味で眺めて、産業のつながりを探しています。</p>
-   <div class="flex gap-2 flex-wrap"><button type="button" class="pm-chip btn btn-sm btn-outline" data-k="all">すべて</button><button type="button" class="pm-chip btn btn-sm btn-outline" data-k="01">農林漁業</button><button type="button" class="pm-chip btn btn-sm btn-outline" data-k="11">飲食料品</button><button type="button" class="pm-chip btn btn-sm btn-outline" data-k="20">化学製品</button><button type="button" class="pm-chip btn btn-sm btn-outline" data-k="35">輸送機械</button><button type="button" class="pm-chip btn btn-sm btn-outline" data-k="59">情報通信</button><button type="button" class="pm-chip btn btn-sm btn-outline" data-k="64">医療・福祉</button></div>
+  <div id="hero-card" class="max-w-xl space-y-4 pointer-events-auto">
+   <p class="text-xs tracking-wide text-base-content/60">Keizai Atlas ・ 産業連関表で見る日本経済</p>
+   <h1 class="text-4xl sm:text-6xl font-bold tracking-tight leading-[1.15]">あなたの県は、<br>何で稼いでいる？</h1>
+   <p class="text-base-content/80 text-sm sm:text-base max-w-md">産業を選ぶと、その産業が強い県が立ち上がります。公的統計（産業連関表）を趣味で眺めて、産業のつながりを探しています。</p>
+   <div class="-mx-4 px-4 sm:mx-0 sm:px-0 overflow-x-auto max-w-[100vw] sm:max-w-none [scrollbar-width:none]"><div class="pm-seg" role="group" aria-label="産業を選ぶ"><button type="button" class="pm-chip" data-k="all">すべて</button><button type="button" class="pm-chip" data-k="01">農林漁業</button><button type="button" class="pm-chip" data-k="11">飲食料品</button><button type="button" class="pm-chip" data-k="20">化学製品</button><button type="button" class="pm-chip" data-k="35">輸送機械</button><button type="button" class="pm-chip" data-k="59">情報通信</button><button type="button" class="pm-chip" data-k="64">医療・福祉</button></div></div>
    <select id="pm-ind" class="hidden" aria-hidden="true" tabindex="-1"><option value="all">all</option><option value="01">農林漁業</option><option value="11">飲食料品</option><option value="20">化学製品</option><option value="35">輸送機械</option><option value="59">情報通信</option><option value="64">医療・福祉</option></select>
   </div>
   <div class="h-[270px] sm:hidden"></div>
-  <div id="hero-bottom" class="mt-auto flex flex-col gap-2 pointer-events-none">
-   <p id="pm-cap" class="text-xs text-base-content/70 pointer-events-auto self-start rounded bg-base-100/70 px-2 py-1" aria-live="polite"></p>
-   <div class="flex gap-3 flex-wrap pointer-events-auto"><a class="btn btn-primary" href="prefecture-map.html">立体地図をひらく →</a><a class="btn btn-outline bg-base-100/70" href="explorer.html">産業マップ</a><a class="btn btn-outline bg-base-100/70" href="guide.html">はじめての方へ</a><a class="btn btn-outline bg-base-100/70" href="industries.html">産業一覧</a></div>
+  <div id="hero-bottom" class="mt-auto flex flex-col gap-3 pointer-events-none">
+   <div class="flex flex-wrap items-end gap-x-8 gap-y-3">
+    <div id="pm-insight" class="min-h-[4.5rem]" aria-live="polite"></div>
+    <div id="pm-legend" class="text-[11px] text-base-content/60 space-y-1"><div>高さ＝<a class="underline decoration-dotted underline-offset-4 hover:text-primary" href="glossary.html#sanshutsu">産出額</a>　／　色＝集中度（特化係数）</div><div class="flex items-center gap-2"><span>低</span><span class="h-1.5 w-24 rounded-full" style="background:linear-gradient(to right,var(--pm-lo),var(--pm-mid),var(--pm-hi))" aria-hidden="true"></span><span>高</span></div></div>
+   </div>
+   <p id="pm-cap" class="text-[11px] text-base-content/60" aria-live="polite"></p>
+   <div class="flex gap-x-5 gap-y-2 flex-wrap items-center pointer-events-auto"><a class="btn btn-primary" href="prefecture-map.html">立体地図をひらく →</a><a class="link link-hover text-sm text-base-content/70" href="explorer.html">産業マップ</a><a class="link link-hover text-sm text-base-content/70" href="guide.html">はじめての方へ</a><a class="link link-hover text-sm text-base-content/70" href="industries.html">産業一覧</a></div>
   </div>
  </div>
 </section>
