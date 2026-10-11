@@ -1,0 +1,18 @@
+name: pref-fetch
+on:
+  push:
+    branches: [feature/pref-fetch]
+  workflow_dispatch:
+jobs:
+  list:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: 各県ページのExcel/CSVリンクを列挙
+        run: |
+          UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
+          for u in https://www.toukei.metro.tokyo.lg.jp/sanren/2020/sr20index.htm https://www.toukei.metro.tokyo.lg.jp/sanren/sr-index.htm https://www.pref.aichi.jp/soshiki/toukei/io2020.html https://www.pref.aichi.jp/soshiki/toukei/io2015.html; do
+            code=$(curl -s -L -A "$UA" -o /tmp/p.html -w "%{http_code}" "$u")
+            echo "::notice::$u -> $code ($(wc -c </tmp/p.html) bytes)"
+            grep -oiE 'href="[^"]*\.(xlsx?|csv|zip)"' /tmp/p.html | sort -u | head -40 | while IFS= read -r l; do echo "::notice::  $l"; done
+          done
