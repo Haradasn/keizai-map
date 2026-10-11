@@ -1,11 +1,14 @@
 name: weekly-report
-# 週次レポート(アクセス解析・検索)。まずは手動実行でキーの確認だけを行う(数値は公開ログに出さない)。
+# 週次レポート(アクセス解析・検索)。非公開リポジトリ keizai-atlas-reports に reports/日付.md として保存し、そちらで Issue にして通知する。
+# このリポジトリは公開なので、レポートの数値はログに出さない(ファイルにだけ書く)。
 on:
+  schedule:
+    - cron: "0 23 * * 0"   # 毎週月曜 8:00 JST
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
-  check:
+  report:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -17,6 +20,20 @@ jobs:
           CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
           CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
           GSC_SA_JSON: ${{ secrets.GSC_SA_JSON }}
+        run: python3 scripts/weekly_report.py --check
+      - name: レポートを作る(ファイルにだけ書く)
+        env:
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+          GSC_SA_JSON: ${{ secrets.GSC_SA_JSON }}
+        run: python3 scripts/weekly_report.py > /tmp/report.md 2>/tmp/report.err || { echo "レポート作成に失敗(詳細は非表示)"; exit 1; }
+      - name: 非公開リポジトリに保存
+        env:
+          REPORT_TOKEN: ${{ secrets.REPORT_TOKEN }}
         run: |
-          python3 scripts/weekly_report.py --check | tee /tmp/check.txt
-          { echo '### キーの確認'; echo '```'; cat /tmp/check.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+          git clone -q --depth 1 "https://x-access-token:${REPORT_TOKEN}@github.com/Haradasn/keizai-atlas-reports.git" /tmp/r
+          d=$(TZ=Asia/Tokyo date +%F); f="reports/$d.md"
+          if [ -e "/tmp/r/$f" ]; then f="reports/$d-$(TZ=Asia/Tokyo date +%H%M).md"; fi
+          cp /tmp/report.md "/tmp/r/$f"
+          cd /tmp/r && git add "$f" && git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -q -m "週次レポート $d" && git push -q origin HEAD:main
+          echo "保存しました: $f"
