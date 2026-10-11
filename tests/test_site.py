@@ -267,3 +267,13 @@ def test_prefecture_browser(browser,base):
     pg.goto(f"{base}/prefecture/tokyo.html",wait_until="domcontentloaded"); pg.wait_for_timeout(500)
     assert pg.evaluate("document.documentElement.scrollWidth")<=392 and not errs
     assert "東京都" in pg.inner_text("h1"); pg.close()
+
+
+def test_prefecture_3d_map(browser,base):
+    pg=browser.new_page(viewport={"width":390,"height":800}); errs=[]
+    pg.on("pageerror",lambda e:errs.append(str(e)))
+    pg.goto(f"{base}/prefecture-map.html",wait_until="domcontentloaded"); pg.wait_for_timeout(1500)
+    assert pg.evaluate("document.documentElement.scrollWidth")<=392 and not errs,errs
+    assert pg.locator("#pm-list tbody tr").count()>=20                      # 表(WebGLがなくても読める)
+    pg.select_option("#pm-ind","20"); pg.wait_for_timeout(300)
+    assert "化学製品" in pg.inner_text("#pm-list caption"); pg.close()

@@ -616,7 +616,7 @@
   "date": "2026-10-11"
  },
  "/prefectures": {
-  "hash": "5be5c96917e8ca01",
+  "hash": "408ca31e11433193",
   "date": "2026-10-11"
  },
  "/prefecture/tokyo": {
@@ -713,6 +713,10 @@
  },
  "/prefecture/fukui": {
   "hash": "fbf9ca821fd0b22e",
+  "date": "2026-10-11"
+ },
+ "/prefecture-map": {
+  "hash": "30ce8ae562daba36",
   "date": "2026-10-11"
  }
 }
