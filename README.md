@@ -19,6 +19,13 @@ npm install
 python3 scripts/build_site.py && npm run build:css
 npx serve site   # または python3 -m http.server -d site
 ```
+## テスト
+```
+pip install pytest playwright && playwright install chromium
+python3 scripts/build_site.py && pytest tests/
+```
+全ページのJSエラー、内部リンク、sitemap、フロー図ボタン、近さの地図、グラフ描画を確認します。PRごとに GitHub Actions（`.github/workflows/test.yml`）でも実行されます。
+
 ## デプロイ
 Cloudflare（Workers 静的アセット、商用可）: Build command `npm install && npm run build:css`、Deploy command `npx wrangler deploy`（公開フォルダは `wrangler.jsonc` で `site`）。Vercel Hobbyは非商用のみ。
 
