@@ -290,3 +290,13 @@ def test_index_insight_hero(browser,base):
     on=lambda: pg.evaluate("[...document.querySelectorAll('.ins-slide')].findIndex(s=>s.classList.contains('is-on'))")
     a=on(); pg.click("#ins-next"); pg.wait_for_timeout(300)
     assert on()!=a and on()>=0; pg.close()
+
+
+def test_index_connect_slide(browser,base):
+    pg=browser.new_page(viewport={"width":390,"height":800}); errs=[]
+    pg.on("pageerror",lambda e:errs.append(str(e)))
+    pg.goto(f"{base}/index.html",wait_until="load"); pg.wait_for_timeout(1500)
+    for _ in range(4): pg.click("#ins-next"); pg.wait_for_timeout(200)
+    txt=pg.inner_text(".ins-slide.is-on")
+    assert "本" in txt and "対事業所サービス" in txt and not errs,(txt,errs)          # 件数と産業名はデータから計算
+    assert "explorer.html?sel=" in pg.get_attribute(".ins-slide.is-on .ins-more","href"); pg.close()

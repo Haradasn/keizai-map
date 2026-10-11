@@ -123,7 +123,7 @@ function readTokens(){const s=getComputedStyle($("xp"));const g=n=>s.getProperty
   T={up:g("--up"),flat:g("--flat"),down:g("--down"),link:g("--link"),lin:g("--lin"),lout:g("--lout"),accent:g("--accent"),graph:g("--graph")}}
 const al=(hex,a)=>hex+Math.round(Math.max(0,Math.min(1,a))*255).toString(16).padStart(2,"0");
 
-let topN=24, sel=null, flowOn=!REDUCED, Graph=null, period="y20", view=isMobile()?"fl":"3d";
+let topN=24, sel=null, flowOn=!REDUCED, Graph=null, period="y20", view="3d";   // スマホでも最初は3D(見た目のインパクトを優先。フローへは上で切り替え)
 const CH=()=>period==="chg";
 const val=e=>CH()?e.v22:e.v;
 const tr=e=>{ if(CH()){const d=(e.s22!=null&&e.s20!=null)?e.s22-e.s20:0; return d>=0.8?1:d<=-0.8?-1:0} const g=e.g||0; return g>=2?1:g<=-2?-1:0 };
@@ -373,6 +373,7 @@ readTokens();
 $("pick").innerHTML='<option value="">全体を見る(未選択)</option>'+D.groups.map((g,i)=>`<optgroup label="${g}">${D.nodes.filter(n=>n.grp===i).sort((a,b)=>b.out-a.out).map(n=>`<option value="${n.id}">${n.name}</option>`).join("")}</optgroup>`).join("");
 if(REDUCED){$("b-flow").checked=false;$("b-flow").disabled=true;$("b-rot").disabled=true;$("rm-note").hidden=false}
 if(isMobile()) $("lgd").open=false;
+{const q=new URLSearchParams(location.search).get("sel"); if(q&&D.nodes.some(n=>n.id===q)){sel={type:"n",id:q};$("pick").value=q}}   // ?sel=66 で産業を選んだ状態で開く
 setView(view); recompute(); syncUI(); render(); initGraph();
 new MutationObserver(()=>{readTokens();if(Graph)Graph.backgroundColor(T.graph);syncUI();render();refresh()}).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
 </script>

@@ -42,6 +42,10 @@ from build_industry import build as build_industry
 IND=build_industry(page,S,PAL,SITE_URL)
 import build_pref
 PREF=build_pref.build(page,S,SITE_URL)
+# トップの「つながり」スライド用の小さなデータ(37部門の位置・規模と、取引額の大きい上位60本)
+_E=json.loads((R/"data"/"explorer_data.json").read_text(encoding="utf-8"))
+_ed=sorted([e for e in _E["edges"] if e["s"]!=e["t"] and e.get("v") and e["v"]>0],key=lambda e:-e["v"])[:60]
+(S/"net-mini.js").write_text("window.NET_MINI="+json.dumps({"gc":PAL["groups"],"nodes":[{k:n[k] for k in ("id","name","grp","out","x","y","z")} for n in _E["nodes"]],"edges":[{"s":e["s"],"t":e["t"],"v":e["v"]} for e in _ed]},ensure_ascii=False,separators=(",",":"))+";",encoding="utf-8")
 # ---------- explorer(共通シェルの中に描画。配色トークンは #xp 内に限定)
 tpl=(R/"pipeline"/"explorer_template.html").read_text(encoding="utf-8")
 h=tpl.replace("__GC__",json.dumps(PAL["groups"])).replace("__DATA__",(R/"data"/"explorer_data.json").read_text(encoding="utf-8"))
