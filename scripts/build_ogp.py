@@ -49,12 +49,12 @@ def card(c):
     return im
 def top():
     im=Image.new("RGB",(W,H),BG); d=ImageDraw.Draw(im); d.rectangle([0,0,18,H],fill=(56,189,248))
-    d.text((70,150),"Keizai Atlas",font=font(FB,120),fill=FG); d.text((74,312),"経済を、一枚の地図で。",font=font(FB,56),fill=(56,189,248))
-    d.text((74,400),"日本の産業どうしの取引（産業連関表）を、図とデータで読む。",font=font(FR,34),fill=MUT)
+    d.text((74,96),"Keizai Atlas｜公的統計で読む日本経済",font=font(FR,30),fill=MUT)
+    d.text((70,170),"統計から、",font=font(FB,92),fill=FG); d.text((70,290),"日本経済の“なるほど”を。",font=font(FB,92),fill=(56,189,248))
     x=74
-    for lab in ("産業マップ","145の産業ページ","近さの地図","最新動向"):
-        w=d.textlength(lab,font=font(FR,28))+44; d.rounded_rectangle([x,490,x+w,544],radius=27,outline=MUT,width=2); d.text((x+22,517),lab,font=font(FR,28),fill=FG,anchor="lm"); x+=w+18
-    d.text((74,580),"keizai-atlas.com",font=font(FR,24),fill=MUT); return im
+    for lab in ("つながり","産業","地域","変化と世界"):
+        w=d.textlength(lab,font=font(FR,28))+44; d.rounded_rectangle([x,452,x+w,506],radius=27,outline=MUT,width=2); d.text((x+22,479),lab,font=font(FR,28),fill=FG,anchor="lm"); x+=w+18
+    d.text((74,560),"産業連関表などの公的統計を、趣味で集計して眺めています｜keizai-atlas.com",font=font(FR,24),fill=MUT); return im
 if __name__=="__main__":
     cards=json.loads((R/"data/ogp_cards.json").read_text(encoding="utf-8")); (S/"og").mkdir(exist_ok=True)
     q=lambda im:im.quantize(64,method=Image.Quantize.MEDIANCUT,dither=Image.Dither.NONE)

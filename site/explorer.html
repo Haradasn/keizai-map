@@ -313,11 +313,15 @@ function renderOverview(){
   let ins="";
   if(CH()){
     const top=D.edges.filter(e=>e.v20!=null&&e.v22!=null).sort((a,b)=>(b.v22-b.v20)-(a.v22-a.v20)).slice(0,3);
-    ins=`<div class="story">2020→2022年に最も増えた取引は、${top.map(e=>`<a href="#" data-e="${D.edges.indexOf(e)}">${N[e.s].name}→${N[e.t].name}</a>(${fmt(e.v20,1)}→${fmt(e.v22,1)}兆円)`).join("、")}。エネルギーの値上がりが目立ちます。</div>
-    <div class="story">2022年の名目は2020年比で+15.5%、価格の影響を除いた実質では+8.0%です。値上がりが大きかったのは石油・石炭製品、鉱業、電気・ガスなどです。<small>2021・2022年は経産省の延長表(推計)。2023年以降、生成AIの実用化などは含みません。</small></div>`;
+    const EN=["06","21","46"], enHit=top.some(e=>EN.includes(e.s)||EN.includes(e.t));   // 鉱業・石油石炭製品・電気ガス
+    const W=D.nodes.filter(n=>n.o20x&&n.o22), s20=W.reduce((a,n)=>a+n.o20x,0), s22=W.reduce((a,n)=>a+n.o22,0);
+    const sReal=D.nodes.filter(n=>n.o20x&&n.rg!=null).reduce((a,n)=>a+n.o20x*(1+n.rg/100),0);
+    const pcTop=D.nodes.filter(n=>n.pc!=null).sort((a,b)=>b.pc-a.pc).slice(0,3).map(n=>n.name).join("、");
+    ins=`<div class="story">2020→2022年に最も増えた取引は、${top.map(e=>`<a href="#" data-e="${D.edges.indexOf(e)}">${N[e.s].name}→${N[e.t].name}</a>(${fmt(e.v20,1)}→${fmt(e.v22,1)}兆円)`).join("、")}。${enHit?"エネルギー関連の取引が含まれています。":""}</div>
+    <div class="story">2022年の生産額の合計は、2020年比で名目${sgn((s22/s20-1)*100,1)}%、価格の影響を除いた実質では${sgn((sReal/s20-1)*100,1)}%です。値上がりが大きかったのは${pcTop}などです。<small>2021・2022年は経産省の延長表(推計)。2023年以降、生成AIの実用化などは含みません。</small></div>`;
   } else {
     const big=D.nodes.filter(n=>n.out>=15).sort((a,b)=>b.cagr-a.cagr);
-    ins=`<div class="story">上位20本の取引のうち<b>${hub[1]}本</b>が「${N[hub[0]].name}」から出ています。人材・リース・警備・広告などの『外注の受け皿』が経済の中心にいます。</div>
+    ins=`<div class="story">上位20本の取引のうち<b>${hub[1]}本</b>が「${N[hub[0]].name}」から出ています。${hub[0]==="66"?"人材・リース・警備・広告などの『外注の受け皿』が、取引の中心にいます。":""}</div>
     <div class="story">生産額15兆円以上の部門で、2011→2020年の実質成長が大きいのは:${big.slice(0,4).map(n=>`<a href="#" data-n="${n.id}">${n.name}(${sgn(n.cagr)}%)</a>`).join("、")}。</div>`;
   }
   $("panel").innerHTML=`<h2>全体の見方</h2>
