@@ -616,39 +616,47 @@
   "date": "2026-10-11"
  },
  "/prefectures": {
-  "hash": "e6a1c994b32ff1fb",
+  "hash": "dd3aaa2134ea8443",
   "date": "2026-10-11"
  },
  "/prefecture/tokyo": {
-  "hash": "7c9a97bba02c1791",
+  "hash": "f443b36cb5c40f09",
   "date": "2026-10-11"
  },
  "/prefecture/aichi": {
-  "hash": "bc7a024e3e003acd",
+  "hash": "ffba714968e262f6",
   "date": "2026-10-11"
  },
  "/prefecture/osaka": {
-  "hash": "1d1c07bbce0fccce",
+  "hash": "599884f7cc2b1657",
   "date": "2026-10-11"
  },
  "/prefecture/kanagawa": {
-  "hash": "c84f3788d9ec37b3",
+  "hash": "869ae2657437dfd7",
   "date": "2026-10-11"
  },
  "/prefecture/saitama": {
-  "hash": "69b25007c8767d66",
+  "hash": "4223a292b287fd15",
   "date": "2026-10-11"
  },
  "/prefecture/chiba": {
-  "hash": "a805f83dc5aab6b3",
+  "hash": "d926d0d6333065fc",
   "date": "2026-10-11"
  },
  "/prefecture/hyogo": {
-  "hash": "269de466d38ad528",
+  "hash": "f6c64892eb6e3b91",
   "date": "2026-10-11"
  },
  "/prefecture/okinawa": {
-  "hash": "db4175d3ab978a39",
+  "hash": "a03e809559dff90f",
+  "date": "2026-10-11"
+ },
+ "/prefecture/fukuoka": {
+  "hash": "ccee31ca87349590",
+  "date": "2026-10-11"
+ },
+ "/prefecture/hokkaido": {
+  "hash": "1a8cb13e083177cd",
   "date": "2026-10-11"
  }
 }

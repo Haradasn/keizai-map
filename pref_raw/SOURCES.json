@@ -83,5 +83,30 @@
   "special": "okinawa",
   "url": "https://www.pref.okinawa.jp/toukeika/io/2020/io(2020)top.html",
   "note": "沖縄県の表は、全国の基本分類に対応した公表用基本分類（397×361部門）です。このサイトでは、これを全国の37部門に合算しています。"
+ },
+ "fukuoka": {
+  "name": "福岡県",
+  "year": 2020,
+  "file": "fukuoka_2020_39.xlsx",
+  "sheet": "生産者価格評価表",
+  "name_row": 3,
+  "first": 4,
+  "code_col": 0,
+  "name_col": 1,
+  "merge": {
+   "02": "01",
+   "03": "01"
+  },
+  "note": "福岡県の表は統合大分類39部門です。このサイトでは、全国の37部門に合わせて、農業・林業・漁業を「農林漁業」に合算しています。",
+  "url": "https://data.bodik.jp/dataset/400009_sangyourenkanhyou_r2"
+ },
+ "hokkaido": {
+  "name": "北海道",
+  "year": 2020,
+  "file": "hokkaido_2020_38.xlsx",
+  "special": "hokkaido",
+  "coarse": true,
+  "url": "https://www.hkd.mlit.go.jp/ky/ki/keikaku/jtfkjs0000004nkx.html",
+  "note": "北海道の表は、北海道開発局が公表した独自の38部門です。全国の37部門とは分け方が異なる（機械を1部門にまとめている、電気・ガス・水道や金融・保険・不動産を合わせている、など）ため、このサイトでは全国の37部門を同じ粗さにまとめて比べています。部門の数が他の都府県より少なく、特化係数の一覧には入れていません。"
  }
 }
