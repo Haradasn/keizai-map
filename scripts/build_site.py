@@ -6,10 +6,10 @@ R=pathlib.Path(__file__).resolve().parent.parent; S=R/"site"
 def page(name,title,desc,body):
     (S/name).write_text(HEAD.format(title=title,desc=desc)+body+FOOT,encoding="utf-8")
 # ---------- index
-page("index.html","経済の地図帳｜産業のつながりを眺める","日本の産業連関表から、お金の流れと産業どうしのつながりを眺める趣味の分析サイト",'''
+page("index.html","Keizai Atlas｜日本経済の産業のつながりを眺める地図帳","日本の産業連関表から、お金の流れと産業どうしのつながりを眺める趣味の分析サイト",'''
 <main class="flex-1">
 <section class="hero py-16 bg-gradient-to-b from-primary/20 to-transparent"><div class="hero-content text-center max-w-3xl flex-col">
- <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight">経済を、一枚の地図で。</h1>
+ <p class="badge badge-outline">趣味の統計分析 · 産業連関表</p><h1 class="text-4xl sm:text-5xl font-bold tracking-tight">Keizai Atlas<br><span class="text-2xl sm:text-3xl font-medium text-base-content/80">経済を、一枚の地図で。</span></h1>
  <p class="py-4 text-base-content/80">37の産業と、その間を流れるお金。円をクリックすると中身へ、線をクリックすると「その取引は何のためか」の仮説へ。<br>公的統計（産業連関表）を趣味で眺めて、見えにくい産業のつながりを探しています。</p>
  <div class="flex gap-3 flex-wrap justify-center"><a class="btn btn-primary" href="explorer.html">産業マップを開く →</a><a class="btn btn-outline" href="about.html">方法と出典</a></div>
 </div></section>
@@ -21,7 +21,7 @@ page("index.html","経済の地図帳｜産業のつながりを眺める","日�
 <section class="max-w-5xl mx-auto px-4 mt-10"><div role="alert" class="alert alert-warning"><span><b>ご注意：</b>ストーリー・グループは筆者の<b>仮説</b>で、統計から確定できる事実ではありません。2022年値は延長産業連関表（推計表）で、基本表とは定義が異なります。</span></div></section>
 </main>''')
 # ---------- about
-page("about.html","方法と出典｜経済の地図帳","データの出典、加工方法、制約と免責",'''
+page("about.html","方法と出典｜Keizai Atlas","データの出典、加工方法、制約と免責",'''
 <main class="flex-1 max-w-3xl mx-auto px-4 py-10 prose-sm sm:prose-base space-y-6">
 <h1 class="text-3xl font-bold">方法と出典</h1>
 <section><h2 class="text-xl font-bold mb-2">データ</h2><ul class="list-disc pl-6 space-y-1">
@@ -49,8 +49,8 @@ if "<!doctype" not in h.lower():
     h='<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">\n'+h
     h=h.replace("</style>","</style></head><body>",1)
 h=h.replace("<title>产业</title>","")
-h=h.replace("<title>産業マップ</title>","<title>産業マップ｜経済の地図帳</title>"+FONTS,1)
-nav='<div class="topbar"><a class="brand" href="index.html">経済の地図帳</a><span class="sp"></span><a href="explorer.html">産業マップ</a><a href="about.html">方法と出典</a><button id="thm" aria-label="テーマ切替">◐</button></div><script>document.getElementById("thm").onclick=function(){var t=document.documentElement.dataset.theme==="nord"?"night":"nord";document.documentElement.dataset.theme=t;try{localStorage.setItem("theme",t)}catch(e){}}</script>'
+h=h.replace("<title>産業マップ</title>","<title>産業マップ｜Keizai Atlas</title>"+FONTS,1)
+nav='<div class="topbar"><a class="brand" href="index.html">Keizai Atlas</a><span class="sp"></span><a href="explorer.html">産業マップ</a><a href="about.html">方法と出典</a><button id="thm" aria-label="テーマ切替">◐</button></div><script>document.getElementById("thm").onclick=function(){var t=document.documentElement.dataset.theme==="nord"?"night":"nord";document.documentElement.dataset.theme=t;try{localStorage.setItem("theme",t)}catch(e){}}</script>'
 foot='<footer style="font:12px system-ui;padding:10px 12px;opacity:.7">出典：総務省ほか「産業連関表」、経産省「延長産業連関表」（e-Stat）を筆者が加工。ストーリーは筆者の仮説であり、政府が作成したものではありません。</footer>'
 h=h.replace("<h1>産業マップ</h1>",nav+"<h1>産業マップ</h1>",1)
 if "</html>" not in h: h+=foot+"</body></html>"
