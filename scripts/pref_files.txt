@@ -1,3 +1,4 @@
-https://www.pref.toyama.jp/sections/1015/lib/renkan/_dat002/02037.xlsx
-https://www.pref.okayama.jp/uploaded/attachment/410655.xlsx
-https://www.pref.nagano.lg.jp/tokei/tyousa/documents/r2_37_bunsekitool_r703.xlsx
+https://www.pref.mie.lg.jp/common/content/001217114.xlsx
+https://www.pref.kagoshima.jp/ac09/tokei/bunya/keizai/renkan/documents/16210_20251114160346-1.xlsx
+https://toukei.pref.gunma.jp/gio/data/2020iot01.xlsx
+https://toukei.pref.gunma.jp/gio/data/2020iot02.xlsx

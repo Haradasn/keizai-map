@@ -186,5 +186,27 @@
   "code_col": 0,
   "name_col": 1,
   "url": "https://www.pref.niigata.lg.jp/site/tokei/0806761.html"
+ },
+ "toyama": {
+  "name": "富山県",
+  "year": 2020,
+  "file": "toyama_2020_37.xlsx",
+  "sheet": "生産者価格表",
+  "name_row": 2,
+  "first": 3,
+  "code_col": 0,
+  "name_col": 1,
+  "url": "https://www.pref.toyama.jp/sections/1015/lib/renkan/index.html"
+ },
+ "okayama": {
+  "name": "岡山県",
+  "year": 2020,
+  "file": "okayama_2020_37.xlsx",
+  "sheet": "取引基本表",
+  "name_row": 4,
+  "first": 5,
+  "code_col": 0,
+  "name_col": 1,
+  "url": "https://www.pref.okayama.jp/page/detail-16600.html"
  }
 }
