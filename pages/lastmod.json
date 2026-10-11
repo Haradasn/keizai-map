@@ -1,610 +1,618 @@
 {
  "/": {
-  "hash": "53d178f43910d702",
+  "hash": "720c52f6d5673d2a",
   "date": "2026-10-11"
  },
  "/explorer": {
-  "hash": "41264d16a02eb03f",
+  "hash": "f1796d0fedcb3932",
   "date": "2026-10-11"
  },
  "/similarity": {
-  "hash": "e6bcb3c87f2e224a",
+  "hash": "a05889b714174825",
   "date": "2026-10-11"
  },
  "/latest": {
-  "hash": "77fd8f648f4b6e0c",
+  "hash": "28578eafce142424",
   "date": "2026-10-11"
  },
  "/international": {
-  "hash": "b431ecaac83bf0e9",
+  "hash": "8ee422324132091d",
   "date": "2026-10-11"
  },
  "/about": {
-  "hash": "52ac6555f018df68",
+  "hash": "bd6daca5b03e673f",
   "date": "2026-10-11"
  },
  "/industries": {
-  "hash": "8cfde5872c43c4f5",
+  "hash": "e9c54dc352293ece",
   "date": "2026-10-11"
  },
  "/industry/011": {
-  "hash": "95a7e8cf9ad4c204",
+  "hash": "b3858cb31afee3ca",
   "date": "2026-10-11"
  },
  "/industry/012": {
-  "hash": "143d9e16e9efa902",
+  "hash": "00e1d0c6624ab098",
   "date": "2026-10-11"
  },
  "/industry/013": {
-  "hash": "bc09ed2fb7dafe85",
+  "hash": "948a691fc043d5b7",
   "date": "2026-10-11"
  },
  "/industry/015": {
-  "hash": "8afc47a356355405",
+  "hash": "dc1b170de51e00c8",
   "date": "2026-10-11"
  },
  "/industry/017": {
-  "hash": "efd3145edeaae904",
+  "hash": "0a033ddd580aa989",
   "date": "2026-10-11"
  },
  "/industry/061": {
-  "hash": "eb193e25597d9b76",
+  "hash": "3092529b7228fe86",
   "date": "2026-10-11"
  },
  "/industry/062": {
-  "hash": "6efb848f492bc9f5",
+  "hash": "998c7211a46011c8",
   "date": "2026-10-11"
  },
  "/industry/111": {
-  "hash": "4aa93794ceb24f55",
+  "hash": "588d1f9653007739",
   "date": "2026-10-11"
  },
  "/industry/112": {
-  "hash": "f92a6f08a6ebfa25",
+  "hash": "b708dd57df364324",
   "date": "2026-10-11"
  },
  "/industry/113": {
-  "hash": "838576a1fd65f2a8",
+  "hash": "0ccd35c414bc1564",
   "date": "2026-10-11"
  },
  "/industry/114": {
-  "hash": "bf5f3a5540a28a1b",
+  "hash": "03ca7835f2c2e1c7",
   "date": "2026-10-11"
  },
  "/industry/151": {
-  "hash": "7cc64275afecdfff",
+  "hash": "4170a559aa5956dc",
   "date": "2026-10-11"
  },
  "/industry/152": {
-  "hash": "e78e2889a5af0a4c",
+  "hash": "db947b6baff196ce",
   "date": "2026-10-11"
  },
  "/industry/161": {
-  "hash": "ab3bb41b52d7b035",
+  "hash": "4a0bee522ed4b738",
   "date": "2026-10-11"
  },
  "/industry/162": {
-  "hash": "80f0a6e75980e648",
+  "hash": "bedc6c78743665e6",
   "date": "2026-10-11"
  },
  "/industry/163": {
-  "hash": "23d86ead29235ffe",
+  "hash": "672894ca4db30276",
   "date": "2026-10-11"
  },
  "/industry/164": {
-  "hash": "156a4efd2170ed4c",
+  "hash": "1428f4be9c7344cd",
   "date": "2026-10-11"
  },
  "/industry/191": {
-  "hash": "a7fcab4c48787e6d",
+  "hash": "ed61c344b01ec5e1",
   "date": "2026-10-11"
  },
  "/industry/201": {
-  "hash": "8f8d999bb705c5ba",
+  "hash": "efe6af37b4243d55",
   "date": "2026-10-11"
  },
  "/industry/202": {
-  "hash": "4f9002c1a79473df",
+  "hash": "07f430aeff334a4c",
   "date": "2026-10-11"
  },
  "/industry/203": {
-  "hash": "53de2480ca1f9fb9",
+  "hash": "89e66391dfabfe4e",
   "date": "2026-10-11"
  },
  "/industry/204": {
-  "hash": "5b474e3e047df7a5",
+  "hash": "3d77fc3a41014210",
   "date": "2026-10-11"
  },
  "/industry/205": {
-  "hash": "56d4a4d90e7f6a7d",
+  "hash": "386d295af5677d74",
   "date": "2026-10-11"
  },
  "/industry/206": {
-  "hash": "a083060364a33f1f",
+  "hash": "40d1c632566b6b24",
   "date": "2026-10-11"
  },
  "/industry/207": {
-  "hash": "5cacc72c3926e1b8",
+  "hash": "d39a04dd19a87419",
   "date": "2026-10-11"
  },
  "/industry/208": {
-  "hash": "eedde8dcaaf3327b",
+  "hash": "961cede4aa612192",
   "date": "2026-10-11"
  },
  "/industry/211": {
-  "hash": "b9c5c4d6e318fb38",
+  "hash": "c14ec63dcc3306eb",
   "date": "2026-10-11"
  },
  "/industry/212": {
-  "hash": "bdbeb6a2cf3caa6b",
+  "hash": "d8b9f31197c52bd6",
   "date": "2026-10-11"
  },
  "/industry/221": {
-  "hash": "de07550ade256633",
+  "hash": "aa4b06777e1f5b50",
   "date": "2026-10-11"
  },
  "/industry/222": {
-  "hash": "c94d294952ad79ed",
+  "hash": "008fd962cbd7ee7d",
   "date": "2026-10-11"
  },
  "/industry/231": {
-  "hash": "a7295e52f04a92f1",
+  "hash": "c35143276f9a8272",
   "date": "2026-10-11"
  },
  "/industry/251": {
-  "hash": "8c8d94cecd53a064",
+  "hash": "5059c42268ccbdf3",
   "date": "2026-10-11"
  },
  "/industry/252": {
-  "hash": "634cd28619917cfa",
+  "hash": "2a83f669ff7169e3",
   "date": "2026-10-11"
  },
  "/industry/253": {
-  "hash": "4397ea7c09f6ed91",
+  "hash": "cdd4d70943c591ff",
   "date": "2026-10-11"
  },
  "/industry/259": {
-  "hash": "7c202f035f6848d1",
+  "hash": "61169e76e79c5400",
   "date": "2026-10-11"
  },
  "/industry/261": {
-  "hash": "22253c80280df448",
+  "hash": "7142fa3fc9d8973f",
   "date": "2026-10-11"
  },
  "/industry/262": {
-  "hash": "2954dea509d04d70",
+  "hash": "bee8f4881ed155ea",
   "date": "2026-10-11"
  },
  "/industry/263": {
-  "hash": "451bfc6a4f0192f9",
+  "hash": "16e2d70e19f92b34",
   "date": "2026-10-11"
  },
  "/industry/269": {
-  "hash": "6b93df8d8eda0a73",
+  "hash": "fcd9944e9ca26a13",
   "date": "2026-10-11"
  },
  "/industry/271": {
-  "hash": "fe6c3e7f045b05c6",
+  "hash": "54ec3f013fc73908",
   "date": "2026-10-11"
  },
  "/industry/272": {
-  "hash": "3252e53363ce567e",
+  "hash": "721a0f142570f9c5",
   "date": "2026-10-11"
  },
  "/industry/281": {
-  "hash": "cd37e3096272311d",
+  "hash": "e3370ca9c0e55ad7",
   "date": "2026-10-11"
  },
  "/industry/289": {
-  "hash": "dc8525b9e1b1bd78",
+  "hash": "aac557ad2c8906d2",
   "date": "2026-10-11"
  },
  "/industry/291": {
-  "hash": "f840c5448c8c7c8a",
+  "hash": "4a25d62db93f6fbe",
   "date": "2026-10-11"
  },
  "/industry/301": {
-  "hash": "2c3d9087413af4c6",
+  "hash": "5757d841e3fe797c",
   "date": "2026-10-11"
  },
  "/industry/311": {
-  "hash": "d7e1dc72b4dcff89",
+  "hash": "76ce869970f86557",
   "date": "2026-10-11"
  },
  "/industry/321": {
-  "hash": "3a3d568c10fad87c",
+  "hash": "4e8089c4a832299d",
   "date": "2026-10-11"
  },
  "/industry/329": {
-  "hash": "040e0a387326798f",
+  "hash": "939cbc5d3016edbd",
   "date": "2026-10-11"
  },
  "/industry/331": {
-  "hash": "169eec12a18b8050",
+  "hash": "c9af9189132eb997",
   "date": "2026-10-11"
  },
  "/industry/332": {
-  "hash": "8f310b727fda9774",
+  "hash": "b66f0a1c489f4a5f",
   "date": "2026-10-11"
  },
  "/industry/333": {
-  "hash": "fde9c5d139a2f2cc",
+  "hash": "99aec13be82b4250",
   "date": "2026-10-11"
  },
  "/industry/339": {
-  "hash": "95e01071c231a722",
+  "hash": "f6cc4d2b17df42c9",
   "date": "2026-10-11"
  },
  "/industry/341": {
-  "hash": "3426e13897312ce3",
+  "hash": "d887357c49f26b2d",
   "date": "2026-10-11"
  },
  "/industry/342": {
-  "hash": "79d5d211f36fdcf6",
+  "hash": "7579786aebeaaef2",
   "date": "2026-10-11"
  },
  "/industry/351": {
-  "hash": "67972acb0c727872",
+  "hash": "579e6c0896d96fcb",
   "date": "2026-10-11"
  },
  "/industry/352": {
-  "hash": "fcf00c79f4c317f4",
+  "hash": "d39eb991e858973a",
   "date": "2026-10-11"
  },
  "/industry/353": {
-  "hash": "f72ac4473cfde325",
+  "hash": "482f4322af705fca",
   "date": "2026-10-11"
  },
  "/industry/354": {
-  "hash": "8e4b8de0cdebe255",
+  "hash": "802bc829c8b55562",
   "date": "2026-10-11"
  },
  "/industry/359": {
-  "hash": "431a80bc358ba6ee",
+  "hash": "f8ad8405c2d07a74",
   "date": "2026-10-11"
  },
  "/industry/391": {
-  "hash": "a82669d65d8f074d",
+  "hash": "b4cf7a5183654242",
   "date": "2026-10-11"
  },
  "/industry/392": {
-  "hash": "1126d19c84264095",
+  "hash": "ba571c109e6db4fe",
   "date": "2026-10-11"
  },
  "/industry/411": {
-  "hash": "d6ad0b51c13cf9d2",
+  "hash": "3ea0e227ac0ca2a5",
   "date": "2026-10-11"
  },
  "/industry/412": {
-  "hash": "ab3f9951d95c24cc",
+  "hash": "7dc8d1b18ca5c87f",
   "date": "2026-10-11"
  },
  "/industry/413": {
-  "hash": "ff91ff648cc5e5a7",
+  "hash": "ca0157c0644ae389",
   "date": "2026-10-11"
  },
  "/industry/419": {
-  "hash": "dd1c89e391038f5c",
+  "hash": "66a253820d92b708",
   "date": "2026-10-11"
  },
  "/industry/461": {
-  "hash": "bab68c8e4b391e77",
+  "hash": "d7a184898d315a35",
   "date": "2026-10-11"
  },
  "/industry/462": {
-  "hash": "add53bcf1a497894",
+  "hash": "62107157c9f0c2de",
   "date": "2026-10-11"
  },
  "/industry/471": {
-  "hash": "4acf6ebf2108be7d",
+  "hash": "d4b87944ee8d422b",
   "date": "2026-10-11"
  },
  "/industry/481": {
-  "hash": "39ddd894dd3cf8e5",
+  "hash": "89f9f2c6004d52d1",
   "date": "2026-10-11"
  },
  "/industry/511": {
-  "hash": "9029573680bbad60",
+  "hash": "6b66fb3890b482ea",
   "date": "2026-10-11"
  },
  "/industry/531": {
-  "hash": "01bfad2670910219",
+  "hash": "205be867ef91cdd8",
   "date": "2026-10-11"
  },
  "/industry/551": {
-  "hash": "2f8e63f7d0694fd0",
+  "hash": "aa688a1f17286275",
   "date": "2026-10-11"
  },
  "/industry/552": {
-  "hash": "ce41e1cf67c7597a",
+  "hash": "5a0c32e5d1c3b78b",
   "date": "2026-10-11"
  },
  "/industry/553": {
-  "hash": "80634abf46f7cd52",
+  "hash": "2cff9b014c3373dd",
   "date": "2026-10-11"
  },
  "/industry/571": {
-  "hash": "b1e4163e10f14147",
+  "hash": "449fed5dfa7d57c3",
   "date": "2026-10-11"
  },
  "/industry/572": {
-  "hash": "a26a620b11a02ca7",
+  "hash": "37b6124497507e91",
   "date": "2026-10-11"
  },
  "/industry/573": {
-  "hash": "e3fa763fb3f7a6bb",
+  "hash": "91b4ca8d6a067e00",
   "date": "2026-10-11"
  },
  "/industry/574": {
-  "hash": "7451ceb06c8de1b3",
+  "hash": "2c240e0a3082b6d6",
   "date": "2026-10-11"
  },
  "/industry/575": {
-  "hash": "a1a710fa5e817a77",
+  "hash": "f59b70a01f429e4c",
   "date": "2026-10-11"
  },
  "/industry/576": {
-  "hash": "916c4d9d2846ed8a",
+  "hash": "6dbf28f4ee55f914",
   "date": "2026-10-11"
  },
  "/industry/577": {
-  "hash": "48729654b9f05278",
+  "hash": "018576aed168b372",
   "date": "2026-10-11"
  },
  "/industry/578": {
-  "hash": "6eda482aabd31b65",
+  "hash": "9ef17659e69c80dd",
   "date": "2026-10-11"
  },
  "/industry/579": {
-  "hash": "10539be466bb76a0",
+  "hash": "8f45ea07e3239a2f",
   "date": "2026-10-11"
  },
  "/industry/591": {
-  "hash": "8f35376a477be597",
+  "hash": "5a47b85d74131b1c",
   "date": "2026-10-11"
  },
  "/industry/592": {
-  "hash": "8906d864e654c673",
+  "hash": "a0acadaf4e91ec7a",
   "date": "2026-10-11"
  },
  "/industry/593": {
-  "hash": "67770889ea291735",
+  "hash": "2d9c9212bbd2acda",
   "date": "2026-10-11"
  },
  "/industry/594": {
-  "hash": "29a14b8a6ec04641",
+  "hash": "0a22f5d7df3e6677",
   "date": "2026-10-11"
  },
  "/industry/595": {
-  "hash": "3e92ee981ae7eb25",
+  "hash": "c071975566dd39ff",
   "date": "2026-10-11"
  },
  "/industry/611": {
-  "hash": "5f638d268aeaf3c6",
+  "hash": "af7af91788e825af",
   "date": "2026-10-11"
  },
  "/industry/631": {
-  "hash": "a61db1993a4a2b24",
+  "hash": "d32314a9e2e91a70",
   "date": "2026-10-11"
  },
  "/industry/632": {
-  "hash": "3a9089ff3a2a0989",
+  "hash": "6fd86c53d0fb648c",
   "date": "2026-10-11"
  },
  "/industry/641": {
-  "hash": "976e52ad5b01d796",
+  "hash": "48c9b2af947f84d3",
   "date": "2026-10-11"
  },
  "/industry/642": {
-  "hash": "be1f0a3d9756f3b4",
+  "hash": "9eb654f2adb3ac5b",
   "date": "2026-10-11"
  },
  "/industry/643": {
-  "hash": "1e9b125414d7157f",
+  "hash": "bd17fe1053b21495",
   "date": "2026-10-11"
  },
  "/industry/644": {
-  "hash": "0f907c3b6aa7e42f",
+  "hash": "e4881c7a98742e39",
   "date": "2026-10-11"
  },
  "/industry/659": {
-  "hash": "77b0dd030c0ff0c6",
+  "hash": "1c3f8dda73e785ad",
   "date": "2026-10-11"
  },
  "/industry/661": {
-  "hash": "8bb87bc9db6e09a5",
+  "hash": "367d6a27e5c8f857",
   "date": "2026-10-11"
  },
  "/industry/662": {
-  "hash": "f692c2231b511500",
+  "hash": "e2e3b61560071f9c",
   "date": "2026-10-11"
  },
  "/industry/663": {
-  "hash": "75a1b32a1f057802",
+  "hash": "ddb41f967d71df65",
   "date": "2026-10-11"
  },
  "/industry/669": {
-  "hash": "09d4a0eb15e2e072",
+  "hash": "9cf1884f924fccc9",
   "date": "2026-10-11"
  },
  "/industry/671": {
-  "hash": "a708c0100df40c31",
+  "hash": "0a8ea56f324e70ba",
   "date": "2026-10-11"
  },
  "/industry/672": {
-  "hash": "6a481a4885cf26bf",
+  "hash": "97dac632c594b68e",
   "date": "2026-10-11"
  },
  "/industry/673": {
-  "hash": "110c326aca4df016",
+  "hash": "fc0773860d2e48e6",
   "date": "2026-10-11"
  },
  "/industry/674": {
-  "hash": "9db18bc15ff86a53",
+  "hash": "d36bb0c4ee7a6f95",
   "date": "2026-10-11"
  },
  "/industry/675": {
-  "hash": "93b4de22c853f292",
+  "hash": "13d06970b1e824e4",
   "date": "2026-10-11"
  },
  "/industry/679": {
-  "hash": "971ce58b6a38e5cc",
+  "hash": "c66a732936ce6c6a",
   "date": "2026-10-11"
  },
  "/industry/681": {
-  "hash": "1f10ed38938eb9f0",
+  "hash": "a381e91edeb76abd",
   "date": "2026-10-11"
  },
  "/industry/691": {
-  "hash": "c713d890e0115601",
+  "hash": "6eaabfbceb9622c5",
   "date": "2026-10-11"
  },
  "/industry/01": {
-  "hash": "21336a9581c83b77",
+  "hash": "e92a7190a60fd460",
   "date": "2026-10-11"
  },
  "/industry/06": {
-  "hash": "b0bb03c3a3609f06",
+  "hash": "bafabe5e01c2371b",
   "date": "2026-10-11"
  },
  "/industry/11": {
-  "hash": "5dcf9aac55a117ce",
+  "hash": "d19462b1c73f1715",
   "date": "2026-10-11"
  },
  "/industry/15": {
-  "hash": "f11bef5acca78417",
+  "hash": "a4f92b5e979995c5",
   "date": "2026-10-11"
  },
  "/industry/16": {
-  "hash": "753cc3df65e9da33",
+  "hash": "4834b0e01c4a1d27",
   "date": "2026-10-11"
  },
  "/industry/20": {
-  "hash": "21aa6fa8b600b78e",
+  "hash": "1784094fc4bbc943",
   "date": "2026-10-11"
  },
  "/industry/21": {
-  "hash": "32edf58328dee74b",
+  "hash": "ba76a31a1b73d339",
   "date": "2026-10-11"
  },
  "/industry/22": {
-  "hash": "a528c0aae2b3697b",
+  "hash": "3a2171f2cb97e18a",
   "date": "2026-10-11"
  },
  "/industry/25": {
-  "hash": "617aac3117f6ac54",
+  "hash": "23e692f15147223e",
   "date": "2026-10-11"
  },
  "/industry/26": {
-  "hash": "17225c95859b7a66",
+  "hash": "e207dc7f9500316c",
   "date": "2026-10-11"
  },
  "/industry/27": {
-  "hash": "e191072eff8f1972",
+  "hash": "34d2125f51488152",
   "date": "2026-10-11"
  },
  "/industry/28": {
-  "hash": "0e673c821bddfc24",
+  "hash": "138d19f52c6190b4",
   "date": "2026-10-11"
  },
  "/industry/29": {
-  "hash": "effc3780e8332f7f",
+  "hash": "383015986e858300",
   "date": "2026-10-11"
  },
  "/industry/30": {
-  "hash": "02c31dceddaa72da",
+  "hash": "4dedc2bb01f2d740",
   "date": "2026-10-11"
  },
  "/industry/31": {
-  "hash": "e047861ec0201cec",
+  "hash": "68b123d3befdeff1",
   "date": "2026-10-11"
  },
  "/industry/32": {
-  "hash": "2705d85c11b7f6b5",
+  "hash": "3e795e2851dc2018",
   "date": "2026-10-11"
  },
  "/industry/33": {
-  "hash": "303dd09131b1b8c8",
+  "hash": "fce64da2cd7026ff",
   "date": "2026-10-11"
  },
  "/industry/34": {
-  "hash": "02bdfe1c0a627aa5",
+  "hash": "c08f3a922792bc13",
   "date": "2026-10-11"
  },
  "/industry/35": {
-  "hash": "dcf15ac9b48f6991",
+  "hash": "909cfa1d56e6086d",
   "date": "2026-10-11"
  },
  "/industry/39": {
-  "hash": "66625136a6026792",
+  "hash": "8e2e642d606bc05a",
   "date": "2026-10-11"
  },
  "/industry/41": {
-  "hash": "25e39ba8fd87823a",
+  "hash": "f25b2b2db6c7b761",
   "date": "2026-10-11"
  },
  "/industry/46": {
-  "hash": "225cf28e7b340b35",
+  "hash": "0c5c91b819236441",
   "date": "2026-10-11"
  },
  "/industry/47": {
-  "hash": "f7d8432650c7a644",
+  "hash": "8bb8a74b437f4b56",
   "date": "2026-10-11"
  },
  "/industry/48": {
-  "hash": "2612ffb9933f58ea",
+  "hash": "730d16a74ba8c943",
   "date": "2026-10-11"
  },
  "/industry/51": {
-  "hash": "a1676082a4561c31",
+  "hash": "a08e2537a357c59b",
   "date": "2026-10-11"
  },
  "/industry/53": {
-  "hash": "f116d333d0c17be6",
+  "hash": "b077c8c4cd26f9fd",
   "date": "2026-10-11"
  },
  "/industry/55": {
-  "hash": "4619cadbe3869e51",
+  "hash": "fc9bacf894b76e5b",
   "date": "2026-10-11"
  },
  "/industry/57": {
-  "hash": "7818c34e31b5fdfa",
+  "hash": "165b2563c0d3561f",
   "date": "2026-10-11"
  },
  "/industry/59": {
-  "hash": "59875825af536297",
+  "hash": "d37df0efaf47145a",
   "date": "2026-10-11"
  },
  "/industry/61": {
-  "hash": "453aecf121cf983f",
+  "hash": "9e3f0d2c9d16956e",
   "date": "2026-10-11"
  },
  "/industry/63": {
-  "hash": "c4dbeb872cb84565",
+  "hash": "019c600f7540f1fb",
   "date": "2026-10-11"
  },
  "/industry/64": {
-  "hash": "a9aaf71d31582587",
+  "hash": "bde18b8d98326dd0",
   "date": "2026-10-11"
  },
  "/industry/65": {
-  "hash": "04067ace75af4f00",
+  "hash": "83bc3e99f6ceeb2a",
   "date": "2026-10-11"
  },
  "/industry/66": {
-  "hash": "6d54d333d32f9022",
+  "hash": "2e5e2a578c63848e",
   "date": "2026-10-11"
  },
  "/industry/67": {
-  "hash": "11d21387e4cac332",
+  "hash": "3ec9b11dbf1bfc46",
   "date": "2026-10-11"
  },
  "/industry/68": {
-  "hash": "edeb7b2a05e18680",
+  "hash": "c6577623ad19688a",
   "date": "2026-10-11"
  },
  "/industry/69": {
-  "hash": "4edc09f9530b6507",
+  "hash": "b623a73634d735de",
+  "date": "2026-10-11"
+ },
+ "/guide": {
+  "hash": "fd03a02ba8ee7010",
+  "date": "2026-10-11"
+ },
+ "/glossary": {
+  "hash": "c9a70feb7f084076",
   "date": "2026-10-11"
  }
 }
