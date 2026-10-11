@@ -152,3 +152,10 @@ def test_explorer_header_hamburger_on_mobile(browser,base):
         assert pg.evaluate("getComputedStyle(document.querySelector('.links')).display")==links
         assert pg.evaluate("getComputedStyle(document.querySelector('.mnav')).display")==menu
         pg.close()
+
+def test_index_finding_links_hit_existing_anchors():
+    h=(S/"index.html").read_text(encoding="utf-8")
+    links=re.findall(r'href="([a-z]+\.html)#([\w-]+)"',h)
+    assert len(links)>=6
+    for page,anchor in links:
+        assert f'id="{anchor}"' in (S/page).read_text(encoding="utf-8"),(page,anchor)

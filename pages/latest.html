@@ -2,22 +2,22 @@
 <header class="space-y-3"><h1 class="text-3xl font-bold">最新動向：2023〜2026年</h1>
 <p class="text-base-content/80">産業連関表は2022年までです。その後の動きを、日本銀行の月次・四半期統計で補います（2026年8月分まで）。サービスの<b>価格</b>、デジタル関連の<b>海外への支払い</b>、エネルギーの<b>価格</b>の3つを見ます。</p>
 <div role="alert" class="alert alert-warning"><span>価格指数は「量」ではなく「価格」です。解釈は筆者の仮説で、2026年の値は速報（改訂されることがあります）です。</span></div></header>
-<section class="space-y-3"><h2 class="text-2xl font-bold">1. 企業向けサービスの価格（2020年=100）</h2>
+<section id="service-price" class="space-y-3 scroll-mt-20"><h2 class="text-2xl font-bold">1. 企業向けサービスの価格（2020年=100）</h2>
 <p class="text-base-content/80">企業が企業から買うサービスの価格指数（企業向けサービス価格指数）。産業マップの「対事業所サービス」「情報通信」に近い領域です。</p>
 <div class="card bg-base-100 border border-base-300"><div class="card-body"><div id="n-sppi"></div></div></div>
 <p class="text-sm text-base-content/80"><b>読み取り（2022年12月→2026年8月）:</b> 総平均は103.2→115.4（+11.8%）。<b>技術サービスが+21%</b>と最も上がり、職業紹介・労働者派遣が+11.8%、情報サービスが+11.7%、通信が+8.2%、専門サービスは+3.4%でした。人手不足や、システム・設計の需要の強さが、外注の単価に表れている可能性があります（仮説）。</p></section>
-<section class="space-y-3"><h2 class="text-2xl font-bold">2. デジタル関連の海外への支払い（兆円）</h2>
+<section id="digital-pay" class="space-y-3 scroll-mt-20"><h2 class="text-2xl font-bold">2. デジタル関連の海外への支払い（兆円）</h2>
 <p class="text-base-content/80">国際収支の「通信・コンピュータ・情報サービス」。クラウド、ソフトウェア、システム開発などへの、海外との受け払いです。</p>
 <div class="card bg-base-100 border border-base-300"><div class="card-body"><div id="n-bp"></div></div></div>
 <p class="text-sm text-base-content/80"><b>読み取り:</b> 支払いは2019年の2.4兆円から2025年の4.6兆円へ<b>約1.9倍</b>。受取（0.8→2.2兆円）も増えていますが、赤字（ネット）は1.6兆円から2.4兆円に広がりました（2024年は2.6兆円で最大）。「国際比較」ページの、デジタル仕入れの輸入比率の上昇と整合します。専門・経営コンサルティングの赤字も、1.1兆円から2.5兆円に拡大しています。生成AIによる部分は、この統計からは切り分けられません。2026年は1〜8月の累計です。</p></section>
-<section class="space-y-3"><h2 class="text-2xl font-bold">3. エネルギーの価格（国内企業物価、2020年=100）</h2>
+<section id="energy-price" class="space-y-3 scroll-mt-20"><h2 class="text-2xl font-bold">3. エネルギーの価格（国内企業物価、2020年=100）</h2>
 <div class="card bg-base-100 border border-base-300"><div class="card-body"><div id="n-cg"></div></div></div>
 <p class="text-sm text-base-content/80"><b>読み取り:</b> 電力・都市ガス・水道は、2022年12月の168.6から、2023年12月に122.2まで下がり、2026年8月は143.5です。石炭・原油・天然ガスは258.6→177.9、石油・石炭製品は2026年8月に178.5と、期間内で目立つ水準でした。産業連関表の2022年（エネルギー高騰の年）から、高止まりしつつ落ち着いたあと、再び上がっている姿です。</p></section>
-<section class="space-y-3"><h2 class="text-2xl font-bold">4. 活動量（経産省 第3次産業活動指数、2019-2020年平均=100）</h2>
+<section id="activity" class="space-y-3 scroll-mt-20"><h2 class="text-2xl font-bold">4. 活動量（経産省 第3次産業活動指数、2019-2020年平均=100）</h2>
 <p class="text-base-content/80">価格ではなく<b>量</b>（サービスの活動の大きさ、季節調整済み）。2026年7月分までです。</p>
 <div class="card bg-base-100 border border-base-300"><div class="card-body"><div id="n-meti"></div></div></div>
 <p class="text-sm text-base-content/80"><b>読み取り（2022年12月→2026年7月）:</b> 情報通信業は107.4→120.9（+12.6%）。内訳では<b>インターネット附随サービス業が+27%、ソフトウェア業が+19%</b>と伸びています。職業紹介・労働者派遣業は+26%。一方、<b>技術サービス業は94.4→89.9（−5%）</b>と、量は減っています。価格（節1）が+21%上がっているので、「需要があるのに供給が足りず、単価だけ上がっている」状態の可能性があります（仮説）。情報サービスと派遣は、価格も量も上がっていて、需要の強さが表れています。</p></section>
-<section class="space-y-3"><h2 class="text-2xl font-bold">5. エネルギー輸入：量と円建て単価（財務省 貿易統計、2019年=100）</h2>
+<section id="energy-import" class="space-y-3 scroll-mt-20"><h2 class="text-2xl font-bold">5. エネルギー輸入：量と円建て単価（財務省 貿易統計、2019年=100）</h2>
 <div class="grid gap-4 md:grid-cols-2"><div class="card bg-base-100 border border-base-300"><div class="card-body"><h3 class="font-bold">輸入数量</h3><div id="n-tq"></div></div></div>
 <div class="card bg-base-100 border border-base-300"><div class="card-body"><h3 class="font-bold">円建ての単価（輸入額÷数量）</h3><div id="n-tp"></div></div></div></div>
 <p class="text-sm text-base-content/80"><b>読み取り:</b> 鉱物性燃料の輸入額は、2019年の17.0兆円から、2022年の<b>33.7兆円</b>へ約2倍になり、2025年は22.1兆円まで戻りました。数量は原油が2019年比で−21%、LNGが−16%、石炭が−13%と減っているので、<b>輸入額の増減の大半は単価（円建て）の動き</b>です。単価は2022年のピークから下がっても、2025年で原油1.5倍、LNG1.6倍、石炭1.5倍と、2019年より高い水準にあります。円安の影響も含まれます。2026年1〜8月の鉱物性燃料の輸入額は16.1兆円で、2025年同期（14.9兆円）より約8%多くなっています（8月は速報）。</p>
