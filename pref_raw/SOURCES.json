@@ -250,5 +250,34 @@
   "code_col": 1,
   "name_col": 2,
   "url": "https://toukei.pref.gunma.jp/gio/gio2020.html"
+ },
+ "tottori": {
+  "name": "鳥取県",
+  "year": 2020,
+  "file": "tottori_2020_39.xlsx",
+  "sheet": "生産者価格評価表",
+  "name_row": 4,
+  "first": 5,
+  "code_col": 0,
+  "name_col": 1,
+  "merge": {
+   "02": "01",
+   "03": "01"
+  },
+  "url": "https://www.pref.tottori.lg.jp/2020io/",
+  "seq37": 39
+ },
+ "fukui": {
+  "name": "福井県",
+  "year": 2020,
+  "file": "fukui_2020_37.xlsx",
+  "sheet": "取引基本表",
+  "name_row": 3,
+  "first": 4,
+  "code_col": 0,
+  "name_col": 1,
+  "seq37": 37,
+  "url": "https://www.pref.fukui.lg.jp/doc/toukei-jouhou/sanren.html",
+  "scale": 0.01
  }
 }

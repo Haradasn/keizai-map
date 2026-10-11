@@ -98,6 +98,13 @@ def build(slug):
     if SRC[slug].get("special")=="hokkaido": return build_hokkaido(slug)
     rows,cols,rl,s=load(slug)
     sec=[(c.lstrip("A").zfill(2),n,i) for c,n,i in rl if c.lstrip("A").isdigit() and int(c.lstrip("A"))<=69]
+    if s.get("seq37"):                                # 福井県・鳥取県: 部門コードが01からの連番。全国の37部門と同じ並び(鳥取は農・林・漁が別の39部門)なので、順番で全国のコードに対応づける
+        nd=pd.read_csv(OUT/"nodes.csv",encoding="utf-8-sig",dtype={"code":str}); nc=list(nd[nd.level==37].code); K=s["seq37"]; off=K-37   # K=37 or 39
+        cv=lambda n:nc[0] if n<=off+1 else nc[n-1-off]
+        sec=[(cv(int(c)),n,i) for c,n,i in sec if int(c)<=K]
+        assert len(sec)==K,len(sec)
+        chk=[(c,n) for c,n,i in sec if norm(nd[nd.code==c].name.iloc[0])[:2]!=n[:2] and c!=nc[0]]    # 名称の先頭2文字が全国の部門と一致すること
+        assert not chk,chk
     sec+=[("HQ",n,i) for c,n,i in rl if n=="本社"]       # 東京都のみの部門
     X_r=[i for c,n,i in rl if n in PICK["X"]][0]
     VA_r=[i for c,n,i in rl if n=="粗付加価値部門計"][0]; ti=[i2 for c2,n2,i2 in rl if n2=="内生部門計"][0]
