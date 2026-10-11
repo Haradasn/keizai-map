@@ -1,0 +1,2 @@
+{"name":"keizai-map","private":true,"scripts":{"build:css":"tailwindcss -c tailwind.config.js -i src/input.css -o site/assets.css --minify"},
+"devDependencies":{"tailwindcss":"3.4.17","daisyui":"4.12.23"},"dependencies":{"3d-force-graph":"1.73.4"}}

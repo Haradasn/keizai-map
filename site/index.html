@@ -1,0 +1,29 @@
+<!doctype html><html lang="ja" data-theme="dark"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>経済の地図帳｜産業のつながりを眺める</title><meta name="description" content="日本の産業連関表から、お金の流れと産業どうしのつながりを眺める趣味の分析サイト">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="assets.css">
+<script>try{var t=localStorage.getItem("theme");if(!t)t=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";document.documentElement.dataset.theme=t}catch(e){}</script>
+</head><body class="bg-base-200 text-base-content font-sans min-h-screen flex flex-col">
+<header class="navbar bg-base-100/80 backdrop-blur border-b border-base-300 sticky top-0 z-50 px-4">
+ <div class="flex-1"><a href="index.html" class="text-lg font-bold tracking-tight">経済の地図帳 <span class="badge badge-outline badge-sm ml-1">趣味の統計分析</span></a></div>
+ <nav class="flex-none gap-1"><a class="btn btn-ghost btn-sm" href="explorer.html">産業マップ</a><a class="btn btn-ghost btn-sm" href="about.html">方法と出典</a>
+ <label class="swap swap-rotate btn btn-ghost btn-sm btn-circle" aria-label="テーマ切替"><input type="checkbox" id="thm"><span class="swap-on">☀</span><span class="swap-off">☾</span></label></nav>
+</header>
+<main class="flex-1">
+<section class="hero py-16 bg-gradient-to-b from-primary/20 to-transparent"><div class="hero-content text-center max-w-3xl flex-col">
+ <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight">経済を、一枚の地図で。</h1>
+ <p class="py-4 text-base-content/80">37の産業と、その間を流れるお金。円をクリックすると中身へ、線をクリックすると「その取引は何のためか」の仮説へ。<br>公的統計（産業連関表）を趣味で眺めて、見えにくい産業のつながりを探しています。</p>
+ <div class="flex gap-3 flex-wrap justify-center"><a class="btn btn-primary" href="explorer.html">産業マップを開く →</a><a class="btn btn-outline" href="about.html">方法と出典</a></div>
+</div></section>
+<section class="max-w-5xl mx-auto px-4 grid gap-4 sm:grid-cols-3">
+ <div class="card bg-base-100 border border-base-300"><div class="card-body"><h2 class="card-title">俯瞰する</h2><p>37部門の取引をネットワークとフロー図で表示。2020年の規模と、2020→2022の変化を切り替えられます。</p></div></div>
+ <div class="card bg-base-100 border border-base-300"><div class="card-body"><h2 class="card-title">掘り下げる</h2><p>部門→108の小分類→取引の相手先へ。上位の取引には、人が読める「ストーリー」を付けています。</p></div></div>
+ <div class="card bg-base-100 border border-base-300"><div class="card-body"><h2 class="card-title">仮説を探す</h2><p>地図では目立たないが、伸びていて他産業を支える「裏方」グループ（ブルーオーシャン候補）を試算しています。</p></div></div>
+</section>
+<section class="max-w-5xl mx-auto px-4 mt-10"><div role="alert" class="alert alert-warning"><span><b>ご注意：</b>ストーリー・グループは筆者の<b>仮説</b>で、統計から確定できる事実ではありません。2022年値は延長産業連関表（推計表）で、基本表とは定義が異なります。</span></div></section>
+</main><footer class="footer footer-center p-6 bg-base-100 border-t border-base-300 text-sm text-base-content/70 mt-12">
+<p>出典：総務省ほか「産業連関表」、経済産業省「延長産業連関表」（政府統計の総合窓口 e-Stat 掲載）を筆者が加工して作成。<br>加工・分析・「仮説」は筆者によるもので、政府が作成・保証したものではありません。投資・経営判断の根拠にはしないでください。</p>
+<p><a class="link" href="about.html">方法と出典・免責</a></p></footer>
+<script>document.getElementById("thm").checked=document.documentElement.dataset.theme==="light";
+document.getElementById("thm").onchange=function(e){var t=e.target.checked?"light":"dark";document.documentElement.dataset.theme=t;try{localStorage.setItem("theme",t)}catch(x){}}</script>
+</body></html>
