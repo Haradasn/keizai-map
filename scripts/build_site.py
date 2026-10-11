@@ -165,6 +165,9 @@ line("n-tp",[{n:"石炭",v:T.coal_p_idx,c:"#94a3b8"},{n:"LNG",v:T.lng_p_idx,c:"#
 })();
 </script>
 '''.replace("__NOW__",_now).replace("__NOW2__",_now2))
+# ---------- similarity map
+_sim=(R/"data"/"similarity_map.json").read_text(encoding="utf-8")
+page("similarity.html","近さの地図｜Keizai Atlas","108の産業を、取引の相手の似かたで平面に並べた地図。ブルーオーシャン候補グループの位置も確認できる",(R/"pipeline"/"similarity_template.html").read_text(encoding="utf-8").replace("__SIM__",_sim))
 # ---------- explorer
 tpl=(R/"pipeline"/"explorer_template.html").read_text(encoding="utf-8")
 h=tpl.replace("__DATA__",(R/"data"/"explorer_data.json").read_text(encoding="utf-8"))
@@ -194,4 +197,4 @@ h=h.replace("<title>",'<script>try{var t=localStorage.getItem("theme");if(t!=="n
 (S/"robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {SITE_URL}/sitemap.xml\n",encoding="utf-8")
 import datetime
 T=datetime.date.today().isoformat()
-(S/"sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+"".join(f"<url><loc>{SITE_URL}{p}</loc><lastmod>{T}</lastmod></url>\n" for p in ("/","/explorer","/latest","/international","/about"))+"</urlset>\n",encoding="utf-8")
+(S/"sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+"".join(f"<url><loc>{SITE_URL}{p}</loc><lastmod>{T}</lastmod></url>\n" for p in ("/","/explorer","/similarity","/latest","/international","/about"))+"</urlset>\n",encoding="utf-8")

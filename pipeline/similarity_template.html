@@ -1,0 +1,64 @@
+<main class="flex-1 max-w-5xl mx-auto px-4 py-10 space-y-6">
+<header class="space-y-3"><h1 class="text-3xl font-bold">近さの地図：取引の相手が似ている産業</h1>
+<p class="text-base-content/80">108の産業を、<b>「誰から買い、誰に売っているか」の似かた</b>で平面に並べました。<b>近いほど取引の相手が似ていて、遠いほど違います</b>（産業マップの配置は見やすさ重視で、距離に意味はありません）。ブルーオーシャン候補の4グループ（金色の輪）が、地図のどこにいるかも見られます。</p>
+<div role="alert" class="alert alert-warning"><span>2次元に落とすため、距離は完全には再現できません（元の非類似度と地図上の距離の順位相関 ρ=<b id="rho"></b>）。近い＝似ている、の目安として見てください。</span></div></header>
+<section class="space-y-3">
+<div class="flex flex-wrap gap-2 items-center"><span class="text-sm">色:</span>
+<div class="join"><button class="btn btn-sm join-item btn-active" data-m="grp">産業の大分類</button><button class="btn btn-sm join-item" data-m="g">成長率（2015→2020）</button><button class="btn btn-sm join-item" data-m="bo">ブルーオーシャン候補</button></div></div>
+<div class="card bg-base-100 border border-base-300"><div class="card-body p-2 sm:p-4"><div id="sm"></div></div></div>
+<div id="legend" class="flex flex-wrap gap-x-4 gap-y-1 text-xs"></div>
+<div id="info" class="card bg-base-100 border border-base-300"><div class="card-body text-sm"><p class="text-base-content/70">点にカーソルを合わせる（スマホはタップ）と、その産業と「取引の相手が似ている」上位3産業が出ます。</p></div></div>
+</section>
+<section class="space-y-2"><h2 class="text-xl font-bold">候補グループは「似た者どうし」か？</h2><p class="text-sm text-base-content/80">各グループの構成部門どうしの平均距離を、同数の部門をランダムに選んだ場合（2000回）と比べました。「順位」は、ランダムな組み合わせより近い割合の逆で、<b>小さいほど、まとまりが強い</b>ことを示します（50%付近＝ランダム並み）。</p><div class="overflow-x-auto"><table class="table table-sm"><thead><tr><th>グループ</th><th class="text-right">構成部門どうしの平均距離</th><th class="text-right">全部門の平均距離</th><th class="text-right">順位（小さいほど近い）</th></tr></thead><tbody id="coh"></tbody></table></div><p class="text-sm text-base-content/80"><b>読み取り:</b> G1（裏方）・G2（ネット）・G3（ケア）は、ランダムな組み合わせよりずっと近く、取引相手の似た「ひとまとまり」と言えます。一方<b>G4（素材の川上）はランダム並み</b>で、構成部門の売り先・買い先は別々です。G4は、取引構造ではなく「最終製品の陰にある」という見立てでくくったグループで、まとまりの根拠は弱いと考えるのが妥当です（仮説）。</p></section>
+<section class="space-y-2 text-sm text-base-content/80"><h2 class="text-xl font-bold text-base-content">読み方のヒント</h2>
+<ul class="list-disc pl-6 space-y-1">
+<li>円の大きさは2020年の産出額。金色の輪は、ブルーオーシャン候補グループ（G1〜G4）の構成部門です。</li>
+<li><b>同じ候補グループの部門が地図上で固まっているか</b>を見ると、「グループとして一括りにできる根拠」があるかを確かめられます。散らばっているグループは、売り先・買い先が実は別々で、くくりは筆者の見立てに近いと言えます。</li>
+<li>どの産業とも近くない（孤立した）点は、独特な取引構造をもつ部門です。</li></ul></section>
+<section class="text-sm text-base-content/70 space-y-1"><h2 class="text-lg font-bold text-base-content">方法</h2>
+<ul class="list-disc pl-6"><li>産業連関表（2020年・108部門）から、各部門の「仕入れ構成」と「販売先構成」をつなげたベクトルを作り（自部門内の取引は除く、平方根変換）、部門間の距離（非類似度）を計算。</li>
+<li>距離を保つように2次元へ配置（多次元尺度構成法 MDS、scikit-learn）。軸に意味はありません。</li>
+<li>スクリプト：<code>pipeline/similarity_map.py</code>。出典と免責は<a class="link" href="about.html">方法と出典</a>を参照。</li></ul></section>
+</main>
+<script>
+(function(){
+var D=__SIM__,W=900,H=620,P=34,mode="grp";
+var PAL=["#a3e635","#fbbf24","#fb923c","#f472b6","#a78bfa","#38bdf8","#2dd4bf","#94a3b8"];
+var CH="";Object.keys(D.coh).forEach(function(k){var c=D.coh[k];CH+="<tr><td>"+k+" "+D.groups[k].name+"</td><td class=\"text-right\">"+c.within.toFixed(2)+"</td><td class=\"text-right\">"+c.all.toFixed(2)+"</td><td class=\"text-right\">上位 "+Math.max(1,Math.round(c.pct))+"%</td></tr>"});document.getElementById("coh").innerHTML=CH;
+document.getElementById("rho").textContent=D.rho.toFixed(2);
+var N=D.nodes,xs=N.map(function(d){return d.x}),ys=N.map(function(d){return d.y});
+var x0=Math.min.apply(null,xs),x1=Math.max.apply(null,xs),y0=Math.min.apply(null,ys),y1=Math.max.apply(null,ys);
+var sc=Math.min((W-2*P)/(x1-x0),(H-2*P)/(y1-y0)),ox=(W-sc*(x1-x0))/2,oy=(H-sc*(y1-y0))/2;
+N.forEach(function(d){d.px=ox+(d.x-x0)*sc;d.py=oy+(d.y-y0)*sc;d.r=3+2.6*Math.sqrt(d.o)});
+var BOC={G1:"#f59e0b",G2:"#f59e0b",G3:"#f59e0b",G4:"#f59e0b"};
+function col(d){if(mode=="grp")return PAL[d.grp%8];
+ if(mode=="g"){var g=d.g;if(g==null)return "#64748b";var t=Math.max(-1,Math.min(1,g/6));return t>=0?"hsl(190,"+(30+60*t)+"%,"+(55-8*t)+"%)":"hsl(20,"+(30+60*-t)+"%,"+(55-8*-t)+"%)"}
+ return d.bo?"#f59e0b":"#64748b"}
+var sel=null,lab=[];
+function draw(){
+ var s='<svg viewBox="0 0 '+W+' '+H+'" width="100%" role="img" aria-label="108産業の近さの地図" style="font-size:11px;touch-action:manipulation">';
+ // links from selected to its 3 nearest
+ if(sel){sel.nb.forEach(function(nm){var q=N.filter(function(d){return d.n==nm})[0];if(q)s+='<line x1="'+sel.px+'" y1="'+sel.py+'" x2="'+q.px+'" y2="'+q.py+'" stroke="currentColor" opacity=".5" stroke-dasharray="4 3"/>'})}
+ N.slice().sort(function(a,b){return b.o-a.o}).forEach(function(d){
+  s+='<circle data-i="'+N.indexOf(d)+'" cx="'+d.px+'" cy="'+d.py+'" r="'+d.r+'" fill="'+col(d)+'" fill-opacity="'+((mode=="bo"&&!d.bo)?.35:.78)+'" stroke="'+(d.bo?"#f59e0b":"currentColor")+'" stroke-opacity="'+(d.bo?1:.25)+'" stroke-width="'+(d.bo?2.4:.6)+'" style="cursor:pointer"/>'});
+ // labels: blue-ocean members + big ones, greedy declutter
+ var cand=N.slice().sort(function(a,b){return (b.bo?1e3:0)+b.o-((a.bo?1e3:0)+a.o)}),placed=[];
+ cand.forEach(function(d){if(!d.bo&&d.o<5&&d!==sel)return;var w=d.n.length*11+4,bx=d.px+d.r+3,by=d.py-6,ok=true;
+  if(bx+w>W-4)bx=d.px-d.r-3-w;
+  placed.forEach(function(p){if(bx<p.x+p.w&&bx+w>p.x&&by<p.y+13&&by+13>p.y)ok=false});
+  if(ok||d===sel){placed.push({x:bx,y:by,w:w});var short=d.n.replace(/（.*$/,"");s+='<text x="'+(bx+2)+'" y="'+(by+10)+'" fill="currentColor" font-weight="'+(d.bo?700:400)+'" opacity="'+(d.bo?1:.8)+'" style="paint-order:stroke;stroke:var(--b3,#0b1120);stroke-width:3px;pointer-events:none">'+short+'</text>'}});
+ document.getElementById("sm").innerHTML=s+'</svg>';
+ var L="";
+ if(mode=="grp")D.grpnames.forEach(function(g,i){L+='<span><i style="display:inline-block;width:10px;height:10px;border-radius:50%;background:'+PAL[i%8]+'"></i> '+g+'</span>'});
+ else if(mode=="g")L='<span><i style="display:inline-block;width:10px;height:10px;border-radius:50%;background:hsl(190,90%,47%)"></i> 年+6%以上</span><span><i style="display:inline-block;width:10px;height:10px;border-radius:50%;background:hsl(20,90%,47%)"></i> 年−6%以下</span><span>灰=データなし</span>';
+ else L='<span><i style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#f59e0b"></i> G1〜G4の構成部門</span>';
+ document.getElementById("legend").innerHTML=L;
+ Array.prototype.forEach.call(document.querySelectorAll("#sm circle"),function(c){var d=N[+c.dataset.i];c.onmouseenter=c.onclick=function(){sel=d;info(d);draw()}})}
+function info(d){var g=d.bo?D.groups[d.bo].name:null;
+ document.getElementById("info").innerHTML='<div class="card-body text-sm space-y-1"><h3 class="font-bold text-base">'+d.n+'<span class="ml-2 text-xs font-normal text-base-content/60">'+d.p+'</span></h3>'
+ +'<p>産出額（2020年）<b>'+d.o.toFixed(1)+'兆円</b>'+(d.g!=null?'　実質成長（2015→2020年）<b>'+(d.g>0?"+":"")+d.g+'%/年</b>':'')+(g?'　<span class="badge badge-warning badge-outline">'+d.bo+' '+g+'</span>':'')+'</p>'
+ +'<p>取引の相手が似ている産業：<b>'+d.nb.join('、')+'</b></p></div>'}
+Array.prototype.forEach.call(document.querySelectorAll("[data-m]"),function(b){b.onclick=function(){mode=b.dataset.m;Array.prototype.forEach.call(document.querySelectorAll("[data-m]"),function(x){x.classList.toggle("btn-active",x===b)});draw()}});
+draw();
+})();
+</script>
