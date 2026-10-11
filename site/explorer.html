@@ -20,7 +20,7 @@ h1{font-size:20px;margin:0;font-weight:700;letter-spacing:.02em}
 @media(max-width:900px){.wrap{grid-template-columns:minmax(0,1fr)}}
 .stage{position:relative;background:var(--graph);border:1px solid var(--line);border-radius:6px;height:min(76vh,720px);min-height:420px;overflow:hidden}
 #g{position:absolute;inset:0}
-#flow{position:absolute;inset:0;width:100%;height:100%}#flow text{fill:var(--label);font-size:11.5px;font-family:var(--font-ui)}#flow .fl{cursor:pointer;transition:opacity .15s}#labels{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+#flow[hidden]{display:none}#flow{position:absolute;inset:0;width:100%;height:100%}#flow text{fill:var(--label);font-size:11.5px;font-family:var(--font-ui)}#flow .fl{cursor:pointer;transition:opacity .15s}#labels{position:absolute;inset:0;pointer-events:none;overflow:hidden}
 .lb{position:absolute;transform:translate(-50%,0);font-size:11.5px;color:var(--label);white-space:nowrap;text-shadow:0 0 3px var(--graph),0 0 3px var(--graph);transition:opacity .15s}
 .lb.dim{opacity:.18}
 .ctrl{position:absolute;left:10px;top:10px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:color-mix(in srgb,var(--panel) 88%,transparent);border:1px solid var(--line);border-radius:6px;padding:6px 10px;font-size:12px;max-width:calc(100% - 20px)}
