@@ -11,7 +11,7 @@
 - 更新履歴/RSS: `pages/changelog.json`(`scripts/add_changelog.py`)。ページや機能を足したら1件追記。
 
 ## 作業ルール
-- `main` へ直接 push しない。ブランチ → PR → CI の `smoke` が成功 → マージ(マージはこちらで進めてよい、と許可済み)。
+- `main` へ直接 push しない。ブランチ → PR → CI の `smoke` が成功 → マージ(マージはこちらで進めてよい、と許可済み)。**マージはスカッシュ**: `gh api -X PUT repos/Haradasn/keizai-map/pulls/N/merge -f merge_method=squash -f commit_title="..." -f commit_message="...Co-Authored-By/Claude-Session の行"`(GitHubが署名するので Verified になる。マージコミットは Unverified 表示になるため使わない)。
 - テストは必須: `python3 scripts/build_site.py && python3 -m pytest tests -q`(約1分)。CI は `site/` と `pages/lastmod.json` がビルド結果と一致するかも検査するので、ビルドし直した成果物を必ずコミットする。
 - 文章: 事実(統計から確定できること)と、筆者の推測は分ける。推測には「仮説」と明記。政府が作成・保証したものではない旨を保つ。投資判断に使えるような書き方をしない。
 - 数値は手書きしない。生成物の文章中の数値は `{{...}}` かデータから生成。県別は需給バランス・費用側の検証(assert)を通すこと。
