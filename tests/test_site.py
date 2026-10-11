@@ -103,3 +103,45 @@ def test_shared_charts_js_and_palette():
     # 折れ線チャートの色はパレット経由(ページ本文に折れ線用の直書き色を残さない)
     for name in ("international","latest"):
         assert not re.search(r'c:"#[0-9a-f]{6}"',(R/"pages"/f"{name}.html").read_text(encoding="utf-8"))
+
+# ---- スマホ幅・ライトテーマ
+@pytest.mark.parametrize("name",PAGES)
+def test_no_horizontal_overflow_on_mobile(browser,base,name):
+    pg=browser.new_page(viewport={"width":390,"height":800})
+    pg.goto(f"{base}/{name}.html",wait_until="domcontentloaded"); pg.wait_for_timeout(1000)
+    sw=pg.evaluate("document.documentElement.scrollWidth")
+    assert sw<=392,f"{name}: scrollWidth={sw}"; pg.close()
+
+@pytest.mark.parametrize("name",PAGES)
+def test_light_theme_renders(browser,base,name):
+    ctx=browser.new_context(viewport={"width":1200,"height":800}); pg=ctx.new_page(); errs=[]
+    pg.on("pageerror",lambda e:errs.append(str(e)))
+    pg.add_init_script("try{localStorage.setItem('theme','nord')}catch(e){}")
+    pg.goto(f"{base}/{name}.html",wait_until="domcontentloaded"); pg.wait_for_timeout(800)
+    assert pg.evaluate("document.documentElement.dataset.theme")=="nord"
+    lum=pg.evaluate("(()=>{const m=getComputedStyle(document.body).backgroundColor.match(/\\d+/g).map(Number);return (m[0]+m[1]+m[2])/3})()")
+    assert lum>150,f"{name}: light theme background too dark ({lum})"
+    assert errs==[]; ctx.close()
+
+# ---- データ整合
+def test_explorer_data_consistency():
+    e=json.loads((R/"data/explorer_data.json").read_text())
+    tot=sum(n["out"] for n in e["nodes"]); assert 800<tot<1100,tot          # 兆円: 国内生産額の合計は約1,000兆円
+    ids={n["id"] for n in e["nodes"]}
+    assert all(x["s"] in ids and x["t"] in ids and max(x.get("v") or 0,x.get("v20") or 0,x.get("v22") or 0)>0 for x in e["edges"])
+    assert all(0<=n["grp"]<len(e["groups"]) for n in e["nodes"])
+
+def test_chart_data_aligned():
+    n2=json.loads((R/"data/nowcast2_chart.json").read_text())
+    for k,v in n2["meti"].items(): assert len(v)==len(n2["months"]),k
+    n1=json.loads((R/"data/nowcast_chart.json").read_text())
+    for k,v in n1["sppi"].items(): assert len(v)==len(n1["months"]),k
+    ic=json.loads((R/"data/icio_chart.json").read_text())
+    for key in ("out","dig","digimp","en","enimp"):
+        for c,v in ic[key].items(): assert len(v)==len(ic["years"]) and all(0<=x<=100 for x in v),(key,c)
+
+def test_similarity_groups_exist():
+    d=json.loads((R/"data/similarity_map.json").read_text())
+    codes={n["c"] for n in d["nodes"]}
+    for g,v in d["groups"].items(): assert set(v["codes"])<=codes,g
+    assert set(d["coh"])==set(d["groups"])
