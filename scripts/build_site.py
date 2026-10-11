@@ -41,9 +41,8 @@ page("about.html","方法と出典｜Keizai Atlas","データの出典、加工�
 <section><h2 class="text-xl font-bold mb-2">ソフトウェア</h2><p class="text-sm">Tailwind CSS（MIT）、daisyUI（MIT）、3d-force-graph（MIT）を使用。コードは GitHub で管理しています。</p></section>
 </main>''')
 # ---------- explorer
-src=R.parent/"io"/"out"/"industry_explorer.html"
-if not src.exists(): src=S/"explorer.html"
-h=src.read_text(encoding="utf-8")
+tpl=(R/"pipeline"/"explorer_template.html").read_text(encoding="utf-8")
+h=tpl.replace("__DATA__",(R/"data"/"explorer_data.json").read_text(encoding="utf-8"))
 h=h.replace("https://cdn.jsdelivr.net/npm/3d-force-graph@1.73.4/dist/3d-force-graph.min.js","vendor/3d-force-graph.min.js")
 if "<!doctype" not in h.lower():
     h='<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">\n'+h
