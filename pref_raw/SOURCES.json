@@ -1,5 +1,79 @@
 {
- "tokyo":{"name":"東京都","year":2020,"file":"tokyo_2020_37.xlsx","sheet":"（地域内表）取引基本表　統合大分類","name_row":4,"first":5,"code_col":1,"name_col":2,"url":"https://www.toukei.metro.tokyo.lg.jp/sanren/2020/sr20t1.htm"},
- "aichi":{"name":"愛知県","year":2020,"file":"aichi_2020_37_108.xlsx","sheet":"37部門","name_row":5,"first":6,"code_col":1,"name_col":2,"url":"https://www.pref.aichi.jp/soshiki/toukei/io2020.html"},
- "osaka":{"name":"大阪府","year":2020,"file":"osaka_2020_37.csv","url":"https://www.pref.osaka.lg.jp/o040090/toukei/sanren/k-io02k000xls.html"}
+ "tokyo": {
+  "name": "東京都",
+  "year": 2020,
+  "file": "tokyo_2020_37.xlsx",
+  "sheet": "（地域内表）取引基本表　統合大分類",
+  "name_row": 4,
+  "first": 5,
+  "code_col": 1,
+  "name_col": 2,
+  "url": "https://www.toukei.metro.tokyo.lg.jp/sanren/2020/sr20t1.htm"
+ },
+ "aichi": {
+  "name": "愛知県",
+  "year": 2020,
+  "file": "aichi_2020_37_108.xlsx",
+  "sheet": "37部門",
+  "name_row": 5,
+  "first": 6,
+  "code_col": 1,
+  "name_col": 2,
+  "url": "https://www.pref.aichi.jp/soshiki/toukei/io2020.html"
+ },
+ "osaka": {
+  "name": "大阪府",
+  "year": 2020,
+  "file": "osaka_2020_37.csv",
+  "url": "https://www.pref.osaka.lg.jp/o040090/toukei/sanren/k-io02k000xls.html"
+ },
+ "kanagawa": {
+  "name": "神奈川県",
+  "year": 2020,
+  "file": "kanagawa_2020_37.xlsx",
+  "sheet": "生産者価格評価表（37部門）",
+  "name_row": 3,
+  "first": 4,
+  "code_col": 0,
+  "name_col": 1,
+  "url": "https://www.pref.kanagawa.jp/docs/x6z/tc20/sanren/newest.html"
+ },
+ "saitama": {
+  "name": "埼玉県",
+  "year": 2020,
+  "file": "saitama_2020_37.xlsx",
+  "sheet": "取引基本表（生産者価格37部門）",
+  "name_row": 3,
+  "first": 4,
+  "code_col": 0,
+  "name_col": 1,
+  "url": "https://www.pref.saitama.lg.jp/a0206/a152/2020io-main.html"
+ },
+ "chiba": {
+  "name": "千葉県",
+  "year": 2020,
+  "file": "chiba_2020_37.xlsx",
+  "sheet": "生産者価格評価表",
+  "name_row": 2,
+  "first": 3,
+  "code_col": 0,
+  "name_col": 1,
+  "url": "https://www.pref.chiba.lg.jp/toukei/toukeidata/sangyou/r2/2020data.html"
+ },
+ "hyogo": {
+  "name": "兵庫県",
+  "year": 2020,
+  "file": "hyogo_2020_39.xlsx",
+  "sheet": "取引基本表",
+  "name_row": 4,
+  "first": 5,
+  "code_col": 1,
+  "name_col": 2,
+  "merge": {
+   "02": "01",
+   "03": "01"
+  },
+  "url": "https://web.pref.hyogo.lg.jp/kk11/hyogoio/index.html",
+  "note": "兵庫県の表は統合大分類39部門です。このサイトでは、全国の37部門に合わせて、農業・林業・漁業を「農林漁業」に合算しています。"
+ }
 }
