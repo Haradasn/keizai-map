@@ -1,0 +1,22 @@
+name: weekly-report
+# 週次レポート(アクセス解析・検索)。まずは手動実行でキーの確認だけを行う(数値は公開ログに出さない)。
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: pip install google-auth requests
+      - name: キーが使えるか確認(数値は出さない)
+        env:
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+          GSC_SA_JSON: ${{ secrets.GSC_SA_JSON }}
+        run: |
+          python3 scripts/weekly_report.py --check | tee /tmp/check.txt
+          { echo '### キーの確認'; echo '```'; cat /tmp/check.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
