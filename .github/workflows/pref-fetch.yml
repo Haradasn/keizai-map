@@ -3,16 +3,29 @@ on:
   push:
     branches: [feature/pref-fetch]
   workflow_dispatch:
+permissions:
+  contents: write
 jobs:
   list:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: 各県ページのExcel/CSVリンクを列挙
+      - name: ページ取得とリンク一覧
         run: |
-          UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
-          for u in https://www.toukei.metro.tokyo.lg.jp/sanren/2020/sr20index.htm https://www.toukei.metro.tokyo.lg.jp/sanren/sr-index.htm https://www.pref.aichi.jp/soshiki/toukei/io2020.html https://www.pref.aichi.jp/soshiki/toukei/io2015.html; do
-            code=$(curl -s -L -A "$UA" -o /tmp/p.html -w "%{http_code}" "$u")
-            echo "::notice::$u -> $code ($(wc -c </tmp/p.html) bytes)"
-            grep -oiE 'href="[^"]*\.(xlsx?|csv|zip)"' /tmp/p.html | sort -u | head -40 | while IFS= read -r l; do echo "::notice::  $l"; done
+          mkdir -p /tmp/out; UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
+          n=0
+          for u in $(grep -v '^#' scripts/pref_pages.txt); do
+            n=$((n+1)); curl -s -L -A "$UA" -o /tmp/out/page$n.html -w "$n $u %{http_code}\n" "$u" | tee -a /tmp/out/index.txt
+            python3 - "$n" "$u" <<'P'
+          import re,sys,urllib.parse,html
+          n,u=sys.argv[1:]; h=open(f"/tmp/out/page{n}.html",encoding="utf-8",errors="ignore").read()
+          with open(f"/tmp/out/links{n}.tsv","w",encoding="utf-8") as f:
+              for m in re.finditer(r'<a [^>]*href="([^"#]+)"[^>]*>(.*?)</a>',h,re.S):
+                  t=re.sub(r"<[^>]+>","",m.group(2)); t=html.unescape(re.sub(r"\s+"," ",t)).strip()
+                  f.write(urllib.parse.urljoin(u,html.unescape(m.group(1)))+"\t"+t+"\n")
+          P
           done
+      - name: 結果をブランチに保存
+        run: |
+          git config user.name "github-actions[bot]"; git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout --orphan pref-scratch; git rm -rf -q . ; cp -r /tmp/out/. .; git add -A; git commit -q -m "scratch"; git push -f origin pref-scratch
