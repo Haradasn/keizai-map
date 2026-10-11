@@ -1,7 +1,7 @@
 FONTS='<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet">'
 HEAD='''<!doctype html><html lang="ja" data-theme="night"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{title}</title><meta name="description" content="{desc}">
+<title>{title}</title><meta name="description" content="{desc}">{seo}
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="assets.css">
 <script>try{{var t=localStorage.getItem("theme");if(t!=="nord")t="night";document.documentElement.dataset.theme=t}}catch(e){{}}</script>
 </head><body class="bg-base-200 text-base-content font-sans min-h-screen flex flex-col">
@@ -16,3 +16,10 @@ FOOT='''<footer class="footer footer-center p-6 bg-base-100 border-t border-base
 <script>document.getElementById("thm").checked=document.documentElement.dataset.theme==="nord";
 document.getElementById("thm").onchange=function(e){var t=e.target.checked?"nord":"night";document.documentElement.dataset.theme=t;try{localStorage.setItem("theme",t)}catch(x){}}</script>
 </body></html>'''
+
+def seo(path,title,desc,site,name,jsonld=""):
+    url=site+("/" if path in("","index") else "/"+path)
+    return (f'<link rel="canonical" href="{url}"><meta property="og:type" content="website"><meta property="og:site_name" content="{name}">'
+      f'<meta property="og:title" content="{title}"><meta property="og:description" content="{desc}"><meta property="og:url" content="{url}">'
+      f'<meta property="og:image" content="{site}/og.png"><meta property="og:locale" content="ja_JP"><meta name="twitter:card" content="summary_large_image">'
+      f'<meta name="theme-color" content="#0b1120">'+jsonld)
