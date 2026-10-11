@@ -247,3 +247,23 @@ def test_feed_valid():
     es=t.findall("a:entry",ns); assert len(es)>=4
     ids=[e.find("a:id",ns).text for e in es]; assert len(set(ids))==len(ids)
     for f in S.rglob("*.html"): assert 'type="application/atom+xml"' in f.read_text(encoding="utf-8"),f
+
+
+def test_prefecture_pages_and_balance():
+    d=json.loads((R/"data/pref_37.json").read_text(encoding="utf-8"))
+    assert {"tokyo","aichi","osaka"}<=set(d)
+    known={"tokyo":209.8,"aichi":80.0,"osaka":72.1}   # 各県の公表値(兆円)
+    for k,p in d.items():
+        assert abs(p["total_out"]/1e6-known[k])<0.1,(k,p["total_out"])
+        for o in p["sectors"]: assert abs(o["dom_dummy"] if False else (o["dem"]+o["exp"]-o["imp"]-o["out"]))<=max(2,o["out"]*1e-6)
+        assert (S/"prefecture"/f"{k}.html").exists()
+    sm=(S/"sitemap.xml").read_text(encoding="utf-8")
+    assert "/prefectures" in sm and "/prefecture/aichi" in sm
+
+
+def test_prefecture_browser(browser,base):
+    pg=browser.new_page(viewport={"width":390,"height":800}); errs=[]
+    pg.on("pageerror",lambda e:errs.append(str(e)))
+    pg.goto(f"{base}/prefecture/tokyo.html",wait_until="domcontentloaded"); pg.wait_for_timeout(500)
+    assert pg.evaluate("document.documentElement.scrollWidth")<=392 and not errs
+    assert "東京都" in pg.inner_text("h1"); pg.close()
