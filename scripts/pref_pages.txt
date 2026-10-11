@@ -1,7 +1,3 @@
-https://www.toukei.metro.tokyo.lg.jp/sanren/2020/sr20t1.htm
-https://www.pref.osaka.lg.jp/o040090/toukei/sanren/index.html
-https://www.pref.osaka.lg.jp/o040090/toukei/sanren/sanren_k02.html
-https://www.pref.okinawa.jp/site/kikaku/tokei/bunseki/io/bybt/io1.html
-https://www.pref.okinawa.jp/toukeika/io/index.html
-https://www.pref.hokkaido.lg.jp/ss/tuk/900html/sanren.html
-https://www.pref.hokkaido.lg.jp/ss/tuk/900html/sanren/
+https://www.pref.osaka.lg.jp/o040090/toukei/sanren/k-io02k000xls.html
+https://www.pref.okinawa.jp/toukeika/io/info2021/io_info2021.html
+https://www.pref.okinawa.jp/toukeika/io/2020/

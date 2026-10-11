@@ -25,6 +25,12 @@ jobs:
                   f.write(urllib.parse.urljoin(u,html.unescape(m.group(1)))+"\t"+t+"\n")
           P
           done
+      - name: ファイル取得
+        run: |
+          mkdir -p /tmp/out/files; UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
+          for u in $(grep -v '^#' scripts/pref_files.txt); do
+            curl -s -L -A "$UA" -o "/tmp/out/files/$(echo "$u" | sed 's#https\?://##; s#[/:]#_#g')" -w "%{http_code} %{size_download} $u\n" "$u" | tee -a /tmp/out/files.txt
+          done
       - name: 結果をブランチに保存
         run: |
           git config user.name "github-actions[bot]"; git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
