@@ -251,8 +251,8 @@ def test_feed_valid():
 
 def test_prefecture_pages_and_balance():
     d=json.loads((R/"data/pref_37.json").read_text(encoding="utf-8"))
-    assert {"tokyo","aichi","osaka","kanagawa","saitama","chiba","hyogo"}<=set(d)
-    known={"tokyo":209.8,"aichi":80.0,"osaka":72.1,"kanagawa":61.5,"chiba":43.5}   # 各県の公表値(兆円)
+    assert {"tokyo","aichi","osaka","kanagawa","saitama","chiba","hyogo","okinawa"}<=set(d)
+    known={"tokyo":209.8,"aichi":80.0,"osaka":72.1,"kanagawa":61.5,"chiba":43.5,"okinawa":6.9}   # 各県の公表値(兆円)
     for k,p in d.items():
         assert k not in known or abs(p["total_out"]/1e6-known[k])<0.1,(k,p["total_out"])
         for o in p["sectors"]: assert abs(o["dom_dummy"] if False else (o["dem"]+o["exp"]-o["imp"]-o["out"]))<=max(2,o["out"]*1e-6)

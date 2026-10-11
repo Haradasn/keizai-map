@@ -75,5 +75,13 @@
   },
   "url": "https://web.pref.hyogo.lg.jp/kk11/hyogoio/index.html",
   "note": "兵庫県の表は統合大分類39部門です。このサイトでは、全国の37部門に合わせて、農業・林業・漁業を「農林漁業」に合算しています。"
+ },
+ "okinawa": {
+  "name": "沖縄県",
+  "year": 2020,
+  "file": "okinawa_2020_397.xlsx",
+  "special": "okinawa",
+  "url": "https://www.pref.okinawa.jp/toukeika/io/2020/io(2020)top.html",
+  "note": "沖縄県の表は、全国の基本分類に対応した公表用基本分類（397×361部門）です。このサイトでは、これを全国の37部門に合算しています。"
  }
 }

@@ -1,4 +1,1 @@
-https://www.pref.kanagawa.jp/documents/63167/r2data37.xlsx
-https://www.pref.saitama.lg.jp/documents/275311/r2-03701-kihon-seisan.xlsx
-https://www.pref.chiba.lg.jp/toukei/toukeidata/sangyou/r2/documents/02-r2-37.xlsx
-https://web.pref.hyogo.lg.jp/kk11/hyogoio/documents/hyogoio2020-039bumon.xlsx
+https://www.pref.okinawa.jp/toukeika/io/2020/R2okinawa-397dep_r.xlsx
