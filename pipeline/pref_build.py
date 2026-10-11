@@ -109,10 +109,12 @@ def build(slug):
         if X<=0: continue
         va=num(rows[VA_r][j]) if j is not None else None
         intin=num(rows[ti][j]) if j is not None else None
-        e=num(r[cME]) if cME is not None else num(r[cols["輸出"]])+num(r[cols["移出"]])
+        e=num(r[cME]) if cME is not None else num(r[cols["輸出" if "輸出" in cols else "輸出計"]])+num(r[cols["移出"]])
         dem=num(r[cD]); mi=dem+e-X          # 移輸入 = 域内需要 + 移輸出 - 生産額 (需給バランスから)
         # 検証: 公表された移輸入の合計列があれば一致すること、費用側(中間投入+付加価値=生産額)が合うこと
-        if cEI is not None: assert abs(abs(num(r[cEI]))-mi)<=max(2,X*1e-6),(slug,n,"移輸入",num(r[cEI]),mi)
+        if cEI is not None:
+            tax=sum(abs(num(r[cols[k]])) for k in cols if k.startswith("（控除）") and ("関税" in k or "輸入品商品税" in k))   # 鹿児島県は関税・輸入品商品税を別の列に分けている
+            assert min(abs(abs(num(r[cEI]))-mi),abs(abs(num(r[cEI]))+tax-mi))<=max(2,X*1e-6),(slug,n,"移輸入",num(r[cEI]),mi)
         if va is not None and intin is not None: assert abs(intin+va-X)<=max(2,X*1e-6),(slug,n,"費用側",intin+va,X)
         assert mi>=-max(2,X*1e-6),(slug,n,"移輸入が負",mi)
         out.append(dict(c=c,n=n,out=X,va=va,exp=e,imp=max(mi,0),dem=dem))

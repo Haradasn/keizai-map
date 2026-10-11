@@ -208,5 +208,47 @@
   "code_col": 0,
   "name_col": 1,
   "url": "https://www.pref.okayama.jp/page/detail-16600.html"
+ },
+ "mie": {
+  "name": "三重県",
+  "year": 2020,
+  "file": "mie_2020_39.xlsx",
+  "sheet": "2-1",
+  "name_row": 2,
+  "first": 3,
+  "code_col": 0,
+  "name_col": 1,
+  "merge": {
+   "02": "01",
+   "03": "01"
+  },
+  "url": "https://www.pref.mie.lg.jp/DATABOX/00006816699_000010001.htm"
+ },
+ "kagoshima": {
+  "name": "鹿児島県",
+  "year": 2020,
+  "file": "kagoshima_2020_39.xlsx",
+  "sheet": "生産者価格評価表",
+  "name_row": 2,
+  "first": 3,
+  "code_col": 0,
+  "name_col": 1,
+  "merge": {
+   "02": "01",
+   "03": "01"
+  },
+  "scale": 0.01,
+  "url": "https://www.pref.kagoshima.jp/ac09/tokei/bunya/keizai/renkan/keisu.html"
+ },
+ "gunma": {
+  "name": "群馬県",
+  "year": 2020,
+  "file": "gunma_2020_37.xlsx",
+  "sheet": "2-（1）",
+  "name_row": 4,
+  "first": 5,
+  "code_col": 1,
+  "name_col": 2,
+  "url": "https://toukei.pref.gunma.jp/gio/gio2020.html"
  }
 }
