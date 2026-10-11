@@ -35,7 +35,7 @@ def build(page,S,SITE_URL):
 <div class="card bg-base-100 border border-base-300"><div class="card-body p-4 gap-0"><span class="text-xs text-base-content/60">移輸出（産出額比）</span><b class="text-xl">{pct(p["exp_total"]/T)}</b></div></div>
 <div class="card bg-base-100 border border-base-300"><div class="card-body p-4 gap-0"><span class="text-xs text-base-content/60">移輸入（産出額比）</span><b class="text-xl">{pct(p["imp_total"]/T)}</b></div></div></section>
 <section class="space-y-2"><h2 class="text-xl font-bold">全国より集中している産業（特化係数）</h2><p class="text-sm text-base-content/70">{esc(nm)}の産出額に占める割合を、全国の割合で割った値です（<a class="link" href="glossary.html#tokka-keisu">特化係数</a>）。1より大きいほど、全国平均より{esc(nm)}に集中しています。産出額の割合が0.5%以上の産業のみ。</p><div class="card bg-base-100 border border-base-300"><div class="card-body p-3">{lqbars([(o["n"],o["lq"]) for o in top])}</div></div>
-<p class="text-sm text-base-content/70">逆に、全国より少ない産業：{"、".join(f'{esc(o["n"])}（{o["lq"]:.2f}）' for o in low)}。</p>{hqnote}</section>
+<p class="text-sm text-base-content/70">逆に、全国より少ない産業：{"、".join(f'{esc(o["n"])}（{o["lq"]:.2f}）' for o in low)}。</p>{hqnote}{('<p class="text-sm text-base-content/70">注：'+esc(p.get("note",""))+'</p>') if p.get("note") else ""}</section>
 <section class="space-y-2"><h2 class="text-xl font-bold">37部門の一覧</h2>{table(rows,["産業","産出額（兆円）","産出額に占める割合","全国の割合","特化係数","付加価値率","移輸出（産出額比）","移輸入（域内需要比）"])}<p class="text-xs text-base-content/60">移輸出＝輸出＋他の都道府県への移出。移輸入＝輸入＋他の都道府県からの移入。移輸入は、その産業の域内需要（中間需要と域内の最終需要の合計）に対する割合です。</p></section>
 <section class="space-y-2"><h2 class="text-xl font-bold">読むときの注意</h2><ul class="list-disc pl-6 text-sm space-y-1 text-base-content/80"><li>特化係数は、産業の「集中度」の目安です。競争力や収益性を表すものではありません。</li><li>全国との比較に使う全国の値は、このサイトの{2020}年の37部門表です。県の表は各県が独自に作成しており、集計の細部は一致しない場合があります。</li><li>移輸出入には、海外との取引に加えて、他の都道府県との取引が含まれます。</li></ul></section>
 <p class="text-xs text-base-content/60">出典：{esc(nm)}「{p["year"]}年（令和2年）産業連関表」の取引基本表（<a class="link" href="{p["url"]}" rel="noopener">公表ページ</a>）を筆者が集計。政府・自治体が作成したものではありません。<a class="link" href="about.html">方法と出典</a></p>
@@ -45,9 +45,9 @@ def build(page,S,SITE_URL):
     cards="".join(f'<a href="prefecture/{k}.html" class="card bg-base-100 border border-base-300 hover:border-primary transition"><div class="card-body gap-1 p-5"><h3 class="font-bold">{esc(p["name"])}</h3><p class="text-sm text-base-content/80">産出額 {tril(p["total_out"])}兆円。特化: {"、".join(esc(o["n"]) for o in sorted([o for o in p["sectors"] if o["lq"] and o["share"]>=0.005],key=lambda o:-o["lq"])[:3])}</p></div></a>' for k,p in D.items())
     trs=[[f'<a class="link link-primary" href="prefecture/{k}.html">{esc(p["name"])}</a>',tril(p["total_out"]),pct(p["total_va"]/p["total_out"]),pct(p["exp_total"]/p["total_out"]),pct(p["imp_total"]/p["total_out"])] for k,p in D.items()]
     body=f'''<main class="flex-1 w-full max-w-4xl mx-auto px-4 py-10 space-y-8">
-<header class="space-y-3"><h1 class="text-3xl font-bold">県別の産業構造</h1><p class="text-base-content/80">各都道府県が公表した2020年の産業連関表から、産業の構成を全国と比べます。現在は東京都・愛知県・大阪府の3つです。順次、追加します。</p></header>
-<section class="grid sm:grid-cols-3 gap-3">{cards}</section>
-<section class="space-y-2"><h2 class="text-xl font-bold">3つの県の比較</h2>{table(trs,["都道府県","産出額（兆円）","付加価値率","移輸出（産出額比）","移輸入（産出額比）"])}</section>
+<header class="space-y-3"><h1 class="text-3xl font-bold">県別の産業構造</h1><p class="text-base-content/80">各都道府県が公表した2020年の産業連関表から、産業の構成を全国と比べます。現在は{len(D)}都府県（東京都・神奈川県・埼玉県・千葉県・愛知県・大阪府・兵庫県）です。順次、追加します。</p></header>
+<section class="grid sm:grid-cols-2 gap-3">{cards}</section>
+<section class="space-y-2"><h2 class="text-xl font-bold">都府県の比較</h2>{table(sorted(trs,key=lambda r:-float(r[1])),["都道府県","産出額（兆円）","付加価値率","移輸出（産出額比）","移輸入（産出額比）"])}</section>
 <p class="text-xs text-base-content/60">出典：各都道府県「2020年（令和2年）産業連関表」を筆者が集計。政府・自治体が作成したものではありません。<a class="link" href="about.html">方法と出典</a></p></main>'''
-    page("prefectures.html","県別の産業構造（東京・愛知・大阪）｜Keizai Atlas","東京都・愛知県・大阪府の2020年産業連関表から、産業構造と全国との違い（特化係数）、移輸出入の割合を比べる。",body)
+    page("prefectures.html","県別の産業構造（東京・愛知・大阪など7都府県）｜Keizai Atlas","東京都・神奈川県・埼玉県・千葉県・愛知県・大阪府・兵庫県の2020年産業連関表から、産業構造と全国との違い（特化係数）、移輸出入の割合を比べる。",body)
     return paths

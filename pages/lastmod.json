@@ -616,7 +616,7 @@
   "date": "2026-10-11"
  },
  "/prefectures": {
-  "hash": "522e75e17368d440",
+  "hash": "692a8aa68fbcfda0",
   "date": "2026-10-11"
  },
  "/prefecture/tokyo": {
@@ -628,7 +628,23 @@
   "date": "2026-10-11"
  },
  "/prefecture/osaka": {
-  "hash": "058442f0c94f3cc6",
+  "hash": "1d1c07bbce0fccce",
+  "date": "2026-10-11"
+ },
+ "/prefecture/kanagawa": {
+  "hash": "c84f3788d9ec37b3",
+  "date": "2026-10-11"
+ },
+ "/prefecture/saitama": {
+  "hash": "69b25007c8767d66",
+  "date": "2026-10-11"
+ },
+ "/prefecture/chiba": {
+  "hash": "a805f83dc5aab6b3",
+  "date": "2026-10-11"
+ },
+ "/prefecture/hyogo": {
+  "hash": "269de466d38ad528",
   "date": "2026-10-11"
  }
 }
