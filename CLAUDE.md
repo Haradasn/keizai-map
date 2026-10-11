@@ -8,6 +8,9 @@
 - データ生成: `pipeline/*.py`(`scripts/run_all.sh`)。生データは `raw/`(gitignore)、県別の原本は `pref_raw/`(コミット済み、出典は `pref_raw/SOURCES.json`)。
 - CSS は Tailwind+daisyUI を `npm run build:css` で `site/assets.css` にビルドし、**コミットする**(CI が最新かを検査)。HTML に新しいクラスを足したら必ず再ビルド。
 - 共有画像(OGP)は `scripts/build_ogp.py`(Noto Sans CJK 必要)。CIでは実行しない。データが変わったら `build_site.py` → `build_ogp.py` の順に実行して `site/og*` をコミット。
+- トップ(`pages/index.html`): 発見のカルーセル(`pages/insights.js` → `site/insights.js`)。スライドの数値は `{{...}}`、県別は `pref-map-data.js`、つながりは `net-mini.js`(build_site が出力)から JS で計算。
+- 3D: 県の立体地図は `pages/prefmap.js`(`data-prefmap="hero|page"`、トップは沖縄・奄美をはめ込み表示)。境界 `site/vendor/japan-pref.json` は地球地図日本(国土地理院)を `scripts/build_geo.py` で簡略化(非営利・出典明記が条件)。ライブラリは `site/vendor/` に同梱(MapLibre GL JS、3d-force-graph)。CDN は使わない。
+- 産業マップ: `pipeline/explorer_template.html` を build_site が共通シェルに入れて出力。`explorer.html?sel=66` で産業を選んだ状態で開く。
 - 更新履歴/RSS: `pages/changelog.json`(`scripts/add_changelog.py`)。ページや機能を足したら1件追記。
 
 ## 作業ルール
@@ -16,6 +19,9 @@
 - 文章: 事実(統計から確定できること)と、筆者の推測は分ける。推測には「仮説」と明記。政府が作成・保証したものではない旨を保つ。投資判断に使えるような書き方をしない。
 - 数値は手書きしない。生成物の文章中の数値は `{{...}}` かデータから生成。県別は需給バランス・費用側の検証(assert)を通すこと。
 - ユーザーは日本語。報告は簡潔に、結論から。
+
+- 確認: 画面の変更は Playwright で 1280px と 390px のスクリーンショットを撮って目で確認(WebGL は `--use-gl=swiftshader` で描ける)。サーバーは PID を控えて kill する(`pkill -f` は自分のシェルも止める)。
+- 実装の分担: 仕様が決まったコード実装はサブエージェント(Sonnet)に任せ、見た目の確認・手直し・マージ判断はこちらで行うと安い。
 
 ## 落とし穴
 - 政府サイトはサンドボックスから取れない。取得は GitHub Actions の `pref-fetch`(手動実行、`scripts/pref_pages.txt` / `pref_files.txt` を読み、結果を `pref-scratch` ブランチに置く)か、`monthly-update` の `fetch_latest.sh`。経産省は UA と Referer が必要。
@@ -26,4 +32,4 @@
 - 県の表は形式がバラバラ。37部門ベースなら `SOURCES.json` に列位置を書けば追加できる。合算が必要なもの(沖縄=397部門、北海道=独自38部門、兵庫・福岡=39部門)は個別処理がある。
 
 ## 未対応・候補
-Search Console の確認、アクセス解析(未導入)、Ruleset の「PR 必須」の再設定、他の都道府県、用語集への内部リンクの拡充。
+アクセス解析は Cloudflare Web Analytics を導入済み(2026-10、ユーザーが設定)。週次レポートの自動化(Cloudflare/Search Console の閲覧用トークンを GitHub Secrets に入れる必要あり)、Ruleset の「PR 必須」の再設定、残り23県(PDFのみの県の扱い)、用語集への内部リンクの拡充、スマホ実機での表示速度の確認。

@@ -48,6 +48,23 @@ def metrics():
         M[f"q_{key}"]=sgn(t[f"{key}_q_idx"][-1]-100,0); M[f"p_{key}"]=f"{F(t[f'{key}_p_idx'][-1]/100,1)}"
     ytd=t["fuel_ytd"]; M["ytd_m"]=ytd["last_month"]; M["ytd_1"],M["ytd_0"]=f"{F(ytd['v2026'],1)}",f"{F(ytd['v2025'],1)}"; M["ytd_pct"]=f"{F((ytd['v2026']/ytd['v2025']-1)*100,0)}"
     M["pc_0"],M["pc_1"]=f"{F(t['pc_v'][0],1)}",f"{F(t['pc_v'][-1],1)}"; M["pc_pct"]=sgn((t['pc_v'][-1]/t['pc_v'][0]-1)*100,0); M["pc_px"]=f"{F(t['pc_p_idx'][-1]/100,1)}"
+    # --- 6. OECD ICIO(5か国)
+    import csv as _csv
+    rows=list(_csv.DictReader(open(R/"data/icio_summary_5countries.csv",encoding="utf-8")))
+    Y=sorted({r["year"] for r in rows}); y0,y1=Y[0],Y[-1]; M["icio_y0"],M["icio_y1"]=y0,y1
+    v=lambda c,y,k:float(next(r[k] for r in rows if r["country"]==c and r["year"]==y))
+    for c in ("JPN","USA","DEU","KOR","CHN"):
+        cl=c.lower(); xs=[v(c,y,"outsourcing_share_pct") for y in Y]
+        M[f"icio_out_{cl}"]=F(v(c,y1,"outsourcing_share_pct"),0)                       # 最新年の外注比率(%)
+        lo,hi=F(min(xs),0),F(max(xs),0); M[f"icio_out_{cl}_rng"]=lo if lo==hi else f"{lo}〜{hi}"   # 期間中の範囲
+        M[f"icio_out_{cl}1"]=F(v(c,y1,"outsourcing_share_pct"),1)
+        M[f"icio_enimp_{cl}"]=F(v(c,y1,"energy_import_share_pct"),0)
+    M["icio_out_half"]="半分以下" if v("JPN",y1,"outsourcing_share_pct")<0.5*v("USA",y1,"outsourcing_share_pct") else "半分程度"
+    M["icio_digimp0"],M["icio_digimp1"]=F(v("JPN",y0,"digital_import_share_pct"),1),F(v("JPN",y1,"digital_import_share_pct"),1)
+    M["icio_en_y0"]=str(int(y1)-2)
+    for c in ("JPN","DEU"):
+        M[f"icio_en_{c.lower()}0"],M[f"icio_en_{c.lower()}1"]=F(v(c,M["icio_en_y0"],"energy_share_pct"),1),F(v(c,y1,"energy_share_pct"),1)
+    M["icio_enimp_jpn0"]=F(v("JPN",M["icio_en_y0"],"energy_import_share_pct"),0)
     return M
 def render(text,M):
     import re
