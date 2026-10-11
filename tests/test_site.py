@@ -94,3 +94,12 @@ def test_theme_toggle(browser,base):
 def test_pipeline_scripts_compile():
     import py_compile
     for f in sorted((R/"pipeline").glob("*.py")): py_compile.compile(str(f),doraise=True)
+
+def test_shared_charts_js_and_palette():
+    js=(S/"charts.js").read_text(encoding="utf-8")
+    assert js.startswith("var KA={pal:") and "KA.line=" in js
+    for name in ("international","latest","similarity"):
+        assert '<script src="charts.js">' in (S/f"{name}.html").read_text(encoding="utf-8")
+    # 折れ線チャートの色はパレット経由(ページ本文に折れ線用の直書き色を残さない)
+    for name in ("international","latest"):
+        assert not re.search(r'c:"#[0-9a-f]{6}"',(R/"pages"/f"{name}.html").read_text(encoding="utf-8"))

@@ -1,0 +1,31 @@
+<main class="flex-1 max-w-5xl mx-auto px-4 py-10 space-y-10">
+<header class="space-y-3"><h1 class="text-3xl font-bold">国際比較：日・米・中・独・韓</h1>
+<p class="text-base-content/80">OECD の国際産業連関表（ICIO 2025年版、2016〜2022年）から、各国の産業が「何を仕入れているか」を比べます。指標は<b>中間投入（原材料・サービスの仕入れ）全体に占める割合</b>です。輸入分も含みます。</p>
+<div role="alert" class="alert alert-warning"><span>日本の表（総務省の産業連関表）とは部門の切り方が違うため、数値は国内版と一致しません。解釈は筆者の仮説です。</span></div></header>
+<section class="space-y-3"><h2 class="text-2xl font-bold">1. 外注（専門・事業支援サービス）</h2>
+<p class="text-base-content/80">専門・科学技術サービス（法務・会計・コンサル・研究開発・広告など）と、事業支援サービス（人材派遣・警備・清掃・レンタルなど）の仕入れ比率。</p>
+<div class="card bg-base-100 border border-base-300"><div class="card-body"><div id="c-out"></div></div></div>
+<p class="text-sm text-base-content/80"><b>読み取り:</b> 米国は約20%、ドイツ約16%に対し、日本は8〜9%、韓国も同水準、中国は5〜6%です。日本は「外注にお金が流れる国」とは言えず、国内版で大きく見える対事業所サービスは、ICIOでは定義が狭いために小さく出ている可能性があります（仮説）。</p></section>
+<section class="space-y-3"><h2 class="text-2xl font-bold">2. デジタル（情報通信・情報サービス）</h2>
+<p class="text-base-content/80">出版・放送、通信、情報サービス（IT・クラウド等）の仕入れ比率と、そのうち輸入の比率。</p>
+<div class="grid gap-4 md:grid-cols-2"><div class="card bg-base-100 border border-base-300"><div class="card-body"><h3 class="font-bold">仕入れに占める割合（%）</h3><div id="c-dig"></div></div></div>
+<div class="card bg-base-100 border border-base-300"><div class="card-body"><h3 class="font-bold">そのうち輸入の割合（%）</h3><div id="c-digimp"></div></div></div></div>
+<p class="text-sm text-base-content/80"><b>読み取り:</b> 日本のデジタル仕入れ比率は2016〜2022年でほぼ横ばい（2020年は分母の縮小で一時的に高く出る）ですが、<b>輸入比率は8.7%から13.0%に上昇</b>しました。韓国・ドイツも上昇しています。海外のクラウドやソフトウェアへの支払いが増えた可能性があります（仮説）。2023年以降の生成AIの影響は、この表には入っていません。</p></section>
+<section class="space-y-3"><h2 class="text-2xl font-bold">3. エネルギー（石炭・石油ガス・石油製品・電気ガス）</h2>
+<div class="grid gap-4 md:grid-cols-2"><div class="card bg-base-100 border border-base-300"><div class="card-body"><h3 class="font-bold">仕入れに占める割合（%）</h3><div id="c-en"></div></div></div>
+<div class="card bg-base-100 border border-base-300"><div class="card-body"><h3 class="font-bold">そのうち輸入の割合（%）</h3><div id="c-enimp"></div></div></div></div>
+<p class="text-sm text-base-content/80"><b>読み取り:</b> 2022年は、価格高騰でエネルギーの比率が各国で跳ね上がりました（日本 7.3%→11.5%、ドイツ 5.1%→8.7%、2020→2022年）。日本の輸入比率は31%→47%と急上昇し、米国（14%）・中国（15%）との差が開きました。ドイツ（35%）は日本より低い水準です。</p></section>
+<section class="text-sm text-base-content/70 space-y-1"><h2 class="text-lg font-bold text-base-content">方法と注意</h2>
+<ul class="list-disc pl-6"><li>出典：OECD Inter-Country Input-Output (ICIO) Tables, 2025 edition（regular ICIO）を筆者が集計。加工・解釈は筆者によるもので、OECDが作成・保証したものではありません。</li>
+<li>各国の産業（50部門）の列に対する、全世界の売り手からの仕入れを合計し、部門グループごとの割合を計算しています。名目値のため、価格変動の影響を含みます。</li>
+<li>2020年はコロナ禍で全体が縮み、割合が一時的に動きます。集計スクリプトは <code>pipeline/icio_agg.py</code> にあります。</li></ul></section>
+</main>
+<script src="charts.js"></script>
+<script>
+(function(){
+var D=__ICIO__,P=KA.pal,C=[["JPN","日本",3.2],["USA","米国",1.8],["CHN","中国",1.8],["DEU","ドイツ",1.8],["KOR","韓国",1.8]];
+function chart(id,key){KA.line(document.getElementById(id),C.map(function(c){return {n:c[1],v:D[key][c[0]],c:P.c[P.country[c[0]]],w:c[2]}}),
+ {labels:D.years,W:470,H:260,L:40,R:96,zero:true,aria:key+" 国別推移",xlabel:function(i,y){return (i%2==0||i==D.years.length-1)?y:null}})}
+chart("c-out","out");chart("c-dig","dig");chart("c-digimp","digimp");chart("c-en","en");chart("c-enimp","enimp");
+})();
+</script>
