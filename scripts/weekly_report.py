@@ -3,13 +3,15 @@
   python3 scripts/weekly_report.py --check   … キーが使えるかだけ確認(数値は出さない。公開リポジトリのログに残るため)
   python3 scripts/weekly_report.py > report.md
 """
-import os,sys,json,datetime as dt,urllib.request,urllib.parse
+import os,sys,json,datetime as dt,urllib.request,urllib.parse,urllib.error
 CHECK="--check" in sys.argv
-def post(url,body,headers):
-    req=urllib.request.Request(url,data=json.dumps(body).encode(),headers={"Content-Type":"application/json",**headers})
-    with urllib.request.urlopen(req,timeout=60) as r: return json.load(r)
-def get(url,headers):
-    with urllib.request.urlopen(urllib.request.Request(url,headers=headers),timeout=60) as r: return json.load(r)
+def _open(req):
+    try:
+        with urllib.request.urlopen(req,timeout=60) as r: return json.load(r)
+    except urllib.error.HTTPError as e:                     # 原因が分かるよう、応答の本文の先頭を添える(キーは含まれない)
+        raise RuntimeError(f"HTTP {e.code} {e.read()[:300].decode('utf-8','replace')}") from None
+def post(url,body,headers): return _open(urllib.request.Request(url,data=json.dumps(body).encode(),headers={"Content-Type":"application/json",**headers}))
+def get(url,headers): return _open(urllib.request.Request(url,headers=headers))
 
 # ---------- Cloudflare Web Analytics(GraphQL Analytics API, rumPageloadEventsAdaptiveGroups)
 def cloudflare(start,end):
@@ -46,26 +48,31 @@ def gsc(start,end):
     return site,out,None
 
 if __name__=="__main__":
-    today=dt.date.today(); e=today; s=e-dt.timedelta(days=7)          # Cloudflare: 直近7日
+    from zoneinfo import ZoneInfo
+    today=dt.datetime.now(ZoneInfo('Asia/Tokyo')).date(); e=today;   # 日本時間の日付で集計 s=e-dt.timedelta(days=7)          # Cloudflare: 直近7日
     ge=today-dt.timedelta(days=3); gs=ge-dt.timedelta(days=6)          # Search Console は2〜3日遅れて確定するので、3日前までの7日間
-    cf,cerr=cloudflare(s,e); site,g,gerr=gsc(gs,ge)
+    try: cf,cerr=cloudflare(s,e)
+    except Exception as x: cf,cerr=None,f"{type(x).__name__}: {getattr(x,'reason','') or x}"[:300]
+    try: site,g,gerr=gsc(gs,ge)
+    except Exception as x: site,g,gerr=None,None,f"{type(x).__name__}: {getattr(x,'reason','') or x}"[:300]
     if CHECK:
-        print("Cloudflare:", "OK" if cf is not None else "NG - "+cerr)
-        print("Search Console:", ("OK ("+site+")") if g is not None else "NG - "+gerr)
+        # GitHub Actions のアノテーションとして結果を残す(数値は含めない)
+        print(("::notice::Cloudflare OK" if cf is not None else "::error::Cloudflare NG - "+str(cerr)).replace("\n"," "))
+        print(("::notice::Search Console OK ("+site+")" if g is not None else "::error::Search Console NG - "+str(gerr)).replace("\n"," "))
         sys.exit(0 if (cf is not None and g is not None) else 1)
     L=[f"# Keizai Atlas 週次レポート（{today.isoformat()}）",""]
     if cf is not None:
         t=(cf["total"] or [{"count":0,"sum":{"visits":0}}])[0]
         L+=[f"## アクセス（Cloudflare、{s}〜{e - dt.timedelta(days=1)}）",f"- ページビュー {t['count']:,}　訪問 {t['sum']['visits']:,}","","| ページ | PV |","|---|---:|"]
-        L+=[f"| {x['dimensions']['requestPath']} | {x['count']:,} |" for x in cf["pages"]]
-        L+=["","参照元："+"、".join(f"{x['dimensions']['refererHost'] or '(直接)'} {x['count']}" for x in cf["refs"]),
-            "国："+"、".join(f"{x['dimensions']['countryName']} {x['count']}" for x in cf["countries"]),
-            "端末："+"、".join(f"{x['dimensions']['deviceType']} {x['count']}" for x in cf["devices"]),""]
+        L+=[f"| {x['dimensions']['requestPath']} | {x['count']:,} |" for x in cf["pages"]] or ["| （データなし） | |"]
+        L+=["","参照元："+("、".join(f"{x['dimensions']['refererHost'] or '(直接)'} {x['count']}" for x in cf["refs"]) or "なし"),
+            "国："+("、".join(f"{x['dimensions']['countryName']} {x['count']}" for x in cf["countries"]) or "なし"),
+            "端末："+("、".join(f"{x['dimensions']['deviceType']} {x['count']}" for x in cf["devices"]) or "なし"),""]
     else: L+=["## アクセス","取得できませんでした："+cerr,""]
     if g is not None:
         t=(g["total"] or [{"clicks":0,"impressions":0,"ctr":0,"position":0}])[0]
         L+=[f"## Google検索（Search Console、{gs}〜{ge}）",f"- クリック {t['clicks']:,.0f}　表示回数 {t['impressions']:,.0f}　CTR {t['ctr']*100:.1f}%　平均掲載順位 {t['position']:.1f}","","| 検索語 | クリック | 表示 | 順位 |","|---|---:|---:|---:|"]
-        L+=[f"| {x['keys'][0]} | {x['clicks']:.0f} | {x['impressions']:.0f} | {x['position']:.1f} |" for x in g["queries"]]
-        L+=["","| ページ | クリック | 表示 |","|---|---:|---:|"]+[f"| {x['keys'][0].replace('https://keizai-atlas.com','')} | {x['clicks']:.0f} | {x['impressions']:.0f} |" for x in g["pages"]]
+        L+=[f"| {x['keys'][0]} | {x['clicks']:.0f} | {x['impressions']:.0f} | {x['position']:.1f} |" for x in g["queries"]] or ["| （データなし） | | | |"]
+        L+=["","| ページ | クリック | 表示 |","|---|---:|---:|"]+[f"| {x['keys'][0].replace('https://keizai-atlas.com','')} | {x['clicks']:.0f} | {x['impressions']:.0f} |" for x in g["pages"]] or ["| （データなし） | | |"]
     else: L+=["## Google検索","取得できませんでした："+gerr]
     print("\n".join(L))
