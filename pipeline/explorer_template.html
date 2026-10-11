@@ -1,0 +1,285 @@
+<title>産業マップ</title>
+<style>
+:root{
+  --bg:#f4f5f7; --panel:#ffffff; --panel2:#eef0f4; --fg:#14181f; --muted:#5a6270; --line:#d9dde5;
+  --accent:#1f5fd1; --up:#1f6fd8; --flat:#8d94a3; --down:#d9581f; --graph:#eef1f6; --label:#14181f; --chip:#e3e8f2;
+  --font-ui:"Noto Sans JP",system-ui,sans-serif; --font-num:"IBM Plex Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0c0f15; --panel:#141923; --panel2:#1b2230; --fg:#e8ecf4; --muted:#98a2b5; --line:#262e3d;
+  --accent:#6aa3ff; --up:#5aa0ff; --flat:#7c8597; --down:#ff8a4d; --graph:#080b11; --label:#dfe6f3; --chip:#222b3c; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0c0f15; --panel:#141923; --panel2:#1b2230; --fg:#e8ecf4; --muted:#98a2b5; --line:#262e3d;
+  --accent:#6aa3ff; --up:#5aa0ff; --flat:#7c8597; --down:#ff8a4d; --graph:#080b11; --label:#dfe6f3; --chip:#222b3c; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-ui);font-size:14px;line-height:1.6;padding-inline:16px;padding-block:14px}
+h1{font-size:20px;margin:0;font-weight:700;letter-spacing:.02em}
+.sub{color:var(--muted);font-size:12.5px;margin:2px 0 12px}
+.wrap{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:14px;align-items:start}
+@media(max-width:900px){.wrap{grid-template-columns:minmax(0,1fr)}}
+.stage{position:relative;background:var(--graph);border:1px solid var(--line);border-radius:6px;height:min(76vh,720px);min-height:420px;overflow:hidden}
+#g{position:absolute;inset:0}
+#flow[hidden]{display:none}#flow{position:absolute;inset:0;width:100%;height:100%}#flow text{fill:var(--label);font-size:11.5px;font-family:var(--font-ui)}#flow .fl{cursor:pointer;transition:opacity .15s}#labels{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.lb{position:absolute;transform:translate(-50%,0);font-size:11.5px;color:var(--label);white-space:nowrap;text-shadow:0 0 3px var(--graph),0 0 3px var(--graph);transition:opacity .15s}
+.lb.dim{opacity:.18}
+.ctrl{position:absolute;left:10px;top:10px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:color-mix(in srgb,var(--panel) 88%,transparent);border:1px solid var(--line);border-radius:6px;padding:6px 10px;font-size:12px;max-width:calc(100% - 20px)}
+.ctrl label{display:flex;align-items:center;gap:6px;color:var(--muted)}
+.ctrl input[type=range]{width:110px;accent-color:var(--accent)}
+button,select{font:inherit;font-size:12px;color:var(--fg);background:var(--chip);border:1px solid var(--line);border-radius:4px;padding:3px 8px;cursor:pointer}
+button[aria-pressed="true"]{background:var(--accent);color:#fff;border-color:var(--accent)}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.legend{position:absolute;left:10px;bottom:10px;background:color-mix(in srgb,var(--panel) 88%,transparent);border:1px solid var(--line);border-radius:6px;padding:7px 10px;font-size:11.5px;display:flex;flex-wrap:wrap;gap:4px 12px;max-width:calc(100% - 20px)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+.legend .ln{display:inline-block;width:18px;height:3px;margin-right:5px;vertical-align:3px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:14px 16px;max-height:76vh;overflow:auto;min-height:420px}
+@media(max-width:900px){.panel{max-height:none}}
+.panel h2{font-size:16px;margin:0 0 2px}
+.panel h3{font-size:12px;margin:16px 0 6px;color:var(--muted);font-weight:600;letter-spacing:.06em}
+.kv{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:10px 0}
+.kv div{background:var(--panel2);border-radius:4px;padding:6px 8px}
+.kv b{display:block;font-family:var(--font-num);font-size:15px;font-weight:600;font-variant-numeric:tabular-nums}
+.kv span{font-size:11px;color:var(--muted)}
+.row{display:flex;align-items:center;gap:8px;padding:5px 6px;border-radius:4px;cursor:pointer;min-width:0}
+.row:hover{background:var(--panel2)}
+.row .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row .num{font-family:var(--font-num);font-size:12px;font-variant-numeric:tabular-nums;color:var(--muted);white-space:nowrap}
+.bar{height:6px;border-radius:3px;background:var(--panel2);position:relative;width:90px;flex:none}
+.bar>i{position:absolute;top:0;bottom:0;border-radius:3px}
+.bar:before{content:"";position:absolute;left:50%;top:-2px;bottom:-2px;width:1px;background:var(--line)}
+.tag{display:inline-block;font-size:10.5px;padding:0 6px;border-radius:9px;background:var(--chip);color:var(--fg);margin-left:4px;white-space:nowrap}
+.tag.B1{background:#1f6fd822;color:var(--up)}
+.story{background:var(--panel2);border-radius:5px;padding:9px 11px;margin:8px 0;font-size:13px}
+.story small{color:var(--muted);display:block;margin-top:4px;font-size:11.5px}
+.back{font-size:12px;color:var(--accent);cursor:pointer;margin-bottom:6px;display:inline-block}
+.note{font-size:11.5px;color:var(--muted)}
+.sel{width:100%;margin:6px 0 4px}
+svg text{fill:var(--muted);font-size:10px;font-family:var(--font-num)}
+#fallback{position:absolute;left:0;right:0;bottom:56px;display:none;justify-content:center;text-align:center;padding:6px 20px;color:var(--muted);font-size:12px;pointer-events:none;z-index:1}
+.ctrl,.legend{z-index:2}
+</style>
+<h1>産業マップ</h1>
+<p class="sub">日本の37部門の取引。円=生産額、線=売り手→買い手の取引額、色=増減。円や線をクリックすると中身と仮説に入れます。配置は固定で、同じ色(部門グループ)がまとまるように並べています。距離そのものに厳密な意味はありません。</p>
+<div class="wrap">
+  <div class="stage" id="stage">
+    <div id="g"></div><svg id="flow" hidden></svg><div id="labels"></div>
+    <div class="ctrl">
+      <span><button id="v-3d" aria-pressed="true">3D</button><button id="v-fl" aria-pressed="false">フロー</button></span>
+      <span><button id="p-20" aria-pressed="true">2020年</button><button id="p-ch" aria-pressed="false">2020→2022の変化</button></span>
+      <label>表示する取引<input id="topn" type="range" min="20" max="200" step="10" value="70"><span id="topnv" class="num" style="font-family:var(--font-num)">70</span>本</label>
+      <span><button id="m-grp" aria-pressed="true">部門色</button><button id="m-gro" aria-pressed="false">増減色</button></span>
+      <button id="b-flow" aria-pressed="true">流れ</button>
+      <button id="b-rot" aria-pressed="false">回転</button>
+      <button id="b-reset">全体に戻す</button>
+    </div>
+    <div class="legend" id="legend"></div>
+    <div id="fallback">3Dを表示できなかったため、フロー図に切り替えました(WebGLまたはライブラリの読み込みに失敗)。</div>
+  </div>
+  <aside class="panel" id="panel" aria-live="polite"></aside>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/3d-force-graph@1.73.4/dist/3d-force-graph.min.js"></script>
+<script>
+const D=__DATA__;
+const GC=["#2a78d6","#eb6834","#1baf7a","#eda100","#e87ba4","#009a2e","#7a68e8","#e34948"];
+const N=Object.fromEntries(D.nodes.map(n=>[n.id,n]));
+const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const fmt=(x,d=1)=>x==null?"–":Number(x).toLocaleString("ja-JP",{minimumFractionDigits:d,maximumFractionDigits:d});
+const sgn=x=>x==null?"–":(x>0?"+":"")+fmt(x,1);
+const trendCol=g=>g>=2?css("--up"):g<=-2?css("--down"):css("--flat");
+
+let topN=70, mode="grp", sel=null, flow=true, Graph=null, period="y20", view="3d";
+const $=id=>document.getElementById(id);
+const CH=()=>period==="chg";
+const val=e=>CH()?e.v22:e.v;
+const tr=e=>{ if(CH()){const d=(e.s22!=null&&e.s20!=null)?e.s22-e.s20:0; return d>=0.8?1:d<=-0.8?-1:0} const g=e.g||0; return g>=2?1:g<=-2?-1:0 };
+const trCol=e=>({1:css("--up"),0:css("--flat"),"-1":css("--down")})[tr(e)];
+function listEdges(){
+  const a=D.edges.filter(e=>val(e)!=null&&val(e)>0).sort((x,y)=>val(y)-val(x));
+  return a.slice(0,topN);
+}
+function links(){return listEdges().map(e=>({source:e.s,target:e.t,e}))}
+function nodeCol(n){
+  if(mode==="gro"){ if(CH()){const g=n.rg; if(g==null) return css("--flat"); return g>=8?css("--up"):g<=0?css("--down"):css("--flat")}
+    const g=n.cagr; return g>=2?css("--up"):g<=-2?css("--down"):css("--flat")}
+  return GC[n.grp];
+}
+const nOut=n=>CH()&&n.o22!=null?n.o22:n.out;
+function isNear(id){ if(!sel) return true; if(sel.type==="n") return id===sel.id||listEdges().some(e=>(e.s===sel.id&&e.t===id)||(e.t===sel.id&&e.s===id));
+  return id===sel.e.s||id===sel.e.t; }
+function isSelEdge(e){ if(!sel) return true; if(sel.type==="n") return e.s===sel.id||e.t===sel.id; return e===sel.e; }
+function legend(){
+  const el=$("legend");
+  const nodeTxt=CH()?["部門の数量が増加(2年で+8%〜)","横ばい","減少(0%以下)"]:["部門が増加(年+2%〜)","横ばい","減少(年−2%〜)"];
+  const lnTxt=CH()?["買い手の費用に占める割合が上昇(+0.8pt〜)","横ばい","低下(−0.8pt〜)"]:["取引が増加(実質年+2%〜)","横ばい","減少"];
+  el.innerHTML=(mode==="grp"?D.groups.map((g,i)=>`<span><i style="background:${GC[i]}"></i>${g}</span>`).join(""):
+   `<span><i style="background:var(--up)"></i>${nodeTxt[0]}</span><span><i style="background:var(--flat)"></i>${nodeTxt[1]}</span><span><i style="background:var(--down)"></i>${nodeTxt[2]}</span>`)
+   +`<span><span class="ln" style="background:var(--up)"></span>${lnTxt[0]}</span><span><span class="ln" style="background:var(--flat)"></span>${lnTxt[1]}</span><span><span class="ln" style="background:var(--down)"></span>${lnTxt[2]}</span>`;
+}
+function initGraph(){
+  try{
+    if(typeof ForceGraph3D==="undefined") throw 0;
+    const el=$("g");
+    Graph=ForceGraph3D({controlType:"orbit"})(el)
+      .backgroundColor(css("--graph"))
+      .graphData({nodes:D.nodes.map(n=>({...n,fx:n.x,fy:n.y,fz:n.z})),links:links()})
+      .nodeId("id").nodeVal(n=>Math.max(nOut(n),2)).nodeRelSize(2.6).nodeResolution(20).nodeOpacity(0.95)
+      .nodeColor(n=>{const c=nodeCol(n);return isNear(n.id)?c:c+"33"})
+      .nodeLabel(n=>`<div style="font:13px sans-serif;padding:3px 6px;background:rgba(10,12,18,.9);color:#fff;border-radius:3px">${n.name}<br>${fmt(nOut(n),0)}兆円${CH()&&n.rg!=null?` / 数量${sgn(n.rg)}%・価格${sgn(n.pc)}%`:` / 実質${sgn(n.cagr)}%/年`}</div>`)
+      .linkWidth(l=>isSelEdge(l.e)?0.4+Math.sqrt(val(l.e))*0.9:0.15)
+      .linkColor(l=>{const c=trCol(l.e);return isSelEdge(l.e)?c:c+"22"})
+      .linkOpacity(0.7)
+      .linkDirectionalArrowLength(l=>isSelEdge(l.e)?5:0).linkDirectionalArrowRelPos(1)
+      .linkDirectionalParticles(l=>flow&&isSelEdge(l.e)?Math.min(4,Math.ceil(val(l.e)/2)):0)
+      .linkDirectionalParticleWidth(1.8).linkDirectionalParticleSpeed(l=>0.004+val(l.e)*0.0004)
+      .linkLabel(l=>`<div style="font:12px sans-serif;padding:3px 6px;background:rgba(10,12,18,.9);color:#fff;border-radius:3px">${N[l.e.s].name} → ${N[l.e.t].name}<br>${CH()?`${fmt(l.e.v20,1)}兆 → ${fmt(l.e.v22,1)}兆円`:`${fmt(l.e.v,1)}兆円 / 実質${sgn(l.e.g)}%/年`}</div>`)
+      .onNodeClick(n=>{select({type:"n",id:n.id});focusNode(n)})
+      .onLinkClick(l=>select({type:"e",e:l.e}))
+      .onBackgroundClick(()=>select(null))
+      .cooldownTicks(0)
+      .width($("stage").clientWidth).height($("stage").clientHeight);
+    Graph.cameraPosition({x:0,y:0,z:390});
+    new ResizeObserver(()=>{Graph.width($("stage").clientWidth).height($("stage").clientHeight);if(view==="fl")drawFlow()}).observe($("stage"));
+    labelLoop();
+  }catch(err){ $("fallback").style.display="flex"; Graph=null; setView("fl"); }
+}
+function focusNode(n){ if(!Graph||n.x==null) return; const r=1+70/Math.hypot(n.x,n.y,n.z||1); Graph.cameraPosition({x:n.x*r,y:n.y*r,z:(n.z||0)*r},n,900) }
+let labelEls={};
+function labelLoop(){
+  const box=$("labels");
+  D.nodes.forEach(n=>{const d=document.createElement("div");d.className="lb";d.textContent=n.name;box.appendChild(d);labelEls[n.id]=d});
+  (function tick(){
+    const on=view==="3d"&&Graph;
+    for(const id in labelEls) labelEls[id].style.display=on?"":"none";
+    if(on){const gd=Graph.graphData().nodes;
+      for(const n of gd){const d=labelEls[n.id]; if(!d||n.x==null) continue;
+        const p=Graph.graph2ScreenCoords(n.x,n.y,n.z||0);
+        const r=Math.cbrt(Math.max(nOut(n),2))*2.6;
+        d.style.left=p.x+"px"; d.style.top=(p.y+r*1.2+2)+"px";
+        d.classList.toggle("dim",!isNear(n.id));}
+    }
+    requestAnimationFrame(tick);
+  })();
+}
+function refresh(){
+  if(Graph){ Graph.nodeVal(n=>Math.max(nOut(n),2)).nodeColor(Graph.nodeColor()).linkWidth(Graph.linkWidth()).linkColor(Graph.linkColor()).linkDirectionalArrowLength(Graph.linkDirectionalArrowLength()).linkDirectionalParticles(Graph.linkDirectionalParticles()); }
+  if(view==="fl") drawFlow();
+}
+function reloadLinks(){ if(Graph) Graph.graphData({nodes:Graph.graphData().nodes,links:links()}); refresh(); }
+function select(s){ sel=s; refresh(); render(); }
+/* ---- フロー図(売り手 → 買い手の2列) ---- */
+function drawFlow(){
+  const svg=$("flow"), W=$("stage").clientWidth, H=$("stage").clientHeight;
+  svg.setAttribute("viewBox",`0 0 ${W} ${H}`);
+  const L=listEdges(), cH=document.querySelector('.ctrl').offsetHeight, top=cH+50, bot=H-(document.getElementById('legend').offsetHeight+22), colW=14, lx=Math.min(190,W*0.28), rx=W-Math.min(190,W*0.28)-colW;
+  const sOut={},tIn={}; L.forEach(e=>{sOut[e.s]=(sOut[e.s]||0)+val(e);tIn[e.t]=(tIn[e.t]||0)+val(e)});
+  const order=(o)=>Object.keys(o).sort((a,b)=>N[a].grp-N[b].grp||o[b]-o[a]);
+  const lay=(o)=>{const ids=order(o),tot=Object.values(o).reduce((a,b)=>a+b,0),gapN=ids.length,avail=(bot-top)-gapN*4,sc=avail/tot;let y=top;const m={};ids.forEach(id=>{m[id]={y,h:o[id]*sc,sc,off:0};y+=o[id]*sc+4});return m};
+  const LS=lay(sOut), RT=lay(tIn); let out="";
+  const Ls=L.slice().sort((a,b)=>N[a.s].grp-N[b.s].grp||val(b)-val(a));
+  const ro={}; // 右側の積み上げ順を安定させる
+  Ls.sort((a,b)=>(order(tIn).indexOf(a.t)-order(tIn).indexOf(b.t))||val(b)-val(a));
+  const lo={};
+  Ls.forEach(e=>{const a=LS[e.s],b=RT[e.t]; const th=val(e)*Math.min(a.sc,b.sc); e._th=th;});
+  const sOff={},tOff={};
+  Ls.sort((a,b)=>val(b)-val(a)).forEach(e=>{});
+  const bySrc={},byTgt={}; L.forEach(e=>{(bySrc[e.s]=bySrc[e.s]||[]).push(e);(byTgt[e.t]=byTgt[e.t]||[]).push(e)});
+  for(const k in bySrc) bySrc[k].sort((a,b)=>order(tIn).indexOf(a.t)-order(tIn).indexOf(b.t));
+  for(const k in byTgt) byTgt[k].sort((a,b)=>order(sOut).indexOf(a.s)-order(sOut).indexOf(b.s));
+  const y0s={},y0t={};
+  for(const k in bySrc){let y=LS[k].y;bySrc[k].forEach(e=>{y0s[e.s+"|"+e.t]=y;y+=val(e)*LS[k].sc})}
+  for(const k in byTgt){let y=RT[k].y;byTgt[k].forEach(e=>{y0t[e.s+"|"+e.t]=y;y+=val(e)*RT[k].sc})}
+  const paths=L.map((e,i)=>{const k=e.s+"|"+e.t,ys=y0s[k],yt=y0t[k],hs=val(e)*LS[e.s].sc,ht=val(e)*RT[e.t].sc;
+    const x1=lx+colW,x2=rx,cx=(x1+x2)/2; const on=isSelEdge(e);
+    return `<path class="fl" data-e="${D.edges.indexOf(e)}" d="M${x1},${ys} C${cx},${ys} ${cx},${yt} ${x2},${yt} L${x2},${yt+ht} C${cx},${yt+ht} ${cx},${ys+hs} ${x1},${ys+hs} Z" fill="${trCol(e)}" fill-opacity="${on?0.55:0.08}"><title>${N[e.s].name} → ${N[e.t].name} ${CH()?fmt(e.v20,1)+"兆→"+fmt(e.v22,1)+"兆円":fmt(e.v,1)+"兆円"}</title></path>`}).join("");
+  const nodesSvg=(M,x,right)=>Object.keys(M).map(id=>{const m=M[id],n=N[id];const dim=!isNear(id);
+    return `<g class="fl" data-n="${id}" opacity="${dim?0.3:1}"><rect x="${x}" y="${m.y}" width="${colW}" height="${Math.max(m.h,2)}" rx="2" fill="${GC[n.grp]}"/><text x="${right?x+colW+6:x-6}" y="${m.y+Math.max(m.h,2)/2+4}" text-anchor="${right?"start":"end"}">${m.h>=11?n.name:""}</text><title>${n.name}</title></g>`}).join("");
+  svg.innerHTML=`<text x="${lx}" y="${top-14}" text-anchor="end" style="font-weight:600">売る側</text><text x="${rx+colW}" y="${top-14}" style="font-weight:600">買う側</text><text x="${W/2}" y="${top-14}" text-anchor="middle" style="fill:var(--muted)">帯の太さ=取引額(${CH()?"2022年":"2020年"})</text>`+paths+nodesSvg(LS,lx,false)+nodesSvg(RT,rx,true);
+}
+$("flow").addEventListener("click",ev=>{const t=ev.target.closest("[data-e],[data-n]"); if(!t){select(null);return}
+  if(t.dataset.e!=null) select({type:"e",e:D.edges[+t.dataset.e]}); else select({type:"n",id:t.dataset.n}); });
+function spark(n){
+  const v=n.real, w=170,h=46, mx=Math.max(...v), mn=Math.min(...v), pad=6;
+  const yy=x=>h-pad-(x-mn)/((mx-mn)||1)*(h-2*pad), xx=i=>10+i*(w-20)/2;
+  const idx=v.map(x=>x/v[0]*100); const c=n.cagr>=2?css("--up"):n.cagr<=-2?css("--down"):css("--flat");
+  return `<svg width="${w}" height="${h+14}" viewBox="0 0 ${w} ${h+14}" role="img" aria-label="実質生産額の推移">
+  <polyline fill="none" stroke="${c}" stroke-width="2" points="${v.map((x,i)=>xx(i)+","+yy(x)).join(" ")}"/>
+  ${v.map((x,i)=>`<circle cx="${xx(i)}" cy="${yy(x)}" r="3" fill="${c}"/><text x="${xx(i)}" y="${h+11}" text-anchor="middle">${[2011,2015,2020][i]}</text>`).join("")}
+  <text x="${w-2}" y="10" text-anchor="end">2011=100 → ${fmt(idx[2],0)}</text></svg>`;
+}
+function bar(g){const c=Math.max(-6,Math.min(6,g||0));const left=c>=0?50:50+c/6*50,wd=Math.abs(c)/6*50;
+  return `<span class="bar"><i style="left:${left}%;width:${wd}%;background:${g>=2?css("--up"):g<=-2?css("--down"):css("--flat")}"></i></span>`}
+function renderOverview(){
+  const L=listEdges(); const hubs=L.slice(0,20).reduce((m,e)=>(m[e.s]=(m[e.s]||0)+1,m),{});
+  const hub=Object.entries(hubs).sort((a,b)=>b[1]-a[1])[0];
+  let ins="";
+  if(CH()){
+    const top=D.edges.filter(e=>e.v20!=null&&e.v22!=null).sort((a,b)=>(b.v22-b.v20)-(a.v22-a.v20)).slice(0,3);
+    ins=`<div class="story">2020→2022年に最も増えた取引は、${top.map(e=>`<a href="#" data-e="${D.edges.indexOf(e)}" style="color:var(--accent)">${N[e.s].name}→${N[e.t].name}</a>(${fmt(e.v20,1)}→${fmt(e.v22,1)}兆円)`).join("、")}。エネルギーの値上がりが目立ちます。</div>
+    <div class="story">2022年の名目は2020年比で+15.5%、価格の影響を除いた実質では+8.0%です。値上がりが大きかったのは石油・石炭製品、鉱業、電気・ガスなどです。<small>2021・2022年は経産省の延長表(推計)。2023年以降、生成AIの実用化などは含みません。</small></div>`;
+  } else {
+    const big=D.nodes.filter(n=>n.out>=15).sort((a,b)=>b.cagr-a.cagr);
+    ins=`<div class="story">上位20本の取引のうち<b>${hub[1]}本</b>が「${N[hub[0]].name}」から出ています。人材・リース・警備・広告などの『外注の受け皿』が経済の中心にいます。</div>
+    <div class="story">生産額15兆円以上の部門で、2011→2020年の実質成長が大きいのは:${big.slice(0,4).map(n=>`<a href="#" data-n="${n.id}" style="color:var(--accent)">${n.name}(${sgn(n.cagr)}%)</a>`).join("、")}。</div>`;
+  }
+  $("panel").innerHTML=`<h2>全体の見方</h2>
+  <p class="note">円(部門)や線・帯(取引)をクリックすると詳細に入れます。上の切替で、3D/フロー図、2020年/2020→2022の変化を見られます。</p>
+  <h3>目立つ点</h3>${ins}
+  <h3>部門一覧(クリックで詳細)</h3>
+  ${D.nodes.slice().sort((a,b)=>nOut(b)-nOut(a)).map(n=>`<div class="row" data-n="${n.id}"><i style="width:9px;height:9px;border-radius:50%;background:${GC[n.grp]};flex:none"></i><span class="nm">${n.name}</span><span class="num">${fmt(nOut(n),0)}兆</span>${CH()?bar(n.rg!=null?n.rg/2:0):bar(n.cagr)}<span class="num" style="width:44px;text-align:right">${CH()?(n.rg!=null?sgn(n.rg)+"%":"–"):sgn(n.cagr)+"%"}</span></div>`).join("")}
+  <p class="note" style="margin-top:12px">出典: 令和2年産業連関表、平成23-27-令和2年接続産業連関表(総務省ほか)、延長産業連関表(経産省)。${CH()?"棒と数字は2020→2022年の数量(実質)の増減。":"棒と数字は2011→2020年の実質・年率。"}2020年はコロナ禍の年です。仮説は筆者の推測で、検証前のものです。</p>`;
+}
+function edgeRow(e){ const v=val(e); return `<div class="row" data-e="${D.edges.indexOf(e)}"><span class="nm">${N[e.s].name} → ${N[e.t].name}${(CH()?e.st22:e.story)?`<span class="tag">${CH()?e.c22:e.conf}</span>`:""}</span><span class="num">${v!=null?fmt(v,1)+"兆":"–"}</span>${CH()?"":bar(e.g)}</div>`}
+function renderNode(id){
+  const n=N[id];
+  const E_=listEdges();
+  const out=E_.filter(e=>e.s===id).slice(0,6), inn=E_.filter(e=>e.t===id).slice(0,6);
+  const bs=n.subs.filter(s=>s.b);
+  const chg=n.rg!=null?`<h3>2020→2022年の変化(延長表)</h3><div class="kv"><div><b>${fmt(n.o20x,0)}→${fmt(n.o22,0)}兆</b><span>生産額(名目)</span></div><div><b>${sgn(n.rg)}%</b><span>数量(実質)</span></div><div><b>${sgn(n.pc)}%</b><span>価格</span></div></div>`:`<div class="note">この部門は延長表に対応する部門がなく、2022年の数値はありません。</div>`;
+  $("panel").innerHTML=`<span class="back" data-back>← 全体に戻る</span>
+  <h2><i style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${GC[n.grp]};margin-right:6px"></i>${n.name}</h2>
+  <div class="note">${D.groups[n.grp]}</div>
+  <div class="kv"><div><b>${fmt(n.out,0)}兆円</b><span>生産額(2020)</span></div><div><b>${sgn(n.cagr)}%</b><span>実質増減/年(2011→20)</span></div><div><b>${fmt(n.va,0)}%</b><span>付加価値率</span></div>
+  <div><b>${fmt(n.exp,0)}%</b><span>輸出向け</span></div><div><b>${fmt(n.cons,0)}%</b><span>家計消費向け</span></div><div><b>${fmt(n.imp,0)}%</b><span>輸入依存度</span></div></div>
+  ${spark(n)}<div class="note">2011〜15年 ${sgn(n.c1)}%/年、2015〜20年 ${sgn(n.c2)}%/年(実質)</div>
+  ${chg}
+  ${bs.length?`<div class="story">この部門にはブルーオーシャン候補が含まれます:${bs.map(s=>`${s.n}<span class="tag B1">${s.b} ${D.bn[s.b]}</span>`).join("、")}<small>見えにくさと成長などで点数化した仮説。競争の少なさは直接測れていません。</small></div>`:""}
+  <h3>中身(108部門・2020年の生産額と実質増減)</h3>
+  ${n.subs.map(s=>`<div class="row" style="cursor:default"><span class="nm" title="${s.n}">${s.n}${s.b?`<span class="tag B1">${s.b}</span>`:""}</span><span class="num">${fmt(s.o,1)}兆</span>${bar(s.g)}<span class="num" style="width:44px;text-align:right">${sgn(s.g)}%</span></div>`).join("")}
+  <h3>主な売り先(この部門が売る)</h3>${out.map(edgeRow).join("")||'<div class="note">表示範囲外</div>'}
+  <h3>主な仕入れ先(この部門が買う)</h3>${inn.map(edgeRow).join("")||'<div class="note">表示範囲外</div>'}`;
+}
+function renderEdge(e){
+  const a=N[e.s],b=N[e.t];
+  const b20=e.v!=null?`<h3>2020年(基本表)</h3><div class="kv"><div><b>${fmt(e.v,1)}兆円</b><span>取引額</span></div><div><b>${fmt(e.sh,1)}%</b><span>買い手の費用に占める割合</span></div><div><b>${sgn(e.g)}%</b><span>実質増減/年(2011→20)</span></div></div><div><b>目的:</b> ${e.p||"–"}</div>
+  ${e.story?`<div class="story">${e.story}<small>確からしさ ${e.conf}(A=数字から確かめやすい / B=もっともらしいが未検証 / C=弱い推測)${e.ver?"<br>確かめ方: "+e.ver:""}</small></div>`:'<div class="note">この取引には、まだ個別の仮説を付けていません。</div>'}${e.cau?`<div class="note">注意: ${e.cau}</div>`:""}`:"";
+  const c22=e.v22!=null?`<h3>2020→2022年(延長表)</h3><div class="kv"><div><b>${fmt(e.v20,1)}→${fmt(e.v22,1)}兆</b><span>取引額(名目)</span></div><div><b>${fmt(e.s20,1)}→${fmt(e.s22,1)}%</b><span>買い手の費用に占める割合</span></div><div><b>${e.v20>0?sgn((e.v22/e.v20-1)*100):"–"}%</b><span>名目の増減(2年)</span></div></div>
+  ${e.st22?`<div class="story">${e.st22}<small>確からしさ ${e.c22}${e.vf22?"<br>確かめ方: "+e.vf22:""}</small></div>`:'<div class="note">2022年の変化には、まだ個別の仮説を付けていません。名目の増減には値上がりを含みます。</div>'}`:"";
+  $("panel").innerHTML=`<span class="back" data-back>← 全体に戻る</span>
+  <h2>${a.name} → ${b.name}</h2><div class="note">モノ・サービスの向き(代金は逆向き)</div>
+  ${CH()?c22+b20:b20+c22}
+  <h3>両端の部門</h3>
+  <div class="row" data-n="${a.id}"><i style="width:9px;height:9px;border-radius:50%;background:${GC[a.grp]}"></i><span class="nm">${a.name}</span><span class="num">${fmt(a.out,0)}兆</span></div>
+  <div class="row" data-n="${b.id}"><i style="width:9px;height:9px;border-radius:50%;background:${GC[b.grp]}"></i><span class="nm">${b.name}</span><span class="num">${fmt(b.out,0)}兆</span></div>`;
+}
+function render(){ if(!sel) renderOverview(); else if(sel.type==="n") renderNode(sel.id); else renderEdge(sel.e); $("panel").scrollTop=0; }
+$("panel").addEventListener("click",ev=>{
+  const t=ev.target.closest("[data-n],[data-e],[data-back]"); if(!t) return; ev.preventDefault();
+  if(t.hasAttribute("data-back")) select(null);
+  else if(t.dataset.n){ const n=Graph&&Graph.graphData().nodes.find(x=>x.id===t.dataset.n); select({type:"n",id:t.dataset.n}); if(view==="3d")focusNode(n||{}) }
+  else select({type:"e",e:D.edges[+t.dataset.e]});
+});
+function pressed(ids,on){ids.forEach(i=>$(i).setAttribute("aria-pressed",i===on))}
+function setMode(m){mode=m;pressed(["m-grp","m-gro"],m==="grp"?"m-grp":"m-gro");legend();refresh()}
+$("m-grp").onclick=()=>setMode("grp");$("m-gro").onclick=()=>setMode("gro");
+function setView(v){view=v;pressed(["v-3d","v-fl"],v==="3d"?"v-3d":"v-fl");$("flow").hidden=v!=="fl";$("g").style.visibility=v==="3d"?"visible":"hidden";if(v==="fl")drawFlow()}
+$("v-3d").onclick=()=>setView("3d");$("v-fl").onclick=()=>setView("fl");
+function setPeriod(p){period=p;pressed(["p-20","p-ch"],p==="y20"?"p-20":"p-ch");legend();sel=null;reloadLinks();render()}
+$("p-20").onclick=()=>setPeriod("y20");$("p-ch").onclick=()=>setPeriod("chg");
+$("topn").oninput=e=>{topN=+e.target.value;$("topnv").textContent=topN;reloadLinks()};
+$("b-flow").onclick=e=>{flow=!flow;e.target.setAttribute("aria-pressed",flow);refresh()};
+let rot=null;
+$("b-rot").onclick=e=>{const on=e.target.getAttribute("aria-pressed")!=="true";e.target.setAttribute("aria-pressed",on);
+  if(on){rot=setInterval(()=>{if(!Graph)return;const p=Graph.cameraPosition();const a=Math.atan2(p.x,p.z)+0.006,r=Math.hypot(p.x,p.z);Graph.cameraPosition({x:r*Math.sin(a),y:p.y,z:r*Math.cos(a)})},30)}else clearInterval(rot)};
+$("b-reset").onclick=()=>{select(null);if(Graph)Graph.cameraPosition({x:0,y:0,z:390},{x:0,y:0,z:0},800)};
+legend(); render(); initGraph();
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>{if(Graph){Graph.backgroundColor(css("--graph"));refresh()}});
+</script>

@@ -65,13 +65,29 @@ Gx=nx.Graph()
 for n_ in nodes: Gx.add_node(n_["id"])
 for e in edges[:220]: 
     if e["v"]: Gx.add_edge(e["s"],e["t"],weight=math.sqrt(e["v"]))
-rng=np.random.default_rng(7); ctr={}
-for i in range(8):
-    ph=math.acos(1-2*(i+0.5)/8); th=math.pi*(1+5**0.5)*i; ctr[i]=np.array([math.sin(ph)*math.cos(th),math.sin(ph)*math.sin(th),math.cos(ph)])*0.8
-init={n_["id"]:ctr[n_["grp"]]+rng.normal(0,0.15,3) for n_ in nodes}
-P=nx.spring_layout(Gx,dim=3,pos=init,weight="weight",k=0.55,iterations=300,seed=7)
-arr=np.array(list(P.values())); arr=(arr-arr.mean(0)); arr=arr/np.abs(arr).max()*135
-for n_,p in zip(P.keys(),arr): N_=[x for x in nodes if x["id"]==n_][0]; N_["x"],N_["y"],N_["z"]=[round(float(v),1) for v in p]
+# --- レイアウト: 部門グループを球面上に分離配置 → 群内は取引で引き合い → 重なり解消
+rng=np.random.default_rng(7); NG=len(GROUPS); ids=[n_["id"] for n_ in nodes]; ix={k:i for i,k in enumerate(ids)}
+ctr=np.array([[math.sin(math.acos(1-2*(i+0.5)/NG))*math.cos(math.pi*(1+5**0.5)*i),math.sin(math.acos(1-2*(i+0.5)/NG))*math.sin(math.pi*(1+5**0.5)*i),math.cos(math.acos(1-2*(i+0.5)/NG))] for i in range(NG)])*120
+gid=np.array([n_["grp"] for n_ in nodes]); rad=np.array([max(n_["out"],2)**(1/3)*2.6 for n_ in nodes])
+X=ctr[gid]+rng.normal(0,18,(len(nodes),3))
+W=np.zeros((len(nodes),len(nodes)))
+for e in edges[:220]:
+    if e["v"]: W[ix[e["s"]],ix[e["t"]]]+=math.sqrt(e["v"]); W[ix[e["t"]],ix[e["s"]]]+=math.sqrt(e["v"])
+W/=W.max()
+for it in range(400):
+    cool=1-it/400; F=np.zeros_like(X)
+    D_=X[:,None,:]-X[None,:,:]; dist=np.linalg.norm(D_,axis=2)+1e-6
+    F+=(D_/dist[...,None]**3*900).sum(1)                       # 反発
+    F-=(W[...,None]*D_*0.02).sum(1)                             # 取引で引き合う
+    F-=(X-ctr[gid])*0.05                                        # グループ中心へ
+    X+=np.clip(F,-6,6)*cool
+for it in range(200):                                          # 重なり解消(半径+余白)
+    D_=X[:,None,:]-X[None,:,:]; dist=np.linalg.norm(D_,axis=2)+1e-6; need=rad[:,None]+rad[None,:]+9
+    ov=np.clip(need-dist,0,None); np.fill_diagonal(ov,0)
+    X+=((D_/dist[...,None])*ov[...,None]).sum(1)*0.25
+X-=X.mean(0)
+for n_,p in zip(nodes,X): n_["x"],n_["y"],n_["z"]=[round(float(v),1) for v in p]
+print("layout extent",np.abs(X).max().round(0),"min gap",round(float((np.linalg.norm(X[:,None]-X[None],axis=2)+np.eye(len(X))*1e9-rad[:,None]-rad[None]).min()),1))
 D=dict(groups=[g for g,_ in GROUPS],nodes=nodes,edges=edges,bn=BN)
 open("out/explorer_data.json","w",encoding="utf-8").write(json.dumps(D,ensure_ascii=False,separators=(",",":")))
 print(len(nodes),len(edges),sum(1 for e in edges if e["story"]),sum(1 for e in edges if "c22" in e),os.path.getsize("out/explorer_data.json"))
