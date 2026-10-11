@@ -11,7 +11,7 @@
 </header>
 <main class="flex-1 w-full max-w-5xl mx-auto px-4 py-10 space-y-6">
 <header class="space-y-3"><h1 class="text-3xl font-bold">近さの地図：取引の相手が似ている産業</h1>
-<p class="text-base-content/80">108の産業を、<b>「誰から買い、誰に売っているか」の似かた</b>で平面に並べました。<b>近いほど取引の相手が似ていて、遠いほど違います</b>（産業マップの配置は見やすさ重視で、距離に意味はありません）。ブルーオーシャン候補の4グループ（金色の輪）が、地図のどこにいるかも見られます。</p>
+<p class="text-base-content/80">108の産業を、<b>「誰から買い、誰に売っているか」の似かた</b>で平面に並べました。<b>近いほど取引の相手が似ていて、遠いほど違います</b>（産業マップの配置は見やすさ重視で、距離に意味はありません）。<a class="underline decoration-dotted underline-offset-4 hover:text-primary" href="glossary.html#blue-ocean">ブルーオーシャン</a>候補の4グループ（金色の輪）が、地図のどこにいるかも見られます。</p>
 <div role="alert" class="alert alert-warning"><span>2次元に落とすため、距離は完全には再現できません（元の非類似度と地図上の距離の順位相関 ρ=<b id="rho"></b>）。近い＝似ている、の目安として見てください。</span></div></header>
 <section class="space-y-3">
 <div class="flex flex-wrap gap-2 items-center"><span class="text-sm">色:</span>
@@ -20,15 +20,15 @@
 <div id="legend" class="flex flex-wrap gap-x-4 gap-y-1 text-xs"></div>
 <div id="info" class="card bg-base-100 border border-base-300"><div class="card-body text-sm"><p class="text-base-content/70">点にカーソルを合わせる（スマホはタップ）と、その産業と「取引の相手が似ている」上位3産業が出ます。</p></div></div>
 </section>
-<section id="cohesion" class="space-y-2 scroll-mt-20"><h2 class="text-xl font-bold">候補グループは「似た者どうし」か？</h2><p class="text-sm text-base-content/80">各グループの構成部門どうしの平均距離を、同数の部門をランダムに選んだ場合（2000回）と比べました。「順位」は、ランダムな組み合わせより近い割合の逆で、<b>小さいほど、まとまりが強い</b>ことを示します（50%付近＝ランダム並み）。</p><div class="overflow-x-auto"><table class="table table-sm"><thead><tr><th>グループ</th><th class="text-right">構成部門どうしの平均距離</th><th class="text-right">全部門の平均距離</th><th class="text-right">順位（小さいほど近い）</th></tr></thead><tbody id="coh"></tbody></table></div><p class="text-sm text-base-content/80"><b>読み取り:</b> G1（裏方）・G2（ネット）・G3（ケア）は、ランダムな組み合わせよりずっと近く、取引相手の似た「ひとまとまり」と言えます。一方<b>G4（素材の川上）はランダム並み</b>で、構成部門の売り先・買い先は別々です。G4は、取引構造ではなく「最終製品の陰にある」という見立てでくくったグループで、まとまりの根拠は弱いと考えるのが妥当です（仮説）。</p></section>
+<section id="cohesion" class="space-y-2 scroll-mt-20"><h2 class="text-xl font-bold">候補グループは「似た者どうし」か？</h2><p class="text-sm text-base-content/80">各グループの構成部門どうしの平均距離を、同数の部門をランダムに選んだ場合（2000回）と比べました。「順位」は、ランダムな組み合わせより近い割合の逆で、<b>小さいほど、まとまりが強い</b>ことを示します（50%付近＝ランダム並み）。</p><div class="overflow-x-auto"><table class="table table-sm"><thead><tr><th>グループ</th><th class="text-right">構成部門どうしの平均距離</th><th class="text-right">全部門の平均距離</th><th class="text-right">順位（小さいほど近い）</th></tr></thead><tbody id="coh"></tbody></table></div><p class="text-sm text-base-content/80"><b>読み取り:</b> G1（裏方）・G2（ネット）・G3（ケア）は、ランダムな組み合わせよりずっと近く、取引相手の似た「ひとまとまり」と言えます。一方<b>G4（素材の川上）はランダム並み</b>で、構成部門の売り先・買い先は別々です。G4は、取引構造ではなく「最終製品の陰にある」という見立てでくくったグループで、まとまりの根拠は弱いと考えるのが妥当です（<a class="underline decoration-dotted underline-offset-4 hover:text-primary" href="glossary.html#kasetsu">仮説</a>）。</p></section>
 <section class="space-y-2 text-sm text-base-content/80"><h2 class="text-xl font-bold text-base-content">読み方のヒント</h2>
 <ul class="list-disc pl-6 space-y-1">
-<li>円の大きさは2020年の産出額。金色の輪は、ブルーオーシャン候補グループ（G1〜G4）の構成部門です。</li>
+<li>円の大きさは2020年の<a class="underline decoration-dotted underline-offset-4 hover:text-primary" href="glossary.html#sanshutsu">産出額</a>。金色の輪は、ブルーオーシャン候補グループ（G1〜G4）の構成部門です。</li>
 <li><b>同じ候補グループの部門が地図上で固まっているか</b>を見ると、「グループとして一括りにできる根拠」があるかを確かめられます。散らばっているグループは、売り先・買い先が実は別々で、くくりは筆者の見立てに近いと言えます。</li>
 <li>どの産業とも近くない（孤立した）点は、独特な取引構造をもつ部門です。</li></ul></section>
 <section class="text-sm text-base-content/70 space-y-1"><h2 class="text-lg font-bold text-base-content">方法</h2>
 <ul class="list-disc pl-6"><li>産業連関表（2020年・108部門）から、各部門の「仕入れ構成」と「販売先構成」をつなげたベクトルを作り（自部門内の取引は除く、平方根変換）、部門間の距離（非類似度）を計算。</li>
-<li>距離を保つように2次元へ配置（多次元尺度構成法 MDS、scikit-learn）。軸に意味はありません。</li>
+<li>距離を保つように2次元へ配置（多次元尺度構成法 <a class="underline decoration-dotted underline-offset-4 hover:text-primary" href="glossary.html#mds">MDS</a>、scikit-learn）。軸に意味はありません。</li>
 <li>スクリプト：<code>pipeline/similarity_map.py</code>。出典と免責は<a class="link" href="about.html">方法と出典</a>を参照。</li></ul></section>
 </main>
 <script src="charts.js"></script>

@@ -15,6 +15,7 @@ def page(name,title,desc,body,extra=""):
 # ---------- 共通: 色パレットと共通グラフJS
 PAL=json.loads((R/"pages"/"palette.json").read_text(encoding="utf-8"))
 (S/"charts.js").write_text("var KA={pal:"+json.dumps(PAL,ensure_ascii=False)+"};\n"+(R/"pages"/"charts.js").read_text(encoding="utf-8"),encoding="utf-8")
+import glossary_link
 # ---------- 通常ページ: pages/<name>.html(本文) + pages/meta.json(title/desc/埋め込みデータ)
 META=json.loads((R/"pages"/"meta.json").read_text(encoding="utf-8"))
 for name,m in META.items():
@@ -32,7 +33,9 @@ for name,m in META.items():
             for t in g["terms"]: h+=f'<div id="{t["id"]}" class="scroll-mt-20"><dt class="font-bold">{t["t"]}</dt><dd class="text-sm text-base-content/80">{t["d"]}</dd></div>'
             h+='</dl></section>'
         body=body.replace("__GLOSSARY__",h)
-    page(f"{name}.html",m["title"],m["desc"],"\n"+render(body,MET))
+    body=render(body,MET)
+    if name!="glossary": body=glossary_link.link(body)
+    page(f"{name}.html",m["title"],m["desc"],"\n"+body)
 # ---------- 個別産業ページと産業一覧
 from build_industry import build as build_industry
 IND=build_industry(page,S,PAL,SITE_URL)

@@ -216,3 +216,13 @@ def test_glossary_anchors():
     h = (S / "glossary.html").read_text(encoding="utf-8")
     assert "__GLOSSARY__" not in h and "__FAQ" not in (S / "guide.html").read_text(encoding="utf-8")
     assert h.count("<dt") >= 20
+
+
+def test_glossary_links_resolve():
+    gl=json.loads((R/"pages/glossary.json").read_text(encoding="utf-8"))
+    ids={t["id"] for g in gl for t in g["terms"]}
+    n=0
+    for f in S.glob("*.html"):
+        for i in re.findall(r'href="glossary\.html#([a-z0-9-]+)"',f.read_text(encoding="utf-8")):
+            assert i in ids,(f.name,i); n+=1
+    assert n>=10
