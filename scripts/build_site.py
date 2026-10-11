@@ -1,10 +1,15 @@
 """site/*.html を生成。explorer は ../io/out の成果物(または data/ にコピー済みのもの)から取り込む。"""
-import re,sys,pathlib,shutil
+import re,sys,pathlib,shutil,json
 sys.path.insert(0,str(pathlib.Path(__file__).parent))
-from _shell import HEAD,FOOT,FONTS
+from _shell import HEAD,FOOT,FONTS,seo
+from site_config import SITE_URL,SITE_NAME
 R=pathlib.Path(__file__).resolve().parent.parent; S=R/"site"
 def page(name,title,desc,body):
-    (S/name).write_text(HEAD.format(title=title,desc=desc)+body+FOOT,encoding="utf-8")
+    path=name[:-5]
+    ld=""
+    if path=="index": ld='<script type="application/ld+json">'+json.dumps({"@context":"https://schema.org","@type":"WebSite","name":SITE_NAME,"url":SITE_URL+"/","inLanguage":"ja","description":desc},ensure_ascii=False)+"</script>"
+    S_=seo(path,title,desc,SITE_URL,SITE_NAME,ld)
+    (S/name).write_text(HEAD.format(title=title,desc=desc,seo=S_)+body+FOOT,encoding="utf-8")
 # ---------- index
 page("index.html","Keizai Atlas｜日本経済の産業のつながりを眺める地図帳","日本の産業連関表から、お金の流れと産業どうしのつながりを眺める趣味の分析サイト",'''
 <main class="flex-1">
@@ -48,7 +53,8 @@ if "<!doctype" not in h.lower():
     h='<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">\n'+h
     h=h.replace("</style>","</style></head><body>",1)
 h=h.replace("<title>产业</title>","")
-h=h.replace("<title>産業マップ</title>","<title>産業マップ｜Keizai Atlas</title>"+FONTS,1)
+ED="日本の37産業の取引を3Dネットワークで眺め、ドリルダウンで中身と仮説を読める産業連関表エクスプローラ"
+h=h.replace("<title>産業マップ</title>","<title>産業マップ｜Keizai Atlas</title><meta name=\"description\" content=\""+ED+"\">"+seo("explorer","産業マップ｜Keizai Atlas",ED,SITE_URL,SITE_NAME)+FONTS,1)
 nav='<div class="topbar"><a class="brand" href="index.html">Keizai Atlas</a><span class="sp"></span><a href="explorer.html">産業マップ</a><a href="about.html">方法と出典</a><button id="thm" aria-label="テーマ切替">◐</button></div><script>document.getElementById("thm").onclick=function(){var t=document.documentElement.dataset.theme==="nord"?"night":"nord";document.documentElement.dataset.theme=t;try{localStorage.setItem("theme",t)}catch(e){}}</script>'
 foot='<footer style="font:12px system-ui;padding:10px 12px;opacity:.7">出典：総務省ほか「産業連関表」、経産省「延長産業連関表」（e-Stat）を筆者が加工。ストーリーは筆者の仮説であり、政府が作成したものではありません。</footer>'
 h=h.replace("<h1>産業マップ</h1>",nav+"<h1>産業マップ</h1>",1)
@@ -64,3 +70,8 @@ TOK='''
 h=h.replace("*{box-sizing:border-box}",TOK+"*{box-sizing:border-box}",1)
 h=h.replace("<title>",'<script>try{var t=localStorage.getItem("theme");if(t!=="nord")t="night";document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme="night"}</script><title>',1)
 (S/"explorer.html").write_text(h,encoding="utf-8")
+
+(S/"robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {SITE_URL}/sitemap.xml\n",encoding="utf-8")
+import datetime
+T=datetime.date.today().isoformat()
+(S/"sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+"".join(f"<url><loc>{SITE_URL}{p}</loc><lastmod>{T}</lastmod></url>\n" for p in ("/","/explorer","/about"))+"</urlset>\n",encoding="utf-8")
