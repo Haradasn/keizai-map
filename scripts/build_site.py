@@ -18,13 +18,11 @@ page("index.html","Keizai Atlas｜日本経済の産業のつながりを眺め�
  <p class="py-4 text-base-content/80">37の産業と、その間を流れるお金。円をクリックすると中身へ、線をクリックすると「その取引は何のためか」の仮説へ。<br>公的統計（産業連関表）を趣味で眺めて、見えにくい産業のつながりを探しています。</p>
  <div class="flex gap-3 flex-wrap justify-center"><a class="btn btn-primary" href="explorer.html">産業マップを開く →</a><a class="btn btn-outline" href="about.html">方法と出典</a></div>
 </div></section>
-<section class="max-w-5xl mx-auto px-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+<section class="max-w-5xl mx-auto px-4 grid gap-4 sm:grid-cols-2">
  <a href="explorer.html" class="card bg-base-100 border border-base-300 hover:border-primary transition"><div class="card-body"><h2 class="card-title">俯瞰する・掘り下げる →</h2><p>37部門の取引をネットワークとフローで表示。円→108の小分類→取引の相手先へ。上位の取引には人が読める「ストーリー」付き。</p></div></a>
- <a href="similarity.html" class="card bg-base-100 border border-base-300 hover:border-primary transition"><div class="card-body"><h2 class="card-title">近さの地図 →</h2><p>108産業を「取引の相手の似かた」で平面に配置。ブルーオーシャン候補の4グループが本当に似た者どうしかも検証。</p></div></a>
+ <a href="similarity.html" class="card bg-base-100 border border-base-300 hover:border-primary transition"><div class="card-body"><h2 class="card-title">仮説を探す：近さの地図 →</h2><p>地図では目立たないが、伸びて他産業を支える「裏方」グループ（ブルーオーシャン候補）を、取引の似かたで並べた地図の上で検証。</p></div></a>
  <a href="latest.html" class="card bg-base-100 border border-base-300 hover:border-primary transition"><div class="card-body"><h2 class="card-title">最新動向 2023〜2026 →</h2><p>日銀・経産省・財務省の統計で、サービス価格、デジタル関連の海外支払い、エネルギー輸入の量と単価を追う。</p></div></a>
  <a href="international.html" class="card bg-base-100 border border-base-300 hover:border-primary transition"><div class="card-body"><h2 class="card-title">国際比較 →</h2><p>OECDの国際産業連関表で、日米中独韓の外注・デジタル・エネルギーの仕入れ構成を比べる。</p></div></a>
- <a href="explorer.html" class="card bg-base-100 border border-base-300 hover:border-primary transition"><div class="card-body"><h2 class="card-title">仮説を探す →</h2><p>地図では目立たないが、伸びて他産業を支える「裏方」グループ（ブルーオーシャン候補）を試算。</p></div></a>
- <a href="about.html" class="card bg-base-100 border border-base-300 hover:border-primary transition"><div class="card-body"><h2 class="card-title">方法と出典 →</h2><p>データの出典、加工方法、制約と免責。</p></div></a>
 </section>
 <section class="max-w-5xl mx-auto px-4 mt-10"><div role="alert" class="alert alert-warning"><span><b>ご注意：</b>ストーリー・グループは筆者の<b>仮説</b>で、統計から確定できる事実ではありません。2022年値は延長産業連関表（推計表）で、基本表とは定義が異なります。</span></div></section>
 </main>''')
@@ -181,7 +179,7 @@ if "<!doctype" not in h.lower():
 h=h.replace("<title>产业</title>","")
 ED="日本の37産業の取引を3Dネットワークで眺め、ドリルダウンで中身と仮説を読める産業連関表エクスプローラ"
 h=h.replace("<title>産業マップ</title>","<title>産業マップ｜Keizai Atlas</title><meta name=\"description\" content=\""+ED+"\">"+seo("explorer","産業マップ｜Keizai Atlas",ED,SITE_URL,SITE_NAME)+FONTS,1)
-nav='<div class="topbar"><a class="brand" href="index.html">Keizai Atlas</a><span class="sp"></span><a href="explorer.html">産業マップ</a><a href="about.html">方法と出典</a><button id="thm" aria-label="テーマ切替">◐</button></div><script>document.getElementById("thm").onclick=function(){var t=document.documentElement.dataset.theme==="nord"?"night":"nord";document.documentElement.dataset.theme=t;try{localStorage.setItem("theme",t)}catch(e){}}</script>'
+nav='<div class="topbar"><a class="brand" href="index.html">Keizai Atlas</a><span class="sp"></span><a href="explorer.html">産業マップ</a><a href="similarity.html">近さの地図</a><a href="latest.html">最新動向</a><a href="international.html">国際比較</a><a href="about.html">方法と出典</a><button id="thm" aria-label="テーマ切替">◐</button></div><script>document.getElementById("thm").onclick=function(){var t=document.documentElement.dataset.theme==="nord"?"night":"nord";document.documentElement.dataset.theme=t;try{localStorage.setItem("theme",t)}catch(e){}}</script>'
 foot='<footer style="font:12px system-ui;padding:10px 12px;opacity:.7">出典：総務省ほか「産業連関表」、経産省「延長産業連関表」（e-Stat）を筆者が加工。ストーリーは筆者の仮説であり、政府が作成したものではありません。</footer>'
 h=h.replace("<h1>産業マップ</h1>",nav+"<h1>産業マップ</h1>",1)
 if "</html>" not in h: h+=foot+"</body></html>"

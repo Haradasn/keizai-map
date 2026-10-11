@@ -277,7 +277,7 @@ $("panel").addEventListener("click",ev=>{
 function pressed(ids,on){ids.forEach(i=>$(i).setAttribute("aria-pressed",i===on))}
 function setMode(m){mode=m;pressed(["m-grp","m-gro"],m==="grp"?"m-grp":"m-gro");legend();refresh()}
 $("m-grp").onclick=()=>setMode("grp");$("m-gro").onclick=()=>setMode("gro");
-function setView(v){view=v;pressed(["v-3d","v-fl"],v==="3d"?"v-3d":"v-fl");$("flow").hidden=v!=="fl";$("g").style.visibility=v==="3d"?"visible":"hidden";if(v==="fl")drawFlow()}
+function setView(v){view=v;pressed(["v-3d","v-fl"],v==="3d"?"v-3d":"v-fl");$("flow").toggleAttribute("hidden",v!=="fl");$("g").style.visibility=v==="3d"?"visible":"hidden";if(v==="fl")drawFlow()}
 $("v-3d").onclick=()=>setView("3d");$("v-fl").onclick=()=>setView("fl");
 function setPeriod(p){period=p;pressed(["p-20","p-ch"],p==="y20"?"p-20":"p-ch");legend();sel=null;reloadLinks();render()}
 $("p-20").onclick=()=>setPeriod("y20");$("p-ch").onclick=()=>setPeriod("chg");
