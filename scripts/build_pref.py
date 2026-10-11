@@ -55,10 +55,10 @@ def build(page,S,SITE_URL):
         hm+=f'<tr><td class="whitespace-nowrap">{esc(n["name"])}</td>'+"".join(cell(next((o for o in D[k]["sectors"] if o["c"]==n["id"]),None)) for k in order)+'</tr>'
     hm+='</tbody></table></div>'
     body=f'''<main class="flex-1 w-full max-w-4xl mx-auto px-4 py-10 space-y-8">
-<header class="space-y-3"><h1 class="text-3xl font-bold">県別の産業構造</h1><p class="text-base-content/80">各都道府県が公表した2020年の産業連関表から、産業の構成を全国と比べます。現在は{len(D)}都道府県（東京都・神奈川県・埼玉県・千葉県・愛知県・大阪府・兵庫県・福岡県・沖縄県・北海道）です。順次、追加します。</p></header>
+<header class="space-y-3"><h1 class="text-3xl font-bold">県別の産業構造</h1><p class="text-base-content/80">各都道府県が公表した2020年の産業連関表から、産業の構成を全国と比べます。現在は{len(D)}都道府県（{'・'.join(p['name'] for p in D.values())}）です。公表された表が機械で読める県から順に追加します。</p></header>
 <section class="grid sm:grid-cols-2 gap-3">{cards}</section>
 <section class="space-y-2"><h2 class="text-xl font-bold">都道府県の比較</h2>{table(sorted(trs,key=lambda r:-float(r[1])),["都道府県","産出額（兆円）","付加価値率","移輸出（産出額比）","移輸入（産出額比）"])}</section>
 <section class="space-y-2"><h2 class="text-xl font-bold">産業×都道府県の特化係数</h2><p class="text-sm text-base-content/70">全国の割合を1としたときの、各都府県の産業の集中度です（<a class="link" href="glossary.html#tokka-keisu">特化係数</a>）。青が濃いほど、その産業が全国平均より集中しています。産出額の割合が0.5%未満の産業は、値が不安定なため色をつけていません。列は産出額の大きい順です。北海道は部門の分け方が異なるため、この表には入れていません（<a class="link" href="prefecture/hokkaido.html">北海道のページ</a>を見てください）。</p>{hm}</section>
 <p class="text-xs text-base-content/60">出典：各都道府県「2020年（令和2年）産業連関表」を筆者が集計。政府・自治体が作成したものではありません。<a class="link" href="about.html">方法と出典</a></p></main>'''
-    page("prefectures.html","県別の産業構造（東京・愛知・大阪など10都道府県）｜Keizai Atlas","東京都・神奈川県・埼玉県・千葉県・愛知県・大阪府・兵庫県・福岡県・沖縄県・北海道の2020年産業連関表から、産業構造と全国との違い（特化係数）、移輸出入の割合を比べる。",body)
+    page("prefectures.html",f"県別の産業構造（東京・愛知・大阪など{len(D)}都道府県）｜Keizai Atlas",f"{'・'.join(p['name'] for p in D.values())}の2020年産業連関表から、産業構造と全国との違い（特化係数）、移輸出入の割合を比べる。",body)
     return paths

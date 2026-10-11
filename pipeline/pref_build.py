@@ -21,11 +21,14 @@ def load(slug):
     else:
         ws=openpyxl.load_workbook(f,read_only=True,data_only=True)[s["sheet"]]; rows=[list(r) for r in ws.iter_rows(values_only=True)]
         name_row,first,code_col,name_col=s["name_row"],s["first"],s["code_col"],s["name_col"]
+    k=s.get("scale")
+    if k:                                             # 単位を百万円にそろえる(例: 万円表記なら 0.01)
+        rows=[r if i<first else [v*k if isinstance(v,(int,float)) and not isinstance(v,bool) and j>code_col+1 else v for j,v in enumerate(r)] for i,r in enumerate(rows)]
     cols,rl=table(rows,name_row,first,code_col,name_col)
     return rows,cols,rl,s
 
-PICK={"X":["生産額","県内生産額","府内生産額","都内生産額","国内生産額"],"dem":["都内需要合計","県内需要合計","府内需要合計","県内需要計"],"int":["内生部門計"],
-      "mexp":["移輸出計","移輸出"],"explicit_imp":["（控除）移輸入計","移輸入計","（控除）移輸入"]}
+PICK={"X":["生産額","県内生産額","府内生産額","都内生産額","国内生産額","県内生産額"],"dem":["都内需要合計","県内需要合計","府内需要合計","県内需要計"],"int":["内生部門計"],
+      "mexp":["移輸出計","輸移出計","移輸出"],"explicit_imp":["（控除）移輸入計","移輸入計","（控除）移輸入"]}
 def col(cols,k):
     for n in PICK[k]:
         if n in cols: return cols[n]
