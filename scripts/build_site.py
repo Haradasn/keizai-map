@@ -50,8 +50,18 @@ if "<!doctype" not in h.lower():
     h=h.replace("</style>","</style></head><body>",1)
 h=h.replace("<title>产业</title>","")
 h=h.replace("<title>産業マップ</title>","<title>産業マップ｜経済の地図帳</title>"+FONTS,1)
-nav='<nav style="font:13px system-ui;padding:6px 12px"><a href="index.html">← 経済の地図帳</a> ・ <a href="about.html">方法と出典</a></nav>'
+nav='<div class="topbar"><a class="brand" href="index.html">経済の地図帳</a><span class="sp"></span><a href="explorer.html">産業マップ</a><a href="about.html">方法と出典</a><button id="thm" aria-label="テーマ切替">◐</button></div><script>document.getElementById("thm").onclick=function(){var t=document.documentElement.dataset.theme==="nord"?"night":"nord";document.documentElement.dataset.theme=t;try{localStorage.setItem("theme",t)}catch(e){}}</script>'
 foot='<footer style="font:12px system-ui;padding:10px 12px;opacity:.7">出典：総務省ほか「産業連関表」、経産省「延長産業連関表」（e-Stat）を筆者が加工。ストーリーは筆者の仮説であり、政府が作成したものではありません。</footer>'
 h=h.replace("<h1>産業マップ</h1>",nav+"<h1>産業マップ</h1>",1)
 if "</html>" not in h: h+=foot+"</body></html>"
+
+TOK='''
+:root[data-theme="night"]{--bg:#0b1120;--panel:#0f172a;--panel2:#16213a;--fg:#e2e8f0;--muted:#94a3b8;--line:#1e293b;--accent:#38bdf8;--up:#38bdf8;--flat:#64748b;--down:#fb923c;--graph:#070c18;--label:#e2e8f0;--chip:#1e293b;color-scheme:dark}
+:root[data-theme="nord"]{--bg:#e5e9f0;--panel:#ffffff;--panel2:#eceff4;--fg:#2e3440;--muted:#5b6578;--line:#d8dee9;--accent:#5e81ac;--up:#3b6fb0;--flat:#8d94a3;--down:#c8501f;--graph:#eceff4;--label:#2e3440;--chip:#d8dee9;color-scheme:light}
+.topbar{display:flex;align-items:center;gap:14px;margin:-14px -16px 12px;padding:10px 16px;background:var(--panel);border-bottom:1px solid var(--line)}
+.topbar a{color:var(--fg);text-decoration:none;font-size:13px}.topbar a.brand{font-weight:700;font-size:16px}.topbar .sp{flex:1}
+.topbar button{background:none;border:0;color:var(--fg);cursor:pointer;font-size:16px}
+'''
+h=h.replace("*{box-sizing:border-box}",TOK+"*{box-sizing:border-box}",1)
+h=h.replace("<title>",'<script>try{var t=localStorage.getItem("theme");if(t!=="nord")t="night";document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme="night"}</script><title>',1)
 (S/"explorer.html").write_text(h,encoding="utf-8")
