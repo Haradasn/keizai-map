@@ -42,3 +42,6 @@ Cloudflare（Workers 静的アセット、商用可）: Build command `npm insta
 
 ## SNS共有画像(OGP)
 `python3 scripts/build_ogp.py` で `site/og.png` と `site/og/<id>.png`(145枚)を生成します(Noto Sans CJK が必要。CIでは実行せず、生成物をコミット)。産業データが変わったら `build_site.py` → `build_ogp.py` の順に実行して再コミットしてください。
+
+## 県別ページ
+`pref_raw/` に各県の公表ファイル(出典は `pref_raw/SOURCES.json`)、`pipeline/pref_build.py` が `data/pref_37.json` を作り(需要側・費用側の収支が合うことを検証)、`scripts/build_pref.py` がページを作ります。県の追加は、公表ファイルを `pref_raw/` に置いて SOURCES.json に追記します。政府サイトはサンドボックスから取れないため、`pref-fetch` ワークフロー(手動実行)でファイルを取得できます。

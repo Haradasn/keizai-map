@@ -1,0 +1,5 @@
+{
+ "tokyo":{"name":"東京都","year":2020,"file":"tokyo_2020_37.xlsx","sheet":"（地域内表）取引基本表　統合大分類","name_row":4,"first":5,"code_col":1,"name_col":2,"url":"https://www.toukei.metro.tokyo.lg.jp/sanren/2020/sr20t1.htm"},
+ "aichi":{"name":"愛知県","year":2020,"file":"aichi_2020_37_108.xlsx","sheet":"37部門","name_row":5,"first":6,"code_col":1,"name_col":2,"url":"https://www.pref.aichi.jp/soshiki/toukei/io2020.html"},
+ "osaka":{"name":"大阪府","year":2020,"file":"osaka_2020_37.csv","url":"https://www.pref.osaka.lg.jp/o040090/toukei/sanren/k-io02k000xls.html"}
+}

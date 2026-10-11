@@ -1,7 +1,5 @@
-name: pref-fetch
+name: pref-fetch  # 県別の公表ファイルを取得して pref-scratch ブランチに置く(手動実行。対象は scripts/pref_pages.txt, pref_files.txt)
 on:
-  push:
-    branches: [feature/pref-fetch]
   workflow_dispatch:
 permissions:
   contents: write
