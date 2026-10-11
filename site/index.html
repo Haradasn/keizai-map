@@ -6,14 +6,14 @@
 </head><body class="bg-base-200 text-base-content font-sans min-h-screen flex flex-col">
 <header class="navbar bg-base-100/80 backdrop-blur border-b border-base-300 sticky top-0 z-50 px-4">
  <div class="flex-1"><a href="index.html" class="text-lg font-bold tracking-tight">Keizai Atlas <span class="text-xs font-normal text-base-content/60 ml-2 hidden sm:inline">経済の地図帳</span></a></div>
- <nav class="flex-none gap-1 items-center flex"><span class="hidden md:flex gap-1"><a class="btn btn-ghost btn-sm" href="explorer.html">産業マップ</a><a class="btn btn-ghost btn-sm" href="similarity.html">近さの地図</a><a class="btn btn-ghost btn-sm" href="latest.html">最新動向</a><a class="btn btn-ghost btn-sm" href="international.html">国際比較</a><a class="btn btn-ghost btn-sm" href="about.html">方法と出典</a></span><div class="dropdown dropdown-end md:hidden"><label tabindex="0" class="btn btn-ghost btn-sm" aria-label="メニュー">☰</label><ul tabindex="0" class="menu dropdown-content z-50 mt-2 p-2 shadow bg-base-100 border border-base-300 rounded-box w-44"><li><a href="explorer.html">産業マップ</a></li><li><a href="similarity.html">近さの地図</a></li><li><a href="latest.html">最新動向</a></li><li><a href="international.html">国際比較</a></li><li><a href="about.html">方法と出典</a></li></ul></div>
+ <nav class="flex-none gap-1 items-center flex"><span class="hidden lg:flex gap-1"><a class="btn btn-ghost btn-sm" href="explorer.html">産業マップ</a><a class="btn btn-ghost btn-sm" href="industries.html">産業一覧</a><a class="btn btn-ghost btn-sm" href="similarity.html">近さの地図</a><a class="btn btn-ghost btn-sm" href="latest.html">最新動向</a><a class="btn btn-ghost btn-sm" href="international.html">国際比較</a><a class="btn btn-ghost btn-sm" href="about.html">方法と出典</a></span><div class="dropdown dropdown-end lg:hidden"><label tabindex="0" class="btn btn-ghost btn-sm" aria-label="メニュー">☰</label><ul tabindex="0" class="menu dropdown-content z-50 mt-2 p-2 shadow bg-base-100 border border-base-300 rounded-box w-44"><li><a href="explorer.html">産業マップ</a></li><li><a href="industries.html">産業一覧</a></li><li><a href="similarity.html">近さの地図</a></li><li><a href="latest.html">最新動向</a></li><li><a href="international.html">国際比較</a></li><li><a href="about.html">方法と出典</a></li></ul></div>
  <label class="swap swap-rotate btn btn-ghost btn-sm btn-circle" aria-label="テーマ切替"><input type="checkbox" id="thm"><span class="swap-on">☀</span><span class="swap-off">☾</span></label></nav>
 </header>
 <main class="flex-1">
 <section class="hero py-16 bg-gradient-to-b from-primary/20 to-transparent"><div class="hero-content text-center max-w-3xl flex-col">
  <p class="badge badge-outline">趣味の統計分析 · 産業連関表</p><h1 class="text-4xl sm:text-5xl font-bold tracking-tight">Keizai Atlas<br><span class="text-2xl sm:text-3xl font-medium text-base-content/80">経済を、一枚の地図で。</span></h1>
  <p class="py-4 text-base-content/80">37の産業と、その間を流れるお金。円をクリックすると中身へ、線をクリックすると「その取引は何のためか」の仮説へ。<br>公的統計（産業連関表）を趣味で眺めて、見えにくい産業のつながりを探しています。</p>
- <div class="flex gap-3 flex-wrap justify-center"><a class="btn btn-primary" href="explorer.html">産業マップを開く →</a><a class="btn btn-outline" href="about.html">方法と出典</a></div>
+ <div class="flex gap-3 flex-wrap justify-center"><a class="btn btn-primary" href="explorer.html">産業マップを開く →</a><a class="btn btn-outline" href="industries.html">産業一覧</a><a class="btn btn-outline" href="about.html">方法と出典</a></div>
 </div></section>
 <section class="max-w-5xl mx-auto px-4 py-10"><h2 class="text-2xl font-bold">いま見えていること</h2><p class="text-sm text-base-content/70 mt-1 mb-4">数値は公的統計から筆者が集計したもの。解釈は筆者の仮説です。</p><div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
  <a href="latest.html#digital-pay" class="card bg-base-100 border border-base-300 hover:border-primary transition"><div class="card-body gap-1 p-5"><h3 class="font-bold leading-snug">海外へのデジタル支払い</h3><p class="text-xl text-primary"><b>2.4兆円→4.6兆円</b></p><p class="text-sm text-base-content/80">2019年→2025年。通信・コンピュータ・情報サービスの国際収支（支払い）。約1.9倍です。</p><p class="text-xs text-base-content/50 mt-1">出典：国際収支 →</p></div></a>
@@ -24,6 +24,7 @@
  <a href="similarity.html#cohesion" class="card bg-base-100 border border-base-300 hover:border-primary transition"><div class="card-body gap-1 p-5"><h3 class="font-bold leading-snug">「裏方」候補の4グループ、まとまりがあるのは3つ</h3><p class="text-xl text-primary"><b>3つは似た者どうし</b></p><p class="text-sm text-base-content/80">取引の相手の似かたをランダムと比べると、1つ（素材の川上）だけはランダム並みでした。</p><p class="text-xs text-base-content/50 mt-1">出典：産業連関表 →</p></div></a>
 </div></section>
 <section class="max-w-5xl mx-auto px-4 grid gap-4 sm:grid-cols-2">
+ <a href="industries.html" class="card bg-base-100 border border-base-300 hover:border-primary transition sm:col-span-2"><div class="card-body"><h2 class="card-title">産業から調べる：産業一覧 →</h2><p>108の産業それぞれについて、規模・成長・主な販売先と仕入れ先を1ページにまとめています。気になる産業の名前から。</p></div></a>
  <a href="explorer.html" class="card bg-base-100 border border-base-300 hover:border-primary transition"><div class="card-body"><h2 class="card-title">俯瞰する・掘り下げる →</h2><p>37部門の取引をネットワークとフローで表示。円→108の小分類→取引の相手先へ。上位の取引には人が読める「ストーリー」付き。</p></div></a>
  <a href="similarity.html" class="card bg-base-100 border border-base-300 hover:border-primary transition"><div class="card-body"><h2 class="card-title">仮説を探す：近さの地図 →</h2><p>地図では目立たないが、伸びて他産業を支える「裏方」グループ（ブルーオーシャン候補）を、取引の似かたで並べた地図の上で検証。</p></div></a>
  <a href="latest.html" class="card bg-base-100 border border-base-300 hover:border-primary transition"><div class="card-body"><h2 class="card-title">最新動向 2023〜2026 →</h2><p>日銀・経産省・財務省の統計で、サービス価格、デジタル関連の海外支払い、エネルギー輸入の量と単価を追う。</p></div></a>
@@ -32,7 +33,7 @@
 <section class="max-w-5xl mx-auto px-4 mt-10"><div role="alert" class="alert alert-warning"><span><b>ご注意：</b>ストーリー・グループは筆者の<b>仮説</b>で、統計から確定できる事実ではありません。2022年値は延長産業連関表（推計表）で、基本表とは定義が異なります。</span></div></section>
 </main><footer class="footer footer-center p-6 bg-base-100 border-t border-base-300 text-sm text-base-content/70 mt-12">
 <p>出典：総務省ほか「産業連関表」、経済産業省「延長産業連関表」（政府統計の総合窓口 e-Stat 掲載）を筆者が加工して作成。<br>加工・分析・「仮説」は筆者によるもので、政府が作成・保証したものではありません。投資・経営判断の根拠にはしないでください。</p>
-<p><a class="link" href="about.html">方法と出典・免責</a></p></footer>
+<p class="flex gap-4 justify-center"><a class="link" href="industries.html">産業一覧</a><a class="link" href="about.html">方法と出典・免責</a></p></footer>
 <script>document.getElementById("thm").checked=document.documentElement.dataset.theme==="nord";
 document.getElementById("thm").onchange=function(e){var t=e.target.checked?"nord":"night";document.documentElement.dataset.theme=t;try{localStorage.setItem("theme",t)}catch(x){}}</script>
 </body></html>
