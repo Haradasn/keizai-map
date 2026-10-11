@@ -94,7 +94,7 @@ chart("c-out","out");chart("c-dig","dig");chart("c-digimp","digimp");chart("c-en
 </script>
 '''.replace("__ICIO__",_icio))
 
-_now=(R/"data"/"nowcast_chart.json").read_text(encoding="utf-8")
+_now=(R/"data"/"nowcast_chart.json").read_text(encoding="utf-8"); _now2=(R/"data"/"nowcast2_chart.json").read_text(encoding="utf-8")
 page("latest.html","最新動向 2023-2026｜Keizai Atlas","日銀統計で、サービス価格・デジタル関連の海外支払い・エネルギー価格の2023〜2026年の動きを見る",'''
 <main class="flex-1 max-w-5xl mx-auto px-4 py-10 space-y-10">
 <header class="space-y-3"><h1 class="text-3xl font-bold">最新動向：2023〜2026年</h1>
@@ -111,22 +111,31 @@ page("latest.html","最新動向 2023-2026｜Keizai Atlas","日銀統計で、�
 <section class="space-y-3"><h2 class="text-2xl font-bold">3. エネルギーの価格（国内企業物価、2020年=100）</h2>
 <div class="card bg-base-100 border border-base-300"><div class="card-body"><div id="n-cg"></div></div></div>
 <p class="text-sm text-base-content/80"><b>読み取り:</b> 電力・都市ガス・水道は、2022年12月の168.6から、2023年12月に122.2まで下がり、2026年8月は143.5です。石炭・原油・天然ガスは258.6→177.9、石油・石炭製品は2026年8月に178.5と、期間内で目立つ水準でした。産業連関表の2022年（エネルギー高騰の年）から、高止まりしつつ落ち着いたあと、再び上がっている姿です。</p></section>
+<section class="space-y-3"><h2 class="text-2xl font-bold">4. 活動量（経産省 第3次産業活動指数、2019-2020年平均=100）</h2>
+<p class="text-base-content/80">価格ではなく<b>量</b>（サービスの活動の大きさ、季節調整済み）。2026年7月分までです。</p>
+<div class="card bg-base-100 border border-base-300"><div class="card-body"><div id="n-meti"></div></div></div>
+<p class="text-sm text-base-content/80"><b>読み取り（2022年12月→2026年7月）:</b> 情報通信業は107.4→120.9（+12.6%）。内訳では<b>インターネット附随サービス業が+27%、ソフトウェア業が+19%</b>と伸びています。職業紹介・労働者派遣業は+26%。一方、<b>技術サービス業は94.4→89.9（−5%）</b>と、量は減っています。価格（節1）が+21%上がっているので、「需要があるのに供給が足りず、単価だけ上がっている」状態の可能性があります（仮説）。情報サービスと派遣は、価格も量も上がっていて、需要の強さが表れています。</p></section>
+<section class="space-y-3"><h2 class="text-2xl font-bold">5. エネルギー輸入：量と円建て単価（財務省 貿易統計、2019年=100）</h2>
+<div class="grid gap-4 md:grid-cols-2"><div class="card bg-base-100 border border-base-300"><div class="card-body"><h3 class="font-bold">輸入数量</h3><div id="n-tq"></div></div></div>
+<div class="card bg-base-100 border border-base-300"><div class="card-body"><h3 class="font-bold">円建ての単価（輸入額÷数量）</h3><div id="n-tp"></div></div></div></div>
+<p class="text-sm text-base-content/80"><b>読み取り:</b> 鉱物性燃料の輸入額は、2019年の17.0兆円から、2022年の<b>33.7兆円</b>へ約2倍になり、2025年は22.1兆円まで戻りました。数量は原油が2019年比で−21%、LNGが−16%、石炭が−13%と減っているので、<b>輸入額の増減の大半は単価（円建て）の動き</b>です。単価は2022年のピークから下がっても、2025年で原油1.5倍、LNG1.6倍、石炭1.5倍と、2019年より高い水準にあります。円安の影響も含まれます。2026年1〜8月の鉱物性燃料の輸入額は16.1兆円で、2025年同期（14.9兆円）より約8%多くなっています（8月は速報）。</p>
+<p class="text-sm text-base-content/80"><b>おまけ（デジタル機器）:</b> パソコンなど電算機類の輸入額は、2019年の2.2兆円から2025年の3.9兆円へ（+75%）。数量はほぼ同じなのに、円建て単価が約1.9倍になっています。</p></section>
 <section class="text-sm text-base-content/70 space-y-1"><h2 class="text-lg font-bold text-base-content">方法と注意</h2>
-<ul class="list-disc pl-6"><li>出典：日本銀行 時系列統計データ検索サイト「企業向けサービス価格指数（2020年基準）」「企業物価指数（2020年基準）」「国際収支統計」を筆者が加工。日本銀行が作成・保証したものではありません。</li>
+<ul class="list-disc pl-6"><li>出典：日本銀行 時系列統計データ検索サイト「企業向けサービス価格指数（2020年基準）」「企業物価指数（2020年基準）」「国際収支統計」、経済産業省「第3次産業活動指数」、財務省「貿易統計」を筆者が加工。各機関が作成・保証したものではありません。</li>
 <li>国際収支は円建ての名目値で、円安の影響を含みます。年の合計は暦年（2026年のみ1〜8月）です。</li>
-<li>集計スクリプトは <code>pipeline/boj_nowcast.py</code> にあります。</li></ul></section>
+<li>集計スクリプトは <code>pipeline/boj_nowcast.py</code>、<code>pipeline/nowcast2.py</code> にあります。</li></ul></section>
 </main>
 <script>
 (function(){
-var N=__NOW__,M=N.months;
+var N=__NOW__,N2=__NOW2__;
 function nice(mx){var q=Math.pow(10,Math.floor(Math.log10(mx/4))),c=[1,2,2.5,5,10];for(var i=0;i<c.length;i++){if(mx/(c[i]*q)<=5)return c[i]*q}return 10*q}
-function line(id,ser,opt){var el=document.getElementById(id),W=720,H=300,L=44,R=165,T=12,B=28,all=[];
+function line(id,ser,opt){var M=(opt&&opt.months)||N.months,el=document.getElementById(id),W=720,H=300,L=44,R=165,T=12,B=28,all=[];
  ser.forEach(function(s){all=all.concat(s.v.filter(function(x){return x!=null}))});
  var lo=Math.floor(Math.min.apply(null,all)*0.95/10)*10,hi=Math.max.apply(null,all)*1.05,st=nice(hi-lo),lo2=Math.floor(lo/st)*st,hi2=Math.ceil(hi/st)*st;
  function X(i){return L+(W-L-R)*i/(M.length-1)}function Y(v){return T+(H-T-B)*(1-(v-lo2)/(hi2-lo2))}
  var s='<svg viewBox="0 0 '+W+' '+H+'" width="100%" role="img" style="font-size:11px">';
  for(var v=lo2;v<=hi2+1e-9;v+=st){s+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(v)+'" y2="'+Y(v)+'" stroke="currentColor" opacity=".15"/><text x="'+(L-6)+'" y="'+(Y(v)+4)+'" text-anchor="end" fill="currentColor" opacity=".7">'+v+'</text>'}
- M.forEach(function(m,i){if(m.slice(4)=="01")s+='<text x="'+X(i)+'" y="'+(H-8)+'" text-anchor="middle" fill="currentColor" opacity=".7">'+m.slice(0,4)+'</text>'});
+ M.forEach(function(m,i){var ann=opt&&opt.annual;if(ann||m.slice(4)=="01")s+='<text x="'+X(i)+'" y="'+(H-8)+'" text-anchor="middle" fill="currentColor" opacity=".7">'+(ann?m:m.slice(0,4))+'</text>'});
  var ends=ser.map(function(x){var l=x.v.length-1;while(x.v[l]==null)l--;return [x,x.v[l],l]}).sort(function(a,b){return b[1]-a[1]}),ly={},last=-99;
  ends.forEach(function(e){var y=Y(e[1]);if(last>-99&&y-last<14)y=last+14;ly[e[0].n]=y;last=y});
  if(opt&&opt.ref)s+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(opt.ref)+'" y2="'+Y(opt.ref)+'" stroke="currentColor" opacity=".35" stroke-dasharray="4 4"/>';
@@ -137,6 +146,12 @@ function line(id,ser,opt){var el=document.getElementById(id),W=720,H=300,L=44,R=
  el.innerHTML=s+'</svg>'}
 line("n-sppi",[{n:"技術サービス",v:N.sppi["技術サービス"],c:"#f59e0b"},{n:"労働者派遣",v:N.sppi["職業紹介・労働者派遣サービス"],c:"#34d399"},{n:"情報サービス",v:N.sppi["情報サービス"],c:"#38bdf8",w:3.2},{n:"総平均",v:N.sppi["総平均"],c:"#94a3b8"},{n:"通信",v:N.sppi["通信"],c:"#a78bfa"},{n:"専門サービス",v:N.sppi["専門サービス"],c:"#ef4444"}],{ref:100});
 line("n-cg",[{n:"石炭・原油・天然ガス",v:N.cgpi["石炭・原油・天然ガス"],c:"#f59e0b"},{n:"石油・石炭製品",v:N.cgpi["石油・石炭製品"],c:"#ef4444"},{n:"電力・ガス・水道",v:N.cgpi["電力・都市ガス・水道"],c:"#38bdf8",w:3.2}],{ref:100});
+
+var m0=N2.months.indexOf("202001"),mm=N2.months.slice(m0),sl=function(a){return a.slice(m0)};
+line("n-meti",[{n:"ソフトウェア業",v:sl(N2.meti["ソフトウェア業"]),c:"#38bdf8"},{n:"ｲﾝﾀｰﾈｯﾄ附随",v:sl(N2.meti["インターネット附随サービス業"]),c:"#22d3ee"},{n:"労働者派遣",v:sl(N2.meti["職業紹介・労働者派遣業"]),c:"#34d399"},{n:"情報通信業",v:sl(N2.meti["情報通信業"]),c:"#a78bfa",w:3.2},{n:"第3次産業総合",v:sl(N2.meti["第３次産業総合"]),c:"#94a3b8"},{n:"技術サービス業",v:sl(N2.meti["技術サービス業"]),c:"#f59e0b",w:3.2}],{months:mm,ref:100});
+var T=N2.trade,yl=T.years.map(String);
+line("n-tq",[{n:"原油",v:T.crude_q_idx,c:"#ef4444"},{n:"LNG",v:T.lng_q_idx,c:"#38bdf8"},{n:"石炭",v:T.coal_q_idx,c:"#94a3b8"}],{months:yl,annual:1,ref:100});
+line("n-tp",[{n:"石炭",v:T.coal_p_idx,c:"#94a3b8"},{n:"LNG",v:T.lng_p_idx,c:"#38bdf8"},{n:"原油",v:T.crude_p_idx,c:"#ef4444"}],{months:yl,annual:1,ref:100});
 (function(){var el=document.getElementById("n-bp"),B=N.bp,ys=Object.keys(B.digital_pay),W=720,H=300,L=44,R=20,T=24,Bt=34,mx=5,bw=(W-L-R)/ys.length;
  function Y(v){return T+(H-T-Bt)*(1-v/mx)}
  var s='<svg viewBox="0 0 '+W+' '+H+'" width="100%" role="img" style="font-size:11px">';
@@ -149,7 +164,7 @@ line("n-cg",[{n:"石炭・原油・天然ガス",v:N.cgpi["石炭・原油・天
  el.innerHTML=s+'</svg>'})();
 })();
 </script>
-'''.replace("__NOW__",_now))
+'''.replace("__NOW__",_now).replace("__NOW2__",_now2))
 # ---------- explorer
 tpl=(R/"pipeline"/"explorer_template.html").read_text(encoding="utf-8")
 h=tpl.replace("__DATA__",(R/"data"/"explorer_data.json").read_text(encoding="utf-8"))
