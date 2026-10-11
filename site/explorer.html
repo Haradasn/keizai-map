@@ -143,7 +143,7 @@ function initGraph(){
       .onBackgroundClick(()=>select(null))
       .cooldownTicks(0)
       .width($("stage").clientWidth).height($("stage").clientHeight);
-    Graph.cameraPosition({x:0,y:0,z:390});
+    Graph.cameraPosition({x:0,y:0,z:345});
     new ResizeObserver(()=>{Graph.width($("stage").clientWidth).height($("stage").clientHeight);if(view==="fl")drawFlow()}).observe($("stage"));
     labelLoop();
   }catch(err){ $("fallback").style.display="flex"; Graph=null; setView("fl"); }
@@ -156,11 +156,18 @@ function labelLoop(){
   (function tick(){
     const on=view==="3d"&&Graph;
     for(const id in labelEls) labelEls[id].style.display=on?"":"none";
-    if(on){const gd=Graph.graphData().nodes;
-      for(const n of gd){const d=labelEls[n.id]; if(!d||n.x==null) continue;
+    if(on){const gd=Graph.graphData().nodes.filter(n=>n.x!=null).slice().sort((a,b)=>{
+        const pa=(sel&&sel.type==="n"&&a.id===sel.id)?1e9:nOut(a), pb=(sel&&sel.type==="n"&&b.id===sel.id)?1e9:nOut(b); return pb-pa});
+      const placed=[];
+      for(const n of gd){const d=labelEls[n.id]; if(!d) continue;
         const p=Graph.graph2ScreenCoords(n.x,n.y,n.z||0);
         const r=Math.cbrt(Math.max(nOut(n),2))*2.6;
-        d.style.left=p.x+"px"; d.style.top=(p.y+r*1.2+2)+"px";
+        const w=n.name.length*12+6, x=p.x, y=p.y+r*1.2+2, h=15;
+        const box={l:x-w/2,r:x+w/2,t:y,b:y+h};
+        const hit=placed.some(q=>box.l<q.r&&box.r>q.l&&box.t<q.b&&box.b>q.t);
+        if(hit){d.style.display="none";continue}
+        placed.push(box); d.style.display="";
+        d.style.left=x+"px"; d.style.top=y+"px";
         d.classList.toggle("dim",!isNear(n.id));}
     }
     requestAnimationFrame(tick);
@@ -286,7 +293,7 @@ $("b-flow").onclick=e=>{flow=!flow;e.target.setAttribute("aria-pressed",flow);re
 let rot=null;
 $("b-rot").onclick=e=>{const on=e.target.getAttribute("aria-pressed")!=="true";e.target.setAttribute("aria-pressed",on);
   if(on){rot=setInterval(()=>{if(!Graph)return;const p=Graph.cameraPosition();const a=Math.atan2(p.x,p.z)+0.006,r=Math.hypot(p.x,p.z);Graph.cameraPosition({x:r*Math.sin(a),y:p.y,z:r*Math.cos(a)})},30)}else clearInterval(rot)};
-$("b-reset").onclick=()=>{select(null);if(Graph)Graph.cameraPosition({x:0,y:0,z:390},{x:0,y:0,z:0},800)};
+$("b-reset").onclick=()=>{select(null);if(Graph)Graph.cameraPosition({x:0,y:0,z:345},{x:0,y:0,z:0},800)};
 legend(); render(); initGraph();
 matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>{if(Graph){Graph.backgroundColor(css("--graph"));refresh()}});
 </script>
