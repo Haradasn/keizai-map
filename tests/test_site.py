@@ -145,3 +145,10 @@ def test_similarity_groups_exist():
     codes={n["c"] for n in d["nodes"]}
     for g,v in d["groups"].items(): assert set(v["codes"])<=codes,g
     assert set(d["coh"])==set(d["groups"])
+
+def test_explorer_header_hamburger_on_mobile(browser,base):
+    for w,links,menu in ((390,"none","block"),(1200,"flex","none")):
+        pg=browser.new_page(viewport={"width":w,"height":700}); pg.goto(f"{base}/explorer.html",wait_until="domcontentloaded"); pg.wait_for_timeout(800)
+        assert pg.evaluate("getComputedStyle(document.querySelector('.links')).display")==links
+        assert pg.evaluate("getComputedStyle(document.querySelector('.mnav')).display")==menu
+        pg.close()
