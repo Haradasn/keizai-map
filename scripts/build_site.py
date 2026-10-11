@@ -32,6 +32,7 @@ page("about.html","方法と出典｜Keizai Atlas","データの出典、加工�
 <section><h2 class="text-xl font-bold mb-2">データ</h2><ul class="list-disc pl-6 space-y-1">
 <li>産業連関表（基本表）2011・2015・2020年、接続産業連関表（2011-2015-2020）：総務省ほか</li>
 <li>延長産業連関表（2020年基準、2021・2022年）：経済産業省</li>
+<li>最新動向：日本銀行 時系列統計データ検索サイト（企業向けサービス価格指数、企業物価指数、国際収支統計）</li>
 <li>国際比較：OECD Inter-Country Input-Output (ICIO) Tables 2025 edition（regular ICIO、2016〜2022年）</li>
 <li>いずれも <a class="link" href="https://www.e-stat.go.jp/" target="_blank" rel="noopener">政府統計の総合窓口（e-Stat）</a> 掲載。</li></ul></section>
 <section><h2 class="text-xl font-bold mb-2">加工について</h2><ul class="list-disc pl-6 space-y-1">
@@ -92,6 +93,63 @@ chart("c-out","out");chart("c-dig","dig");chart("c-digimp","digimp");chart("c-en
 })();
 </script>
 '''.replace("__ICIO__",_icio))
+
+_now=(R/"data"/"nowcast_chart.json").read_text(encoding="utf-8")
+page("latest.html","最新動向 2023-2026｜Keizai Atlas","日銀統計で、サービス価格・デジタル関連の海外支払い・エネルギー価格の2023〜2026年の動きを見る",'''
+<main class="flex-1 max-w-5xl mx-auto px-4 py-10 space-y-10">
+<header class="space-y-3"><h1 class="text-3xl font-bold">最新動向：2023〜2026年</h1>
+<p class="text-base-content/80">産業連関表は2022年までです。その後の動きを、日本銀行の月次・四半期統計で補います（2026年8月分まで）。サービスの<b>価格</b>、デジタル関連の<b>海外への支払い</b>、エネルギーの<b>価格</b>の3つを見ます。</p>
+<div role="alert" class="alert alert-warning"><span>価格指数は「量」ではなく「価格」です。解釈は筆者の仮説で、2026年の値は速報（改訂されることがあります）です。</span></div></header>
+<section class="space-y-3"><h2 class="text-2xl font-bold">1. 企業向けサービスの価格（2020年=100）</h2>
+<p class="text-base-content/80">企業が企業から買うサービスの価格指数（企業向けサービス価格指数）。産業マップの「対事業所サービス」「情報通信」に近い領域です。</p>
+<div class="card bg-base-100 border border-base-300"><div class="card-body"><div id="n-sppi"></div></div></div>
+<p class="text-sm text-base-content/80"><b>読み取り（2022年12月→2026年8月）:</b> 総平均は103.2→115.4（+11.8%）。<b>技術サービスが+21%</b>と最も上がり、職業紹介・労働者派遣が+11.8%、情報サービスが+11.7%、通信が+8.2%、専門サービスは+3.4%でした。人手不足や、システム・設計の需要の強さが、外注の単価に表れている可能性があります（仮説）。</p></section>
+<section class="space-y-3"><h2 class="text-2xl font-bold">2. デジタル関連の海外への支払い（兆円）</h2>
+<p class="text-base-content/80">国際収支の「通信・コンピュータ・情報サービス」。クラウド、ソフトウェア、システム開発などへの、海外との受け払いです。</p>
+<div class="card bg-base-100 border border-base-300"><div class="card-body"><div id="n-bp"></div></div></div>
+<p class="text-sm text-base-content/80"><b>読み取り:</b> 支払いは2019年の2.4兆円から2025年の4.6兆円へ<b>約1.9倍</b>。受取（0.8→2.2兆円）も増えていますが、赤字（ネット）は1.6兆円から2.4兆円に広がりました（2024年は2.6兆円で最大）。「国際比較」ページの、デジタル仕入れの輸入比率の上昇と整合します。専門・経営コンサルティングの赤字も、1.1兆円から2.5兆円に拡大しています。生成AIによる部分は、この統計からは切り分けられません。2026年は1〜8月の累計です。</p></section>
+<section class="space-y-3"><h2 class="text-2xl font-bold">3. エネルギーの価格（国内企業物価、2020年=100）</h2>
+<div class="card bg-base-100 border border-base-300"><div class="card-body"><div id="n-cg"></div></div></div>
+<p class="text-sm text-base-content/80"><b>読み取り:</b> 電力・都市ガス・水道は、2022年12月の168.6から、2023年12月に122.2まで下がり、2026年8月は143.5です。石炭・原油・天然ガスは258.6→177.9、石油・石炭製品は2026年8月に178.5と、期間内で目立つ水準でした。産業連関表の2022年（エネルギー高騰の年）から、高止まりしつつ落ち着いたあと、再び上がっている姿です。</p></section>
+<section class="text-sm text-base-content/70 space-y-1"><h2 class="text-lg font-bold text-base-content">方法と注意</h2>
+<ul class="list-disc pl-6"><li>出典：日本銀行 時系列統計データ検索サイト「企業向けサービス価格指数（2020年基準）」「企業物価指数（2020年基準）」「国際収支統計」を筆者が加工。日本銀行が作成・保証したものではありません。</li>
+<li>国際収支は円建ての名目値で、円安の影響を含みます。年の合計は暦年（2026年のみ1〜8月）です。</li>
+<li>集計スクリプトは <code>pipeline/boj_nowcast.py</code> にあります。</li></ul></section>
+</main>
+<script>
+(function(){
+var N=__NOW__,M=N.months;
+function nice(mx){var q=Math.pow(10,Math.floor(Math.log10(mx/4))),c=[1,2,2.5,5,10];for(var i=0;i<c.length;i++){if(mx/(c[i]*q)<=5)return c[i]*q}return 10*q}
+function line(id,ser,opt){var el=document.getElementById(id),W=720,H=300,L=44,R=165,T=12,B=28,all=[];
+ ser.forEach(function(s){all=all.concat(s.v.filter(function(x){return x!=null}))});
+ var lo=Math.floor(Math.min.apply(null,all)*0.95/10)*10,hi=Math.max.apply(null,all)*1.05,st=nice(hi-lo),lo2=Math.floor(lo/st)*st,hi2=Math.ceil(hi/st)*st;
+ function X(i){return L+(W-L-R)*i/(M.length-1)}function Y(v){return T+(H-T-B)*(1-(v-lo2)/(hi2-lo2))}
+ var s='<svg viewBox="0 0 '+W+' '+H+'" width="100%" role="img" style="font-size:11px">';
+ for(var v=lo2;v<=hi2+1e-9;v+=st){s+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(v)+'" y2="'+Y(v)+'" stroke="currentColor" opacity=".15"/><text x="'+(L-6)+'" y="'+(Y(v)+4)+'" text-anchor="end" fill="currentColor" opacity=".7">'+v+'</text>'}
+ M.forEach(function(m,i){if(m.slice(4)=="01")s+='<text x="'+X(i)+'" y="'+(H-8)+'" text-anchor="middle" fill="currentColor" opacity=".7">'+m.slice(0,4)+'</text>'});
+ var ends=ser.map(function(x){var l=x.v.length-1;while(x.v[l]==null)l--;return [x,x.v[l],l]}).sort(function(a,b){return b[1]-a[1]}),ly={},last=-99;
+ ends.forEach(function(e){var y=Y(e[1]);if(last>-99&&y-last<14)y=last+14;ly[e[0].n]=y;last=y});
+ if(opt&&opt.ref)s+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(opt.ref)+'" y2="'+Y(opt.ref)+'" stroke="currentColor" opacity=".35" stroke-dasharray="4 4"/>';
+ ser.slice().reverse().forEach(function(x){var pts=[];x.v.forEach(function(v,i){if(v!=null)pts.push(X(i)+","+Y(v))});
+  s+='<polyline points="'+pts.join(" ")+'" fill="none" stroke="'+x.c+'" stroke-width="'+(x.w||2)+'" stroke-linejoin="round"/>';
+  var e=ends.filter(function(q){return q[0]===x})[0];
+  s+='<circle cx="'+X(e[2])+'" cy="'+Y(e[1])+'" r="3.5" fill="'+x.c+'"/><text x="'+(W-R+8)+'" y="'+(ly[x.n]+4)+'" fill="'+x.c+'" font-weight="'+((x.w||2)>2?700:500)+'">'+x.n+" "+e[1]+'</text>'});
+ el.innerHTML=s+'</svg>'}
+line("n-sppi",[{n:"技術サービス",v:N.sppi["技術サービス"],c:"#f59e0b"},{n:"労働者派遣",v:N.sppi["職業紹介・労働者派遣サービス"],c:"#34d399"},{n:"情報サービス",v:N.sppi["情報サービス"],c:"#38bdf8",w:3.2},{n:"総平均",v:N.sppi["総平均"],c:"#94a3b8"},{n:"通信",v:N.sppi["通信"],c:"#a78bfa"},{n:"専門サービス",v:N.sppi["専門サービス"],c:"#ef4444"}],{ref:100});
+line("n-cg",[{n:"石炭・原油・天然ガス",v:N.cgpi["石炭・原油・天然ガス"],c:"#f59e0b"},{n:"石油・石炭製品",v:N.cgpi["石油・石炭製品"],c:"#ef4444"},{n:"電力・ガス・水道",v:N.cgpi["電力・都市ガス・水道"],c:"#38bdf8",w:3.2}],{ref:100});
+(function(){var el=document.getElementById("n-bp"),B=N.bp,ys=Object.keys(B.digital_pay),W=720,H=300,L=44,R=20,T=24,Bt=34,mx=5,bw=(W-L-R)/ys.length;
+ function Y(v){return T+(H-T-Bt)*(1-v/mx)}
+ var s='<svg viewBox="0 0 '+W+' '+H+'" width="100%" role="img" style="font-size:11px">';
+ for(var v=0;v<=mx;v++)s+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(v)+'" y2="'+Y(v)+'" stroke="currentColor" opacity=".15"/><text x="'+(L-6)+'" y="'+(Y(v)+4)+'" text-anchor="end" fill="currentColor" opacity=".7">'+v+'</text>';
+ ys.forEach(function(y,i){var x0=L+i*bw+bw*0.14,w=bw*0.34,part=B.digital_pay[y][1]<12,p=B.digital_pay[y][0],r=B.digital_rec[y][0],n=B.digital_net[y][0];
+  s+='<rect x="'+x0+'" y="'+Y(p)+'" width="'+w+'" height="'+(Y(0)-Y(p))+'" fill="#f59e0b" opacity="'+(part?.5:1)+'" rx="2"/><rect x="'+(x0+w+3)+'" y="'+Y(r)+'" width="'+w+'" height="'+(Y(0)-Y(r))+'" fill="#38bdf8" opacity="'+(part?.5:1)+'" rx="2"/>';
+  s+='<text x="'+(x0+w/2)+'" y="'+(Y(p)-4)+'" text-anchor="middle" fill="#f59e0b">'+p.toFixed(1)+'</text><text x="'+(x0+w*1.5+3)+'" y="'+(Y(r)-4)+'" text-anchor="middle" fill="#38bdf8">'+r.toFixed(1)+'</text>';
+  s+='<text x="'+(L+i*bw+bw/2)+'" y="'+(H-16)+'" text-anchor="middle" fill="currentColor" opacity=".8">'+y+(part?"(1-8月)":"")+'</text><text x="'+(L+i*bw+bw/2)+'" y="'+(H-3)+'" text-anchor="middle" fill="currentColor" opacity=".6">差 '+n.toFixed(1)+'</text>'});
+ s+='<rect x="'+(W-190)+'" y="2" width="10" height="10" fill="#f59e0b"/><text x="'+(W-176)+'" y="11" fill="currentColor">支払</text><rect x="'+(W-130)+'" y="2" width="10" height="10" fill="#38bdf8"/><text x="'+(W-116)+'" y="11" fill="currentColor">受取</text>';
+ el.innerHTML=s+'</svg>'})();
+})();
+</script>
+'''.replace("__NOW__",_now))
 # ---------- explorer
 tpl=(R/"pipeline"/"explorer_template.html").read_text(encoding="utf-8")
 h=tpl.replace("__DATA__",(R/"data"/"explorer_data.json").read_text(encoding="utf-8"))
@@ -121,4 +179,4 @@ h=h.replace("<title>",'<script>try{var t=localStorage.getItem("theme");if(t!=="n
 (S/"robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {SITE_URL}/sitemap.xml\n",encoding="utf-8")
 import datetime
 T=datetime.date.today().isoformat()
-(S/"sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+"".join(f"<url><loc>{SITE_URL}{p}</loc><lastmod>{T}</lastmod></url>\n" for p in ("/","/explorer","/international","/about"))+"</urlset>\n",encoding="utf-8")
+(S/"sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+"".join(f"<url><loc>{SITE_URL}{p}</loc><lastmod>{T}</lastmod></url>\n" for p in ("/","/explorer","/latest","/international","/about"))+"</urlset>\n",encoding="utf-8")
