@@ -3,7 +3,7 @@
 (function(){
 var root=document.querySelector('[data-prefmap]'); if(!root||!window.PREF_MAP)return;
 var HERO=root.getAttribute('data-prefmap')==='hero', DATA=window.PREF_MAP, INDS=DATA.inds, P=DATA.prefs;
-var sel=document.getElementById('pm-ind'), box=root, list=document.getElementById('pm-list'), note=document.getElementById('pm-note'), cap=document.getElementById('pm-cap'), ins=document.getElementById('pm-insight');
+var sel=document.getElementById('pm-ind')||{value:root.getAttribute('data-k')||'all',addEventListener:function(){}}, box=root, list=document.getElementById('pm-list'), note=document.getElementById('pm-note'), cap=document.getElementById('pm-cap'), ins=document.getElementById('pm-insight');
 var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
 function ok(){try{var c=document.createElement('canvas');return !!(c.getContext('webgl2')||c.getContext('webgl'))}catch(e){return false}}
 function lerp(a,b,t){return Math.round(a+(b-a)*t)}
@@ -38,13 +38,14 @@ function render(){
 }
 function loadLib(cb){if(window.maplibregl)return cb();var l=document.createElement('link');l.rel='stylesheet';l.href='vendor/maplibre-gl.css';document.head.appendChild(l);var s=document.createElement('script');s.src='vendor/maplibre-gl.js';s.onload=cb;document.head.appendChild(s);}
 function rgb(){var cv=document.createElement('canvas');cv.width=cv.height=1;var cx=cv.getContext('2d');cx.fillStyle=getComputedStyle(document.body).backgroundColor;cx.fillRect(0,0,1,1);var p=cx.getImageData(0,0,1,1).data;return 'rgb('+p[0]+','+p[1]+','+p[2]+')';}   // oklch等はMapLibreが読めない
+function heroZoom(){var w=box.clientWidth||360,h=box.clientHeight||270,ppd=Math.min(w/22,h/14);return Math.max(3,Math.min(5,Math.log(ppd*360/512)/Math.LN2));}   // 枠に日本(はめ込み含む)が収まるズーム
 function init(){
   var small=window.innerWidth<640;
   map=new maplibregl.Map({container:box,style:{version:8,sources:{},layers:[{id:'bg',type:'background',paint:{'background-color':rgb()}}],light:{anchor:'viewport',color:'#ffffff',intensity:0.35,position:[1.5,200,35]}},
-    center:[137.5,37.2],zoom:HERO?(small?3.4:4.05):(small?3.6:4.6),pitch:HERO?52:45,bearing:-12,minZoom:2.5,maxZoom:8,
+    center:HERO?[137.3,35.4]:[137.5,37.2],zoom:HERO?heroZoom():(small?3.6:4.6),pitch:HERO?52:45,bearing:-12,minZoom:2.5,maxZoom:8,
     cooperativeGestures:HERO,attributionControl:{compact:true,customAttribution:'境界: 地球地図日本(国土地理院)'}});
   if(!HERO)map.addControl(new maplibregl.NavigationControl({visualizePitch:true}),'top-right');
-  if(HERO){var c=document.getElementById('hero-card'),bt=document.getElementById('hero-bottom');map.setPadding(small?{top:(c?c.offsetHeight:340)+50,left:0,right:0,bottom:(bt?bt.offsetHeight:150)+10}:{top:20,left:Math.min(window.innerWidth*0.55,Math.max(0,(c?c.getBoundingClientRect().right-box.getBoundingClientRect().left:300)+10)),right:0,bottom:60});}
+  if(HERO)map.setPadding({top:8,left:4,right:4,bottom:18});
   map.on('load',function(){
     map.addSource('pref',{type:'geojson',data:geo});
     if(FRAME){map.addSource('frame',{type:'geojson',data:FRAME});map.addLayer({id:'frame',type:'line',source:'frame',paint:{'line-color':'#64748b','line-opacity':0.5,'line-width':1,'line-dasharray':[2,2]}});}
