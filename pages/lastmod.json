@@ -616,7 +616,7 @@
   "date": "2026-10-11"
  },
  "/prefectures": {
-  "hash": "1d77e723c9c0cbbb",
+  "hash": "e6a1c994b32ff1fb",
   "date": "2026-10-11"
  },
  "/prefecture/tokyo": {
@@ -645,6 +645,10 @@
  },
  "/prefecture/hyogo": {
   "hash": "269de466d38ad528",
+  "date": "2026-10-11"
+ },
+ "/prefecture/okinawa": {
+  "hash": "db4175d3ab978a39",
   "date": "2026-10-11"
  }
 }
