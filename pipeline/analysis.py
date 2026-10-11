@@ -3,8 +3,7 @@
          from analysis import simulate  -> simulate(37, {"輸送機械": 1000})  # 最終需要を 1000(=1兆円, 単位は10億円)増やしたときの生産波及
 """
 import numpy as np, pandas as pd, networkx as nx, os
-D = os.path.dirname(os.path.abspath(__file__)); OUT = os.path.join(D, "out")
-
+from _paths import RAW as D, OUT
 def load(level):
     nodes = pd.read_csv(os.path.join(OUT, "nodes.csv"), dtype={"code": str}); e = pd.read_csv(os.path.join(OUT, "edges.csv"))
     nd = nodes[nodes.level == level].reset_index(drop=True); ids = list(nd.id); ix = {k: i for i, k in enumerate(ids)}

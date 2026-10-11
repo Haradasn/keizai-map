@@ -2,7 +2,7 @@
 actor: 家計 / 企業 / 政府 / 海外 / 家計外消費(企業の交際費・福利厚生等を経由する、産業連関表上の中継項目)
 """
 import numpy as np, pandas as pd, os
-D = os.path.dirname(os.path.abspath(__file__)); OUT = os.path.join(D, "out")
+from _paths import RAW as D, OUT
 nodes = pd.read_csv(os.path.join(OUT, "nodes.csv"), dtype={"code": str}); edges = pd.read_csv(os.path.join(OUT, "edges.csv"))
 ACT = {"A_家計": "家計", "A_企業": "企業", "A_政府": "政府", "A_海外": "海外", "A_家計外": "家計外消費(中継項目)"}
 rows = []

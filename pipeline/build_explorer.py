@@ -1,6 +1,6 @@
 import pandas as pd, numpy as np, json, os
-OUT="out"
-r=lambda f,**k: pd.read_csv(f"{OUT}/{f}",encoding="utf-8-sig",dtype={"code":str,"seller":str,"buyer":str,"parent37":str},**k)
+from _paths import OUT
+r=lambda f,**k: pd.read_csv(OUT/f,encoding="utf-8-sig",dtype={"code":str,"seller":str,"buyer":str,"parent37":str},**k)
 t37=r("sector_timeseries_37.csv"); t108=r("sector_timeseries_108.csv"); es=r("edge_stories.csv"); an=r("analysis_37.csv"); bo=r("blue_ocean_ranking_108.csv")
 GROUPS=[("資源・一次産業",["01","06"]),("素材",["15","16","20","21","22","25","26","27","28"]),("食品・生活関連製造",["11","39","68"]),
  ("機械・電機・輸送機械",["29","30","31","32","33","34","35"]),("建設・エネルギー・環境",["41","46","47","48"]),
@@ -9,10 +9,10 @@ gi={c:i for i,(_,cs) in enumerate(GROUPS) for c in cs}
 BG={"663":"G1","661":"G1","481":"G1","576":"G1","577":"G1","594":"G2","593":"G2","662":"G2","591":"G2","644":"G3","643":"G3","675":"G3","552":"G3","113":"G4","221":"G4","208":"G4","281":"G4","329":"G4"}
 BN={"G1":"モノの寿命を支える裏方","G2":"ネット経済の配管","G3":"ケアと公的価格の市場","G4":"素材の川上・見えない部材"}
 import json as _j, networkx as nx
-M97=_j.load(open("data/map97to37.json"))
+M97=_j.load(open(OUT/"map97to37.json"))
 X97=r("ext_sector_97.csv"); X97["p"]=X97.code.map(M97)
 XA=X97.groupby("p")[["output_n2020","output_n2022","output_r2022"]].sum()
-XW=pd.read_csv(f"{OUT}/ext_edges_97.csv",encoding="utf-8-sig",dtype={"seller":str,"buyer":str})
+XW=pd.read_csv(OUT/"ext_edges_97.csv",encoding="utf-8-sig",dtype={"seller":str,"buyer":str})
 XW["sp"]=XW.seller.map(M97); XW["bp"]=XW.buyer.map(M97)
 XE=XW.groupby(["sp","bp"])[["amount_2020","amount_2022"]].sum().reset_index(); XE=XE[(XE.sp!=XE.bp)]
 XE["sh20"]=XE.amount_2020/XE.bp.map(XA.output_n2020)*100; XE["sh22"]=XE.amount_2022/XE.bp.map(XA.output_n2022)*100
@@ -89,5 +89,5 @@ X-=X.mean(0)
 for n_,p in zip(nodes,X): n_["x"],n_["y"],n_["z"]=[round(float(v),1) for v in p]
 print("layout extent",np.abs(X).max().round(0),"min gap",round(float((np.linalg.norm(X[:,None]-X[None],axis=2)+np.eye(len(X))*1e9-rad[:,None]-rad[None]).min()),1))
 D=dict(groups=[g for g,_ in GROUPS],nodes=nodes,edges=edges,bn=BN)
-open("out/explorer_data.json","w",encoding="utf-8").write(json.dumps(D,ensure_ascii=False,separators=(",",":")))
-print(len(nodes),len(edges),sum(1 for e in edges if e["story"]),sum(1 for e in edges if "c22" in e),os.path.getsize("out/explorer_data.json"))
+open(OUT/"explorer_data.json","w",encoding="utf-8").write(json.dumps(D,ensure_ascii=False,separators=(",",":")))
+print(len(nodes),len(edges),sum(1 for e in edges if e["story"]),sum(1 for e in edges if "c22" in e),os.path.getsize(OUT/"explorer_data.json"))

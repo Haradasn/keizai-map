@@ -1,8 +1,9 @@
 import pandas as pd, numpy as np
-r=pd.read_csv('blue_ocean_ranking_108.csv',encoding='utf-8-sig',dtype={'code':str})
-t=pd.read_csv('sector_timeseries_108.csv',encoding='utf-8-sig',dtype={'code':str})
-e=pd.read_csv('edges.csv',encoding='utf-8-sig'); e=e[(e.level==108)&(e.type=='SUPPLIES')]
-nn=pd.read_csv('nodes.csv',encoding='utf-8-sig',dtype={'code':str}); nm=nn[nn.level==108].set_index('code').name.to_dict()
+from _paths import OUT
+r=pd.read_csv(OUT/'blue_ocean_ranking_108.csv',encoding='utf-8-sig',dtype={'code':str})
+t=pd.read_csv(OUT/'sector_timeseries_108.csv',encoding='utf-8-sig',dtype={'code':str})
+e=pd.read_csv(OUT/'edges.csv',encoding='utf-8-sig'); e=e[(e.level==108)&(e.type=='SUPPLIES')]
+nn=pd.read_csv(OUT/'nodes.csv',encoding='utf-8-sig',dtype={'code':str}); nm=nn[nn.level==108].set_index('code').name.to_dict()
 GROUPS={
  "G1 モノの寿命を支える裏方":dict(codes=["663","661","481","576","577"],
    story="作る産業ではなく『使い続ける・運ぶ・処分する』産業。設備や車が増え古くなるほど需要が増え、買い手は製造・運輸・建設など広い。業界地図には整備と廃棄物処理の項目が無い。"),
@@ -27,7 +28,7 @@ for g,v in GROUPS.items():
     rows.append(dict(group=g,members="、".join(nm[c] for c in v['codes']),output_2020_tril=o20/1000,
       cagr_2011_2020_pct=((o20/o11)**(1/9)-1)*100,cagr_2015_2020_pct=((o20/o15)**(1/5)-1)*100,
       b2b_share=b2b,map_visibility=(q.map_visibility*q.size_tril).sum()/q.size_tril.sum(),main_buyers=buyers,story=v['story']))
-G=pd.DataFrame(rows).round(3); G.to_csv('blue_ocean_groups.csv',index=False,encoding='utf-8-sig')
+G=pd.DataFrame(rows).round(3); G.to_csv(OUT/'blue_ocean_groups.csv',index=False,encoding='utf-8-sig')
 pd.set_option('display.width',250); print(G.drop(columns='story').to_string())
 tot=t.output_r11.sum(),t.output_r15.sum(),t.output_n20.sum()
 print('economy cagr',(tot[2]/tot[0])**(1/9)-1)

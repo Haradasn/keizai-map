@@ -2,7 +2,7 @@ import numpy as np, pandas as pd, os, matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyArrow, FancyBboxPatch, Arc, Polygon, Rectangle
-D = os.path.dirname(os.path.abspath(__file__)); OUT = os.path.join(D, "out")
+from _paths import RAW as D, OUT
 plt.rcParams["font.family"] = "Noto Sans CJK JP"
 nodes = pd.read_csv(os.path.join(OUT, "nodes.csv"), dtype={"code": str}); S = nodes[nodes.level == 37].set_index("code")
 T = lambda c, idx=None: float((S[c] if idx is None else S.loc[idx, c]).fillna(0).sum()) / 1000       # 兆円

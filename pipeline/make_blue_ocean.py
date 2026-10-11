@@ -2,7 +2,7 @@ import textwrap, numpy as np, pandas as pd, os, matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
-D=os.path.dirname(os.path.abspath(__file__)); OUT=os.path.join(D,"out")
+from _paths import RAW as D, OUT
 plt.rcParams["font.family"]="Noto Sans CJK JP"
 r=pd.read_csv(f"{OUT}/blue_ocean_ranking_108.csv",encoding="utf-8-sig",dtype={"code":str})
 G=pd.read_csv(f"{OUT}/blue_ocean_groups.csv",encoding="utf-8-sig")

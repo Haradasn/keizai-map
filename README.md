@@ -10,6 +10,9 @@
 - `data/` 加工済みCSV/JSON
 
 ## データ加工パイプライン（`pipeline/`）
+`scripts/run_all.sh` で、原本→加工済みデータ(`data/`)→サイトを一括生成します。`scripts/run_all.sh --site` はサイトのビルドのみ。
+- 原本（e-Statの産業連関表xlsx、延長表など）は `raw/` に置きます（git管理外。`KEIZAI_RAW` で場所を変更可）。出力先は `data/`（`KEIZAI_OUT` で変更可）。パスは `pipeline/_paths.py` に集約。
+- 再現性の確認済み：原本から再生成した `data/` は、コミット済みのものとバイト単位で一致します。
 - `build_explorer.py` 産業マップ用データ / `similarity_map.py` 近さの地図（MDS）
 - `icio_agg.py` OECD ICIO 国際比較 / `boj_nowcast.py` 日銀 / `nowcast2.py` 経産省・財務省
 - 大きな元データ（ICIO等）はリポジトリに含めない。各スクリプト冒頭の引数を参照。

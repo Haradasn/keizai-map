@@ -4,8 +4,7 @@
 金額単位は表の値そのまま(10億円と想定: 国内生産額の合計から整合を確認)。
 """
 import openpyxl, numpy as np, pandas as pd, networkx as nx, re, os, sys
-D = os.path.dirname(os.path.abspath(__file__)); OUT = os.path.join(D, "out"); os.makedirs(OUT, exist_ok=True)
-
+from _paths import RAW as D, OUT
 KEYS = {
  108: dict(fd={"民間消費":"721","政府消費":"731","政府消費(社会資本等減耗分)":"732","公的固定資本形成":"741","民間固定資本形成":"751","在庫純増":"761","家計外消費":"711","輸出":"801"}, imp="870", imp_goods="841", duty=("851","861"), x="970",
           va={"雇用者所得":"911","営業余剰":"921","資本減耗引当":"931","資本減耗引当(社会資本等)":"932","間接税":"941","経常補助金(控除)":"951","家計外消費(行)":"711"}),
