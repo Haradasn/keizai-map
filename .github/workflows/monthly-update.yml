@@ -1,0 +1,57 @@
+name: monthly-update
+# 最新動向(日銀・経産省・財務省)のデータを毎週確認し、更新があればPRを作る。公表日は機関ごとに違うため、週次で見て変化がある時だけPRにする。
+on:
+  schedule:
+    - cron: "0 1 * * 1"   # 毎週月曜 10:00 JST
+  workflow_dispatch:
+  push:
+    branches: [feature/monthly-update]   # 動作確認用(PRは作らず、差分の有無だけ確認)
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: pip install pandas openpyxl
+      - name: 更新前の数値を記録
+        run: python3 scripts/derive.py > /tmp/old_metrics.txt
+      - name: データ取得と再計算
+        run: |
+          scripts/fetch_latest.sh /tmp/raw
+          python3 -I pipeline/boj_nowcast.py /tmp/raw data/nowcast_chart.json
+          python3 -I pipeline/nowcast2.py /tmp/raw data/nowcast2_chart.json
+          python3 scripts/build_site.py
+          python3 scripts/derive.py > /tmp/new_metrics.txt
+      - name: 後退していないか確認(最新月が古くならないこと)
+        run: |
+          python3 - <<'P'
+          import json,subprocess
+          for f in ("data/nowcast_chart.json","data/nowcast2_chart.json"):
+              new=json.load(open(f))["months"][-1]
+              old=json.loads(subprocess.check_output(["git","show","HEAD:"+f]))["months"][-1]
+              assert new>=old,(f,new,old)
+              print("::notice::%s 最新月 %s (前回 %s)"%(f,new,old))
+          P
+      - name: 変更の有無
+        id: diff
+        run: |
+          if git diff --quiet -- data site pages/lastmod.json; then echo "changed=false" >> $GITHUB_OUTPUT; echo "::notice::データ更新なし"; else echo "changed=true" >> $GITHUB_OUTPUT; git diff --stat -- data site pages | tail -8 | while IFS= read -r l; do echo "::notice::$l"; done; fi
+      - name: ブランチとPRを作成
+        if: steps.diff.outputs.changed == 'true' && github.event_name != 'push'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          B="auto/data-$(date -u +%Y%m%d)"
+          git config user.name "github-actions[bot]"; git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$B"; git add data site pages/lastmod.json
+          git commit -m "最新動向のデータ更新($(date -u +%Y-%m-%d))"
+          git push -u origin "$B"
+          { echo "日銀・経産省・財務省の最新データで、最新動向ページを自動更新しました。本文の数字はデータから自動計算されています。"; echo; echo "### 数値の変化"; echo '```'; diff /tmp/old_metrics.txt /tmp/new_metrics.txt | grep '^[<>]' || true; echo '```'; echo; echo "**確認してほしいこと**: 解釈の文章(「〜の可能性があります」など)が、新しい数字と矛盾していないか。"; } > /tmp/body.md
+          gh workflow run test.yml --ref "$B" || echo "::warning::テストの起動に失敗"
+          gh pr create --base main --head "$B" --title "最新動向のデータ更新($(date -u +%Y-%m-%d))" --body-file /tmp/body.md \
+            || echo "::warning::PR作成に失敗。Settings > Actions > General > Workflow permissions で 'Allow GitHub Actions to create and approve pull requests' を有効にしてください。ブランチ $B は作成済みです"

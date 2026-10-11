@@ -3,6 +3,8 @@ import re,sys,pathlib,shutil,json
 sys.path.insert(0,str(pathlib.Path(__file__).parent))
 from _shell import HEAD,FOOT,FONTS,seo
 from site_config import SITE_URL,SITE_NAME
+from derive import metrics,render
+MET=metrics()
 R=pathlib.Path(__file__).resolve().parent.parent; S=R/"site"
 def page(name,title,desc,body):
     path=name[:-5]
@@ -18,7 +20,7 @@ META=json.loads((R/"pages"/"meta.json").read_text(encoding="utf-8"))
 for name,m in META.items():
     body=(R/"pages"/f"{name}.html").read_text(encoding="utf-8")
     for ph,f in m.get("data",{}).items(): body=body.replace(ph,(R/"data"/f).read_text(encoding="utf-8"))
-    page(f"{name}.html",m["title"],m["desc"],"\n"+body)
+    page(f"{name}.html",m["title"],m["desc"],"\n"+render(body,MET))
 # ---------- explorer
 tpl=(R/"pipeline"/"explorer_template.html").read_text(encoding="utf-8")
 h=tpl.replace("__GC__",json.dumps(PAL["groups"])).replace("__DATA__",(R/"data"/"explorer_data.json").read_text(encoding="utf-8"))

@@ -159,3 +159,12 @@ def test_index_finding_links_hit_existing_anchors():
     assert len(links)>=6
     for page,anchor in links:
         assert f'id="{anchor}"' in (S/page).read_text(encoding="utf-8"),(page,anchor)
+
+def test_no_unrendered_placeholders():
+    for name in PAGES: assert "{{" not in (S/f"{name}.html").read_text(encoding="utf-8"),name
+
+def test_derived_metrics_sane():
+    import sys; sys.path.insert(0,str(R/"scripts")); from derive import metrics
+    M=metrics()
+    assert 0<float(M["sppi_avg_0"])<300 and float(M["fuel_peak"])>float(M["fuel_0"])
+    assert M["sppi_last"].endswith("月") and M["meti_last"].endswith("月")
