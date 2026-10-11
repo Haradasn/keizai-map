@@ -90,3 +90,12 @@ def test_theme_toggle(browser,base):
     t0=pg.evaluate("document.documentElement.dataset.theme")
     pg.click("[aria-label*=テーマ],#thm,label.swap,button:has-text('◐')",timeout=3000)
     assert pg.evaluate("document.documentElement.dataset.theme")!=t0; pg.close()
+
+def test_shared_charts_js_and_palette():
+    js=(S/"charts.js").read_text(encoding="utf-8")
+    assert js.startswith("var KA={pal:") and "KA.line=" in js
+    for name in ("international","latest","similarity"):
+        assert '<script src="charts.js">' in (S/f"{name}.html").read_text(encoding="utf-8")
+    # 折れ線チャートの色はパレット経由(ページ本文に折れ線用の直書き色を残さない)
+    for name in ("international","latest"):
+        assert not re.search(r'c:"#[0-9a-f]{6}"',(R/"pages"/f"{name}.html").read_text(encoding="utf-8"))

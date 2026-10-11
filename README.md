@@ -4,6 +4,7 @@
 
 ## 構成
 - `site/` 公開ディレクトリ（index / explorer / about、`assets.css`、`vendor/` に3d-force-graph同梱）
+- `pages/` 各ページの本文(`*.html`)、`meta.json`(title/description/埋め込みデータ)、`palette.json`(色の定義)、`charts.js`(共通グラフ)
 - `scripts/build_site.py` HTML生成（`pip`不要）、`npm run build:css` でTailwind+daisyUIをビルド
 - `pipeline/` データ加工スクリプト（元データはe-Statから取得。パスは各スクリプト冒頭を参照）
 - `data/` 加工済みCSV/JSON

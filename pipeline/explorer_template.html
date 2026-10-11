@@ -79,7 +79,7 @@ svg text{fill:var(--muted);font-size:10px;font-family:var(--font-num)}
 <script src="https://cdn.jsdelivr.net/npm/3d-force-graph@1.73.4/dist/3d-force-graph.min.js"></script>
 <script>
 const D=__DATA__;
-const GC=["#2a78d6","#eb6834","#1baf7a","#eda100","#e87ba4","#009a2e","#7a68e8","#e34948"];
+const GC=__GC__;
 const N=Object.fromEntries(D.nodes.map(n=>[n.id,n]));
 const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
 const fmt=(x,d=1)=>x==null?"–":Number(x).toLocaleString("ja-JP",{minimumFractionDigits:d,maximumFractionDigits:d});

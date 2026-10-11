@@ -20,10 +20,11 @@
 <li>距離を保つように2次元へ配置（多次元尺度構成法 MDS、scikit-learn）。軸に意味はありません。</li>
 <li>スクリプト：<code>pipeline/similarity_map.py</code>。出典と免責は<a class="link" href="about.html">方法と出典</a>を参照。</li></ul></section>
 </main>
+<script src="charts.js"></script>
 <script>
 (function(){
 var D=__SIM__,W=900,H=620,P=34,mode="grp";
-var PAL=["#a3e635","#fbbf24","#fb923c","#f472b6","#a78bfa","#38bdf8","#2dd4bf","#94a3b8"];
+var PAL=KA.pal.similarity_groups;
 var CH="";Object.keys(D.coh).forEach(function(k){var c=D.coh[k];CH+="<tr><td>"+k+" "+D.groups[k].name+"</td><td class=\"text-right\">"+c.within.toFixed(2)+"</td><td class=\"text-right\">"+c.all.toFixed(2)+"</td><td class=\"text-right\">上位 "+Math.max(1,Math.round(c.pct))+"%</td></tr>"});document.getElementById("coh").innerHTML=CH;
 document.getElementById("rho").textContent=D.rho.toFixed(2);
 var N=D.nodes,xs=N.map(function(d){return d.x}),ys=N.map(function(d){return d.y});

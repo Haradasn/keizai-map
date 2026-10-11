@@ -1,0 +1,34 @@
+{
+ "index": {
+  "title": "Keizai Atlas｜日本経済の産業のつながりを眺める地図帳",
+  "desc": "日本の産業連関表から、お金の流れと産業どうしのつながりを眺める趣味の分析サイト",
+  "data": {}
+ },
+ "about": {
+  "title": "方法と出典｜Keizai Atlas",
+  "desc": "データの出典、加工方法、制約と免責",
+  "data": {}
+ },
+ "international": {
+  "title": "国際比較｜Keizai Atlas",
+  "desc": "OECD国際産業連関表(ICIO)で、日米中独韓の外注・デジタル・エネルギーの仕入れ構成を比べる",
+  "data": {
+   "__ICIO__": "icio_chart.json"
+  }
+ },
+ "latest": {
+  "title": "最新動向 2023-2026｜Keizai Atlas",
+  "desc": "日銀統計で、サービス価格・デジタル関連の海外支払い・エネルギー価格の2023〜2026年の動きを見る",
+  "data": {
+   "__NOW__": "nowcast_chart.json",
+   "__NOW2__": "nowcast2_chart.json"
+  }
+ },
+ "similarity": {
+  "title": "近さの地図｜Keizai Atlas",
+  "desc": "108の産業を、取引の相手の似かたで平面に並べた地図。ブルーオーシャン候補グループの位置も確認できる",
+  "data": {
+   "__SIM__": "similarity_map.json"
+  }
+ }
+}
