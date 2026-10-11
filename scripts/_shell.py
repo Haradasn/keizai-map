@@ -12,7 +12,7 @@ HEAD='''<!doctype html><html lang="ja" data-theme="night"><head><meta charset="u
 </header>'''
 FOOT='''<footer class="footer footer-center p-6 bg-base-100 border-t border-base-300 text-sm text-base-content/70 mt-12">
 <p>出典：総務省ほか「産業連関表」、経済産業省「延長産業連関表」（政府統計の総合窓口 e-Stat 掲載）を筆者が加工して作成。<br>加工・分析・「仮説」は筆者によるもので、政府が作成・保証したものではありません。投資・経営判断の根拠にはしないでください。</p>
-<p class="flex gap-4 flex-wrap justify-center"><a class="link" href="guide.html">入門ガイド</a><a class="link" href="glossary.html">用語集</a><a class="link" href="industries.html">産業一覧</a><a class="link" href="about.html">方法と出典・免責</a></p></footer>
+<p class="flex gap-4 flex-wrap justify-center"><a class="link" href="guide.html">入門ガイド</a><a class="link" href="glossary.html">用語集</a><a class="link" href="industries.html">産業一覧</a><a class="link" href="about.html">方法と出典・免責</a><a class="link" href="feed.xml">更新情報(RSS)</a></p></footer>
 <script>document.getElementById("thm").checked=document.documentElement.dataset.theme==="nord";
 document.getElementById("thm").onchange=function(e){var t=e.target.checked?"nord":"night";document.documentElement.dataset.theme=t;try{localStorage.setItem("theme",t)}catch(x){}}</script>
 </body></html>'''
@@ -22,4 +22,4 @@ def seo(path,title,desc,site,name,jsonld=""):
     return (f'<link rel="canonical" href="{url}"><meta property="og:type" content="website"><meta property="og:site_name" content="{name}">'
       f'<meta property="og:title" content="{title}"><meta property="og:description" content="{desc}"><meta property="og:url" content="{url}">'
       f'<meta property="og:image" content="{site}/og.png"><meta property="og:locale" content="ja_JP"><meta name="twitter:card" content="summary_large_image">'
-      f'<meta name="theme-color" content="#0b1120">'+jsonld)
+      f'<meta name="theme-color" content="#0b1120"><link rel="alternate" type="application/atom+xml" title="更新情報" href="{site}/feed.xml">'+jsonld)

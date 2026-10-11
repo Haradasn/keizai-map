@@ -239,3 +239,11 @@ def test_og_images_exist():
     for rel in seen:
         assert (S/rel).exists(),rel
         assert Image.open(S/rel).size==(1200,630),rel
+
+
+def test_feed_valid():
+    import xml.etree.ElementTree as ET
+    t=ET.parse(S/"feed.xml").getroot(); ns={"a":"http://www.w3.org/2005/Atom"}
+    es=t.findall("a:entry",ns); assert len(es)>=4
+    ids=[e.find("a:id",ns).text for e in es]; assert len(set(ids))==len(ids)
+    for f in S.rglob("*.html"): assert 'type="application/atom+xml"' in f.read_text(encoding="utf-8"),f

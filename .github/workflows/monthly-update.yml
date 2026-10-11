@@ -48,7 +48,9 @@ jobs:
         run: |
           B="auto/data-$(date -u +%Y%m%d)"
           git config user.name "github-actions[bot]"; git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git checkout -b "$B"; git add data site pages/lastmod.json
+          python3 scripts/add_changelog.py "最新動向のデータを更新" "日銀・経済産業省・財務省の最新データで、最新動向のグラフと数値を更新しました。" /latest
+          python3 scripts/build_site.py
+          git checkout -b "$B"; git add data site pages
           git commit -m "最新動向のデータ更新($(date -u +%Y-%m-%d))"
           git push -u origin "$B"
           { echo "日銀・経産省・財務省の最新データで、最新動向ページを自動更新しました。本文の数字はデータから自動計算されています。"; echo; echo "### 数値の変化"; echo '```'; diff /tmp/old_metrics.txt /tmp/new_metrics.txt | grep '^[<>]' || true; echo '```'; echo; echo "**確認してほしいこと**: 解釈の文章(「〜の可能性があります」など)が、新しい数字と矛盾していないか。"; } > /tmp/body.md

@@ -68,6 +68,10 @@ h=h.replace("*{box-sizing:border-box}",TOK+"*{box-sizing:border-box}",1)
 h=h.replace("<title>",'<script>try{var t=localStorage.getItem("theme");if(t!=="nord")t="night";document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme="night"}</script><title>',1)
 (S/"explorer.html").write_text(h,encoding="utf-8")
 
+from xml.sax.saxutils import escape as xe
+CL=json.loads((R/"pages"/"changelog.json").read_text(encoding="utf-8"))
+fe="".join(f'<entry><title>{xe(c["title"])}</title><link href="{SITE_URL}{c["link"]}"/><id>{SITE_URL}/feed#{c["date"]}-{len(CL)-i}</id><updated>{c["date"]}T00:00:00+09:00</updated><summary>{xe(c["summary"])}</summary></entry>' for i,c in enumerate(CL))
+(S/"feed.xml").write_text(f'<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom"><title>{SITE_NAME} 更新情報</title><link href="{SITE_URL}/feed.xml" rel="self"/><link href="{SITE_URL}/"/><id>{SITE_URL}/</id><updated>{CL[0]["date"]}T00:00:00+09:00</updated><author><name>{SITE_NAME}</name></author>{fe}</feed>',encoding="utf-8")
 (S/"robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {SITE_URL}/sitemap.xml\n",encoding="utf-8")
 import datetime,hashlib
 # lastmod: ページ内容のハッシュが変わった日だけ更新(pages/lastmod.json に記録)。変更が無ければ何日ビルドしても同じ。
