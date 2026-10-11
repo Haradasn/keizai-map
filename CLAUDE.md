@@ -32,4 +32,4 @@
 - 県の表は形式がバラバラ。37部門ベースなら `SOURCES.json` に列位置を書けば追加できる。合算が必要なもの(沖縄=397部門、北海道=独自38部門、兵庫・福岡=39部門)は個別処理がある。
 
 ## 未対応・候補
-アクセス解析は Cloudflare Web Analytics を導入済み(2026-10、ユーザーが設定)。週次レポートの自動化(Cloudflare/Search Console の閲覧用トークンを GitHub Secrets に入れる必要あり)、Ruleset の「PR 必須」の再設定、残り23県(PDFのみの県の扱い)、用語集への内部リンクの拡充、スマホ実機での表示速度の確認。
+アクセス解析は Cloudflare Web Analytics を導入済み(2026-10、ユーザーが設定)。週次レポート: `.github/workflows/weekly-report.yml` が毎週月曜8時に `scripts/weekly_report.py` を実行し、非公開リポジトリ `keizai-atlas-reports` に保存 → そちらの `post-issue` が Issue にして通知。Secrets: CF_API_TOKEN, CF_ACCOUNT_ID, GSC_SA_JSON, REPORT_TOKEN(1年で期限切れ)。公開リポジトリなのでレポートの数値はログに出さない。Ruleset の「PR 必須」の再設定、残り23県(PDFのみの県の扱い)、用語集への内部リンクの拡充、スマホ実機での表示速度の確認。
