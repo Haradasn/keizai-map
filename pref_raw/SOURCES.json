@@ -108,5 +108,83 @@
   "coarse": true,
   "url": "https://www.hkd.mlit.go.jp/ky/ki/keikaku/jtfkjs0000004nkx.html",
   "note": "北海道の表は、北海道開発局が公表した独自の38部門です。全国の37部門とは分け方が異なる（機械を1部門にまとめている、電気・ガス・水道や金融・保険・不動産を合わせている、など）ため、このサイトでは全国の37部門を同じ粗さにまとめて比べています。部門の数が他の都府県より少なく、特化係数の一覧には入れていません。"
+ },
+ "tochigi": {
+  "name": "栃木県",
+  "year": 2020,
+  "file": "tochigi_2020_37.xlsx",
+  "sheet": "37(1)取引基本表",
+  "name_row": 3,
+  "first": 4,
+  "code_col": 1,
+  "name_col": 2,
+  "url": "https://www.pref.tochigi.lg.jp/c04/pref/toukei/toukei/io.html"
+ },
+ "yamanashi": {
+  "name": "山梨県",
+  "year": 2020,
+  "file": "yamanashi_2020_37.xlsx",
+  "sheet": "基本表（統合大分類37部門）",
+  "name_row": 4,
+  "first": 5,
+  "code_col": 1,
+  "name_col": 2,
+  "url": "https://www.pref.yamanashi.jp/toukei_2/HP/R2renkan.html"
+ },
+ "kyoto": {
+  "name": "京都府",
+  "year": 2020,
+  "file": "kyoto_2020_37.xlsx",
+  "sheet": "1.取引基本表",
+  "name_row": 2,
+  "first": 3,
+  "code_col": 1,
+  "name_col": 2,
+  "url": "https://www.pref.kyoto.jp/tokei/cycle/sanren/",
+  "scale": 0.01
+ },
+ "wakayama": {
+  "name": "和歌山県",
+  "year": 2020,
+  "file": "wakayama_2020_37.xlsx",
+  "sheet": "37部門表",
+  "name_row": 4,
+  "first": 6,
+  "code_col": 1,
+  "name_col": 2,
+  "url": "https://www.pref.wakayama.lg.jp/prefg/020300/sangyo/R2/d00220299.html"
+ },
+ "shiga": {
+  "name": "滋賀県",
+  "year": 2020,
+  "file": "shiga_2020_37.xlsx",
+  "sheet": "(1)生産者価格評価表",
+  "name_row": 2,
+  "first": 3,
+  "code_col": 1,
+  "name_col": 2,
+  "url": "https://www.pref.shiga.lg.jp/kensei/tokei/sonota/sangyou/317842.html"
+ },
+ "kumamoto": {
+  "name": "熊本県",
+  "year": 2020,
+  "file": "kumamoto_2020_37.xlsx",
+  "sheet": "生産者価格評価表（統合大分類）",
+  "name_row": 3,
+  "first": 4,
+  "code_col": 1,
+  "name_col": 2,
+  "url": "https://www.pref.kumamoto.jp/soshiki/20/50333.html"
+ },
+ "niigata": {
+  "name": "新潟県",
+  "year": 2020,
+  "file": "niigata_2020_37.xlsx",
+  "sheet": "基本（37部門）",
+  "name_row": 5,
+  "first": 6,
+  "code_col": 0,
+  "name_col": 1,
+  "url": "https://www.pref.niigata.lg.jp/site/tokei/0806761.html"
  }
 }

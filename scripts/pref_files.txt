@@ -1,3 +1,9 @@
-https://data.bodik.jp/dataset/1507ebf2-79fc-4a4d-8028-4662d79f2b2e/resource/6b476132-6215-4036-ba13-1e64643bd1cb/download/r2io-39bumon.xlsx
-https://www.hkd.mlit.go.jp/ky/ki/keikaku/jtfkjs0000004nkx-att/jtfkjs0000004np9.xlsx
-https://www.hkd.mlit.go.jp/ky/ki/keikaku/jtfkjs0000004nkx-att/jtfkjs0000004npf.xlsx
+https://www.pref.tochigi.lg.jp/c04/pref/toukei/toukei/documents/r2_37bumonhyou.xlsx
+https://www.pref.yamanashi.jp/toukei_2/HP/DATA/r2renkan/r2kihon_37bumon.xlsx
+https://www.pref.kyoto.jp/tokei/cycle/sanren/documents/sanren2020_37bumon.xlsx
+https://www.pref.wakayama.lg.jp/prefg/020300/sangyo/R2/d00220299_d/fil/37Sector_2020.xlsx
+https://www.pref.shiga.lg.jp/documents/11141/5597245.xlsx
+https://www.pref.shiga.lg.jp/documents/11141/5596346.xlsx
+https://www.pref.kumamoto.jp/uploaded/attachment/282592.xlsx
+https://www.pref.niigata.lg.jp/uploaded/attachment/482464.xlsx
+https://www.pref.miyagi.jp/documents/45175/toukei1.xlsx
