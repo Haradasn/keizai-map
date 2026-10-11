@@ -64,7 +64,7 @@ svg text{fill:var(--muted);font-size:10px;font-family:var(--font-num)}
 #fallback{position:absolute;left:0;right:0;bottom:56px;display:none;justify-content:center;text-align:center;padding:6px 20px;color:var(--muted);font-size:12px;pointer-events:none;z-index:1}
 .ctrl,.legend{z-index:2}
 </style></head><body>
-<div class="topbar"><a class="brand" href="index.html">Keizai Atlas</a><span class="sp"></span><a href="explorer.html">産業マップ</a><a href="about.html">方法と出典</a><button id="thm" aria-label="テーマ切替">◐</button></div><script>document.getElementById("thm").onclick=function(){var t=document.documentElement.dataset.theme==="nord"?"night":"nord";document.documentElement.dataset.theme=t;try{localStorage.setItem("theme",t)}catch(e){}}</script><h1>産業マップ</h1>
+<div class="topbar"><a class="brand" href="index.html">Keizai Atlas</a><span class="sp"></span><a href="explorer.html">産業マップ</a><a href="similarity.html">近さの地図</a><a href="latest.html">最新動向</a><a href="international.html">国際比較</a><a href="about.html">方法と出典</a><button id="thm" aria-label="テーマ切替">◐</button></div><script>document.getElementById("thm").onclick=function(){var t=document.documentElement.dataset.theme==="nord"?"night":"nord";document.documentElement.dataset.theme=t;try{localStorage.setItem("theme",t)}catch(e){}}</script><h1>産業マップ</h1>
 <p class="sub">日本の37部門の取引。円=生産額、線=売り手→買い手の取引額、色=増減。円や線をクリックすると中身と仮説に入れます。配置は固定で、同じ色(部門グループ)がまとまるように並べています。距離そのものに厳密な意味はありません。</p>
 <div class="wrap">
   <div class="stage" id="stage">
@@ -284,7 +284,7 @@ $("panel").addEventListener("click",ev=>{
 function pressed(ids,on){ids.forEach(i=>$(i).setAttribute("aria-pressed",i===on))}
 function setMode(m){mode=m;pressed(["m-grp","m-gro"],m==="grp"?"m-grp":"m-gro");legend();refresh()}
 $("m-grp").onclick=()=>setMode("grp");$("m-gro").onclick=()=>setMode("gro");
-function setView(v){view=v;pressed(["v-3d","v-fl"],v==="3d"?"v-3d":"v-fl");$("flow").hidden=v!=="fl";$("g").style.visibility=v==="3d"?"visible":"hidden";if(v==="fl")drawFlow()}
+function setView(v){view=v;pressed(["v-3d","v-fl"],v==="3d"?"v-3d":"v-fl");$("flow").toggleAttribute("hidden",v!=="fl");$("g").style.visibility=v==="3d"?"visible":"hidden";if(v==="fl")drawFlow()}
 $("v-3d").onclick=()=>setView("3d");$("v-fl").onclick=()=>setView("fl");
 function setPeriod(p){period=p;pressed(["p-20","p-ch"],p==="y20"?"p-20":"p-ch");legend();sel=null;reloadLinks();render()}
 $("p-20").onclick=()=>setPeriod("y20");$("p-ch").onclick=()=>setPeriod("chg");
