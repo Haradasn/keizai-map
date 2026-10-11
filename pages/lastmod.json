@@ -616,7 +616,7 @@
   "date": "2026-10-11"
  },
  "/prefectures": {
-  "hash": "60c0db48cf29496a",
+  "hash": "5be5c96917e8ca01",
   "date": "2026-10-11"
  },
  "/prefecture/tokyo": {
@@ -685,6 +685,34 @@
  },
  "/prefecture/niigata": {
   "hash": "ccc61df2bfa1423d",
+  "date": "2026-10-11"
+ },
+ "/prefecture/toyama": {
+  "hash": "a250edebed88a1fd",
+  "date": "2026-10-11"
+ },
+ "/prefecture/okayama": {
+  "hash": "57267eee169621fe",
+  "date": "2026-10-11"
+ },
+ "/prefecture/mie": {
+  "hash": "956f7bdf5b3de0d7",
+  "date": "2026-10-11"
+ },
+ "/prefecture/kagoshima": {
+  "hash": "ef4e07a2ca9c6601",
+  "date": "2026-10-11"
+ },
+ "/prefecture/gunma": {
+  "hash": "39b6cbf0a4527286",
+  "date": "2026-10-11"
+ },
+ "/prefecture/tottori": {
+  "hash": "0a5fcbc48330e0e9",
+  "date": "2026-10-11"
+ },
+ "/prefecture/fukui": {
+  "hash": "fbf9ca821fd0b22e",
   "date": "2026-10-11"
  }
 }

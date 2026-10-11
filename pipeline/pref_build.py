@@ -98,6 +98,13 @@ def build(slug):
     if SRC[slug].get("special")=="hokkaido": return build_hokkaido(slug)
     rows,cols,rl,s=load(slug)
     sec=[(c.lstrip("A").zfill(2),n,i) for c,n,i in rl if c.lstrip("A").isdigit() and int(c.lstrip("A"))<=69]
+    if s.get("seq37"):                                # 福井県・鳥取県: 部門コードが01からの連番。全国の37部門と同じ並び(鳥取は農・林・漁が別の39部門)なので、順番で全国のコードに対応づける
+        nd=pd.read_csv(OUT/"nodes.csv",encoding="utf-8-sig",dtype={"code":str}); nc=list(nd[nd.level==37].code); K=s["seq37"]; off=K-37   # K=37 or 39
+        cv=lambda n:nc[0] if n<=off+1 else nc[n-1-off]
+        sec=[(cv(int(c)),n,i) for c,n,i in sec if int(c)<=K]
+        assert len(sec)==K,len(sec)
+        chk=[(c,n) for c,n,i in sec if norm(nd[nd.code==c].name.iloc[0])[:2]!=n[:2] and c!=nc[0]]    # 名称の先頭2文字が全国の部門と一致すること
+        assert not chk,chk
     sec+=[("HQ",n,i) for c,n,i in rl if n=="本社"]       # 東京都のみの部門
     X_r=[i for c,n,i in rl if n in PICK["X"]][0]
     VA_r=[i for c,n,i in rl if n=="粗付加価値部門計"][0]; ti=[i2 for c2,n2,i2 in rl if n2=="内生部門計"][0]
@@ -109,10 +116,12 @@ def build(slug):
         if X<=0: continue
         va=num(rows[VA_r][j]) if j is not None else None
         intin=num(rows[ti][j]) if j is not None else None
-        e=num(r[cME]) if cME is not None else num(r[cols["輸出"]])+num(r[cols["移出"]])
+        e=num(r[cME]) if cME is not None else num(r[cols["輸出" if "輸出" in cols else "輸出計"]])+num(r[cols["移出"]])
         dem=num(r[cD]); mi=dem+e-X          # 移輸入 = 域内需要 + 移輸出 - 生産額 (需給バランスから)
         # 検証: 公表された移輸入の合計列があれば一致すること、費用側(中間投入+付加価値=生産額)が合うこと
-        if cEI is not None: assert abs(abs(num(r[cEI]))-mi)<=max(2,X*1e-6),(slug,n,"移輸入",num(r[cEI]),mi)
+        if cEI is not None:
+            tax=sum(abs(num(r[cols[k]])) for k in cols if k.startswith("（控除）") and ("関税" in k or "輸入品商品税" in k))   # 鹿児島県は関税・輸入品商品税を別の列に分けている
+            assert min(abs(abs(num(r[cEI]))-mi),abs(abs(num(r[cEI]))+tax-mi))<=max(2,X*1e-6),(slug,n,"移輸入",num(r[cEI]),mi)
         if va is not None and intin is not None: assert abs(intin+va-X)<=max(2,X*1e-6),(slug,n,"費用側",intin+va,X)
         assert mi>=-max(2,X*1e-6),(slug,n,"移輸入が負",mi)
         out.append(dict(c=c,n=n,out=X,va=va,exp=e,imp=max(mi,0),dem=dem))
