@@ -1,6 +1,7 @@
 """延長産業連関表(2020年基準)97部門: 2020・2021・2022年の名目・実質(2020年価格)から部門別の推移を作る。"""
 import pandas as pd, numpy as np, os
-D=os.path.join(os.path.dirname(os.path.abspath(__file__)),"data"); OUT=os.path.join(os.path.dirname(os.path.abspath(__file__)),"out")
+from _paths import RAW, OUT
+D=RAW/"data"
 F={("n",2020):"ext2020base_io_20al97.xlsx",("n",2021):"ext_2021_97n.xlsx",("r",2021):"ext_2021_97r.xlsx",("n",2022):"ext2020base_r2_r04uio97n.xlsx",("r",2022):"ext2020base_r2_r04uio97r.xlsx"}
 def load(f):
     df=pd.read_excel(os.path.join(D,f),sheet_name="中分類",header=None)

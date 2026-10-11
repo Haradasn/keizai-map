@@ -5,7 +5,7 @@
  出力: out/edge_stories.csv(37部門), out/edge_stories_108_backstage.csv(108部門・裏方候補の主要な取引)
 """
 import pandas as pd, numpy as np, os
-D = os.path.dirname(os.path.abspath(__file__)); OUT = os.path.join(D, "out")
+from _paths import RAW as D, OUT
 E = pd.read_csv(os.path.join(OUT, "edges37_timeseries.csv"), dtype={"seller": str, "buyer": str})
 T = pd.read_csv(os.path.join(OUT, "sector_timeseries_37.csv"), dtype={"code": str}).set_index("code")
 

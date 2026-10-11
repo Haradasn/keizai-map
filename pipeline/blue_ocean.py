@@ -9,7 +9,7 @@
   取引の広がり: 売上の9割を占める買い手部門の数(多いほど横断的)
 """
 import numpy as np, pandas as pd, os
-D = os.path.dirname(os.path.abspath(__file__)); OUT = os.path.join(D, "out")
+from _paths import RAW as D, OUT
 nodes = pd.read_csv(os.path.join(OUT, "nodes.csv"), dtype={"code": str}); edges = pd.read_csv(os.path.join(OUT, "edges.csv"))
 T = pd.read_csv(os.path.join(OUT, "sector_timeseries_108.csv"), dtype={"code": str, "parent37": str})
 N = nodes[nodes.level == 108].reset_index(drop=True); ids = list(N.id); ix = {k: i for i, k in enumerate(ids)}

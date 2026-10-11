@@ -5,7 +5,7 @@
 出力: out/sector_timeseries_108.csv, sector_timeseries_37.csv, edges37_timeseries.csv, ts_checks.csv
 """
 import openpyxl, numpy as np, pandas as pd, os, re
-D = os.path.dirname(os.path.abspath(__file__)); OUT = os.path.join(D, "out")
+from _paths import RAW as D, OUT
 YEARS = (2011, 2015, 2020); CAGR = lambda a, b, n: np.where((a > 0) & (b > 0), (b / np.where(a > 0, a, 1)) ** (1 / n) - 1, np.nan)
 
 # ---------- 37部門の取引基本表(3時点) ----------

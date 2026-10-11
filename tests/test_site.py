@@ -90,3 +90,7 @@ def test_theme_toggle(browser,base):
     t0=pg.evaluate("document.documentElement.dataset.theme")
     pg.click("[aria-label*=テーマ],#thm,label.swap,button:has-text('◐')",timeout=3000)
     assert pg.evaluate("document.documentElement.dataset.theme")!=t0; pg.close()
+
+def test_pipeline_scripts_compile():
+    import py_compile
+    for f in sorted((R/"pipeline").glob("*.py")): py_compile.compile(str(f),doraise=True)

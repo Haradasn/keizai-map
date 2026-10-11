@@ -1,7 +1,7 @@
 import numpy as np, pandas as pd, os, matplotlib, textwrap
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-D=os.path.dirname(os.path.abspath(__file__)); OUT=os.path.join(D,"out")
+from _paths import RAW as D, OUT
 plt.rcParams["font.family"]="Noto Sans CJK JP"
 S=pd.read_csv(f"{OUT}/ext_sector_97.csv",encoding="utf-8-sig",dtype={"code":str})
 W=pd.read_csv(f"{OUT}/ext_edges_97.csv",encoding="utf-8-sig",dtype={"seller":str,"buyer":str})

@@ -3,7 +3,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.path import Path
 from matplotlib.patches import PathPatch, Polygon, Circle, Rectangle
-D = os.path.dirname(os.path.abspath(__file__)); OUT = os.path.join(D, "out")
+from _paths import RAW as D, OUT
 plt.rcParams["font.family"] = "Noto Sans CJK JP"
 nodes = pd.read_csv(os.path.join(OUT, "nodes.csv"), dtype={"code": str}); edges = pd.read_csv(os.path.join(OUT, "edges.csv"))
 n37 = nodes[nodes.level == 37].reset_index(drop=True)
