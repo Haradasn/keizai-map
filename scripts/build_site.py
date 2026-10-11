@@ -11,6 +11,7 @@ def page(name,title,desc,body,extra=""):
     ld=""
     if path=="index": ld='<script type="application/ld+json">'+json.dumps({"@context":"https://schema.org","@type":"WebSite","name":SITE_NAME,"url":SITE_URL+"/","inLanguage":"ja","description":desc},ensure_ascii=False)+"</script>"
     S_=seo(path,title,desc,SITE_URL,SITE_NAME,ld+extra)
+    if path.startswith('industry/') and (S/'og'/(path[9:]+'.png')).exists(): S_=S_.replace(SITE_URL+'/og.png',SITE_URL+'/og/'+path[9:]+'.png')
     (S/name).write_text(HEAD.format(title=title,desc=desc,seo=S_)+body+FOOT,encoding="utf-8")
 # ---------- 共通: 色パレットと共通グラフJS
 PAL=json.loads((R/"pages"/"palette.json").read_text(encoding="utf-8"))

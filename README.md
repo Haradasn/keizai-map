@@ -39,3 +39,6 @@ Cloudflare（Workers 静的アセット、商用可）: Build command `npm insta
 
 ## 出典・ライセンス
 データ出典：総務省ほか「産業連関表」、経済産業省「延長産業連関表」「第3次産業活動指数」、財務省「貿易統計」、日本銀行、OECD ICIO（政府統計の総合窓口 e-Stat）。本リポジトリの数値・図は筆者による加工物で、政府が作成したものではありません。ストーリーは筆者の仮説です。
+
+## SNS共有画像(OGP)
+`python3 scripts/build_ogp.py` で `site/og.png` と `site/og/<id>.png`(145枚)を生成します(Noto Sans CJK が必要。CIでは実行せず、生成物をコミット)。産業データが変わったら `build_site.py` → `build_ogp.py` の順に実行して再コミットしてください。

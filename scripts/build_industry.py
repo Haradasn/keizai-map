@@ -47,7 +47,9 @@ def table(rows,heads):
     for r in rows: t+='<tr>'+"".join(f'<td{" class=\"text-right\"" if i else ""}>{c}</td>' for i,c in enumerate(r))+'</tr>'
     return t+'</tbody></table></div>'
 
+OGP=[]
 def build(page,S,PAL,SITE_URL):
+    OGP.clear()
     L=load(); n108,n37,ed,ts,an,rk,ex,sim=(L[k] for k in ("n108","n37","ed","ts","an","rk","ex","sim"))
     gnames=ex["groups"]; N37={x["id"]:x for x in ex["nodes"]}; grp_of37={k:v["grp"] for k,v in N37.items()}
     GC=PAL["groups"]; tot=float(n108.output.sum())
@@ -103,6 +105,9 @@ def build(page,S,PAL,SITE_URL):
 <p class="text-xs text-base-content/60">出典：総務省ほか「産業連関表」（2011・2015・2020年、108部門）を筆者が集計。成長率は接続産業連関表による実質値。政府が作成したものではありません。<a class="link" href="about.html">方法と出典</a></p>
 </main>'''
         ld='<base href="/">'+'<script type="application/ld+json">'+json.dumps({"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"産業一覧","item":SITE_URL+"/industries"},{"@type":"ListItem","position":2,"name":str(n37.loc[p37,"name"]),"item":f"{SITE_URL}/industry/{p37}"},{"@type":"ListItem","position":3,"name":nm}]},ensure_ascii=False)+"</script>"
+        OGP.append(dict(id=code,title=nm,kind="108産業の1つ｜"+n37.loc[p37,"name"],grp=int(grp_of37.get(p37,0) or 0),
+          stats=[["産出額（2020年）",tril(out)+"兆円"],["実質成長（2015→20年）",(sg(g)+"%/年") if g is not None else "データなし"],["付加価値率",pct(float(a["付加価値率"]))],["輸入依存度",pct(float(a["輸入依存度"]))]],
+          parts=[[l,round(v,4),c] for l,v,c in parts]))
         page(f"industry/{code}.html",f"{nm}の取引先・規模・成長｜Keizai Atlas",desc,body,ld); out_pages.append(f"industry/{code}")
     # ---------- 37部門ページ
     edges37=ex["edges"]
@@ -138,6 +143,8 @@ def build(page,S,PAL,SITE_URL):
 <p class="text-xs text-base-content/60">出典：総務省ほか「産業連関表」（2011・2015・2020年）、経済産業省「延長産業連関表」を筆者が集計。政府が作成したものではありません。<a class="link" href="about.html">方法と出典</a></p>
 </main>'''
         ld='<base href="/">'+'<script type="application/ld+json">'+json.dumps({"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"産業一覧","item":SITE_URL+"/industries"},{"@type":"ListItem","position":2,"name":nm}]},ensure_ascii=False)+"</script>"
+        OGP.append(dict(id=nid,title=nm,kind="37部門の1つ｜"+gname,grp=int(n["grp"]),
+          stats=[["産出額（2020年）",f'{n["out"]:.1f}兆円'],["実質成長（2011→20年）",sg(n["cagr"])+"%/年"],["付加価値率",f'{n["va"]:.0f}%'],["輸入依存度",f'{n["imp"]:.0f}%']],parts=[]))
         page(f"industry/{nid}.html",f"{nm}（37部門）の取引先・規模・成長｜Keizai Atlas",f"{nm}（37部門の1つ）の2020年の産出額は{n['out']:.1f}兆円。主な販売先・仕入れ先、含まれる産業、取引の背景（仮説）。",body,ld); out_pages.append(f"industry/{nid}")
     # ---------- 産業一覧
     sec=""
@@ -150,4 +157,5 @@ def build(page,S,PAL,SITE_URL):
         sec+='</section>'
     body=f'''<main class="flex-1 w-full max-w-4xl mx-auto px-4 py-10 space-y-6"><header class="space-y-3"><h1 class="text-3xl font-bold">産業一覧</h1><p class="text-base-content/80">日本の産業を、8つの大分類・37の部門・108の産業に分けて、それぞれの規模と取引先を見られます。名前をクリックすると、その産業のページに移ります。数字は2020年の産業連関表です。</p></header>{sec}</main>'''
     page("industries.html","産業一覧（37部門・108産業）｜Keizai Atlas","日本の産業を8つの大分類・37部門・108産業に分けて、規模と取引先を見られる一覧。",body,'<base href="/">' if False else "")
+    (D/"ogp_cards.json").write_text(json.dumps(OGP,ensure_ascii=False,indent=0),encoding="utf-8")
     return out_pages+["industries"]

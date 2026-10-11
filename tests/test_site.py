@@ -226,3 +226,16 @@ def test_glossary_links_resolve():
         for i in re.findall(r'href="glossary\.html#([a-z0-9-]+)"',f.read_text(encoding="utf-8")):
             assert i in ids,(f.name,i); n+=1
     assert n>=10
+
+
+def test_og_images_exist():
+    from PIL import Image
+    seen=set()
+    for f in S.rglob("*.html"):
+        m=re.search(r'og:image" content="https://keizai-atlas\.com/([^"]+)"',f.read_text(encoding="utf-8"))
+        assert m,f
+        seen.add(m.group(1))
+    assert len(seen)>=146
+    for rel in seen:
+        assert (S/rel).exists(),rel
+        assert Image.open(S/rel).size==(1200,630),rel
