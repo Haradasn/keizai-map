@@ -25,7 +25,7 @@ def build_map(page,D):
             if o["c"]=="HQ" or len(o.get("nat_codes",[o["c"]]))!=1: continue      # 本社(東京のみ)と、北海道の合算部門は除く
             s[o.get("nat_codes",[o["c"]])[0]]=[round(o["out"]/1e6,4),(round(o["lq"],3) if o["lq"] else None)]
         prefs[JIS[k]]=dict(n=p["name"],g=k,t=round(p["total_out"]/1e6,3),va=round(p["total_va"]/p["total_out"],3),s=s)
-    S=R/"site"; (S/"pref-map-data.js").write_text("window.PREF_MAP="+json.dumps(dict(inds=inds,prefs=prefs),ensure_ascii=False,separators=(",",":"))+";",encoding="utf-8"); (S/"prefmap.js").write_text((R/"pages"/"prefmap.js").read_text(encoding="utf-8"),encoding="utf-8")
+    S=R/"site"; (S/"pref-map-data.js").write_text("window.PREF_MAP="+json.dumps(dict(inds=inds,prefs=prefs),ensure_ascii=False,separators=(",",":"))+";",encoding="utf-8"); (S/"prefmap.js").write_text((R/"pages"/"prefmap.js").read_text(encoding="utf-8"),encoding="utf-8"); (S/"insights.js").write_text((R/"pages"/"insights.js").read_text(encoding="utf-8"),encoding="utf-8")
     opts='<option value="all">すべての産業（総産出額）</option>'+"".join(f'<option value="{c}">{esc(n)}</option>' for c,n in inds.items())
     body=f"""<main class="flex-1 w-full max-w-5xl mx-auto px-4 py-10 space-y-6">
 <header class="space-y-2"><h1 class="text-3xl font-bold">県別の産業を立体地図で見る</h1><p class="text-base-content/80">産業を選ぶと、その産業の産出額が大きい県ほど高く立ち上がります。色は<a class="link" href="glossary.html#tokka-keisu">特化係数</a>（全国より集中している産業ほど濃い色）です。ドラッグで回転、右ボタンまたは2本指で傾き、ホイールで拡大できます。県をクリックすると詳細ページに進みます。</p></header>

@@ -279,12 +279,14 @@ def test_prefecture_3d_map(browser,base):
     assert "化学製品" in pg.inner_text("#pm-list caption"); pg.close()
 
 
-def test_index_hero_map(browser,base):
-    pg=browser.new_page(viewport={"width":390,"height":800}); errs=[]
+def test_index_insight_hero(browser,base):
+    pg=browser.new_page(viewport={"width":390,"height":900}); errs=[]
     pg.on("pageerror",lambda e:errs.append(str(e)))
     pg.goto(f"{base}/index.html",wait_until="load"); pg.wait_for_timeout(2500)
     assert pg.evaluate("document.documentElement.scrollWidth")<=392 and not errs,errs
-    assert "あなたの県" in pg.inner_text("h1")
-    assert "表示中" in pg.inner_text("#pm-cap")                              # WebGLがなくても、選択中の産業と上位の県は文字で出る
-    pg.click('.pm-chip[data-k="35"]'); pg.wait_for_timeout(300)
-    assert "輸送機械" in pg.inner_text("#pm-cap"); pg.close()
+    assert "日本経済" in pg.inner_text("h1")
+    assert pg.locator(".ins-slide").count()>=4
+    assert "倍" in pg.locator(".ins-slide").first.inner_text()                # 県別データから計算した集中度
+    on=lambda: pg.evaluate("[...document.querySelectorAll('.ins-slide')].findIndex(s=>s.classList.contains('is-on'))")
+    a=on(); pg.click("#ins-next"); pg.wait_for_timeout(300)
+    assert on()!=a and on()>=0; pg.close()
