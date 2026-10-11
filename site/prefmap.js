@@ -27,6 +27,7 @@ function render(){
   var nm=k==='all'?'すべての産業':INDS[k];
   if(list){list.innerHTML='<caption class="text-left text-sm font-bold pb-2">'+(k==='all'?'総産出額':nm)+'（産出額の大きい順）</caption><thead><tr><th>都道府県</th><th class="text-right">産出額（兆円）</th><th class="text-right">'+(k==='all'?'付加価値率':'特化係数')+'</th></tr></thead><tbody>'+rows.map(function(d){return '<tr><td><a class="link" href="prefecture/'+d.slug+'.html">'+d.name+'</a></td><td class="text-right">'+d.v.toFixed(2)+'</td><td class="text-right">'+(k==='all'?(d.va*100).toFixed(1)+'%':(d.lq==null?'−':d.lq.toFixed(2)))+'</td></tr>'}).join('')+'</tbody>';}
   if(note)note.textContent=k==='all'?'高さ＝総産出額、色＝付加価値率（濃いほど高い）。':'高さ＝その産業の産出額、色＝特化係数（濃いほど全国平均より集中）。灰色はデータなし、または部門を合算していて比べられない県です。';
+  var lt=document.getElementById('pm-legend-t');if(lt)lt.textContent=k==='all'?'高さ＝総産出額　／　色＝付加価値率':'高さ＝産出額　／　色＝集中度（特化係数）';
   if(cap){var top=rows.slice(0,3).map(function(d){return d.name}).join('・');cap.textContent='表示中：'+nm+'　産出額が大きい県：'+top+'（データのある'+Object.keys(P).length+'都道府県のうち）';}
   document.querySelectorAll('.pm-chip').forEach(function(b){var on=b.getAttribute('data-k')===k;b.classList.toggle('pm-on',on);b.setAttribute('aria-pressed',on?'true':'false');});
   if(ins){var h='';
@@ -40,12 +41,13 @@ function rgb(){var cv=document.createElement('canvas');cv.width=cv.height=1;var 
 function init(){
   var small=window.innerWidth<640;
   map=new maplibregl.Map({container:box,style:{version:8,sources:{},layers:[{id:'bg',type:'background',paint:{'background-color':rgb()}}],light:{anchor:'viewport',color:'#ffffff',intensity:0.35,position:[1.5,200,35]}},
-    center:[137.5,37.2],zoom:HERO?(small?3.4:4.4):(small?3.6:4.6),pitch:HERO?52:45,bearing:-12,minZoom:2.5,maxZoom:8,
+    center:[137.5,37.2],zoom:HERO?(small?3.4:4.05):(small?3.6:4.6),pitch:HERO?52:45,bearing:-12,minZoom:2.5,maxZoom:8,
     cooperativeGestures:HERO,attributionControl:{compact:true,customAttribution:'境界: 地球地図日本(国土地理院)'}});
   if(!HERO)map.addControl(new maplibregl.NavigationControl({visualizePitch:true}),'top-right');
-  if(HERO){var c=document.getElementById('hero-card'),bt=document.getElementById('hero-bottom');map.setPadding(small?{top:(c?c.offsetHeight:340)+50,left:0,right:0,bottom:(bt?bt.offsetHeight:150)+10}:{top:20,left:window.innerWidth>=1024?480:(window.innerWidth>=640?300:0),right:0,bottom:90});}
+  if(HERO){var c=document.getElementById('hero-card'),bt=document.getElementById('hero-bottom');map.setPadding(small?{top:(c?c.offsetHeight:340)+50,left:0,right:0,bottom:(bt?bt.offsetHeight:150)+10}:{top:20,left:Math.min(window.innerWidth*0.55,Math.max(0,(c?c.getBoundingClientRect().right-box.getBoundingClientRect().left:300)+10)),right:0,bottom:60});}
   map.on('load',function(){
     map.addSource('pref',{type:'geojson',data:geo});
+    if(FRAME){map.addSource('frame',{type:'geojson',data:FRAME});map.addLayer({id:'frame',type:'line',source:'frame',paint:{'line-color':'#64748b','line-opacity':0.5,'line-width':1,'line-dasharray':[2,2]}});}
     map.addLayer({id:'ext',type:'fill-extrusion',source:'pref',paint:{'fill-extrusion-color':['get','c'],'fill-extrusion-height':['get','h'],'fill-extrusion-base':0,'fill-extrusion-opacity':0.94,'fill-extrusion-vertical-gradient':true}});
     if(window.MutationObserver)new MutationObserver(function(){TH=null;map.setPaintProperty('bg','background-color',rgb());render();}).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
     var pop=new maplibregl.Popup({closeButton:false,closeOnClick:false});
@@ -62,8 +64,20 @@ function init(){
     }
   });
 }
+// トップでは、沖縄県と鹿児島県の奄美などの島々を、四国の南の海上に寄せて表示する(はめ込み)。地図ページは実際の位置のまま
+var DX=8.6,DY=3.3,FRAME=null;
+function inset(g){
+  var bb=[999,999,-999,-999];
+  var mv=function(poly){return poly.map(function(r){return r.map(function(c){var x=c[0]+DX,y=c[1]+DY;bb=[Math.min(bb[0],x),Math.min(bb[1],y),Math.max(bb[2],x),Math.max(bb[3],y)];return [x,y]})})};
+  var cy=function(poly){var s=0;poly[0].forEach(function(c){s+=c[1]});return s/poly[0].length};
+  g.features.forEach(function(f){var id=f.properties.id;if(id!==47&&id!==46)return;
+    f.geometry.coordinates=f.geometry.coordinates.map(function(poly){return (id===47||cy(poly)<29.5)?mv(poly):poly});});
+  var x0=bb[0]-0.35,x1=bb[2]+0.35,y0=bb[1]-0.35,y1=bb[3]+0.35;   // はめ込みの枠
+  FRAME={type:'FeatureCollection',features:[{type:'Feature',properties:{},geometry:{type:'LineString',coordinates:[[x0,y0],[x1,y0],[x1,y1],[x0,y1],[x0,y0]]}}]};
+}
 function start(){
   fetch('vendor/japan-pref.json').then(function(r){return r.json()}).then(function(g){
+    if(HERO)inset(g);
     geo=g;render();
     if(!ok()){if(!HERO)box.innerHTML='<p class="p-6 text-sm">この環境では3D地図を表示できません。下の一覧をご覧ください。</p>';return;}
     loadLib(init);
