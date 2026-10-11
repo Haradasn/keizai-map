@@ -6,9 +6,9 @@ from _paths import RAW as D, OUT
 plt.rcParams["font.family"]="Noto Sans CJK JP"
 r=pd.read_csv(f"{OUT}/blue_ocean_ranking_108.csv",encoding="utf-8-sig",dtype={"code":str})
 G=pd.read_csv(f"{OUT}/blue_ocean_groups.csv",encoding="utf-8-sig")
-GM={"G1":["663","661","481","576","577"],"G2":["594","593","662","591"],"G3":["644","643","675","552"],"G4":["113","221","208","281","329"]}
+GM={"G1":["663","661","481","576","577"],"G2":["594","593","662","591"],"G3":["644","643","675","552"],"G4":["331","329","333","332"]}
 GC={"G1":"#eb6834","G2":"#2a78d6","G3":"#1baf7a","G4":"#6250d6"}
-GN={"G1":"G1 モノの寿命を支える裏方","G2":"G2 ネット経済の配管","G3":"G3 ケアと公的価格の市場","G4":"G4 素材の川上・見えない部材"}
+GN={"G1":"G1 モノの寿命を支える裏方","G2":"G2 ネット経済の配管","G3":"G3 ケアと公的価格の市場","G4":"G4 電気・電子の部品と装置"}
 code2g={c:g for g,cs in GM.items() for c in cs}
 r["g"]=r.code.map(code2g)
 r["hidden"]=1-r.map_visibility

@@ -24,8 +24,8 @@ rho=spearmanr(squareform(dist,checks=False),squareform(np.linalg.norm(P[:,None]-
 print("rank corr(dist, map dist)=",round(rho,3),"stress",round(mds.stress_,3))
 P=(P-P.mean(0)); P/=np.abs(P).max()
 rk=rd("blue_ocean_ranking_108.csv",dtype={"code":str}).set_index("code")
-G={"G1":["663","661","481","576","577"],"G2":["594","593","662","591"],"G3":["644","643","675","552"],"G4":["113","221","208","281","329"]}
-gname={"G1":"モノの寿命を支える裏方","G2":"ネット経済の配管","G3":"ケアと公的価格の市場","G4":"素材の川上・見えない部材"}
+G={"G1":["663","661","481","576","577"],"G2":["594","593","662","591"],"G3":["644","643","675","552"],"G4":["331","329","333","332"]}
+gname={"G1":"モノの寿命を支える裏方","G2":"ネット経済の配管","G3":"ケアと公的価格の市場","G4":"電気・電子の部品と装置"}
 c2g={c:g for g,cs in G.items() for c in cs}
 tot=A.sum()
 ed=json.load(open(D/"explorer_data.json")); p2g={x["name"]:x["grp"] for x in ed["nodes"]}; gl=ed["groups"]
