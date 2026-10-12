@@ -1,2 +1,4 @@
-https://opendata.pref.aomori.lg.jp/dataset/2441/resource/28554/04_%E7%94%A3%E6%A5%AD%E9%80%A3%E9%96%A2%E8%A1%A840%E9%83%A8%E9%96%80%E8%A1%A8_2020.xlsx
-https://www3.pref.iwate.jp/webdb/view/outside/s14Tokei/tokei.download?fileId=s14TokeiInfo-63ARH.18OYJ.b0Hzp
+https://toukei.pref.shizuoka.jp/bunsekihan/data/documents/r02_io_book02.pdf
+https://toukei.pref.shizuoka.jp/bunsekihan/data/documents/r02_io_book03.pdf
+https://toukei.pref.shizuoka.jp/bunsekihan/data/documents/r02_io_book.pdf
+https://toukei.pref.shizuoka.jp/toukeikyoukai/documents/r02io.pdf
