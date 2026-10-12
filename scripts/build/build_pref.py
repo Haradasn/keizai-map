@@ -237,8 +237,8 @@ def heat_cell(o):
     return dict(
         text=f"{lq:.1f}",
         small=small,
-        # 文字を読みやすく保つため、色の濃さは 0.45 まで(コントラスト 4.5:1 以上)
-        alpha=f"{min(0.45, (lq - 1) / 6.6):.2f}" if colored else None,
+        # マスには数字を出さない(値は title と読み上げ用の文字)ので、色は濃くしてよい。3倍で最も濃い
+        alpha=f"{min(0.9, 0.12 + (lq - 1) / 2 * 0.78):.2f}" if colored else None,
     )
 
 
@@ -284,6 +284,10 @@ def build_prefectures_page(D, page):
         cards=cards,
         compare_rows=compare,
         heat_columns=heat_columns,
+        legend=[
+            dict(alpha=f"{min(0.9, 0.12 + (v - 1) / 2 * 0.78):.2f}", label=f"{v:g}倍")
+            for v in (1.1, 1.5, 2, 2.5, 3)
+        ],
         heat_rows=heat_rows,
     )
     page(

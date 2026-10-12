@@ -1,3 +1,9 @@
 @tailwind base;@tailwind components;@tailwind utilities;
 /* 表の見出しの文字色(daisyUI の既定は 60% で、明るいテーマでコントラストが 4.5:1 に届かない) */
 .table :where(thead, tfoot) { color: var(--fallback-bc, oklch(var(--bc) / 0.75)); }
+/* 県別ページの特化係数のヒートマップ(数字を出さない小さなマス。産業名の列は横スクロールでも固定) */
+.lq-heat { border-collapse: separate; border-spacing: 2px; }
+.lq-heat th.lq-name { position: sticky; left: 0; z-index: 1; background: oklch(var(--b1)); text-align: left; font-weight: 400; white-space: nowrap; padding-right: 6px; }
+.lq-heat th.lq-col { writing-mode: vertical-rl; font-weight: 400; padding: 2px 0; vertical-align: bottom; height: 4.2em; }
+.lq-heat td { width: 16px; min-width: 16px; height: 16px; border-radius: 3px; background: oklch(var(--bc) / 0.06); text-align: center; padding: 0; }
+.lq-heat .lq-dot { display: inline-block; width: 4px; height: 4px; border-radius: 9999px; background: oklch(var(--bc) / 0.45); vertical-align: middle; }

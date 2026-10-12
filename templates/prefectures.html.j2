@@ -3,7 +3,7 @@
 <main class="flex-1 w-full max-w-4xl mx-auto px-4 py-10 space-y-8">⏎
 <header class="space-y-3">
   <h1 class="text-3xl font-bold">県別の産業構造</h1>
-  <p class="text-base-content/80">各都道府県が公表した2020年の産業連関表から、産業の構成を全国と比べます。現在は{{ names|length }}都道府県（{{ names|join("・") }}）です。公表された表が機械で読める県から順に追加します。<a class="link link-primary" href="prefecture-map.html">3Dの立体地図</a>でも見られます。</p>
+  <p class="text-base-content/80">各都道府県が公表した2020年の産業連関表から、産業の構成を全国と比べます。現在は{{ names|length }}都道府県です。公表された表が機械で読める県から順に追加します。<a class="link link-primary" href="prefecture-map.html">3Dの立体地図</a>でも見られます。</p>
 </header>⏎
 <section class="grid sm:grid-cols-2 gap-3">
   {% for card in cards %}
@@ -17,23 +17,30 @@
 </section>⏎
 {% call section("都道府県の比較") %}{{ data_table(["都道府県", "産出額（兆円）", "付加価値率", "移輸出（産出額比）", "移輸入（産出額比）"], compare_rows) }}{% endcall %}⏎
 {% call section("産業×都道府県の特化係数") %}
-  <p class="text-sm text-base-content/70">全国の割合を1としたときの、各都府県の産業の集中度です（<a class="link" href="glossary.html#tokka-keisu">特化係数</a>）。青が濃いほど、その産業が全国平均より集中しています。産出額の割合が0.5%未満の産業は、値が不安定なため色をつけていません。列は産出額の大きい順です。北海道は部門の分け方が異なるため、この表には入れていません（<a class="link" href="prefecture/hokkaido.html">北海道のページ</a>を見てください）。</p>
-  <div class="overflow-x-auto"><table class="table table-xs">
+  <p class="text-sm text-base-content/70">全国の割合を1としたときの、各都道府県の産業の集中度です（<a class="link" href="glossary.html#tokka-keisu">特化係数</a>）。青が濃いほど、その産業が全国平均より集中しています。マスにカーソルを合わせると値が出ます（スマホは各県のページで確認できます）。灰色の点は産出額の割合が0.5%未満で値が不安定なもの、空欄は部門を合算して公表している県です。列は産出額の大きい順です。北海道は部門の分け方が異なるため、この表には入れていません（<a class="link" href="prefecture/hokkaido.html">北海道のページ</a>を見てください）。</p>
+  <div class="flex items-center gap-2 text-xs text-base-content/70" aria-hidden="true">
+    <span>全国並み</span>
+    {% for a in legend %}<span class="inline-block w-4 h-4 rounded-sm border border-base-300" style="background:rgba(56,189,248,{{ a.alpha }})" title="{{ a.label }}"></span>{% endfor %}
+    <span>3倍以上</span>
+  </div>
+  <div class="overflow-x-auto"><table class="lq-heat text-xs">
+    <caption class="sr-only">産業×都道府県の特化係数</caption>
     <thead><tr>
-      <th>産業</th>
+      <th scope="col" class="lq-name">産業</th>
       {% for column in heat_columns %}
-      <th class="text-right"><a class="link" href="prefecture/{{ column.slug }}.html">{{ column.label|esc }}</a></th>
+      <th scope="col" class="lq-col"><a class="link" href="prefecture/{{ column.slug }}.html">{{ column.label|esc }}</a></th>
       {% endfor %}
     </tr></thead>
     <tbody>
       {% for row in heat_rows %}
       <tr>
-        <td class="whitespace-nowrap">{{ row.name|esc }}</td>
+        <th scope="row" class="lq-name">{{ row.name|esc }}</th>
         {% for cell in row.cells %}
+        {% set col = heat_columns[loop.index0] %}
         {% if cell %}
-        <td class="text-right{{ ' text-base-content/70' if cell.small else '' }}"{% if cell.alpha %} style="background:rgba(56,189,248,{{ cell.alpha }})"{% endif %}>{{ cell.text }}</td>
+        <td title="{{ col.label|esc }}・{{ row.name|esc }}：{{ cell.text }}"{% if cell.alpha %} style="background:rgba(56,189,248,{{ cell.alpha }})"{% endif %}>{% if cell.small %}<span class="lq-dot" aria-hidden="true"></span>{% endif %}<span class="sr-only">{{ cell.text }}</span></td>
         {% else %}
-        <td class="text-right">−</td>
+        <td title="{{ col.label|esc }}・{{ row.name|esc }}：部門を合算して公表"><span class="sr-only">なし</span></td>
         {% endif %}
         {% endfor %}
       </tr>
