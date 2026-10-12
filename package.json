@@ -9,7 +9,7 @@
     "typecheck": "tsc -p jsconfig.json"
   },
   "devDependencies": {
-    "tailwindcss": "3.4.19",
+    "tailwindcss": "4.3.3",
     "daisyui": "4.12.24",
     "prettier": "3.9.10",
     "typescript": "7.0.2",
