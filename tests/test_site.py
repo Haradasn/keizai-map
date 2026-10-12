@@ -309,3 +309,13 @@ def test_feedback_block(browser,base):
         pg.goto(f"{base}/{path}",wait_until="load"); pg.wait_for_timeout(300)
         assert pg.locator("#fb-like").count()==1 and pg.locator("#fb-body").count()==1,path   # 反応の欄が各ページにある
         assert pg.evaluate("document.documentElement.scrollWidth")<=392 and not errs,(path,errs); pg.close()
+
+
+def test_weekly_report_runs_without_keys():
+    """キーが無くても最後まで動き、各節に「取得できませんでした」が出ること(書き間違いで落ちないことの確認)"""
+    import subprocess,os
+    env={k:v for k,v in os.environ.items() if k not in ("CF_API_TOKEN","CF_ACCOUNT_ID","GSC_SA_JSON","FEEDBACK_KEY")}
+    r=subprocess.run(["python3",str(R/"scripts/weekly_report.py")],capture_output=True,text=True,env=env,timeout=60)
+    assert r.returncode==0 and r.stdout.count("取得できませんでした")==3,(r.stdout,r.stderr)
+    r=subprocess.run(["python3",str(R/"scripts/weekly_report.py"),"--check"],capture_output=True,text=True,env=env,timeout=60)
+    assert "NameError" not in r.stdout and "未設定" in r.stdout,(r.stdout,r.stderr)
