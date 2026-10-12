@@ -9,6 +9,8 @@ interface Window {
   ForceGraph3D: any;
   fbTsReady: any;
 }
+// グラフの共通関数(ビルド時に KA.pal が注入され、charts.js が KA.line などを足す)
+declare var KA: any;
 declare const maplibregl: any;
 declare const turnstile: any;
 declare const ForceGraph3D: any;
