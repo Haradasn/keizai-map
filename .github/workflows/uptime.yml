@@ -1,0 +1,37 @@
+# 本番サイトの死活監視(3時間ごと)。落ちていたら Issue「サイトの監視で問題」を開き、直ったら自動で閉じる。
+# Issue が開くと GitHub からメール・通知が届く。
+name: uptime
+on:
+  schedule:
+    - cron: "17 */3 * * *"
+  workflow_dispatch:
+permissions:
+  contents: read
+  issues: write
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - name: 確認(一時的な失敗を避けるため、失敗したら1分後にもう一度)
+        id: check
+        run: |
+          python3 scripts/uptime_check.py > out.txt 2>&1 || { sleep 60; python3 scripts/uptime_check.py > out.txt 2>&1; } && ok=true || ok=false
+          cat out.txt
+          echo "ok=$ok" >> $GITHUB_OUTPUT
+      - name: Issue を開く/閉じる
+        env:
+          GH_TOKEN: ${{ github.token }}
+          OK: ${{ steps.check.outputs.ok }}
+        run: |
+          T="サイトの監視で問題"
+          n=$(gh issue list --state open --search "\"$T\" in:title" --json number --jq '.[0].number // empty')
+          if [ "$OK" = "true" ]; then
+            [ -n "$n" ] && gh issue close "$n" --comment "復旧を確認しました($(TZ=Asia/Tokyo date '+%F %H:%M'))。"
+            exit 0
+          fi
+          body=$(printf '%s\n\n```\n%s\n```\n\n対応の手順: docs/RUNBOOK.md\n実行: %s' "$(TZ=Asia/Tokyo date '+%F %H:%M') の確認で問題がありました。" "$(cat out.txt)" "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}")
+          if [ -n "$n" ]; then gh issue comment "$n" --body "$body"; else gh issue create --title "$T" --body "$body"; fi
+          exit 1

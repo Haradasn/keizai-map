@@ -37,10 +37,16 @@ jobs:
       - name: 非公開リポジトリに保存
         env:
           REPORT_TOKEN: ${{ secrets.REPORT_TOKEN }}
+          FEEDBACK_KEY: ${{ secrets.FEEDBACK_KEY }}
         run: |
           git clone -q --depth 1 "https://x-access-token:${REPORT_TOKEN}@github.com/Haradasn/keizai-atlas-reports.git" /tmp/r
           d=$(TZ=Asia/Tokyo date +%F); f="reports/$d.md"
           if [ -e "/tmp/r/$f" ]; then f="reports/$d-$(TZ=Asia/Tokyo date +%H%M).md"; fi
           cp /tmp/report.md "/tmp/r/$f"
+          # 読者の反応(D1)の全件を backup/ に上書き保存(履歴は git に残る)。中身はログに出さない
+          mkdir -p /tmp/r/backup
+          curl -sSf -H "Authorization: Bearer ${FEEDBACK_KEY}" -H "User-Agent: keizai-atlas-weekly-report" \
+            "https://keizai-atlas.com/api/feedback/export" -o /tmp/r/backup/feedback.json \
+            && git -C /tmp/r add backup/feedback.json || echo "::warning::読者の反応のバックアップに失敗"
           cd /tmp/r && git add "$f" && git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -q -m "週次レポート $d" && git push -q origin HEAD:main
           echo "保存しました: $f"
