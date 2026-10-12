@@ -45,8 +45,9 @@ export default {
         return json({ ok: true });
       }
       if (url.pathname === "/api/feedback/export" && req.method === "GET") {   // 週次レポート用(合言葉が必要)
-        const key = (req.headers.get("authorization") || "").replace(/^Bearer\s+/, "");
-        if (!env.FEEDBACK_KEY || key !== env.FEEDBACK_KEY) return json({ ok: false }, 401);
+        const key = (req.headers.get("authorization") || "").replace(/^Bearer\s+/, "").trim();
+        const want = (env.FEEDBACK_KEY || "").trim();                     // 貼り付け時の改行・空白の混入を許す
+        if (!want || key !== want) return json({ ok: false, error: want ? "key mismatch" : "key not set" }, 401);
         const since = url.searchParams.get("since") || "1970-01-01";
         const likes = await env.DB.prepare("SELECT page, SUM(n) AS n FROM likes WHERE day >= ?1 GROUP BY page ORDER BY n DESC").bind(since).all();
         const reqs = await env.DB.prepare("SELECT ts, page, body FROM requests WHERE ts >= ?1 ORDER BY ts").bind(since).all();

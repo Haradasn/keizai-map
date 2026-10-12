@@ -49,7 +49,7 @@ def gsc(start,end):
 
 # ---------- 読者の反応(サイトの Worker が D1 に保存したもの。合言葉 FEEDBACK_KEY で読み出す)
 def feedback(since):
-    k=os.environ.get("FEEDBACK_KEY")
+    k=(os.environ.get("FEEDBACK_KEY") or "").strip()
     if not k: return None,"FEEDBACK_KEY が未設定"
     return get("https://keizai-atlas.com/api/feedback/export?since="+since.isoformat(),{"Authorization":"Bearer "+k,"User-Agent":"keizai-atlas-weekly-report"}),None
 
