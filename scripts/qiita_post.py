@@ -16,6 +16,10 @@ def call(method,path,data):
     except urllib.error.HTTPError as e:
         print("::error::Qiita API",e.code,e.read()[:300].decode("utf-8","replace")); sys.exit(1)
 act=sys.argv[1]
+if act=="stats":                                   # 閲覧数・いいね・ストックを読む(自分の記事だけ page_views_count が取れる)
+    it=json.load(urllib.request.urlopen(urllib.request.Request("https://qiita.com/api/v2/items/"+sys.argv[2],headers={"Authorization":"Bearer "+tok}),timeout=60))
+    pathlib.Path("/tmp/qiita_stats.json").write_text(json.dumps({k:it.get(k) for k in ("page_views_count","likes_count","stocks_count","comments_count","url")},ensure_ascii=False))
+    print("::notice::Qiita 統計を取得"); sys.exit(0)
 if act=="create":
     it=call("POST","/items",dict(title=meta["title"],body=body,tags=meta["tags"],private=True))
 elif act=="update":
