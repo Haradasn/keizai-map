@@ -16,10 +16,11 @@ jobs:
         with: {node-version: "22"}
       - name: コードの整形・静的チェック(ruff / prettier)
         run: pip install ruff && ruff format --check . && ruff check .
-      - run: python3 scripts/build_site.py
-      - run: npm install --no-audit --no-fund && npm run build:css && npm run format:check
+      - run: npm install --no-audit --no-fund
+      - name: ビルド(ページ生成 → 出力HTMLの整形 → CSS)
+        run: npm run build && npm run build:css && npm run format:check
       - name: コミット済みの site/ が最新のビルド結果か
-        run: git diff --exit-code -- site pages/lastmod.json || { echo "::error::site/ が最新ではありません。python3 scripts/build_site.py && npm run build:css を実行してコミットしてください"; exit 1; }
+        run: git diff --exit-code -- site pages/lastmod.json || { echo "::error::site/ が最新ではありません。npm run build && npm run build:css を実行してコミットしてください"; exit 1; }
       - name: pytest
         run: |
           set -o pipefail

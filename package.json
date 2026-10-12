@@ -2,6 +2,7 @@
   "name": "keizai-map",
   "private": true,
   "scripts": {
+    "build": "python3 scripts/build_site.py && prettier --write --embedded-language-formatting=off --log-level=warn \"site/**/*.html\"",
     "build:css": "tailwindcss -c tailwind.config.js -i src/input.css -o site/assets.css --minify",
     "format": "prettier --write pages/*.js worker/index.js pipeline/explorer_template.html pages/*.html && ruff format . && ruff check --fix .",
     "format:check": "prettier --check pages/*.js worker/index.js pipeline/explorer_template.html pages/*.html"
