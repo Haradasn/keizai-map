@@ -1,0 +1,29 @@
+# GitHub のコード検査(CodeQL)。公開リポジトリは無料。結果は Security タブに出る
+name: codeql
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "20 18 * * 0" # 毎週月曜 3:20(日本時間)
+  workflow_dispatch:
+permissions:
+  contents: read
+  security-events: write
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        language: [javascript-typescript, python, actions]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+          # 同梱ライブラリと生成物は対象外
+          config: |
+            paths-ignore:
+              - site/vendor
+              - site/industry
+              - site/prefecture
+      - uses: github/codeql-action/analyze@v3

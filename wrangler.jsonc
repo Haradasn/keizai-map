@@ -5,6 +5,8 @@
   "main": "worker/index.js",
   "assets": { "directory": "./site", "binding": "ASSETS" },
   "d1_databases": [{ "binding": "DB", "database_name": "keizai-feedback", "database_id": "b6aa0514-8964-4755-bf85-423d06230f3b" }],
+  // /api/* への連投の制限(同じ送信元から 60 秒に 20 回まで)。namespace_id はアカウント内で一意な数字なら何でもよい
+  "ratelimits": [{ "name": "RL", "namespace_id": "1001", "simple": { "limit": 20, "period": 60 } }],
   // 秘密の値(TURNSTILE_SECRET, FEEDBACK_KEY)は Cloudflare のダッシュボードで設定済み。ここには書かない
   // ダッシュボードで設定した値をデプロイで消さない
   "keep_vars": true,
