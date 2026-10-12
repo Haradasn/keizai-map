@@ -686,5 +686,23 @@
   },
   "note": "宮崎県の表は40部門です。このサイトでは、全国の37部門に合わせて、農業・畜産・林業・漁業を「農林漁業」に合算しています。",
   "url": "https://www.pref.miyazaki.lg.jp/tokeichosa/kense/toke/sangyorenkan/27toukeihyou.html"
+ },
+ "fukushima": {
+  "name": "福島県",
+  "year": 2020,
+  "file": "fukushima_2020_39.xlsx",
+  "sheet": "生産者価格評価表",
+  "name_row": 2,
+  "first": 3,
+  "code_col": 0,
+  "name_col": 1,
+  "special": "by_name",
+  "by_name": {
+   "農業": "01",
+   "林業": "01",
+   "漁業": "01"
+  },
+  "note": "福島県の表は39部門です。このサイトでは、全国の37部門に合わせて、農業・林業・漁業を「農林漁業」に合算しています。",
+  "url": "https://www.pref.fukushima.lg.jp/sec/11045b/sangyourenkan.html"
  }
 }

@@ -616,7 +616,7 @@
   "date": "2026-10-12"
  },
  "/prefectures": {
-  "hash": "b7e4cdc2b7ea8533",
+  "hash": "251fb63f4c5d1780",
   "date": "2026-10-13"
  },
  "/prefecture/tokyo": {
@@ -716,15 +716,15 @@
   "date": "2026-10-12"
  },
  "/prefecture-map": {
-  "hash": "b617581645ea33b6",
-  "date": "2026-10-12"
+  "hash": "a189a219b217e26a",
+  "date": "2026-10-13"
  },
  "/fx": {
   "hash": "884203fe7c5ccb0a",
   "date": "2026-10-12"
  },
  "/changelog": {
-  "hash": "4dae446d29db336c",
+  "hash": "04378152b004fbdd",
   "date": "2026-10-13"
  },
  "/learn": {
@@ -794,5 +794,9 @@
  "/prefecture/miyazaki": {
   "hash": "68c1381201d29b41",
   "date": "2026-10-12"
+ },
+ "/prefecture/fukushima": {
+  "hash": "5c11446a8035d62d",
+  "date": "2026-10-13"
  }
 }
