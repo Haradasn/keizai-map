@@ -5,6 +5,10 @@ on:
   schedule:
     - cron: "0 23 * * 0"   # 毎週月曜 8:00 JST
   workflow_dispatch:
+    inputs:
+      since:
+        description: "集計の開始日(YYYY-MM-DD)。空なら直近7日"
+        required: false
 permissions:
   contents: read
 jobs:
@@ -24,6 +28,7 @@ jobs:
         run: python3 scripts/weekly_report.py --check
       - name: レポートを作る(ファイルにだけ書く)
         env:
+          REPORT_SINCE: ${{ inputs.since }}
           CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
           CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
           GSC_SA_JSON: ${{ secrets.GSC_SA_JSON }}
