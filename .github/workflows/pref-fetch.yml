@@ -7,7 +7,7 @@ jobs:
   list:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: ページ取得とリンク一覧
         shell: bash {0}
         run: |

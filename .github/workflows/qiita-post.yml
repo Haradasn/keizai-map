@@ -13,7 +13,7 @@ jobs:
   post:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: 記事の状態を読む
         env: {REPORT_TOKEN: "${{ secrets.REPORT_TOKEN }}"}
         run: git clone -q --depth 1 "https://x-access-token:${REPORT_TOKEN}@github.com/Haradasn/keizai-atlas-reports.git" /tmp/r

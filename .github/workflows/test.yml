@@ -8,11 +8,11 @@ jobs:
   smoke:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with: {python-version: "3.12"}
       - run: pip install pytest playwright pandas pillow jinja2 && playwright install --with-deps chromium
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with: {node-version: "22"}
       - name: コードの整形・静的チェック(ruff / prettier)
         run: pip install ruff && ruff format --check . && ruff check .
