@@ -1,0 +1,20 @@
+# 依存ライブラリの更新を月1回 PR にする(脆弱性の修正は随時)。
+# site/vendor/ に同梱しているライブラリ(MapLibre、3d-force-graph)は手で更新するため対象外。
+# tailwind / prettier の更新で出力が変わると CI の「site/ が最新か」で落ちるので、その PR はビルドし直してコミットする。
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule: {interval: monthly}
+    open-pull-requests-limit: 3
+    ignore:
+      - dependency-name: 3d-force-graph
+    groups:
+      build-tools:
+        patterns: ["*"]
+  - package-ecosystem: github-actions
+    directory: /
+    schedule: {interval: monthly}
+    groups:
+      actions:
+        patterns: ["*"]
