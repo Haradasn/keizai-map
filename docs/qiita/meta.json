@@ -1,20 +1,20 @@
 {
- "title": "日経業界地図を眺めていたら日本経済の全体像を自分で描きたくなったので、産業連関表と3D可視化ライブラリで「経済の地図帳」を作った",
+ "title": "産業連関表を3Dで可視化して「日本経済の地図帳」を作った【MapLibre / 3d-force-graph / 月0円】",
  "tags": [
   {
+   "name": "個人開発"
+  },
+  {
+   "name": "Python"
+  },
+  {
    "name": "可視化"
-  },
-  {
-   "name": "MapLibre"
-  },
-  {
-   "name": "three.js"
   },
   {
    "name": "CloudflareWorkers"
   },
   {
-   "name": "産業連関表"
+   "name": "ClaudeCode"
   }
  ]
 }
