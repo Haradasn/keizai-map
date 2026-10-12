@@ -1,0 +1,655 @@
+<!doctype html>
+<html lang="ja" data-theme="night">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>青森県の産業構造と主要産業・特化係数（産業連関表）｜Keizai Atlas</title>
+    <meta
+      name="description"
+      content="青森県の産業構造（2020年産業連関表）。産出額8.0兆円。全国より集中している産業は農林漁業（4.3）、非鉄金属（3.6）、繊維製品（2.4）。全国との比較、移輸出入の割合。"
+    />
+    <link rel="canonical" href="https://keizai-atlas.com/prefecture/aomori" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Keizai Atlas" />
+    <meta property="og:title" content="青森県の産業構造と主要産業・特化係数（産業連関表）｜Keizai Atlas" />
+    <meta
+      property="og:description"
+      content="青森県の産業構造（2020年産業連関表）。産出額8.0兆円。全国より集中している産業は農林漁業（4.3）、非鉄金属（3.6）、繊維製品（2.4）。全国との比較、移輸出入の割合。"
+    />
+    <meta property="og:url" content="https://keizai-atlas.com/prefecture/aomori" />
+    <meta property="og:image" content="https://keizai-atlas.com/og.png" />
+    <meta property="og:locale" content="ja_JP" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#0b1120" />
+    <link
+      rel="alternate"
+      type="application/atom+xml"
+      title="更新情報"
+      href="https://keizai-atlas.com/feed.xml"
+    />
+    <base href="/" />
+    <script type="application/ld+json">
+      {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "県別の産業構造", "item": "https://keizai-atlas.com/prefectures"}, {"@type": "ListItem", "position": 2, "name": "青森県"}]}
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets.css" />
+    <script>
+      try{var t=localStorage.getItem("theme");if(t!=="nord")t="night";document.documentElement.dataset.theme=t}catch(e){}
+    </script>
+  </head>
+  <body class="bg-base-200 text-base-content font-sans min-h-screen flex flex-col">
+    <header class="navbar bg-base-100/80 backdrop-blur border-b border-base-300 sticky top-0 z-50 px-4">
+      <div class="flex-1">
+        <a href="index.html" class="text-lg font-bold tracking-tight"
+          >Keizai Atlas
+          <span class="text-xs font-normal text-base-content/70 ml-2 hidden sm:inline">経済の地図帳</span></a
+        >
+      </div>
+      <nav aria-label="サイト内の主なページ" class="flex-none gap-1 items-center flex">
+        <span class="hidden lg:flex gap-1"
+          ><a class="btn btn-ghost btn-sm" href="guide.html">入門</a
+          ><a class="btn btn-ghost btn-sm" href="explorer.html">産業マップ</a
+          ><a class="btn btn-ghost btn-sm" href="industries.html">産業一覧</a
+          ><a class="btn btn-ghost btn-sm" href="prefectures.html">県別</a
+          ><a class="btn btn-ghost btn-sm" href="similarity.html">近さの地図</a
+          ><a class="btn btn-ghost btn-sm" href="latest.html">最新動向</a
+          ><a class="btn btn-ghost btn-sm" href="international.html">国際比較</a
+          ><a class="btn btn-ghost btn-sm" href="about.html">方法と出典</a></span
+        >
+        <div class="dropdown dropdown-end lg:hidden">
+          <label tabindex="0" class="btn btn-ghost btn-sm" aria-label="メニュー">☰</label>
+          <ul
+            tabindex="0"
+            class="menu dropdown-content z-50 mt-2 p-2 shadow bg-base-100 border border-base-300 rounded-box w-44"
+          >
+            <li><a href="guide.html">入門</a></li>
+            <li><a href="explorer.html">産業マップ</a></li>
+            <li><a href="industries.html">産業一覧</a></li>
+            <li><a href="prefectures.html">県別</a></li>
+            <li><a href="similarity.html">近さの地図</a></li>
+            <li><a href="latest.html">最新動向</a></li>
+            <li><a href="international.html">国際比較</a></li>
+            <li><a href="about.html">方法と出典</a></li>
+          </ul>
+        </div>
+        <label class="swap swap-rotate btn btn-ghost btn-sm btn-circle" aria-label="テーマ切替"
+          ><input type="checkbox" id="thm" /><span class="swap-on">☀</span
+          ><span class="swap-off">☾</span></label
+        >
+      </nav>
+    </header>
+    <main class="flex-1 w-full max-w-4xl mx-auto px-4 py-10 space-y-8">
+      <nav aria-label="パンくずリスト" class="text-sm breadcrumbs">
+        <ul>
+          <li><a href="prefectures.html">県別の産業構造</a></li>
+          <li>青森県</li>
+        </ul>
+      </nav>
+      <header class="space-y-3">
+        <h1 class="text-3xl font-bold">青森県の産業構造</h1>
+        <p class="text-base-content/80">
+          青森県の2020年の産出額は8.0兆円、粗付加価値は4.5兆円です。産出額に対する移輸出（海外と他の都道府県への販売）は29%、移輸入（海外と他の都道府県からの購入）は37%でした。
+        </p>
+      </header>
+      <section class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div class="card bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-0">
+            <span class="text-xs text-base-content/70">産出額（2020年）</span><b class="text-xl">8.0兆円</b>
+          </div>
+        </div>
+        <div class="card bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-0">
+            <span class="text-xs text-base-content/70">付加価値率</span><b class="text-xl">56%</b>
+          </div>
+        </div>
+        <div class="card bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-0">
+            <span class="text-xs text-base-content/70">移輸出（産出額比）</span><b class="text-xl">29%</b>
+          </div>
+        </div>
+        <div class="card bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-0">
+            <span class="text-xs text-base-content/70">移輸入（産出額比）</span><b class="text-xl">37%</b>
+          </div>
+        </div>
+      </section>
+      <section class="space-y-2">
+        <h2 class="text-xl font-bold">全国より集中している産業（特化係数）</h2>
+        <p class="text-sm text-base-content/70">
+          青森県の産出額に占める割合を、全国の割合で割った値です（<a
+            class="link"
+            href="glossary.html#tokka-keisu"
+            >特化係数</a
+          >）。1より大きいほど、全国平均より青森県に集中しています。産出額の割合が0.5%以上の産業のみ。
+        </p>
+        <div class="card bg-base-100 border border-base-300">
+          <div class="card-body p-3">
+            <svg
+              viewBox="0 0 640 216"
+              width="100%"
+              role="img"
+              aria-label="特化係数の上位の産業"
+              style="font-size:12px"
+            >
+              <line
+                x1="266.7"
+                y1="0"
+                x2="266.7"
+                y2="216"
+                stroke="currentColor"
+                stroke-opacity=".4"
+                stroke-dasharray="3 3"
+              />
+              <text x="162" y="19" text-anchor="end" fill="currentColor">農林漁業</text>
+              <rect x="170" y="7" width="420.0" height="16" rx="2" fill="#38bdf8" />
+              <text x="596.0" y="20" fill="currentColor">4.34</text>
+              <text x="162" y="45" text-anchor="end" fill="currentColor">非鉄金属</text>
+              <rect x="170" y="33" width="346.5" height="16" rx="2" fill="#38bdf8" />
+              <text x="522.5" y="46" fill="currentColor">3.58</text>
+              <text x="162" y="71" text-anchor="end" fill="currentColor">繊維製品</text>
+              <rect x="170" y="59" width="232.6" height="16" rx="2" fill="#38bdf8" />
+              <text x="408.6" y="72" fill="currentColor">2.41</text>
+              <text x="162" y="97" text-anchor="end" fill="currentColor">電子部品</text>
+              <rect x="170" y="85" width="209.0" height="16" rx="2" fill="#38bdf8" />
+              <text x="385.0" y="98" fill="currentColor">2.16</text>
+              <text x="162" y="123" text-anchor="end" fill="currentColor">公務</text>
+              <rect x="170" y="111" width="204.2" height="16" rx="2" fill="#38bdf8" />
+              <text x="380.2" y="124" fill="currentColor">2.11</text>
+              <text x="162" y="149" text-anchor="end" fill="currentColor">業務用機械</text>
+              <rect x="170" y="137" width="180.0" height="16" rx="2" fill="#38bdf8" />
+              <text x="356.0" y="150" fill="currentColor">1.86</text>
+              <text x="162" y="175" text-anchor="end" fill="currentColor">飲食料品</text>
+              <rect x="170" y="163" width="170.1" height="16" rx="2" fill="#38bdf8" />
+              <text x="346.1" y="176" fill="currentColor">1.76</text>
+              <text x="162" y="201" text-anchor="end" fill="currentColor">パルプ・紙・木製品</text>
+              <rect x="170" y="189" width="143.9" height="16" rx="2" fill="#38bdf8" />
+              <text x="319.9" y="202" fill="currentColor">1.49</text>
+            </svg>
+          </div>
+        </div>
+        <p class="text-sm text-base-content/70">
+          逆に、全国より少ない産業：生産用機械（0.32）、金属製品（0.46）、情報通信（0.46）。
+        </p>
+        <p class="text-sm text-base-content/70">
+          注：青森県の表は40部門です。このサイトでは、全国の37部門に合わせて、農業・畜産・林業・漁業を「農林漁業」に合算しています。
+        </p>
+      </section>
+      <section class="space-y-2">
+        <h2 class="text-xl font-bold">部門の一覧（37部門）</h2>
+        <div class="overflow-x-auto">
+          <table class="table table-sm">
+            <thead>
+              <tr>
+                <th>産業</th>
+                <th class="text-right">産出額（兆円）</th>
+                <th class="text-right">産出額に占める割合</th>
+                <th class="text-right">全国の割合</th>
+                <th class="text-right">特化係数</th>
+                <th class="text-right">付加価値率</th>
+                <th class="text-right">移輸出（産出額比）</th>
+                <th class="text-right">移輸入（域内需要比）</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>医療・福祉</td>
+                <td class="text-right">0.8</td>
+                <td class="text-right">9.5%</td>
+                <td class="text-right">7.0%</td>
+                <td class="text-right">1.36</td>
+                <td class="text-right">59%</td>
+                <td class="text-right">0%</td>
+                <td class="text-right">0%</td>
+              </tr>
+              <tr>
+                <td>建設</td>
+                <td class="text-right">0.7</td>
+                <td class="text-right">8.9%</td>
+                <td class="text-right">6.7%</td>
+                <td class="text-right">1.32</td>
+                <td class="text-right">50%</td>
+                <td class="text-right">0%</td>
+                <td class="text-right">0%</td>
+              </tr>
+              <tr>
+                <td>公務</td>
+                <td class="text-right">0.7</td>
+                <td class="text-right">8.8%</td>
+                <td class="text-right">4.2%</td>
+                <td class="text-right">2.11</td>
+                <td class="text-right">69%</td>
+                <td class="text-right">0%</td>
+                <td class="text-right">0%</td>
+              </tr>
+              <tr>
+                <td>商業</td>
+                <td class="text-right">0.7</td>
+                <td class="text-right">8.6%</td>
+                <td class="text-right">9.0%</td>
+                <td class="text-right">0.96</td>
+                <td class="text-right">68%</td>
+                <td class="text-right">69%</td>
+                <td class="text-right">68%</td>
+              </tr>
+              <tr>
+                <td>不動産</td>
+                <td class="text-right">0.6</td>
+                <td class="text-right">7.4%</td>
+                <td class="text-right">8.8%</td>
+                <td class="text-right">0.83</td>
+                <td class="text-right">83%</td>
+                <td class="text-right">0%</td>
+                <td class="text-right">4%</td>
+              </tr>
+              <tr>
+                <td>対事業所サービス</td>
+                <td class="text-right">0.5</td>
+                <td class="text-right">6.6%</td>
+                <td class="text-right">8.2%</td>
+                <td class="text-right">0.80</td>
+                <td class="text-right">55%</td>
+                <td class="text-right">7%</td>
+                <td class="text-right">27%</td>
+              </tr>
+              <tr>
+                <td>飲食料品</td>
+                <td class="text-right">0.5</td>
+                <td class="text-right">6.5%</td>
+                <td class="text-right">3.7%</td>
+                <td class="text-right">1.76</td>
+                <td class="text-right">26%</td>
+                <td class="text-right">73%</td>
+                <td class="text-right">70%</td>
+              </tr>
+              <tr>
+                <td>運輸・郵便</td>
+                <td class="text-right">0.4</td>
+                <td class="text-right">5.6%</td>
+                <td class="text-right">4.9%</td>
+                <td class="text-right">1.15</td>
+                <td class="text-right">49%</td>
+                <td class="text-right">34%</td>
+                <td class="text-right">27%</td>
+              </tr>
+              <tr>
+                <td>農林漁業</td>
+                <td class="text-right">0.4</td>
+                <td class="text-right">5.2%</td>
+                <td class="text-right">1.2%</td>
+                <td class="text-right">4.34</td>
+                <td class="text-right">49%</td>
+                <td class="text-right">59%</td>
+                <td class="text-right">43%</td>
+              </tr>
+              <tr>
+                <td>教育・研究</td>
+                <td class="text-right">0.3</td>
+                <td class="text-right">4.4%</td>
+                <td class="text-right">4.5%</td>
+                <td class="text-right">0.98</td>
+                <td class="text-right">74%</td>
+                <td class="text-right">5%</td>
+                <td class="text-right">4%</td>
+              </tr>
+              <tr>
+                <td>対個人サービス</td>
+                <td class="text-right">0.3</td>
+                <td class="text-right">3.9%</td>
+                <td class="text-right">3.9%</td>
+                <td class="text-right">1.01</td>
+                <td class="text-right">53%</td>
+                <td class="text-right">14%</td>
+                <td class="text-right">17%</td>
+              </tr>
+              <tr>
+                <td>金融・保険</td>
+                <td class="text-right">0.3</td>
+                <td class="text-right">3.1%</td>
+                <td class="text-right">3.5%</td>
+                <td class="text-right">0.89</td>
+                <td class="text-right">62%</td>
+                <td class="text-right">9%</td>
+                <td class="text-right">21%</td>
+              </tr>
+              <tr>
+                <td>情報通信</td>
+                <td class="text-right">0.2</td>
+                <td class="text-right">2.9%</td>
+                <td class="text-right">6.3%</td>
+                <td class="text-right">0.46</td>
+                <td class="text-right">47%</td>
+                <td class="text-right">17%</td>
+                <td class="text-right">56%</td>
+              </tr>
+              <tr>
+                <td>非鉄金属</td>
+                <td class="text-right">0.2</td>
+                <td class="text-right">2.9%</td>
+                <td class="text-right">0.8%</td>
+                <td class="text-right">3.58</td>
+                <td class="text-right">75%</td>
+                <td class="text-right">92%</td>
+                <td class="text-right">70%</td>
+              </tr>
+              <tr>
+                <td>電子部品</td>
+                <td class="text-right">0.2</td>
+                <td class="text-right">2.7%</td>
+                <td class="text-right">1.3%</td>
+                <td class="text-right">2.16</td>
+                <td class="text-right">34%</td>
+                <td class="text-right">70%</td>
+                <td class="text-right">40%</td>
+              </tr>
+              <tr>
+                <td>電気・ガス・熱供給</td>
+                <td class="text-right">0.2</td>
+                <td class="text-right">1.9%</td>
+                <td class="text-right">2.3%</td>
+                <td class="text-right">0.85</td>
+                <td class="text-right">48%</td>
+                <td class="text-right">0%</td>
+                <td class="text-right">30%</td>
+              </tr>
+              <tr>
+                <td>パルプ・紙・木製品</td>
+                <td class="text-right">0.1</td>
+                <td class="text-right">1.7%</td>
+                <td class="text-right">1.1%</td>
+                <td class="text-right">1.49</td>
+                <td class="text-right">30%</td>
+                <td class="text-right">61%</td>
+                <td class="text-right">60%</td>
+              </tr>
+              <tr>
+                <td>鉄鋼</td>
+                <td class="text-right">0.1</td>
+                <td class="text-right">1.3%</td>
+                <td class="text-right">2.1%</td>
+                <td class="text-right">0.65</td>
+                <td class="text-right">35%</td>
+                <td class="text-right">87%</td>
+                <td class="text-right">76%</td>
+              </tr>
+              <tr>
+                <td>業務用機械</td>
+                <td class="text-right">0.1</td>
+                <td class="text-right">1.0%</td>
+                <td class="text-right">0.6%</td>
+                <td class="text-right">1.86</td>
+                <td class="text-right">37%</td>
+                <td class="text-right">90%</td>
+                <td class="text-right">86%</td>
+              </tr>
+              <tr>
+                <td>電気機械</td>
+                <td class="text-right">0.1</td>
+                <td class="text-right">0.7%</td>
+                <td class="text-right">1.5%</td>
+                <td class="text-right">0.47</td>
+                <td class="text-right">38%</td>
+                <td class="text-right">92%</td>
+                <td class="text-right">94%</td>
+              </tr>
+              <tr>
+                <td>繊維製品</td>
+                <td class="text-right">0.1</td>
+                <td class="text-right">0.7%</td>
+                <td class="text-right">0.3%</td>
+                <td class="text-right">2.41</td>
+                <td class="text-right">43%</td>
+                <td class="text-right">92%</td>
+                <td class="text-right">93%</td>
+              </tr>
+              <tr>
+                <td>他に分類されない会員制団体</td>
+                <td class="text-right">0.1</td>
+                <td class="text-right">0.6%</td>
+                <td class="text-right">0.5%</td>
+                <td class="text-right">1.35</td>
+                <td class="text-right">60%</td>
+                <td class="text-right">1%</td>
+                <td class="text-right">1%</td>
+              </tr>
+              <tr>
+                <td>廃棄物処理</td>
+                <td class="text-right">0.0</td>
+                <td class="text-right">0.6%</td>
+                <td class="text-right">0.6%</td>
+                <td class="text-right">1.06</td>
+                <td class="text-right">64%</td>
+                <td class="text-right">0%</td>
+                <td class="text-right">15%</td>
+              </tr>
+              <tr>
+                <td>分類不明</td>
+                <td class="text-right">0.0</td>
+                <td class="text-right">0.6%</td>
+                <td class="text-right">0.8%</td>
+                <td class="text-right">0.78</td>
+                <td class="text-right">65%</td>
+                <td class="text-right">0%</td>
+                <td class="text-right">1%</td>
+              </tr>
+              <tr>
+                <td>水道</td>
+                <td class="text-right">0.0</td>
+                <td class="text-right">0.6%</td>
+                <td class="text-right">0.4%</td>
+                <td class="text-right">1.26</td>
+                <td class="text-right">49%</td>
+                <td class="text-right">0%</td>
+                <td class="text-right">0%</td>
+              </tr>
+              <tr>
+                <td>金属製品</td>
+                <td class="text-right">0.0</td>
+                <td class="text-right">0.5%</td>
+                <td class="text-right">1.2%</td>
+                <td class="text-right">0.46</td>
+                <td class="text-right">47%</td>
+                <td class="text-right">37%</td>
+                <td class="text-right">72%</td>
+              </tr>
+              <tr>
+                <td>生産用機械</td>
+                <td class="text-right">0.0</td>
+                <td class="text-right">0.5%</td>
+                <td class="text-right">1.6%</td>
+                <td class="text-right">0.32</td>
+                <td class="text-right">47%</td>
+                <td class="text-right">82%</td>
+                <td class="text-right">87%</td>
+              </tr>
+              <tr>
+                <td>窯業・土石製品</td>
+                <td class="text-right">0.0</td>
+                <td class="text-right">0.5%</td>
+                <td class="text-right">0.6%</td>
+                <td class="text-right">0.76</td>
+                <td class="text-right">49%</td>
+                <td class="text-right">44%</td>
+                <td class="text-right">62%</td>
+              </tr>
+              <tr>
+                <td>化学製品</td>
+                <td class="text-right">0.0</td>
+                <td class="text-right">0.4%</td>
+                <td class="text-right">2.8%</td>
+                <td class="text-right">0.16</td>
+                <td class="text-right">41%</td>
+                <td class="text-right">90%</td>
+                <td class="text-right">98%</td>
+              </tr>
+              <tr>
+                <td>輸送機械</td>
+                <td class="text-right">0.0</td>
+                <td class="text-right">0.3%</td>
+                <td class="text-right">4.6%</td>
+                <td class="text-right">0.07</td>
+                <td class="text-right">25%</td>
+                <td class="text-right">88%</td>
+                <td class="text-right">98%</td>
+              </tr>
+              <tr>
+                <td>その他の製造工業製品</td>
+                <td class="text-right">0.0</td>
+                <td class="text-right">0.3%</td>
+                <td class="text-right">0.9%</td>
+                <td class="text-right">0.34</td>
+                <td class="text-right">46%</td>
+                <td class="text-right">29%</td>
+                <td class="text-right">78%</td>
+              </tr>
+              <tr>
+                <td>プラスチック・ゴム製品</td>
+                <td class="text-right">0.0</td>
+                <td class="text-right">0.2%</td>
+                <td class="text-right">1.3%</td>
+                <td class="text-right">0.17</td>
+                <td class="text-right">42%</td>
+                <td class="text-right">56%</td>
+                <td class="text-right">88%</td>
+              </tr>
+              <tr>
+                <td>事務用品</td>
+                <td class="text-right">0.0</td>
+                <td class="text-right">0.2%</td>
+                <td class="text-right">0.1%</td>
+                <td class="text-right">1.08</td>
+                <td class="text-right">0%</td>
+                <td class="text-right">0%</td>
+                <td class="text-right">0%</td>
+              </tr>
+              <tr>
+                <td>石油・石炭製品</td>
+                <td class="text-right">0.0</td>
+                <td class="text-right">0.1%</td>
+                <td class="text-right">1.3%</td>
+                <td class="text-right">0.10</td>
+                <td class="text-right">47%</td>
+                <td class="text-right">22%</td>
+                <td class="text-right">95%</td>
+              </tr>
+              <tr>
+                <td>鉱業</td>
+                <td class="text-right">0.0</td>
+                <td class="text-right">0.1%</td>
+                <td class="text-right">0.0%</td>
+                <td class="text-right">2.35</td>
+                <td class="text-right">48%</td>
+                <td class="text-right">70%</td>
+                <td class="text-right">93%</td>
+              </tr>
+              <tr>
+                <td>はん用機械</td>
+                <td class="text-right">0.0</td>
+                <td class="text-right">0.0%</td>
+                <td class="text-right">1.0%</td>
+                <td class="text-right">0.05</td>
+                <td class="text-right">48%</td>
+                <td class="text-right">48%</td>
+                <td class="text-right">96%</td>
+              </tr>
+              <tr>
+                <td>情報通信機器</td>
+                <td class="text-right">0.0</td>
+                <td class="text-right">0.0%</td>
+                <td class="text-right">0.5%</td>
+                <td class="text-right">0.05</td>
+                <td class="text-right">31%</td>
+                <td class="text-right">100%</td>
+                <td class="text-right">100%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-xs text-base-content/70">
+          移輸出＝輸出＋他の都道府県への移出。移輸入＝輸入＋他の都道府県からの移入。移輸入は、その産業の域内需要（中間需要と域内の最終需要の合計）に対する割合です。
+        </p>
+      </section>
+      <section class="space-y-2">
+        <h2 class="text-xl font-bold">読むときの注意</h2>
+        <ul class="list-disc pl-6 text-sm space-y-1 text-base-content/80">
+          <li>特化係数は、産業の「集中度」の目安です。競争力や収益性を表すものではありません。</li>
+          <li>
+            全国との比較に使う全国の値は、このサイトの2020年の37部門表です。県の表は各県が独自に作成しており、集計の細部は一致しない場合があります。
+          </li>
+          <li>移輸出入には、海外との取引に加えて、他の都道府県との取引が含まれます。</li>
+        </ul>
+      </section>
+      <p class="text-xs text-base-content/70">
+        出典：青森県「2020年（令和2年）産業連関表」の取引基本表（<a
+          class="link"
+          href="https://opendata.pref.aomori.lg.jp/dataset/2441.html"
+          rel="noopener"
+          >公表ページ</a
+        >）を筆者が集計。政府・自治体が作成したものではありません。<a class="link" href="about.html"
+          >方法と出典</a
+        >
+      </p>
+    </main>
+    <section
+      id="fb"
+      aria-label="読者の反応"
+      class="max-w-3xl mx-auto w-full px-4 mt-12"
+      data-sitekey="0x4AAAAAAFUK5Vw22jfpltSW"
+    >
+      <div class="rounded-box border border-base-300 bg-base-100 p-5 space-y-3">
+        <div class="flex flex-wrap items-center gap-3">
+          <p class="font-bold">このページは役に立ちましたか？</p>
+          <button id="fb-like" type="button" class="btn btn-sm btn-outline">👍 役に立った</button
+          ><span id="fb-like-msg" class="text-sm text-base-content/70" aria-live="polite"></span>
+        </div>
+        <details id="fb-req">
+          <summary class="cursor-pointer text-sm link link-primary">「こんな情報が欲しい」を送る</summary>
+          <form id="fb-form" class="mt-3 space-y-2">
+            <p id="fb-about" class="text-sm rounded-box bg-base-200 p-3" hidden></p>
+            <label for="fb-body" class="text-sm block"
+              >知りたいこと、見てみたい統計、気づいた誤りなど（500字まで）</label
+            ><textarea
+              id="fb-body"
+              maxlength="500"
+              rows="3"
+              class="textarea textarea-bordered w-full"
+              required
+            ></textarea>
+            <div id="fb-ts"></div>
+            <div class="flex items-center gap-3">
+              <button class="btn btn-sm btn-primary" type="submit">送信</button
+              ><span id="fb-msg" class="text-sm" aria-live="polite"></span>
+            </div>
+            <p class="text-xs text-base-content/70">
+              名前やメールアドレスは不要です。保存するのは送信内容とページ名だけで、IPアドレスなどは保存しません。個別の返信はできません。
+            </p>
+          </form>
+        </details>
+      </div>
+    </section>
+    <script src="/feedback.js" defer></script>
+    <footer
+      class="footer footer-center p-6 bg-base-100 border-t border-base-300 text-sm text-base-content/70 mt-12"
+    >
+      <p>
+        出典：総務省ほか「産業連関表」、経済産業省「延長産業連関表」（政府統計の総合窓口 e-Stat
+        掲載）を筆者が加工して作成。<br />加工・分析・「仮説」は筆者によるもので、政府が作成・保証したものではありません。投資・経営判断の根拠にはしないでください。
+      </p>
+      <p class="flex gap-4 flex-wrap justify-center">
+        <a class="link" href="guide.html">入門ガイド</a><a class="link" href="glossary.html">用語集</a
+        ><a class="link" href="learn.html">就活・転職・探究に使う</a
+        ><a class="link" href="industries.html">産業一覧</a><a class="link" href="prefectures.html">県別</a
+        ><a class="link" href="about.html">方法と出典・免責</a
+        ><a class="link" href="changelog.html">更新情報</a>
+      </p>
+    </footer>
+    <script>
+      document.getElementById("thm").checked=document.documentElement.dataset.theme==="nord";
+      document.getElementById("thm").onchange=function(e){var t=e.target.checked?"nord":"night";document.documentElement.dataset.theme=t;try{localStorage.setItem("theme",t)}catch(x){}}
+    </script>
+  </body>
+</html>

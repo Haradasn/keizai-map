@@ -279,5 +279,412 @@
   "seq37": 37,
   "url": "https://www.pref.fukui.lg.jp/doc/toukei-jouhou/sanren.html",
   "scale": 0.01
+ },
+ "miyagi": {
+  "name": "宮城県",
+  "year": 2020,
+  "file": "miyagi_2020_38.xlsx",
+  "sheet": "生産者価格評価表",
+  "name_row": 2,
+  "first": 3,
+  "code_col": 0,
+  "name_col": 1,
+  "special": "by_name",
+  "by_name": {
+   "耕種農業": "01",
+   "畜産": "01",
+   "農業サービス": "01",
+   "林業": "01",
+   "漁業": "01",
+   "印刷・製版・製本": "39",
+   "鉄鋼・非鉄金属": "26+27",
+   "はん用・生産用・業務用機械": "29-31",
+   "電子部品・電気機械・情報通信機器": "32-34",
+   "建築": "41",
+   "土木": "41"
+  },
+  "groups": {
+   "26+27": [
+    "鉄鋼・非鉄金属",
+    [
+     "26",
+     "27"
+    ]
+   ],
+   "29-31": [
+    "はん用・生産用・業務用機械",
+    [
+     "29",
+     "30",
+     "31"
+    ]
+   ],
+   "32-34": [
+    "電子部品・電気機械・情報通信機器",
+    [
+     "32",
+     "33",
+     "34"
+    ]
+   ]
+  },
+  "note": "宮城県の表は独自の38部門です。このサイトでは全国の37部門に合わせて合算し、鉄鋼・非鉄金属、機械(はん用・生産用・業務用)、電子部品・電気機械・情報通信機器は合算のまま表示しています。",
+  "url": "https://www.pref.miyagi.jp/soshiki/toukei/rennkann.html"
+ },
+ "akita": {
+  "name": "秋田県",
+  "year": 2020,
+  "file": "akita_2020_39.xlsx",
+  "sheet": "取引基本表 ",
+  "name_row": 3,
+  "first": 4,
+  "code_col": 0,
+  "name_col": 1,
+  "special": "by_name",
+  "by_name": {
+   "農業": "01",
+   "林業": "01",
+   "漁業": "01",
+   "電力・ガス・熱供給": "46"
+  },
+  "note": "秋田県の表は39部門です。このサイトでは、全国の37部門に合わせて、農業・林業・漁業を「農林漁業」に合算しています。",
+  "url": "https://www.pref.akita.lg.jp/pages/archive/98381"
+ },
+ "ishikawa": {
+  "name": "石川県",
+  "year": 2020,
+  "file": "ishikawa_2020_37.xlsx",
+  "sheet": "1_生産者価格評価表",
+  "name_row": 5,
+  "first": 6,
+  "code_col": 1,
+  "name_col": 2,
+  "url": "https://toukei.pref.ishikawa.lg.jp/search/detail.asp?d_id=5333"
+ },
+ "nagano": {
+  "name": "長野県",
+  "year": 2020,
+  "file": "nagano_2020_37.xlsx",
+  "sheet": "取引基本表",
+  "name_row": 4,
+  "first": 5,
+  "code_col": 1,
+  "name_col": 2,
+  "url": "https://tokei.pref.nagano.lg.jp/statistics/27789.html"
+ },
+ "gifu": {
+  "name": "岐阜県",
+  "year": 2020,
+  "file": "gifu_2020_37.xlsx",
+  "sheet": "2-1",
+  "name_row": 3,
+  "first": 4,
+  "code_col": 0,
+  "name_col": 1,
+  "url": "https://www.pref.gifu.lg.jp/page/414231.html"
+ },
+ "hiroshima": {
+  "name": "広島県",
+  "year": 2020,
+  "file": "hiroshima_2020_45.xlsx",
+  "sheet": "生産者価格評価表",
+  "name_row": 9,
+  "first": 10,
+  "code_col": 3,
+  "name_col": 4,
+  "special": "by_name",
+  "by_name": {
+   "衣服・その他の繊維製品": "15",
+   "木材・木製品": "16",
+   "家具・装備品": "16",
+   "パルプ・紙・板紙・加工紙": "16",
+   "印刷・製版・製本": "39",
+   "プラスチック製品": "22",
+   "ゴム製品": "22",
+   "なめし革・革製品・毛皮": "39",
+   "自動車": "35",
+   "船舶・同修理": "35",
+   "その他の輸送機械・同修理": "35"
+  },
+  "note": "広島県の表は45部門です。このサイトでは、全国の37部門に合わせて合算しています(自動車・船舶などを輸送機械に、など)。",
+  "url": "https://www.pref.hiroshima.lg.jp/site/toukei/sangyorenkanhyo.html"
+ },
+ "kagawa": {
+  "name": "香川県",
+  "year": 2020,
+  "file": "kagawa_2020_37.xlsx",
+  "sheet": "取引基本表",
+  "name_row": 2,
+  "first": 3,
+  "code_col": 0,
+  "name_col": 1,
+  "url": "https://www.pref.kagawa.lg.jp/tokei/keizai/io/index_2020.html"
+ },
+ "saga": {
+  "name": "佐賀県",
+  "year": 2020,
+  "file": "saga_2020_37.xlsx",
+  "sheet": "37部門表",
+  "name_row": 3,
+  "first": 4,
+  "code_col": 0,
+  "name_col": 1,
+  "scale": 0.001,
+  "url": "https://www.pref.saga.lg.jp/toukei/kiji003117190/index.html"
+ },
+ "oita": {
+  "name": "大分県",
+  "year": 2020,
+  "file": "oita_2020_36.xlsx",
+  "sheet": "生産者価格評価表",
+  "name_row": 2,
+  "first": 3,
+  "code_col": 0,
+  "name_col": 1,
+  "special": "by_name",
+  "by_name": {
+   "農業": "01",
+   "林業": "01",
+   "漁業": "01",
+   "一般機械": "29-31",
+   "その他の製造工業製品": "22+39"
+  },
+  "groups": {
+   "29-31": [
+    "はん用・生産用・業務用機械",
+    [
+     "29",
+     "30",
+     "31"
+    ]
+   ],
+   "22+39": [
+    "プラスチック・ゴム製品とその他の製造工業製品",
+    [
+     "22",
+     "39"
+    ]
+   ]
+  },
+  "note": "大分県の表は36部門です。このサイトでは全国の37部門に合わせて農業・林業・漁業を合算し、一般機械(はん用・生産用・業務用)と、プラスチック・ゴム製品を含むその他の製造工業製品は合算のまま表示しています。",
+  "url": "https://www.pref.oita.jp/site/toukei/sangyo.html"
+ },
+ "yamagata": {
+  "name": "山形県",
+  "year": 2020,
+  "file": "yamagata_2020_39.xlsx",
+  "sheet": "表",
+  "name_row": 1,
+  "first": 2,
+  "code_col": 0,
+  "name_col": 1,
+  "special": "by_name",
+  "by_name": {
+   "農業": "01",
+   "林業": "01",
+   "漁業": "01"
+  },
+  "pdf": {
+   "file": "yamagata_2020_report5.pdf",
+   "url": "https://www200.pref.yamagata.jp/documents/1637/r2io_part5.pdf",
+   "pages": [
+    14,
+    15,
+    16,
+    17,
+    18,
+    19
+   ],
+   "ocr": false,
+   "cols": {
+    "70": "内生部門計",
+    "79": "県内需要合計",
+    "81": "移輸出計",
+    "87": "（控除）移輸入計",
+    "97": "県内生産額"
+   }
+  },
+  "note": "山形県の表は39部門で、PDF(報告書の第39-1表)から読み取りました。このサイトでは、全国の37部門に合わせて、農業・林業・漁業を「農林漁業」に合算しています。",
+  "url": "https://www200.pref.yamagata.jp/documents/1637/r2io_mokuji.pdf"
+ },
+ "yamaguchi": {
+  "name": "山口県",
+  "year": 2020,
+  "file": "yamaguchi_2020_37.xlsx",
+  "sheet": "表",
+  "name_row": 1,
+  "first": 2,
+  "code_col": 0,
+  "name_col": 1,
+  "pdf": {
+   "file": "yamaguchi_2020_report.pdf",
+   "url": "https://www.pref.yamaguchi.lg.jp/uploaded/attachment/236102.pdf",
+   "pages": [
+    65,
+    66,
+    67,
+    68,
+    69,
+    70
+   ],
+   "engine": "pdfplumber",
+   "cols": {
+    "70": "内生部門計",
+    "79": "県内需要合計",
+    "81": "移輸出計",
+    "87": "（控除）移輸入計",
+    "97": "県内生産額"
+   }
+  },
+  "note": "山口県の表は PDF(報告書の取引基本表)から読み取りました。",
+  "url": "https://www.pref.yamaguchi.lg.jp/uploaded/attachment/236102.pdf"
+ },
+ "iwate": {
+  "name": "岩手県",
+  "year": 2020,
+  "file": "iwate_2020_37.xlsx",
+  "sheet": "①生産者価格評価表",
+  "name_row": 3,
+  "first": 4,
+  "code_col": 0,
+  "name_col": 1,
+  "scale": 0.001,
+  "special": "by_name",
+  "by_name": {
+   "農業": "01",
+   "畜産": "01",
+   "林業": "01",
+   "漁業": "01",
+   "はん用機械、生産用機械、業務用機械": "29-31",
+   "その他の製造工業製品": "22+39",
+   "電気・ガス・熱供給、水道": "46+47"
+  },
+  "groups": {
+   "29-31": [
+    "はん用・生産用・業務用機械",
+    [
+     "29",
+     "30",
+     "31"
+    ]
+   ],
+   "22+39": [
+    "プラスチック・ゴム製品とその他の製造工業製品",
+    [
+     "22",
+     "39"
+    ]
+   ],
+   "46+47": [
+    "電気・ガス・熱供給・水道",
+    [
+     "46",
+     "47"
+    ]
+   ]
+  },
+  "note": "岩手県の表は36部門です。このサイトでは全国の37部門に合わせて農業・畜産・林業・漁業を合算し、機械(はん用・生産用・業務用)、プラスチック・ゴム製品を含むその他の製造工業製品、電気・ガス・熱供給と水道は合算のまま表示しています。",
+  "url": "https://www3.pref.iwate.jp/webdb/view/outside/s14Tokei/bnyaBtKekka.html/B03/B0303/I015"
+ },
+ "aomori": {
+  "name": "青森県",
+  "year": 2020,
+  "file": "aomori_2020_40.xlsx",
+  "sheet": "第14表",
+  "name_row": 3,
+  "first": 4,
+  "code_col": 0,
+  "name_col": 1,
+  "special": "by_name",
+  "by_name": {
+   "農業": "01",
+   "畜産": "01",
+   "林業": "01",
+   "漁業": "01"
+  },
+  "note": "青森県の表は40部門です。このサイトでは、全国の37部門に合わせて、農業・畜産・林業・漁業を「農林漁業」に合算しています。",
+  "url": "https://opendata.pref.aomori.lg.jp/dataset/2441.html"
+ },
+ "shizuoka": {
+  "name": "静岡県",
+  "year": 2020,
+  "file": "shizuoka_2020_37.xlsx",
+  "sheet": "表",
+  "name_row": 1,
+  "first": 2,
+  "code_col": 0,
+  "name_col": 1,
+  "pdf": {
+   "file": "shizuoka_2020_book02.pdf",
+   "url": "https://toukei.pref.shizuoka.jp/bunsekihan/data/documents/r02_io_book02.pdf",
+   "pages": [
+    78,
+    79,
+    80,
+    81
+   ],
+   "cols": {
+    "70": "内生部門計",
+    "79": "県内需要合計",
+    "80": "輸出",
+    "81": "移出",
+    "87": "（控除）移輸入計",
+    "97": "県内生産額"
+   }
+  },
+  "note": "静岡県の表は PDF(統計表の第3-1表)から読み取りました。",
+  "url": "https://toukei.pref.shizuoka.jp/bunsekihan/data/documents/r02_io_book02.pdf"
+ },
+ "ehime": {
+  "name": "愛媛県",
+  "year": 2020,
+  "file": "ehime_2020_39.xlsx",
+  "sheet": "39部門",
+  "name_row": 2,
+  "first": 3,
+  "code_col": 0,
+  "name_col": 1,
+  "special": "by_name",
+  "by_name": {
+   "農業": "01",
+   "林業": "01",
+   "漁業": "01"
+  },
+  "note": "愛媛県の表は39部門です。このサイトでは、全国の37部門に合わせて、農業・林業・漁業を「農林漁業」に合算しています。",
+  "url": "https://www.pref.ehime.jp/toukeibox/datapage/sanren/sanren-p01.html"
+ },
+ "miyazaki": {
+  "name": "宮崎県",
+  "year": 2020,
+  "file": "miyazaki_2020_40.xlsx",
+  "sheet": "40部門",
+  "name_row": 3,
+  "first": 4,
+  "code_col": 0,
+  "name_col": 1,
+  "scale": 0.01,
+  "blocks": [
+   [
+    3,
+    4,
+    52
+   ],
+   [
+    58,
+    59,
+    107
+   ]
+  ],
+  "special": "by_name",
+  "by_name": {
+   "農業": "01",
+   "畜産": "01",
+   "林業": "01",
+   "漁業": "01",
+   "プラスチック・ゴム": "22",
+   "情報・通信機器": "34"
+  },
+  "note": "宮崎県の表は40部門です。このサイトでは、全国の37部門に合わせて、農業・畜産・林業・漁業を「農林漁業」に合算しています。",
+  "url": "https://www.pref.miyazaki.lg.jp/tokeichosa/kense/toke/sangyorenkan/27toukeihyou.html"
  }
 }
