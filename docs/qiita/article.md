@@ -51,15 +51,16 @@ flowchart LR
 | 役割 | 使ったもの |
 |---|---|
 | データ加工 | Python（pandas, numpy, openpyxl） |
-| サイト生成 | 自前の Python スクリプト（テンプレート＋数値の差し込み） |
+| サイト生成 | 自前の Python スクリプト＋ Jinja2 テンプレート（数値はデータから差し込み） |
 | 見た目 | Tailwind CSS + daisyUI |
 | 3Dネットワーク | 3d-force-graph（three.js ベース） |
 | 立体地図 | MapLibre GL JS（`fill-extrusion`） |
 | 配信 | Cloudflare Workers の静的アセット（無料枠） |
 | 自動更新 | GitHub Actions（毎週、日銀などの最新値を取得して PR を作る） |
 | テスト | pytest + Playwright（全ページを実ブラウザで開いて確認） |
+| コード整形 | ruff（Python）、prettier（JS・HTML）。CI で整形済みかを検査 |
 
-フレームワークは使わず、**Python でHTMLを書き出すだけ**の静的サイトにしました。ページ数は約180ありますが、ビルドは4秒ほどで終わります。
+フレームワークは使わず、**Python と Jinja2 テンプレートで HTML を書き出し、prettier で整形するだけ**の静的サイトにしました。ページ数は約180ありますが、ビルドは十数秒で終わります。
 
 ## データ：産業連関表を「ノードとエッジ」にする
 
@@ -247,7 +248,7 @@ parts = [p for p in (g.geoms if g.geom_type == "MultiPolygon" else [g])
 ```
 
 ```python:pipeline/pref_build.py（検算の部分）
-mi = dem + exp - X      # 移輸入 = 域内需要 + 移輸出 - 生産額（需給の収支から）
+mi = dem + e - X        # 移輸入 = 域内需要 + 移輸出(e) - 生産額（需給の収支から）
 assert abs(intin + va - X) <= max(2, X * 1e-6), (pref, sector, "費用側が合わない")
 assert mi >= -max(2, X * 1e-6), (pref, sector, "移輸入が負になる")
 ```
@@ -292,7 +293,7 @@ jobs:
     steps:
       - run: scripts/fetch_latest.sh /tmp/raw
       - run: python3 -I pipeline/fx_import.py /tmp/raw data/fx_chart.json
-      - run: python3 scripts/build_site.py
+      - run: npm run build   # ページ生成 + 出力HTMLの整形
       # 差分があれば PR を作成 → テスト → 人がマージ
 ```
 
