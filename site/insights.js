@@ -22,6 +22,7 @@
   function region() {
     var D = window.PREF_MAP;
     if (!D) return;
+    /** @type {{n: string, lq: number, sh: number} | null} */
     var best = null;
     Object.keys(D.prefs).forEach(function (id) {
       var p = D.prefs[id],
@@ -276,7 +277,7 @@
     }
   });
   root.addEventListener("focusin", function (e) {
-    if (e.target.matches && e.target.matches(":focus-visible")) {
+    if (e.target instanceof Element && e.target.matches(":focus-visible")) {
       hold = true;
       schedule();
     }

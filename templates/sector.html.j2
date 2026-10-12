@@ -1,7 +1,7 @@
 {# 37部門の個別ページの本文 #}
 {% from "_macros.html.j2" import stat_grid, section, data_table %}
 <main class="flex-1 w-full max-w-4xl mx-auto px-4 py-10 space-y-8">⏎
-<nav class="text-sm breadcrumbs"><ul>
+<nav aria-label="パンくずリスト" class="text-sm breadcrumbs"><ul>
   <li><a href="industries.html">産業一覧</a></li>
   <li>{{ group_name|esc }}</li>
   <li>{{ name|esc }}</li>
@@ -21,11 +21,11 @@
     <div class="card bg-base-100 border border-base-300"><div class="card-body p-4 gap-1">
       <b>{{ s.source|esc }} → {{ s.target|esc }}（{{ s.value }}兆円）<span class="badge badge-outline badge-sm ml-2">確度{{ s.confidence|esc }}</span></b>
       <p class="text-sm">{{ s.story|esc }}</p>
-      <p class="text-xs text-base-content/60">根拠の目安：{{ s.basis|esc }}</p>
+      <p class="text-xs text-base-content/70">根拠の目安：{{ s.basis|esc }}</p>
     </div></div>
     {% endfor %}
   {% endcall %}
 {% endif %}⏎
 <p class="text-sm"><a class="btn btn-sm btn-outline" href="explorer.html">産業マップで見る →</a></p>⏎
-<p class="text-xs text-base-content/60">出典：総務省ほか「産業連関表」（2011・2015・2020年）、経済産業省「延長産業連関表」を筆者が集計。政府が作成したものではありません。<a class="link" href="about.html">方法と出典</a></p>⏎
+<p class="text-xs text-base-content/70">出典：総務省ほか「産業連関表」（2011・2015・2020年）、経済産業省「延長産業連関表」を筆者が集計。政府が作成したものではありません。<a class="link" href="about.html">方法と出典</a></p>⏎
 </main>

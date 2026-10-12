@@ -22,6 +22,8 @@ jobs:
           python3 scripts/check_data.py --base FETCH_HEAD --github --report data-check.md
           cat data-check.md >> $GITHUB_STEP_SUMMARY
       - run: npm install --no-audit --no-fund
+      - name: JS の型チェック(TypeScript の checkJs)
+        run: npm run typecheck
       - name: ビルド(ページ生成 → 出力HTMLの整形 → CSS)
         run: npm run build && npm run build:css && npm run format:check
       - name: コミット済みの site/ が最新のビルド結果か

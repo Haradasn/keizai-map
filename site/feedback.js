@@ -3,7 +3,7 @@
   var box = document.getElementById("fb");
   if (!box) return;
   var page = location.pathname.replace(/\.html$/, "").replace(/\/index$/, "/") || "/";
-  var like = document.getElementById("fb-like"),
+  var like = /** @type {HTMLButtonElement} */ (document.getElementById("fb-like")),
     lm = document.getElementById("fb-like-msg"),
     KEY = "fb-like:" + page;
   function done() {
@@ -33,7 +33,7 @@
         lm.textContent = "送信できませんでした。時間をおいてお試しください。";
       });
   });
-  var det = document.getElementById("fb-req"),
+  var det = /** @type {HTMLDetailsElement} */ (document.getElementById("fb-req")),
     form = document.getElementById("fb-form"),
     msg = document.getElementById("fb-msg"),
     wid = null,
@@ -64,7 +64,7 @@
   });
   form.addEventListener("submit", function (ev) {
     ev.preventDefault();
-    var body = document.getElementById("fb-body").value.trim();
+    var body = /** @type {HTMLTextAreaElement} */ (document.getElementById("fb-body")).value.trim();
     if (body.length < 2) {
       msg.textContent = "内容を書いてください。";
       return;

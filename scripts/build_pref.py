@@ -214,7 +214,8 @@ def heat_cell(o):
     return dict(
         text=f"{lq:.1f}",
         small=small,
-        alpha=f"{min(0.85, (lq - 1) / 3.5):.2f}" if colored else None,
+        # 文字を読みやすく保つため、色の濃さは 0.45 まで(コントラスト 4.5:1 以上)
+        alpha=f"{min(0.45, (lq - 1) / 6.6):.2f}" if colored else None,
     )
 
 

@@ -1,0 +1,28 @@
+# PR で site/ の見た目が変わったページを撮影して比べる(失敗にはしない)。
+# 結果は Job Summary と Artifacts「visual-diff」(変更前 | 変更後 | 差分)に出る。
+name: visual-diff
+on:
+  pull_request:
+    paths: ["site/**"]
+permissions:
+  contents: read
+jobs:
+  diff:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with: {path: after}
+      - uses: actions/checkout@v7
+        with: {path: before, ref: "${{ github.event.pull_request.base.sha }}"}
+      - uses: actions/setup-python@v7
+        with: {python-version: "3.12"}
+      - run: pip install playwright pillow && playwright install --with-deps chromium
+      - name: 撮影して比べる
+        run: |
+          python3 after/scripts/visual_diff.py before/site after/site vd
+          cat vd/summary.md >> $GITHUB_STEP_SUMMARY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: visual-diff
+          path: vd
+          retention-days: 14

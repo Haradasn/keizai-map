@@ -10,7 +10,7 @@
   {% for sector in group.sectors %}
   <div class="pl-2">
     <p><a class="link link-primary font-bold" href="industry/{{ sector.id }}.html">{{ sector.name|esc }}</a>
-| <span class="text-xs text-base-content/60">{{ sector.output }}兆円</span></p>
+| <span class="text-xs text-base-content/70">{{ sector.output }}兆円</span></p>
     <p class="text-sm pl-4 text-base-content/80">
       {% for item in sector.industries %}<a class="link" href="{{ item.href }}">{{ item.text|esc }}</a>{{ "、" if not loop.last else "" }}{% endfor %}
     </p>

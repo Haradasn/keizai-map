@@ -1,1 +1,3 @@
 @tailwind base;@tailwind components;@tailwind utilities;
+/* 表の見出しの文字色(daisyUI の既定は 60% で、明るいテーマでコントラストが 4.5:1 に届かない) */
+.table :where(thead, tfoot) { color: var(--fallback-bc, oklch(var(--bc) / 0.75)); }

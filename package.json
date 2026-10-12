@@ -5,12 +5,15 @@
     "build": "python3 scripts/build_site.py && prettier --write --embedded-language-formatting=off --log-level=warn \"site/**/*.html\"",
     "build:css": "tailwindcss -c tailwind.config.js -i src/input.css -o site/assets.css --minify",
     "format": "prettier --write pages/*.js worker/index.js pipeline/explorer_template.html pages/*.html && ruff format . && ruff check --fix .",
-    "format:check": "prettier --check pages/*.js worker/index.js pipeline/explorer_template.html pages/*.html"
+    "format:check": "prettier --check pages/*.js worker/index.js pipeline/explorer_template.html pages/*.html",
+    "typecheck": "tsc -p jsconfig.json"
   },
   "devDependencies": {
     "tailwindcss": "3.4.17",
     "daisyui": "4.12.23",
-    "prettier": "3.9.10"
+    "prettier": "3.9.10",
+    "typescript": "5.8.3",
+    "axe-core": "4.10.3"
   },
   "dependencies": {
     "3d-force-graph": "1.73.4"
