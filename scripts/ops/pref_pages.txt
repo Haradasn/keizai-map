@@ -1,8 +1,7 @@
-https://www.pref.gifu.lg.jp/page/414231.html
-https://www.pref.hiroshima.lg.jp/site/toukei/sangyorenkanhyo.html
-https://www.pref.ibaraki.jp/kikaku/tokei/fukyu/tokei/betsu/sangyo/io2020/ken/ken/index.html
-https://opendata.pref.aomori.lg.jp/dataset/dataland/
-https://www.pref.aomori.lg.jp/release/
-https://www.pref.yamagata.jp/documents/1637/
-https://www.pref.ehime.jp/opendata/
-https://www.pref.fukushima.lg.jp/sec/11045b/
+https://opendata.pref.aomori.lg.jp/dataset/dataland/estat27/estat78/
+https://www.pref.fukushima.lg.jp/sec/11045b/sangyourenkan.html
+https://www.pref.ibaraki.jp/kikaku/tokei/fukyu/tokei/betsu/sangyo/io2020/houdou/index.html
+https://www.pref.ibaraki.jp/kikaku/tokei/fukyu/tokei/betsu/sangyo/index.html
+https://www.pref.iwate.jp/kensei/toukei/1000979/index.html
+https://www.pref.nara.jp/item/36885.htm
+https://www.pref.ehime.jp/page/8657.html
