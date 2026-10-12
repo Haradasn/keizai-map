@@ -1,0 +1,36 @@
+{# 都道府県1県のページの本文 #}
+{% from "_macros.html.j2" import stat_grid, section, chart_card, data_table %}
+{% from "_charts.html.j2" import horizontal_bars %}
+<main class="flex-1 w-full max-w-4xl mx-auto px-4 py-10 space-y-8">⏎
+<nav class="text-sm breadcrumbs"><ul>
+  <li><a href="prefectures.html">県別の産業構造</a></li>
+  <li>{{ name|esc }}</li>
+</ul></nav>⏎
+<header class="space-y-3">
+  <h1 class="text-3xl font-bold">{{ name|esc }}の産業構造</h1>
+  <p class="text-base-content/80">{% filter esc %}{% include "prefecture_facts.txt.j2" %}{% endfilter %}</p>
+</header>⏎
+{{ stat_grid(stats) }}⏎
+<section class="space-y-2">
+  <h2 class="text-xl font-bold">全国より集中している産業（特化係数）</h2>
+  <p class="text-sm text-base-content/70">{{ name|esc }}の産出額に占める割合を、全国の割合で割った値です（<a class="link" href="glossary.html#tokka-keisu">特化係数</a>）。1より大きいほど、全国平均より{{ name|esc }}に集中しています。産出額の割合が0.5%以上の産業のみ。</p>
+  {% call chart_card() %}{{ horizontal_bars(chart) }}{% endcall %}⏎
+  <p class="text-sm text-base-content/70">逆に、全国より少ない産業：{% for item in low %}{{ item.name|esc }}（{{ item.lq }}）{{ "、" if not loop.last else "" }}{% endfor %}。</p>
+  {% if hq_share %}
+  <p class="text-sm text-base-content/70">注：東京都の表には、全国の37部門にない「本社」部門（産出額の{{ hq_share }}）があります。全国との比較では、全国の表で各産業に含まれる本社の活動との間に差が出るため、特化係数は目安として見てください。</p>
+  {% endif %}
+  {% if note %}<p class="text-sm text-base-content/70">注：{{ note|esc }}</p>{% endif %}
+</section>⏎
+{% call section("部門の一覧（" ~ rows|length ~ "部門）") %}
+  {{ data_table(["産業", "産出額（兆円）", "産出額に占める割合", "全国の割合", "特化係数", "付加価値率", "移輸出（産出額比）", "移輸入（域内需要比）"], rows) }}
+  <p class="text-xs text-base-content/60">移輸出＝輸出＋他の都道府県への移出。移輸入＝輸入＋他の都道府県からの移入。移輸入は、その産業の域内需要（中間需要と域内の最終需要の合計）に対する割合です。</p>
+{% endcall %}⏎
+{% call section("読むときの注意") %}
+  <ul class="list-disc pl-6 text-sm space-y-1 text-base-content/80">
+    <li>特化係数は、産業の「集中度」の目安です。競争力や収益性を表すものではありません。</li>
+    <li>全国との比較に使う全国の値は、このサイトの2020年の37部門表です。県の表は各県が独自に作成しており、集計の細部は一致しない場合があります。</li>
+    <li>移輸出入には、海外との取引に加えて、他の都道府県との取引が含まれます。</li>
+  </ul>
+{% endcall %}⏎
+<p class="text-xs text-base-content/60">出典：{{ name|esc }}「{{ year }}年（令和2年）産業連関表」の取引基本表（<a class="link" href="{{ source_url }}" rel="noopener">公表ページ</a>）を筆者が集計。政府・自治体が作成したものではありません。<a class="link" href="about.html">方法と出典</a></p>⏎
+</main>

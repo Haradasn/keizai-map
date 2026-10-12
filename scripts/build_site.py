@@ -3,7 +3,8 @@
 import sys, pathlib, json
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
-from _shell import HEAD, FOOT, seo
+from _shell import ld_script, render_page
+from _tpl import render as render_template
 from site_config import SITE_URL, SITE_NAME
 from derive import metrics, render
 
@@ -13,28 +14,25 @@ S = R / "site"
 
 
 def page(name, title, desc, body, extra=""):
+    """site/<name> に1ページ書き出す。extra は head に足すタグ(パンくずの構造化データなど)。"""
     path = name[:-5]
-    ld = ""
+    head_extra = ""
     if path == "index":
-        ld = (
-            '<script type="application/ld+json">'
-            + json.dumps(
-                {
-                    "@context": "https://schema.org",
-                    "@type": "WebSite",
-                    "name": SITE_NAME,
-                    "url": SITE_URL + "/",
-                    "inLanguage": "ja",
-                    "description": desc,
-                },
-                ensure_ascii=False,
-            )
-            + "</script>"
+        head_extra = ld_script(
+            {
+                "@context": "https://schema.org",
+                "@type": "WebSite",
+                "name": SITE_NAME,
+                "url": SITE_URL + "/",
+                "inLanguage": "ja",
+                "description": desc,
+            }
         )
-    S_ = seo(path, title, desc, SITE_URL, SITE_NAME, ld + extra)
+    og_image = None
     if path.startswith("industry/") and (S / "og" / (path[9:] + ".png")).exists():
-        S_ = S_.replace(SITE_URL + "/og.png", SITE_URL + "/og/" + path[9:] + ".png")
-    (S / name).write_text(HEAD.format(title=title, desc=desc, seo=S_) + body + FOOT, encoding="utf-8")
+        og_image = SITE_URL + "/og/" + path[9:] + ".png"  # 産業ごとの共有画像があれば差し替える
+    html_text = render_page(path, title, desc, body, SITE_URL, SITE_NAME, head_extra + extra, og_image)
+    (S / name).write_text(html_text, encoding="utf-8")
 
 
 # ---------- 共通: 色パレットと共通グラフJS
@@ -59,39 +57,25 @@ for name, m in META.items():
         body = body.replace(ph, (R / "data" / f).read_text(encoding="utf-8"))
     if name == "guide":
         faq = json.loads((R / "pages" / "guide_faq.json").read_text(encoding="utf-8"))
-        fh = "".join(
-            f'<div class="collapse collapse-arrow bg-base-100 border border-base-300"><input type="checkbox" aria-label="{q["q"]}"><div class="collapse-title font-medium">{q["q"]}</div><div class="collapse-content text-sm text-base-content/80"><p>{q["a"]}</p></div></div>'
-            for q in faq
+        faq_html = render_template("guide_faq.html.j2", faq=faq)
+        faq_ld = ld_script(
+            {
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                "mainEntity": [
+                    {
+                        "@type": "Question",
+                        "name": item["q"],
+                        "acceptedAnswer": {"@type": "Answer", "text": item["a"]},
+                    }
+                    for item in faq
+                ],
+            }
         )
-        ld = (
-            '<script type="application/ld+json">'
-            + json.dumps(
-                {
-                    "@context": "https://schema.org",
-                    "@type": "FAQPage",
-                    "mainEntity": [
-                        {
-                            "@type": "Question",
-                            "name": q["q"],
-                            "acceptedAnswer": {"@type": "Answer", "text": q["a"]},
-                        }
-                        for q in faq
-                    ],
-                },
-                ensure_ascii=False,
-            )
-            + "</script>"
-        )
-        body = body.replace("__FAQ_HTML__", fh).replace("__FAQ_LD__", ld)
+        body = body.replace("__FAQ_HTML__", faq_html).replace("__FAQ_LD__", faq_ld)
     if name == "glossary":
-        gl = json.loads((R / "pages" / "glossary.json").read_text(encoding="utf-8"))
-        h = ""
-        for g in gl:
-            h += f'<section class="space-y-2"><h2 class="text-xl font-bold">{g["group"]}</h2><dl class="space-y-3">'
-            for t in g["terms"]:
-                h += f'<div id="{t["id"]}" class="scroll-mt-20"><dt class="font-bold">{t["t"]}</dt><dd class="text-sm text-base-content/80">{t["d"]}</dd></div>'
-            h += "</dl></section>"
-        body = body.replace("__GLOSSARY__", h)
+        groups = json.loads((R / "pages" / "glossary.json").read_text(encoding="utf-8"))
+        body = body.replace("__GLOSSARY__", render_template("glossary.html.j2", groups=groups))
     body = render(body, MET)
     if name != "glossary":
         body = glossary_link.link(body)
@@ -141,15 +125,9 @@ def _tok(k, t):
 TOK = "<style>" + "\n".join(_tok(k, t) for k, t in PAL["theme"].items()) + "</style>\n"
 page("explorer.html", "産業マップ｜Keizai Atlas", ED, "\n" + TOK + h)
 
-from xml.sax.saxutils import escape as xe
-
 CL = json.loads((R / "pages" / "changelog.json").read_text(encoding="utf-8"))
-fe = "".join(
-    f'<entry><title>{xe(c["title"])}</title><link href="{SITE_URL}{c["link"]}"/><id>{SITE_URL}/feed#{c["date"]}-{len(CL) - i}</id><updated>{c["date"]}T00:00:00+09:00</updated><summary>{xe(c["summary"])}</summary></entry>'
-    for i, c in enumerate(CL)
-)
 (S / "feed.xml").write_text(
-    f'<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom"><title>{SITE_NAME} 更新情報</title><link href="{SITE_URL}/feed.xml" rel="self"/><link href="{SITE_URL}/"/><id>{SITE_URL}/</id><updated>{CL[0]["date"]}T00:00:00+09:00</updated><author><name>{SITE_NAME}</name></author>{fe}</feed>',
+    render_template("feed.xml.j2", site_name=SITE_NAME, site_url=SITE_URL, changelog=CL),
     encoding="utf-8",
 )
 (S / "robots.txt").write_text(

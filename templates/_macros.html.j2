@@ -1,0 +1,51 @@
+{# 産業・県別ページで繰り返し使う部品 #}
+
+{# 産業へのリンク(青い太字でない通常リンク) #}
+{% macro ind_link(href, label) %}
+<a class="link link-primary" href="{{ href }}">{{ label|esc }}</a>
+{% endmacro %}
+
+{# 数字カード1枚 #}
+{% macro stat_card(label, value) %}
+<div class="card bg-base-100 border border-base-300"><div class="card-body p-4 gap-0">
+  <span class="text-xs text-base-content/60">{{ label }}</span><b class="text-xl">{{ value }}</b>
+</div></div>
+{% endmacro %}
+
+{# 数字カードの並び。stats=[(ラベル, 値)]。カードは1枚ごとに改行する #}
+{% macro stat_grid(stats) %}
+<section class="grid grid-cols-2 sm:grid-cols-4 gap-3">⏎
+{% for label, value in stats %}
+{{ stat_card(label, value) }}{{ "\n" if not loop.last else "" }}
+{% endfor %}
+</section>
+{% endmacro %}
+
+{# 見出し付きの節。本文は {% call section("見出し") %}…{% endcall %} で渡す #}
+{% macro section(title) %}
+<section class="space-y-2"><h2 class="text-xl font-bold">{{ title }}</h2>{{ caller() }}</section>
+{% endmacro %}
+
+{# グラフを入れる枠 #}
+{% macro chart_card() %}
+<div class="card bg-base-100 border border-base-300"><div class="card-body p-3">{{ caller() }}</div></div>
+{% endmacro %}
+
+{# 表。heads=見出し、rows=行(各セルは文字列、またはリンクの {href, text})。2列目以降は右寄せ #}
+{% macro data_table(heads, rows) %}
+<div class="overflow-x-auto"><table class="table table-sm">
+<thead><tr>
+  {% for head in heads %}
+  <th{% if not loop.first %} class="text-right"{% endif %}>{{ head }}</th>
+  {% endfor %}
+</tr></thead>
+<tbody>
+  {% for row in rows %}
+  <tr>
+    {% for cell in row %}
+    <td{% if not loop.first %} class="text-right"{% endif %}>{% if cell is mapping %}{{ ind_link(cell.href, cell.text) }}{% else %}{{ cell|esc }}{% endif %}</td>
+    {% endfor %}
+  </tr>
+  {% endfor %}
+</tbody></table></div>
+{% endmacro %}

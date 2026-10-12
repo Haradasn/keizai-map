@@ -1,0 +1,13 @@
+{# 検索・SNS向けの meta タグ。url / og_image は _shell.page_context() が作る #}
+<link rel="canonical" href="{{ url }}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{{ site_name }}">
+<meta property="og:title" content="{{ title }}">
+<meta property="og:description" content="{{ desc }}">
+<meta property="og:url" content="{{ url }}">
+<meta property="og:image" content="{{ og_image }}">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0b1120">
+<link rel="alternate" type="application/atom+xml" title="更新情報" href="{{ site_url }}/feed.xml">
+{{ head_extra }}
