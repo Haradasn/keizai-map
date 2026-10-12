@@ -25,6 +25,7 @@ jobs:
           scripts/fetch_latest.sh /tmp/raw
           python3 -I pipeline/boj_nowcast.py /tmp/raw data/nowcast_chart.json
           python3 -I pipeline/nowcast2.py /tmp/raw data/nowcast2_chart.json
+          python3 -I pipeline/fx_import.py /tmp/raw data/fx_chart.json
           python3 scripts/build_site.py
           python3 scripts/derive.py > /tmp/new_metrics.txt
       - name: 後退していないか確認(最新月が古くならないこと)

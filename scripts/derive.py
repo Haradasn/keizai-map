@@ -65,6 +65,15 @@ def metrics():
     for c in ("JPN","DEU"):
         M[f"icio_en_{c.lower()}0"],M[f"icio_en_{c.lower()}1"]=F(v(c,M["icio_en_y0"],"energy_share_pct"),1),F(v(c,y1,"energy_share_pct"),1)
     M["icio_enimp_jpn0"]=F(v("JPN",M["icio_en_y0"],"energy_import_share_pct"),0)
+    # --- 7. 円安と輸入物価(日銀)・輸入品の含有率(2020年表)
+    import math as _m
+    fx=json.loads((R/"data/fx_chart.json").read_text(encoding="utf-8"))
+    M["fx_last"]=ym(fx["months"][-1]); y1,c1,f1=fx["yen"][-1],fx["contract"][-1],fx["fx"][-1]
+    M["fx_yen1"],M["fx_cc1"],M["fx_fx1"]=F(y1,1),F(c1,1),F(f1,1); M["fx_yen_x"]=F(y1/100,1)
+    M["fx_share"]=F(_m.log(f1/100)/_m.log(y1/100)*100,0) if y1>100 and f1>100 else "−"
+    ic=json.loads((R/"data/import_content_37.json").read_text(encoding="utf-8")); top=sorted(ic["rows"],key=lambda r:-r["total"])
+    M["ic_avg"]=F(ic["avg_total"]*100,1); M["ic_avg10"]=F(ic["avg_total"]*10,1)
+    M["ic_top3"]="、".join(r["name"] for r in top[:3]); M["ic_top1"]=top[0]["name"]; M["ic_top1_pct"]=F(top[0]["total"]*100,0); M["ic_top1_10"]=F(top[0]["total"]*10,1)
     return M
 def render(text,M):
     import re
