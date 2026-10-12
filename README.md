@@ -49,4 +49,5 @@ Cloudflare（Workers 静的アセット、商用可）: Build command `npm insta
 ## 開発
 
 - 整形: `npm run format`（JS は prettier、Python は ruff）。設定は `.prettierrc.json` と `pyproject.toml`。
-- テスト: `python3 scripts/build_site.py && python3 -m pytest tests -q`
+- ビルド: `npm run build`（ページ生成と出力HTMLの整形）、`npm run build:css`
+- テスト: `npm run build && python3 -m pytest tests -q`

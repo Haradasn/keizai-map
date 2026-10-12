@@ -18,6 +18,9 @@ jobs:
       - uses: actions/setup-python@v5
         with: {python-version: "3.12"}
       - run: pip install pandas openpyxl
+      - uses: actions/setup-node@v4
+        with: {node-version: "22"}
+      - run: npm install --no-audit --no-fund
       - name: 更新前の数値を記録
         run: python3 scripts/derive.py > /tmp/old_metrics.txt
       - name: データ取得と再計算
@@ -26,7 +29,7 @@ jobs:
           python3 -I pipeline/boj_nowcast.py /tmp/raw data/nowcast_chart.json
           python3 -I pipeline/nowcast2.py /tmp/raw data/nowcast2_chart.json
           python3 -I pipeline/fx_import.py /tmp/raw data/fx_chart.json
-          python3 scripts/build_site.py
+          npm run build
           python3 scripts/derive.py > /tmp/new_metrics.txt
       - name: 後退していないか確認(最新月が古くならないこと)
         run: |
@@ -50,7 +53,7 @@ jobs:
           B="auto/data-$(date -u +%Y%m%d)"
           git config user.name "github-actions[bot]"; git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           python3 scripts/add_changelog.py "最新動向のデータを更新" "日銀・経済産業省・財務省の最新データで、最新動向のグラフと数値を更新しました。" /latest
-          python3 scripts/build_site.py
+          npm run build
           git checkout -b "$B"; git add data site pages
           git commit -m "最新動向のデータ更新($(date -u +%Y-%m-%d))"
           git push -u origin "$B"

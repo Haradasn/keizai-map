@@ -266,7 +266,7 @@ def test_industry_pages_complete_and_valid():
     titles = set()
     for f in fs:
         h = f.read_text(encoding="utf-8")
-        assert "<h1" in h and 'rel="canonical"' in h and '<base href="/">' in h, f.name
+        assert "<h1" in h and 'rel="canonical"' in h and re.search(r'<base href="/"\s*/?>', h), f.name
         assert not re.search(r"\bnan\b|None|{{", h), f.name
         t = re.search(r"<title>(.*?)</title>", h).group(1)
         assert t not in titles, t

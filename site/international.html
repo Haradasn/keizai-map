@@ -1,152 +1,279 @@
-<!doctype html><html lang="ja" data-theme="night"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>国際比較｜Keizai Atlas</title><meta name="description" content="OECD国際産業連関表(ICIO)で、日米中独韓の外注・デジタル・エネルギーの仕入れ構成を比べる"><link rel="canonical" href="https://keizai-atlas.com/international"><meta property="og:type" content="website"><meta property="og:site_name" content="Keizai Atlas"><meta property="og:title" content="国際比較｜Keizai Atlas"><meta property="og:description" content="OECD国際産業連関表(ICIO)で、日米中独韓の外注・デジタル・エネルギーの仕入れ構成を比べる"><meta property="og:url" content="https://keizai-atlas.com/international"><meta property="og:image" content="https://keizai-atlas.com/og.png"><meta property="og:locale" content="ja_JP"><meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#0b1120"><link rel="alternate" type="application/atom+xml" title="更新情報" href="https://keizai-atlas.com/feed.xml">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="assets.css">
-<script>try{var t=localStorage.getItem("theme");if(t!=="nord")t="night";document.documentElement.dataset.theme=t}catch(e){}</script>
-</head><body class="bg-base-200 text-base-content font-sans min-h-screen flex flex-col">
-<header class="navbar bg-base-100/80 backdrop-blur border-b border-base-300 sticky top-0 z-50 px-4">
- <div class="flex-1"><a href="index.html" class="text-lg font-bold tracking-tight">Keizai Atlas <span class="text-xs font-normal text-base-content/60 ml-2 hidden sm:inline">経済の地図帳</span></a></div>
- <nav class="flex-none gap-1 items-center flex"><span class="hidden lg:flex gap-1"><a class="btn btn-ghost btn-sm" href="guide.html">入門</a><a class="btn btn-ghost btn-sm" href="explorer.html">産業マップ</a><a class="btn btn-ghost btn-sm" href="industries.html">産業一覧</a><a class="btn btn-ghost btn-sm" href="prefectures.html">県別</a><a class="btn btn-ghost btn-sm" href="similarity.html">近さの地図</a><a class="btn btn-ghost btn-sm" href="latest.html">最新動向</a><a class="btn btn-ghost btn-sm" href="international.html">国際比較</a><a class="btn btn-ghost btn-sm" href="about.html">方法と出典</a></span><div class="dropdown dropdown-end lg:hidden"><label tabindex="0" class="btn btn-ghost btn-sm" aria-label="メニュー">☰</label><ul tabindex="0" class="menu dropdown-content z-50 mt-2 p-2 shadow bg-base-100 border border-base-300 rounded-box w-44"><li><a href="guide.html">入門</a></li><li><a href="explorer.html">産業マップ</a></li><li><a href="industries.html">産業一覧</a></li><li><a href="prefectures.html">県別</a></li><li><a href="similarity.html">近さの地図</a></li><li><a href="latest.html">最新動向</a></li><li><a href="international.html">国際比較</a></li><li><a href="about.html">方法と出典</a></li></ul></div>
- <label class="swap swap-rotate btn btn-ghost btn-sm btn-circle" aria-label="テーマ切替"><input type="checkbox" id="thm"><span class="swap-on">☀</span><span class="swap-off">☾</span></label></nav>
-</header>
-<main class="flex-1 w-full max-w-5xl mx-auto px-4 py-10 space-y-10">
-  <header class="space-y-3">
-    <h1 class="text-3xl font-bold">国際比較：日・米・中・独・韓</h1>
-    <p class="text-base-content/80">
-      OECD の国際産業連関表（<a class="underline decoration-dotted underline-offset-4 hover:text-primary" href="glossary.html#icio">ICIO</a>
-      2025年版、2016〜2022年）から、各国の産業が「何を仕入れているか」を比べます。指標は<b><a class="underline decoration-dotted underline-offset-4 hover:text-primary" href="glossary.html#chukan-toonyu">中間投入</a>（原材料・サービスの仕入れ）全体に占める割合</b>です。輸入分も含みます。
-    </p>
-    <div role="alert" class="alert alert-warning">
-      <span
-        >日本の表（総務省の産業連関表）とは部門の切り方が違うため、数値は国内版と一致しません。解釈は筆者の<a class="underline decoration-dotted underline-offset-4 hover:text-primary" href="glossary.html#kasetsu">仮説</a>です。</span
-      >
-    </div>
-  </header>
-  <section id="outsourcing" class="space-y-3 scroll-mt-20">
-    <h2 class="text-2xl font-bold">1. 外注（専門・事業支援サービス）</h2>
-    <p class="text-base-content/80">
-      専門・科学技術サービス（法務・会計・コンサル・研究開発・広告など）と、事業支援サービス（人材派遣・警備・清掃・レンタルなど）の仕入れ比率。
-    </p>
-    <div class="card bg-base-100 border border-base-300">
-      <div class="card-body"><div id="c-out"></div></div>
-    </div>
-    <p class="text-sm text-base-content/80">
-      <b>読み取り:</b>
-      2022年は、米国20%、ドイツ16%に対し、日本は8%、韓国8%、中国6%です。2016〜2022年を通じて、日本は8〜10%の範囲でした。日本は「外注にお金が流れる国」とは言えず、国内版で大きく見える対事業所サービスは、ICIOでは定義が狭いために小さく出ている可能性があります（仮説）。
-    </p>
-  </section>
-  <section id="digital" class="space-y-3 scroll-mt-20">
-    <h2 class="text-2xl font-bold">2. デジタル（情報通信・情報サービス）</h2>
-    <p class="text-base-content/80">
-      出版・放送、通信、情報サービス（IT・クラウド等）の仕入れ比率と、そのうち輸入の比率。
-    </p>
-    <div class="grid gap-4 md:grid-cols-2">
-      <div class="card bg-base-100 border border-base-300">
-        <div class="card-body">
-          <h3 class="font-bold">仕入れに占める割合（%）</h3>
-          <div id="c-dig"></div>
-        </div>
+<!doctype html>
+<html lang="ja" data-theme="night">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>国際比較｜Keizai Atlas</title>
+    <meta
+      name="description"
+      content="OECD国際産業連関表(ICIO)で、日米中独韓の外注・デジタル・エネルギーの仕入れ構成を比べる"
+    />
+    <link rel="canonical" href="https://keizai-atlas.com/international" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Keizai Atlas" />
+    <meta property="og:title" content="国際比較｜Keizai Atlas" />
+    <meta
+      property="og:description"
+      content="OECD国際産業連関表(ICIO)で、日米中独韓の外注・デジタル・エネルギーの仕入れ構成を比べる"
+    />
+    <meta property="og:url" content="https://keizai-atlas.com/international" />
+    <meta property="og:image" content="https://keizai-atlas.com/og.png" />
+    <meta property="og:locale" content="ja_JP" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#0b1120" />
+    <link
+      rel="alternate"
+      type="application/atom+xml"
+      title="更新情報"
+      href="https://keizai-atlas.com/feed.xml"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets.css" />
+    <script>
+      try{var t=localStorage.getItem("theme");if(t!=="nord")t="night";document.documentElement.dataset.theme=t}catch(e){}
+    </script>
+  </head>
+  <body class="bg-base-200 text-base-content font-sans min-h-screen flex flex-col">
+    <header class="navbar bg-base-100/80 backdrop-blur border-b border-base-300 sticky top-0 z-50 px-4">
+      <div class="flex-1">
+        <a href="index.html" class="text-lg font-bold tracking-tight"
+          >Keizai Atlas
+          <span class="text-xs font-normal text-base-content/60 ml-2 hidden sm:inline">経済の地図帳</span></a
+        >
       </div>
-      <div class="card bg-base-100 border border-base-300">
-        <div class="card-body">
-          <h3 class="font-bold">そのうち輸入の割合（%）</h3>
-          <div id="c-digimp"></div>
+      <nav class="flex-none gap-1 items-center flex">
+        <span class="hidden lg:flex gap-1"
+          ><a class="btn btn-ghost btn-sm" href="guide.html">入門</a
+          ><a class="btn btn-ghost btn-sm" href="explorer.html">産業マップ</a
+          ><a class="btn btn-ghost btn-sm" href="industries.html">産業一覧</a
+          ><a class="btn btn-ghost btn-sm" href="prefectures.html">県別</a
+          ><a class="btn btn-ghost btn-sm" href="similarity.html">近さの地図</a
+          ><a class="btn btn-ghost btn-sm" href="latest.html">最新動向</a
+          ><a class="btn btn-ghost btn-sm" href="international.html">国際比較</a
+          ><a class="btn btn-ghost btn-sm" href="about.html">方法と出典</a></span
+        >
+        <div class="dropdown dropdown-end lg:hidden">
+          <label tabindex="0" class="btn btn-ghost btn-sm" aria-label="メニュー">☰</label>
+          <ul
+            tabindex="0"
+            class="menu dropdown-content z-50 mt-2 p-2 shadow bg-base-100 border border-base-300 rounded-box w-44"
+          >
+            <li><a href="guide.html">入門</a></li>
+            <li><a href="explorer.html">産業マップ</a></li>
+            <li><a href="industries.html">産業一覧</a></li>
+            <li><a href="prefectures.html">県別</a></li>
+            <li><a href="similarity.html">近さの地図</a></li>
+            <li><a href="latest.html">最新動向</a></li>
+            <li><a href="international.html">国際比較</a></li>
+            <li><a href="about.html">方法と出典</a></li>
+          </ul>
         </div>
-      </div>
-    </div>
-    <p class="text-sm text-base-content/80">
-      <b>読み取り:</b>
-      日本のデジタル仕入れ比率は2016〜2022年でほぼ横ばい（2020年は分母の縮小で一時的に高く出る）ですが、<b>輸入比率は8.7%から13.0%に上昇</b>しました。韓国・ドイツも上昇しています。海外のクラウドやソフトウェアへの支払いが増えた可能性があります（仮説）。2023年以降の生成AIの影響は、この表には入っていません。
-    </p>
-  </section>
-  <section id="energy" class="space-y-3 scroll-mt-20">
-    <h2 class="text-2xl font-bold">3. エネルギー（石炭・石油ガス・石油製品・電気ガス）</h2>
-    <div class="grid gap-4 md:grid-cols-2">
-      <div class="card bg-base-100 border border-base-300">
-        <div class="card-body">
-          <h3 class="font-bold">仕入れに占める割合（%）</h3>
-          <div id="c-en"></div>
+        <label class="swap swap-rotate btn btn-ghost btn-sm btn-circle" aria-label="テーマ切替"
+          ><input type="checkbox" id="thm" /><span class="swap-on">☀</span
+          ><span class="swap-off">☾</span></label
+        >
+      </nav>
+    </header>
+    <main class="flex-1 w-full max-w-5xl mx-auto px-4 py-10 space-y-10">
+      <header class="space-y-3">
+        <h1 class="text-3xl font-bold">国際比較：日・米・中・独・韓</h1>
+        <p class="text-base-content/80">
+          OECD の国際産業連関表（<a
+            class="underline decoration-dotted underline-offset-4 hover:text-primary"
+            href="glossary.html#icio"
+            >ICIO</a
+          >
+          2025年版、2016〜2022年）から、各国の産業が「何を仕入れているか」を比べます。指標は<b
+            ><a
+              class="underline decoration-dotted underline-offset-4 hover:text-primary"
+              href="glossary.html#chukan-toonyu"
+              >中間投入</a
+            >（原材料・サービスの仕入れ）全体に占める割合</b
+          >です。輸入分も含みます。
+        </p>
+        <div role="alert" class="alert alert-warning">
+          <span
+            >日本の表（総務省の産業連関表）とは部門の切り方が違うため、数値は国内版と一致しません。解釈は筆者の<a
+              class="underline decoration-dotted underline-offset-4 hover:text-primary"
+              href="glossary.html#kasetsu"
+              >仮説</a
+            >です。</span
+          >
         </div>
-      </div>
-      <div class="card bg-base-100 border border-base-300">
-        <div class="card-body">
-          <h3 class="font-bold">そのうち輸入の割合（%）</h3>
-          <div id="c-enimp"></div>
+      </header>
+      <section id="outsourcing" class="space-y-3 scroll-mt-20">
+        <h2 class="text-2xl font-bold">1. 外注（専門・事業支援サービス）</h2>
+        <p class="text-base-content/80">
+          専門・科学技術サービス（法務・会計・コンサル・研究開発・広告など）と、事業支援サービス（人材派遣・警備・清掃・レンタルなど）の仕入れ比率。
+        </p>
+        <div class="card bg-base-100 border border-base-300">
+          <div class="card-body"><div id="c-out"></div></div>
         </div>
-      </div>
-    </div>
-    <p class="text-sm text-base-content/80">
-      <b>読み取り:</b> 2022年は、価格高騰でエネルギーの比率が各国で跳ね上がりました（日本
-      7.3%→11.5%、ドイツ
-      5.1%→8.7%、2020→2022年）。日本の輸入比率は31%→47%と急上昇し、米国（14%）・中国（15%）との差が開きました。ドイツ（35%）は日本より低い水準です。
-    </p>
-  </section>
-  <section class="text-sm text-base-content/70 space-y-1">
-    <h2 class="text-lg font-bold text-base-content">方法と注意</h2>
-    <ul class="list-disc pl-6">
-      <li>
-        出典：OECD Inter-Country Input-Output (ICIO) Tables, 2025 edition（regular
-        ICIO）を筆者が集計。加工・解釈は筆者によるもので、OECDが作成・保証したものではありません。
-      </li>
-      <li>
-        各国の産業（50部門）の列に対する、全世界の売り手からの仕入れを合計し、部門グループごとの割合を計算しています。<a class="underline decoration-dotted underline-offset-4 hover:text-primary" href="glossary.html#meimoku-jissitsu">名目</a>値のため、価格変動の影響を含みます。
-      </li>
-      <li>
-        2020年はコロナ禍で全体が縮み、割合が一時的に動きます。集計スクリプトは
-        <code>pipeline/icio_agg.py</code> にあります。
-      </li>
-    </ul>
-  </section>
-</main>
-<script src="charts.js"></script>
-<script>
-  (function () {
-    var D = {"out":{"CHN":[5.17,5.29,5.47,5.63,5.49,5.66,5.69],"DEU":[16.07,15.8,15.95,16.45,16.19,16.29,16.46],"JPN":[8.93,8.72,8.59,8.74,9.8,8.6,8.25],"KOR":[8.64,8.63,8.47,8.88,8.74,8.18,7.69],"USA":[19.88,19.64,19.78,20.49,21.51,20.69,20.43]},"dig":{"CHN":[1.61,1.54,1.55,1.51,1.52,1.45,1.49],"DEU":[7.24,7.42,7.71,7.92,8.19,8.25,8.09],"JPN":[7.14,6.69,6.72,7.01,8.68,7.29,6.54],"KOR":[4.21,4.27,4.31,4.46,4.08,3.96,3.76],"USA":[8.21,8.55,8.28,8.26,8.99,8.69,8.25]},"digimp":{"CHN":[5.41,6.12,7.05,6.9,7.3,6.69,6.58],"DEU":[20.34,21.44,22.14,22.6,22.18,23.59,26.35],"JPN":[8.74,8.69,9.56,10.96,12.1,12.1,12.98],"KOR":[8.65,9.18,9.58,10.61,12.36,12.26,13.67],"USA":[4.33,4.77,4.56,4.3,4.26,4.56,4.68]},"en":{"CHN":[10.26,10.65,11.11,10.97,10.84,11.04,11.41],"DEU":[5.52,5.97,6.29,6.17,5.12,6.14,8.73],"JPN":[7.63,8.3,9.11,8.75,7.34,8.22,11.5],"KOR":[9.64,10.77,12.39,11.9,9.47,10.78,14.19],"USA":[6.41,6.93,8.01,6.99,5.15,7.02,8.84]},"enimp":{"CHN":[8.21,10.2,12.95,11.01,9.57,12.0,15.13],"DEU":[33.96,34.56,35.56,36.13,27.16,31.58,34.69],"JPN":[34.24,37.47,40.21,37.82,31.34,38.58,47.05],"KOR":[44.49,47.29,50.46,50.2,46.82,48.42,51.53],"USA":[17.37,19.12,17.73,17.4,13.66,14.69,14.06]},"years":[2016,2017,2018,2019,2020,2021,2022]},
-      P = KA.pal,
-      C = [
-        ["JPN", "日本", 3.2],
-        ["USA", "米国", 1.8],
-        ["CHN", "中国", 1.8],
-        ["DEU", "ドイツ", 1.8],
-        ["KOR", "韓国", 1.8],
-      ];
-    function chart(id, key) {
-      KA.line(
-        document.getElementById(id),
-        C.map(function (c) {
-          return { n: c[1], v: D[key][c[0]], c: P.c[P.country[c[0]]], w: c[2] };
-        }),
-        {
-          labels: D.years,
-          W: 470,
-          H: 260,
-          L: 40,
-          R: 96,
-          zero: true,
-          aria: key + " 国別推移",
-          xlabel: function (i, y) {
-            return i % 2 == 0 || i == D.years.length - 1 ? y : null;
-          },
+        <p class="text-sm text-base-content/80">
+          <b>読み取り:</b>
+          2022年は、米国20%、ドイツ16%に対し、日本は8%、韓国8%、中国6%です。2016〜2022年を通じて、日本は8〜10%の範囲でした。日本は「外注にお金が流れる国」とは言えず、国内版で大きく見える対事業所サービスは、ICIOでは定義が狭いために小さく出ている可能性があります（仮説）。
+        </p>
+      </section>
+      <section id="digital" class="space-y-3 scroll-mt-20">
+        <h2 class="text-2xl font-bold">2. デジタル（情報通信・情報サービス）</h2>
+        <p class="text-base-content/80">
+          出版・放送、通信、情報サービス（IT・クラウド等）の仕入れ比率と、そのうち輸入の比率。
+        </p>
+        <div class="grid gap-4 md:grid-cols-2">
+          <div class="card bg-base-100 border border-base-300">
+            <div class="card-body">
+              <h3 class="font-bold">仕入れに占める割合（%）</h3>
+              <div id="c-dig"></div>
+            </div>
+          </div>
+          <div class="card bg-base-100 border border-base-300">
+            <div class="card-body">
+              <h3 class="font-bold">そのうち輸入の割合（%）</h3>
+              <div id="c-digimp"></div>
+            </div>
+          </div>
+        </div>
+        <p class="text-sm text-base-content/80">
+          <b>読み取り:</b>
+          日本のデジタル仕入れ比率は2016〜2022年でほぼ横ばい（2020年は分母の縮小で一時的に高く出る）ですが、<b>輸入比率は8.7%から13.0%に上昇</b>しました。韓国・ドイツも上昇しています。海外のクラウドやソフトウェアへの支払いが増えた可能性があります（仮説）。2023年以降の生成AIの影響は、この表には入っていません。
+        </p>
+      </section>
+      <section id="energy" class="space-y-3 scroll-mt-20">
+        <h2 class="text-2xl font-bold">3. エネルギー（石炭・石油ガス・石油製品・電気ガス）</h2>
+        <div class="grid gap-4 md:grid-cols-2">
+          <div class="card bg-base-100 border border-base-300">
+            <div class="card-body">
+              <h3 class="font-bold">仕入れに占める割合（%）</h3>
+              <div id="c-en"></div>
+            </div>
+          </div>
+          <div class="card bg-base-100 border border-base-300">
+            <div class="card-body">
+              <h3 class="font-bold">そのうち輸入の割合（%）</h3>
+              <div id="c-enimp"></div>
+            </div>
+          </div>
+        </div>
+        <p class="text-sm text-base-content/80">
+          <b>読み取り:</b> 2022年は、価格高騰でエネルギーの比率が各国で跳ね上がりました（日本
+          7.3%→11.5%、ドイツ
+          5.1%→8.7%、2020→2022年）。日本の輸入比率は31%→47%と急上昇し、米国（14%）・中国（15%）との差が開きました。ドイツ（35%）は日本より低い水準です。
+        </p>
+      </section>
+      <section class="text-sm text-base-content/70 space-y-1">
+        <h2 class="text-lg font-bold text-base-content">方法と注意</h2>
+        <ul class="list-disc pl-6">
+          <li>
+            出典：OECD Inter-Country Input-Output (ICIO) Tables, 2025 edition（regular
+            ICIO）を筆者が集計。加工・解釈は筆者によるもので、OECDが作成・保証したものではありません。
+          </li>
+          <li>
+            各国の産業（50部門）の列に対する、全世界の売り手からの仕入れを合計し、部門グループごとの割合を計算しています。<a
+              class="underline decoration-dotted underline-offset-4 hover:text-primary"
+              href="glossary.html#meimoku-jissitsu"
+              >名目</a
+            >値のため、価格変動の影響を含みます。
+          </li>
+          <li>
+            2020年はコロナ禍で全体が縮み、割合が一時的に動きます。集計スクリプトは
+            <code>pipeline/icio_agg.py</code> にあります。
+          </li>
+        </ul>
+      </section>
+    </main>
+    <script src="charts.js"></script>
+    <script>
+      (function () {
+        var D = {"out":{"CHN":[5.17,5.29,5.47,5.63,5.49,5.66,5.69],"DEU":[16.07,15.8,15.95,16.45,16.19,16.29,16.46],"JPN":[8.93,8.72,8.59,8.74,9.8,8.6,8.25],"KOR":[8.64,8.63,8.47,8.88,8.74,8.18,7.69],"USA":[19.88,19.64,19.78,20.49,21.51,20.69,20.43]},"dig":{"CHN":[1.61,1.54,1.55,1.51,1.52,1.45,1.49],"DEU":[7.24,7.42,7.71,7.92,8.19,8.25,8.09],"JPN":[7.14,6.69,6.72,7.01,8.68,7.29,6.54],"KOR":[4.21,4.27,4.31,4.46,4.08,3.96,3.76],"USA":[8.21,8.55,8.28,8.26,8.99,8.69,8.25]},"digimp":{"CHN":[5.41,6.12,7.05,6.9,7.3,6.69,6.58],"DEU":[20.34,21.44,22.14,22.6,22.18,23.59,26.35],"JPN":[8.74,8.69,9.56,10.96,12.1,12.1,12.98],"KOR":[8.65,9.18,9.58,10.61,12.36,12.26,13.67],"USA":[4.33,4.77,4.56,4.3,4.26,4.56,4.68]},"en":{"CHN":[10.26,10.65,11.11,10.97,10.84,11.04,11.41],"DEU":[5.52,5.97,6.29,6.17,5.12,6.14,8.73],"JPN":[7.63,8.3,9.11,8.75,7.34,8.22,11.5],"KOR":[9.64,10.77,12.39,11.9,9.47,10.78,14.19],"USA":[6.41,6.93,8.01,6.99,5.15,7.02,8.84]},"enimp":{"CHN":[8.21,10.2,12.95,11.01,9.57,12.0,15.13],"DEU":[33.96,34.56,35.56,36.13,27.16,31.58,34.69],"JPN":[34.24,37.47,40.21,37.82,31.34,38.58,47.05],"KOR":[44.49,47.29,50.46,50.2,46.82,48.42,51.53],"USA":[17.37,19.12,17.73,17.4,13.66,14.69,14.06]},"years":[2016,2017,2018,2019,2020,2021,2022]},
+          P = KA.pal,
+          C = [
+            ["JPN", "日本", 3.2],
+            ["USA", "米国", 1.8],
+            ["CHN", "中国", 1.8],
+            ["DEU", "ドイツ", 1.8],
+            ["KOR", "韓国", 1.8],
+          ];
+        function chart(id, key) {
+          KA.line(
+            document.getElementById(id),
+            C.map(function (c) {
+              return { n: c[1], v: D[key][c[0]], c: P.c[P.country[c[0]]], w: c[2] };
+            }),
+            {
+              labels: D.years,
+              W: 470,
+              H: 260,
+              L: 40,
+              R: 96,
+              zero: true,
+              aria: key + " 国別推移",
+              xlabel: function (i, y) {
+                return i % 2 == 0 || i == D.years.length - 1 ? y : null;
+              },
+            }
+          );
         }
-      );
-    }
-    chart("c-out", "out");
-    chart("c-dig", "dig");
-    chart("c-digimp", "digimp");
-    chart("c-en", "en");
-    chart("c-enimp", "enimp");
-  })();
-</script>
-<section id="fb" class="max-w-3xl mx-auto w-full px-4 mt-12" data-sitekey="0x4AAAAAAFUK5Vw22jfpltSW"><div class="rounded-box border border-base-300 bg-base-100 p-5 space-y-3">
-<div class="flex flex-wrap items-center gap-3"><p class="font-bold">このページは役に立ちましたか？</p><button id="fb-like" type="button" class="btn btn-sm btn-outline">👍 役に立った</button><span id="fb-like-msg" class="text-sm text-base-content/70" aria-live="polite"></span></div>
-<details id="fb-req"><summary class="cursor-pointer text-sm link link-primary">「こんな情報が欲しい」を送る</summary>
-<form id="fb-form" class="mt-3 space-y-2"><label for="fb-body" class="text-sm block">知りたいこと、見てみたい統計、気づいた誤りなど（500字まで）</label><textarea id="fb-body" maxlength="500" rows="3" class="textarea textarea-bordered w-full" required></textarea><div id="fb-ts"></div>
-<div class="flex items-center gap-3"><button class="btn btn-sm btn-primary" type="submit">送信</button><span id="fb-msg" class="text-sm" aria-live="polite"></span></div>
-<p class="text-xs text-base-content/60">名前やメールアドレスは不要です。保存するのは送信内容とページ名だけで、IPアドレスなどは保存しません。個別の返信はできません。</p></form></details>
-</div></section><script src="/feedback.js" defer></script>
-<footer class="footer footer-center p-6 bg-base-100 border-t border-base-300 text-sm text-base-content/70 mt-12">
-<p>出典：総務省ほか「産業連関表」、経済産業省「延長産業連関表」（政府統計の総合窓口 e-Stat 掲載）を筆者が加工して作成。<br>加工・分析・「仮説」は筆者によるもので、政府が作成・保証したものではありません。投資・経営判断の根拠にはしないでください。</p>
-<p class="flex gap-4 flex-wrap justify-center"><a class="link" href="guide.html">入門ガイド</a><a class="link" href="glossary.html">用語集</a><a class="link" href="industries.html">産業一覧</a><a class="link" href="prefectures.html">県別</a><a class="link" href="about.html">方法と出典・免責</a><a class="link" href="feed.xml">更新情報(RSS)</a></p></footer>
-<script>document.getElementById("thm").checked=document.documentElement.dataset.theme==="nord";
-document.getElementById("thm").onchange=function(e){var t=e.target.checked?"nord":"night";document.documentElement.dataset.theme=t;try{localStorage.setItem("theme",t)}catch(x){}}</script>
-</body></html>
+        chart("c-out", "out");
+        chart("c-dig", "dig");
+        chart("c-digimp", "digimp");
+        chart("c-en", "en");
+        chart("c-enimp", "enimp");
+      })();
+    </script>
+    <section id="fb" class="max-w-3xl mx-auto w-full px-4 mt-12" data-sitekey="0x4AAAAAAFUK5Vw22jfpltSW">
+      <div class="rounded-box border border-base-300 bg-base-100 p-5 space-y-3">
+        <div class="flex flex-wrap items-center gap-3">
+          <p class="font-bold">このページは役に立ちましたか？</p>
+          <button id="fb-like" type="button" class="btn btn-sm btn-outline">👍 役に立った</button
+          ><span id="fb-like-msg" class="text-sm text-base-content/70" aria-live="polite"></span>
+        </div>
+        <details id="fb-req">
+          <summary class="cursor-pointer text-sm link link-primary">「こんな情報が欲しい」を送る</summary>
+          <form id="fb-form" class="mt-3 space-y-2">
+            <label for="fb-body" class="text-sm block"
+              >知りたいこと、見てみたい統計、気づいた誤りなど（500字まで）</label
+            ><textarea
+              id="fb-body"
+              maxlength="500"
+              rows="3"
+              class="textarea textarea-bordered w-full"
+              required
+            ></textarea>
+            <div id="fb-ts"></div>
+            <div class="flex items-center gap-3">
+              <button class="btn btn-sm btn-primary" type="submit">送信</button
+              ><span id="fb-msg" class="text-sm" aria-live="polite"></span>
+            </div>
+            <p class="text-xs text-base-content/60">
+              名前やメールアドレスは不要です。保存するのは送信内容とページ名だけで、IPアドレスなどは保存しません。個別の返信はできません。
+            </p>
+          </form>
+        </details>
+      </div>
+    </section>
+    <script src="/feedback.js" defer></script>
+    <footer
+      class="footer footer-center p-6 bg-base-100 border-t border-base-300 text-sm text-base-content/70 mt-12"
+    >
+      <p>
+        出典：総務省ほか「産業連関表」、経済産業省「延長産業連関表」（政府統計の総合窓口 e-Stat
+        掲載）を筆者が加工して作成。<br />加工・分析・「仮説」は筆者によるもので、政府が作成・保証したものではありません。投資・経営判断の根拠にはしないでください。
+      </p>
+      <p class="flex gap-4 flex-wrap justify-center">
+        <a class="link" href="guide.html">入門ガイド</a><a class="link" href="glossary.html">用語集</a
+        ><a class="link" href="industries.html">産業一覧</a><a class="link" href="prefectures.html">県別</a
+        ><a class="link" href="about.html">方法と出典・免責</a
+        ><a class="link" href="feed.xml">更新情報(RSS)</a>
+      </p>
+    </footer>
+    <script>
+      document.getElementById("thm").checked=document.documentElement.dataset.theme==="nord";
+      document.getElementById("thm").onchange=function(e){var t=e.target.checked?"nord":"night";document.documentElement.dataset.theme=t;try{localStorage.setItem("theme",t)}catch(x){}}
+    </script>
+  </body>
+</html>
