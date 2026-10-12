@@ -45,3 +45,8 @@ Cloudflare（Workers 静的アセット、商用可）: Build command `npm insta
 
 ## 県別ページ
 `pref_raw/` に各県の公表ファイル(出典は `pref_raw/SOURCES.json`)、`pipeline/pref_build.py` が `data/pref_37.json` を作り(需要側・費用側の収支が合うことを検証)、`scripts/build_pref.py` がページを作ります。県の追加は、公表ファイルを `pref_raw/` に置いて SOURCES.json に追記します。政府サイトはサンドボックスから取れないため、`pref-fetch` ワークフロー(手動実行)でファイルを取得できます。
+
+## 開発
+
+- 整形: `npm run format`（JS は prettier、Python は ruff）。設定は `.prettierrc.json` と `pyproject.toml`。
+- テスト: `python3 scripts/build_site.py && python3 -m pytest tests -q`

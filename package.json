@@ -1,2 +1,17 @@
-{"name":"keizai-map","private":true,"scripts":{"build:css":"tailwindcss -c tailwind.config.js -i src/input.css -o site/assets.css --minify"},
-"devDependencies":{"tailwindcss":"3.4.17","daisyui":"4.12.23"},"dependencies":{"3d-force-graph":"1.73.4"}}
+{
+  "name": "keizai-map",
+  "private": true,
+  "scripts": {
+    "build:css": "tailwindcss -c tailwind.config.js -i src/input.css -o site/assets.css --minify",
+    "format": "prettier --write pages/*.js worker/index.js pipeline/explorer_template.html && ruff format . && ruff check --fix .",
+    "format:check": "prettier --check pages/*.js worker/index.js pipeline/explorer_template.html"
+  },
+  "devDependencies": {
+    "tailwindcss": "3.4.17",
+    "daisyui": "4.12.23",
+    "prettier": "3.9.10"
+  },
+  "dependencies": {
+    "3d-force-graph": "1.73.4"
+  }
+}
