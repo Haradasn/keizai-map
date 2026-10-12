@@ -1,346 +1,443 @@
 """産業ごとの個別ページ(108産業・37部門)と産業一覧を生成する。 build_site.py から呼ばれる。
-文章はデータからの機械的な生成で、事実(数値)のみ。解釈は既存の『ストーリー(仮説)』を転記し、仮説と明記する。"""
+文章はデータからの機械的な生成で、事実(数値)のみ。解釈は既存の『ストーリー(仮説)』を転記し、仮説と明記する。
+マークアップは templates/ にあり、ここでは表示する値(整形済みの文字列・座標)を用意して描画を呼ぶ。"""
 
-import json, html, pathlib, re
+import html
+import json
+import pathlib
+import re
+from types import SimpleNamespace
+
 import pandas as pd
+
+from _shell import breadcrumb_head
+from _tpl import render
 
 R = pathlib.Path(__file__).resolve().parent.parent
 D = R / "data"
-rd = lambda f, **k: pd.read_csv(D / f, encoding="utf-8-sig", **k)
-esc = html.escape
+
+# 行き先の構成の分類(ラベル, 色)。順番が積み棒の並び順になる
+DESTINATION_COLORS = {
+    "他産業の材料・サービス": "#38bdf8",
+    "家計消費": "#34d399",
+    "設備投資・在庫": "#f59e0b",
+    "政府（消費・公共投資）": "#a78bfa",
+    "輸出": "#ef4444",
+}
 
 
-def short(n):
-    return re.sub(
-        r"^（続き）", "", re.sub(r"（[^）]*(別掲|除く)[^）]*）", "", n)
-    )  # 『（別掲を除く。）』などの注記を外す
+def read_csv(filename, **kwargs):
+    """data/ の CSV を読む。"""
+    return pd.read_csv(D / filename, encoding="utf-8-sig", **kwargs)
+
+
+# ---------- 数値・名前の整形
+
+
+def short(name):
+    """『（別掲を除く。）』などの注記を外した産業名。"""
+    return re.sub(r"^（続き）", "", re.sub(r"（[^）]*(別掲|除く)[^）]*）", "", name))
 
 
 def tril(x):
-    return f"{x / 1000:.1f}" if x >= 100 else f"{x / 1000:.2f}"  # 10億円→兆円
+    """10億円→兆円。"""
+    return f"{x / 1000:.1f}" if x >= 100 else f"{x / 1000:.2f}"
 
 
-def pct(x, d=0):
-    return f"{x * 100:.{d}f}%"
+def pct(x, digits=0):
+    """割合(0〜1)を「12%」の形に。"""
+    return f"{x * 100:.{digits}f}%"
 
 
-def sg(x, d=1):
-    return ("+" if x >= 0 else "−") + f"{abs(x):.{d}f}"
+def sg(x, digits=1):
+    """符号つきの数値(マイナスは全角風の「−」)。"""
+    return ("+" if x >= 0 else "−") + f"{abs(x):.{digits}f}"
+
+
+def industry_link(code, name):
+    """表のセルに入れる産業ページへのリンク。"""
+    return {"href": f"industry/{code}.html", "text": short(name)}
+
+
+# ---------- データの読み込み
 
 
 def load():
-    nd = rd("nodes.csv", dtype={"code": str})
-    n108 = nd[nd.level == 108].set_index("code")
-    n37 = nd[nd.level == 37].set_index("code")
-    ed = rd("edges.csv")
-    ed = ed[(ed.level == 108) & (ed.type == "SUPPLIES")]
-    ts = rd("sector_timeseries_108.csv", dtype={"code": str}).set_index("code")
-    an = rd("analysis_108.csv", dtype={"code": str}).set_index("code")
-    rk = rd("blue_ocean_ranking_108.csv", dtype={"code": str}).set_index("code")
-    ex = json.loads((D / "explorer_data.json").read_text(encoding="utf-8"))
-    sim = json.loads((D / "similarity_map.json").read_text(encoding="utf-8"))
-    return dict(n108=n108, n37=n37, ed=ed, ts=ts, an=an, rk=rk, ex=ex, sim=sim)
-
-
-def link(code, name):
-    return f'<a class="link link-primary" href="industry/{code}.html">{esc(short(name))}</a>'
-
-
-def stacked(parts):
-    """parts=[(label,share,color)] を横積み棒(inline SVG)で。"""
-    W = 640
-    x = 0
-    s = f'<svg viewBox="0 0 {W} 70" width="100%" role="img" aria-label="行き先の構成" style="font-size:11px">'
-    for lab, sh, c in parts:
-        w = W * sh
-        if w < 0.5:
-            continue
-        s += f'<rect x="{x:.1f}" y="6" width="{w:.1f}" height="26" fill="{c}"/>'
-        if w > 46:
-            s += f'<text x="{x + w / 2:.1f}" y="23" text-anchor="middle" fill="#0b1120" font-weight="700">{sh * 100:.0f}%</text>'
-        x += w
-    x = 0
-    for i, (lab, sh, c) in enumerate(p for p in parts if p[1] >= 0.005):
-        s += f'<rect x="{(i % 3) * 215}" y="{40 + (i // 3) * 16}" width="9" height="9" fill="{c}"/><text x="{(i % 3) * 215 + 13}" y="{48 + (i // 3) * 16}" fill="currentColor">{lab} {sh * 100:.0f}%</text>'
-    return s + "</svg>"
-
-
-def bars(vals, labels, color):
-    W, H = 320, 120
-    mx = max(vals)
-    bw = W / len(vals)
-    s = f'<svg viewBox="0 0 {W} {H}" width="100%" style="max-width:360px;font-size:11px" role="img" aria-label="実質産出額の推移">'
-    for i, (v, l) in enumerate(zip(vals, labels)):
-        h = (H - 34) * v / mx
-        x = i * bw + bw * 0.2
-        s += f'<rect x="{x:.1f}" y="{H - 22 - h:.1f}" width="{bw * 0.6:.1f}" height="{h:.1f}" fill="{color}" rx="2"/><text x="{x + bw * 0.3:.1f}" y="{H - 22 - h - 4:.1f}" text-anchor="middle" fill="currentColor">{v / 1000:.1f}</text><text x="{x + bw * 0.3:.1f}" y="{H - 6}" text-anchor="middle" fill="currentColor" opacity=".7">{l}</text>'
-    return s + "</svg>"
-
-
-def table(rows, heads):
-    t = (
-        '<div class="overflow-x-auto"><table class="table table-sm"><thead><tr>'
-        + "".join(f"<th{' class="text-right"' if i else ''}>{h}</th>" for i, h in enumerate(heads))
-        + "</tr></thead><tbody>"
+    """産業ページに使う CSV / JSON をまとめて読む。"""
+    nodes = read_csv("nodes.csv", dtype={"code": str})
+    edges = read_csv("edges.csv")
+    return dict(
+        n108=nodes[nodes.level == 108].set_index("code"),
+        n37=nodes[nodes.level == 37].set_index("code"),
+        ed=edges[(edges.level == 108) & (edges.type == "SUPPLIES")],
+        ts=read_csv("sector_timeseries_108.csv", dtype={"code": str}).set_index("code"),
+        an=read_csv("analysis_108.csv", dtype={"code": str}).set_index("code"),
+        rk=read_csv("blue_ocean_ranking_108.csv", dtype={"code": str}).set_index("code"),
+        ex=json.loads((D / "explorer_data.json").read_text(encoding="utf-8")),
+        sim=json.loads((D / "similarity_map.json").read_text(encoding="utf-8")),
     )
-    for r in rows:
-        t += (
-            "<tr>"
-            + "".join(f"<td{' class="text-right"' if i else ''}>{c}</td>" for i, c in enumerate(r))
-            + "</tr>"
-        )
-    return t + "</tbody></table></div>"
 
 
-OGP = []
+# ---------- SVGグラフの座標計算(描画は templates/_charts.html.j2)
 
 
-def build(page, S, PAL, SITE_URL):
-    OGP.clear()
-    L = load()
-    n108, n37, ed, ts, an, rk, ex, sim = (L[k] for k in ("n108", "n37", "ed", "ts", "an", "rk", "ex", "sim"))
-    gnames = ex["groups"]
-    N37 = {x["id"]: x for x in ex["nodes"]}
-    grp_of37 = {k: v["grp"] for k, v in N37.items()}
-    GC = PAL["groups"]
-    tot = float(n108.output.sum())
-    names = {c: r["name"] for c, r in n108.iterrows()}
-    code_of = {short(v): k for k, v in names.items()}
-    simn = {x["c"]: x for x in sim["nodes"]}
-    bo = sim["groups"]
-    boc = {c: g for g, v in bo.items() for c in v["codes"]}
-    (S / "industry").mkdir(exist_ok=True)
-    out_pages = []
-    kids_of = {}
-    for c, r in n108.iterrows():
-        g_ = float(ts.loc[c].real_cagr_2015_2020) * 100 if c in ts.index else None
-        kids_of.setdefault("%02d" % int(r.parent37), []).append(
-            dict(c=c, n=r["name"], o=float(r.output) / 1000, g=g_)
-        )
-    for v in kids_of.values():
-        v.sort(key=lambda x: -x["o"])
-    # ---------- 108産業ページ
-    for code, r in n108.iterrows():
-        sid = "S108_" + code
-        nm = short(r["name"])
-        out = float(r.output)
-        p37 = "%02d" % int(r.parent37)
-        a = an.loc[code]
-        t = ts.loc[code] if code in ts.index else None
-        sell = ed[(ed.src == sid) & (ed.dst != sid)].sort_values("amount", ascending=False).head(6)
-        buy = ed[(ed.dst == sid) & (ed.src != sid)].sort_values("amount", ascending=False).head(6)
-        srows = [
-            [link(i[5:], names[i[5:]]), tril(v), pct(sh, 1)]
-            for i, v, sh in zip(sell.dst, sell.amount, sell.share_of_seller_sales)
-        ]
-        brows = [
-            [link(i[5:], names[i[5:]]), tril(v), pct(sh, 1)]
-            for i, v, sh in zip(buy.src, buy.amount, buy.share_of_buyer_cost)
-        ]
-        selfsh = ed[(ed.src == sid) & (ed.dst == sid)].share_of_seller_sales
-        # 行き先の構成
-        row = n108.loc[code]
-        f = lambda c: float(row.get(c, 0) or 0)
-        parts_raw = [
-            ("他産業の材料・サービス", f("intermediate_sales"), "#38bdf8"),
-            ("家計消費", f("fd_民間消費") + f("fd_家計外消費"), "#34d399"),
-            ("設備投資・在庫", f("fd_民間固定資本形成") + f("fd_在庫純増"), "#f59e0b"),
-            (
-                "政府（消費・公共投資）",
-                f("fd_政府消費") + f("fd_政府消費(社会資本等減耗分)") + f("fd_公的固定資本形成"),
-                "#a78bfa",
-            ),
-            ("輸出", f("fd_輸出"), "#ef4444"),
-        ]
-        pos = [(l, max(v, 0), c) for l, v, c in parts_raw]
-        sm = sum(v for _, v, _ in pos) or 1
-        parts = [(l, v / sm, c) for l, v, c in pos]
-        top = max(parts, key=lambda x: x[1])
-        g = float(t.real_cagr_2015_2020) * 100 if t is not None else None
-        g2 = float(t.real_cagr_2011_2015) * 100 if t is not None else None
-        wsh = out / tot
-        neigh = [(code_of.get(x), x) for x in simn[code]["nb"]]
-        sib = [(c, names[c]) for c in n108.index if "%02d" % int(n108.loc[c].parent37) == p37 and c != code]
-        trend = (
-            (
-                f'<section class="space-y-2"><h2 class="text-xl font-bold">規模の推移（実質、兆円）</h2><div class="card bg-base-100 border border-base-300"><div class="card-body p-3">{bars([float(t.output_r11), float(t.output_r15), float(t.output_n20)], ["2011年", "2015年", "2020年"], PAL["c"]["sky"])}</div></div><p class="text-sm text-base-content/70">2011→2015年は年{sg(g2)}%、2015→2020年は年{sg(g)}%（いずれも実質、2020年価格）。</p></section>'
-            )
-            if t is not None
-            else ""
-        )
-        bo_html = ""
-        if code in boc:
-            gg = boc[code]
-            bo_html = f'<section class="space-y-2"><h2 class="text-xl font-bold">ブルーオーシャン候補グループの構成部門</h2><p class="text-sm text-base-content/80">筆者の仮説で、この産業は「{esc(bo[gg]["name"])}」（{gg}）の構成部門としています。くわしくは<a class="link" href="similarity.html">近さの地図</a>を参照してください。</p></section>'
-        facts = f"{nm}は、{esc(n37.loc[p37, 'name'])}部門に含まれる産業です。2020年の産出額は{tril(out)}兆円（国内の産出額全体の{wsh * 100:.1f}%）、{('2015年から2020年の実質成長は年' + sg(g) + '%') if g is not None else '2011年・2015年に対応する産業がなく、成長率は算出していません'}でした。主な販売先は{'・'.join(esc(short(names[i[5:]])) for i in sell.dst[:3])}、主な仕入れ先は{'・'.join(esc(short(names[i[5:]])) for i in buy.src[:3])}です。"
-        desc = re.sub(r"<[^>]+>", "", html.unescape(facts))[:150]
-        body = f"""<main class="flex-1 w-full max-w-4xl mx-auto px-4 py-10 space-y-8">
-<nav class="text-sm breadcrumbs"><ul><li><a href="industries.html">産業一覧</a></li><li><a href="industry/{p37}.html">{esc(n37.loc[p37, "name"])}</a></li><li>{esc(nm)}</li></ul></nav>
-<header class="space-y-3"><h1 class="text-3xl font-bold">{esc(nm)}の取引先・規模・成長</h1><p class="text-base-content/80">{facts}</p></header>
-<section class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-<div class="card bg-base-100 border border-base-300"><div class="card-body p-4 gap-0"><span class="text-xs text-base-content/60">産出額（2020年）</span><b class="text-xl">{tril(out)}兆円</b></div></div>
-<div class="card bg-base-100 border border-base-300"><div class="card-body p-4 gap-0"><span class="text-xs text-base-content/60">実質成長（2015→20年）</span><b class="text-xl">{(sg(g) + "%/年") if g is not None else "データなし"}</b></div></div>
-<div class="card bg-base-100 border border-base-300"><div class="card-body p-4 gap-0"><span class="text-xs text-base-content/60">付加価値率</span><b class="text-xl">{pct(float(a["付加価値率"]))}</b></div></div>
-<div class="card bg-base-100 border border-base-300"><div class="card-body p-4 gap-0"><span class="text-xs text-base-content/60">輸入依存度</span><b class="text-xl">{pct(float(a["輸入依存度"]))}</b></div></div></section>
-<section class="space-y-2"><h2 class="text-xl font-bold">この産業の製品・サービスの行き先</h2><div class="card bg-base-100 border border-base-300"><div class="card-body p-3">{stacked(parts)}</div></div><p class="text-sm text-base-content/70">最大は「{top[0]}」で{top[1] * 100:.0f}%。同じ産業内の取引は売上の{pct(float(selfsh.iloc[0]) if len(selfsh) else 0, 1)}です。</p></section>
-<section class="space-y-2"><h2 class="text-xl font-bold">主な販売先</h2>{table(srows, ["販売先の産業", "金額（兆円）", "売上に占める割合"])}</section>
-<section class="space-y-2"><h2 class="text-xl font-bold">主な仕入れ先</h2>{table(brows, ["仕入れ先の産業", "金額（兆円）", "費用に占める割合"])}</section>
-{trend}
-{bo_html}
-<section class="space-y-2"><h2 class="text-xl font-bold">取引の相手が似ている産業</h2><p class="text-sm text-base-content/70">仕入れ先・販売先の構成が近い産業です（<a class="link" href="similarity.html">近さの地図</a>と同じ計算）。</p><ul class="list-disc pl-6 text-sm">{"".join(f"<li>{link(c, names[c])}</li>" for c, _ in neigh if c)}</ul></section>
-<section class="space-y-2"><h2 class="text-xl font-bold">同じ部門の産業</h2><p class="text-sm">{"、".join(link(c, n) for c, n in sib) or "なし"}</p></section>
-<p class="text-xs text-base-content/60">出典：総務省ほか「産業連関表」（2011・2015・2020年、108部門）を筆者が集計。成長率は接続産業連関表による実質値。政府が作成したものではありません。<a class="link" href="about.html">方法と出典</a></p>
-</main>"""
-        ld = (
-            '<base href="/">'
-            + '<script type="application/ld+json">'
-            + json.dumps(
-                {
-                    "@context": "https://schema.org",
-                    "@type": "BreadcrumbList",
-                    "itemListElement": [
-                        {
-                            "@type": "ListItem",
-                            "position": 1,
-                            "name": "産業一覧",
-                            "item": SITE_URL + "/industries",
-                        },
-                        {
-                            "@type": "ListItem",
-                            "position": 2,
-                            "name": str(n37.loc[p37, "name"]),
-                            "item": f"{SITE_URL}/industry/{p37}",
-                        },
-                        {"@type": "ListItem", "position": 3, "name": nm},
-                    ],
-                },
-                ensure_ascii=False,
-            )
-            + "</script>"
-        )
-        OGP.append(
+def stacked_bar_data(parts):
+    """parts=[(ラベル, 割合, 色)] を、横積み棒の棒と凡例の座標にする。"""
+    width = 640
+    x = 0
+    segments = []
+    for _label, share, color in parts:
+        seg_width = width * share
+        if seg_width < 0.5:
+            continue
+        segments.append(
             dict(
-                id=code,
-                title=nm,
-                kind="108産業の1つ｜" + n37.loc[p37, "name"],
-                grp=int(grp_of37.get(p37, 0) or 0),
-                stats=[
-                    ["産出額（2020年）", tril(out) + "兆円"],
-                    ["実質成長（2015→20年）", (sg(g) + "%/年") if g is not None else "データなし"],
-                    ["付加価値率", pct(float(a["付加価値率"]))],
-                    ["輸入依存度", pct(float(a["輸入依存度"]))],
-                ],
-                parts=[[l, round(v, 4), c] for l, v, c in parts],
+                x=f"{x:.1f}",
+                width=f"{seg_width:.1f}",
+                color=color,
+                label_x=f"{x + seg_width / 2:.1f}"
+                if seg_width > 46
+                else None,  # 幅が足りない棒には数字を入れない
+                pct=f"{share * 100:.0f}",
             )
         )
-        page(f"industry/{code}.html", f"{nm}の取引先・規模・成長｜Keizai Atlas", desc, body, ld)
-        out_pages.append(f"industry/{code}")
-    # ---------- 37部門ページ
-    edges37 = ex["edges"]
-    for nid, n in N37.items():
-        nm = n["name"]
-        subs = kids_of.get(nid, [])
-        sell = sorted(
-            [e for e in edges37 if e["s"] == nid and e["t"] != nid and e.get("v")], key=lambda e: -e["v"]
-        )[:6]
-        buy = sorted(
-            [e for e in edges37 if e["t"] == nid and e["s"] != nid and e.get("v")], key=lambda e: -e["v"]
-        )[:6]
-        l37 = lambda i: f'<a class="link link-primary" href="industry/{i}.html">{esc(N37[i]["name"])}</a>'
-
-        def stories(es, own):
-            h = ""
-            for e in es:
-                if e.get("story"):
-                    h += f'<div class="card bg-base-100 border border-base-300"><div class="card-body p-4 gap-1"><b>{esc(N37[e["s"]]["name"])} → {esc(N37[e["t"]]["name"])}（{e["v"]:.1f}兆円）<span class="badge badge-outline badge-sm ml-2">確度{esc(e["conf"])}</span></b><p class="text-sm">{esc(e["story"])}</p><p class="text-xs text-base-content/60">根拠の目安：{esc(e.get("ver", ""))}</p></div></div>'
-            return h
-
-        sto = stories(sell, "s") + stories(buy, "t")
-        srow = [[l37(e["t"]), f"{e['v']:.1f}", f"{e['v'] / n['out'] * 100:.1f}%"] for e in sell]
-        brow = [[l37(e["s"]), f"{e['v']:.1f}", f"{e['v'] / n['out'] * 100:.1f}%"] for e in buy]
-        facts = f"{nm}は、日本の産業を37に分けた部門の1つで、2020年の産出額は{n['out']:.1f}兆円、2011年から2020年の実質成長は年{sg(n['cagr'])}%でした。付加価値率は{n['va']:.0f}%、輸出向けは{n['exp']:.0f}%、家計消費向けは{n['cons']:.0f}%、輸入依存度は{n['imp']:.0f}%です。"
-        gname = gnames[n["grp"]]
-        body = f"""<main class="flex-1 w-full max-w-4xl mx-auto px-4 py-10 space-y-8">
-<nav class="text-sm breadcrumbs"><ul><li><a href="industries.html">産業一覧</a></li><li>{esc(gname)}</li><li>{esc(nm)}</li></ul></nav>
-<header class="space-y-3"><h1 class="text-3xl font-bold">{esc(nm)}（37部門）の取引先・規模・成長</h1><p class="text-base-content/80">{esc(facts)}</p></header>
-<section class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-<div class="card bg-base-100 border border-base-300"><div class="card-body p-4 gap-0"><span class="text-xs text-base-content/60">産出額（2020年）</span><b class="text-xl">{n["out"]:.1f}兆円</b></div></div>
-<div class="card bg-base-100 border border-base-300"><div class="card-body p-4 gap-0"><span class="text-xs text-base-content/60">実質成長（2011→20年）</span><b class="text-xl">{sg(n["cagr"])}%/年</b></div></div>
-<div class="card bg-base-100 border border-base-300"><div class="card-body p-4 gap-0"><span class="text-xs text-base-content/60">付加価値率</span><b class="text-xl">{n["va"]:.0f}%</b></div></div>
-<div class="card bg-base-100 border border-base-300"><div class="card-body p-4 gap-0"><span class="text-xs text-base-content/60">輸入依存度</span><b class="text-xl">{n["imp"]:.0f}%</b></div></div></section>
-<section class="space-y-2"><h2 class="text-xl font-bold">含まれる産業（108産業）</h2>{table([[link(s["c"], s["n"]), f"{s['o']:.2f}", (sg(s["g"]) + "%") if s["g"] is not None else "−"] for s in subs], ["産業", "産出額（兆円）", "実質成長（2015→20年/年）"])}</section>
-<section class="space-y-2"><h2 class="text-xl font-bold">主な販売先</h2>{table(srow, ["販売先の部門", "金額（兆円）", "売上に占める割合"])}</section>
-<section class="space-y-2"><h2 class="text-xl font-bold">主な仕入れ先</h2>{table(brow, ["仕入れ先の部門", "金額（兆円）", "費用に占める割合"])}</section>
-{('<section class="space-y-2"><h2 class="text-xl font-bold">取引のストーリー（筆者の仮説）</h2><p class="text-sm text-base-content/70">主な取引のうち、背景を読み解いたもの。統計から確定できる事実ではありません。</p>' + sto + "</section>") if sto else ""}
-<p class="text-sm"><a class="btn btn-sm btn-outline" href="explorer.html">産業マップで見る →</a></p>
-<p class="text-xs text-base-content/60">出典：総務省ほか「産業連関表」（2011・2015・2020年）、経済産業省「延長産業連関表」を筆者が集計。政府が作成したものではありません。<a class="link" href="about.html">方法と出典</a></p>
-</main>"""
-        ld = (
-            '<base href="/">'
-            + '<script type="application/ld+json">'
-            + json.dumps(
-                {
-                    "@context": "https://schema.org",
-                    "@type": "BreadcrumbList",
-                    "itemListElement": [
-                        {
-                            "@type": "ListItem",
-                            "position": 1,
-                            "name": "産業一覧",
-                            "item": SITE_URL + "/industries",
-                        },
-                        {"@type": "ListItem", "position": 2, "name": nm},
-                    ],
-                },
-                ensure_ascii=False,
-            )
-            + "</script>"
-        )
-        OGP.append(
+        x += seg_width
+    legend = []
+    for i, (label, share, color) in enumerate(p for p in parts if p[1] >= 0.005):
+        column, row = i % 3, i // 3
+        legend.append(
             dict(
-                id=nid,
-                title=nm,
-                kind="37部門の1つ｜" + gname,
-                grp=int(n["grp"]),
-                stats=[
-                    ["産出額（2020年）", f"{n['out']:.1f}兆円"],
-                    ["実質成長（2011→20年）", sg(n["cagr"]) + "%/年"],
-                    ["付加価値率", f"{n['va']:.0f}%"],
-                    ["輸入依存度", f"{n['imp']:.0f}%"],
-                ],
-                parts=[],
+                x=column * 215,
+                y=40 + row * 16,
+                text_x=column * 215 + 13,
+                text_y=48 + row * 16,
+                color=color,
+                label=label,
+                pct=f"{share * 100:.0f}",
             )
         )
-        page(
-            f"industry/{nid}.html",
-            f"{nm}（37部門）の取引先・規模・成長｜Keizai Atlas",
-            f"{nm}（37部門の1つ）の2020年の産出額は{n['out']:.1f}兆円。主な販売先・仕入れ先、含まれる産業、取引の背景（仮説）。",
-            body,
-            ld,
+    return segments, legend
+
+
+def column_chart_data(values, labels, color):
+    """規模の推移の縦棒の座標。values は10億円、表示は兆円。"""
+    width, height = 320, 120
+    max_value = max(values)
+    slot = width / len(values)
+    bars = []
+    for i, (value, label) in enumerate(zip(values, labels)):
+        bar_height = (height - 34) * value / max_value
+        x = i * slot + slot * 0.2
+        bars.append(
+            dict(
+                x=f"{x:.1f}",
+                y=f"{height - 22 - bar_height:.1f}",
+                width=f"{slot * 0.6:.1f}",
+                height=f"{bar_height:.1f}",
+                text_x=f"{x + slot * 0.3:.1f}",
+                value_y=f"{height - 22 - bar_height - 4:.1f}",
+                value=f"{value / 1000:.1f}",
+                label=label,
+            )
         )
-        out_pages.append(f"industry/{nid}")
-    # ---------- 産業一覧
-    sec = ""
-    for gi, gn in enumerate(gnames):
-        ids = [i for i, n in N37.items() if n["grp"] == gi]
-        sec += f'<section class="space-y-2"><h2 class="text-xl font-bold flex items-center gap-2"><i style="display:inline-block;width:12px;height:12px;border-radius:50%;background:{GC[gi]}"></i>{esc(gn)}</h2>'
-        for i in sorted(ids, key=lambda i: -N37[i]["out"]):
-            kids = kids_of.get(i, [])
-            sec += (
-                f'<div class="pl-2"><p><a class="link link-primary font-bold" href="industry/{i}.html">{esc(N37[i]["name"])}</a> <span class="text-xs text-base-content/60">{(f"{N37[i][chr(111) + chr(117) + chr(116)]:.1f}" if N37[i]["out"] < 10 else f"{N37[i][chr(111) + chr(117) + chr(116)]:.0f}")}兆円</span></p><p class="text-sm pl-4 text-base-content/80">'
-                + "、".join(
-                    f'<a class="link" href="industry/{s["c"]}.html">{esc(short(s["n"]))}</a>' for s in kids
+    return dict(width=width, height=height, color=color, label_y=height - 6, bars=bars)
+
+
+# ---------- 108産業ページ
+
+
+def destination_parts(row):
+    """産業の製品の行き先(中間需要・家計・投資・政府・輸出)を、合計1の割合にして返す。"""
+
+    def amount(column):
+        return float(row.get(column, 0) or 0)
+
+    raw = [
+        ("他産業の材料・サービス", amount("intermediate_sales")),
+        ("家計消費", amount("fd_民間消費") + amount("fd_家計外消費")),
+        ("設備投資・在庫", amount("fd_民間固定資本形成") + amount("fd_在庫純増")),
+        (
+            "政府（消費・公共投資）",
+            amount("fd_政府消費") + amount("fd_政府消費(社会資本等減耗分)") + amount("fd_公的固定資本形成"),
+        ),
+        ("輸出", amount("fd_輸出")),
+    ]
+    positive = [(label, max(value, 0), DESTINATION_COLORS[label]) for label, value in raw]
+    total = sum(value for _, value, _ in positive) or 1
+    return [(label, value / total, color) for label, value, color in positive]
+
+
+def trade_rows(codes, amounts, shares, names):
+    """主な販売先・仕入れ先の表の行(リンク, 金額(兆円), 割合)。codes は 'S108_xx' 形式。"""
+    return [
+        [industry_link(code[5:], names[code[5:]]), tril(amount), pct(share, 1)]
+        for code, amount, share in zip(codes, amounts, shares)
+    ]
+
+
+def breadcrumb_for_industry(site_url, sector_id, sector_name, name):
+    """108産業ページのパンくず(構造化データ)。"""
+    return breadcrumb_head(
+        [
+            ("産業一覧", site_url + "/industries"),
+            (str(sector_name), f"{site_url}/industry/{sector_id}"),
+            (name, None),
+        ]
+    )
+
+
+def build_industry_page(code, row, tables, page, palette, site_url):
+    """108産業の1ページを書き出し、共有画像(OGP)用のデータを返す。"""
+    L = tables
+    sid = "S108_" + code
+    name = short(row["name"])
+    output = float(row.output)
+    sector_id = "%02d" % int(row.parent37)
+    sector_name = L.n37.loc[sector_id, "name"]
+    analysis = L.an.loc[code]
+    series = L.ts.loc[code] if code in L.ts.index else None
+    edges = L.ed
+    sell = edges[(edges.src == sid) & (edges.dst != sid)].sort_values("amount", ascending=False).head(6)
+    buy = edges[(edges.dst == sid) & (edges.src != sid)].sort_values("amount", ascending=False).head(6)
+    sell_rows = trade_rows(sell.dst, sell.amount, sell.share_of_seller_sales, L.names)
+    buy_rows = trade_rows(buy.src, buy.amount, buy.share_of_buyer_cost, L.names)
+    self_sales = edges[(edges.src == sid) & (edges.dst == sid)].share_of_seller_sales
+
+    parts = destination_parts(L.n108.loc[code])
+    top = max(parts, key=lambda part: part[1])
+    segments, legend = stacked_bar_data(parts)
+
+    growth = float(series.real_cagr_2015_2020) * 100 if series is not None else None
+    growth_early = float(series.real_cagr_2011_2015) * 100 if series is not None else None
+    trend = None
+    if series is not None:
+        outputs = [float(series.output_r11), float(series.output_r15), float(series.output_n20)]
+        trend = dict(
+            chart=column_chart_data(outputs, ["2011年", "2015年", "2020年"], palette["c"]["sky"]),
+            growth_2011_2015=sg(growth_early),
+            growth_2015_2020=sg(growth),
+        )
+    group = None
+    if code in L.group_of:
+        group_id = L.group_of[code]
+        group = dict(id=group_id, name=L.blue_ocean[group_id]["name"])
+    neighbors = [L.code_of.get(x) for x in L.sim_nodes[code]["nb"]]
+    siblings = [c for c in L.n108.index if "%02d" % int(L.n108.loc[c].parent37) == sector_id and c != code]
+
+    growth_text = (sg(growth) + "%/年") if growth is not None else "データなし"
+    stats = [
+        ["産出額（2020年）", tril(output) + "兆円"],
+        ["実質成長（2015→20年）", growth_text],
+        ["付加価値率", pct(float(analysis["付加価値率"]))],
+        ["輸入依存度", pct(float(analysis["輸入依存度"]))],
+    ]
+    facts = render(
+        "industry_facts.html.j2",
+        name=name,
+        sector_name=sector_name,
+        output=tril(output),
+        share=f"{output / L.total_output * 100:.1f}",
+        growth=sg(growth) if growth is not None else None,
+        sell_names=[short(L.names[i[5:]]) for i in sell.dst[:3]],
+        buy_names=[short(L.names[i[5:]]) for i in buy.src[:3]],
+    )
+    body = render(
+        "industry.html.j2",
+        name=name,
+        sector_id=sector_id,
+        sector_name=sector_name,
+        facts=facts,
+        stats=stats,
+        segments=segments,
+        legend=legend,
+        top_label=top[0],
+        top_share=f"{top[1] * 100:.0f}",
+        self_share=pct(float(self_sales.iloc[0]) if len(self_sales) else 0, 1),
+        sell_rows=sell_rows,
+        buy_rows=buy_rows,
+        trend=trend,
+        group=group,
+        neighbors=[industry_link(c, L.names[c]) for c in neighbors if c],
+        siblings=[industry_link(c, L.names[c]) for c in siblings],
+    )
+    description = re.sub(r"<[^>]+>", "", html.unescape(facts))[:150]
+    page(
+        f"industry/{code}.html",
+        f"{name}の取引先・規模・成長｜Keizai Atlas",
+        description,
+        body,
+        breadcrumb_for_industry(site_url, sector_id, sector_name, name),
+    )
+    return dict(
+        id=code,
+        title=name,
+        kind="108産業の1つ｜" + sector_name,
+        grp=int(L.group_of37.get(sector_id, 0) or 0),
+        stats=stats,
+        parts=[[label, round(share, 4), color] for label, share, color in parts],
+    )
+
+
+# ---------- 37部門ページ
+
+
+def sector_stories(edges, nodes):
+    """取引のストーリー(筆者の仮説)が付いた辺を、表示用の dict にする。"""
+    return [
+        dict(
+            source=nodes[e["s"]]["name"],
+            target=nodes[e["t"]]["name"],
+            value=f"{e['v']:.1f}",
+            confidence=e["conf"],
+            story=e["story"],
+            basis=e.get("ver", ""),
+        )
+        for e in edges
+        if e.get("story")
+    ]
+
+
+def sector_trade_rows(edges, partner_key, node, nodes):
+    """37部門の販売先・仕入れ先の表の行。partner_key は相手側('t'=販売先 / 's'=仕入れ先)。"""
+    return [
+        [
+            {"href": f"industry/{e[partner_key]}.html", "text": nodes[e[partner_key]]["name"]},
+            f"{e['v']:.1f}",
+            f"{e['v'] / node['out'] * 100:.1f}%",
+        ]
+        for e in edges
+    ]
+
+
+def build_sector_page(sector_id, node, tables, page, site_url):
+    """37部門の1ページを書き出し、共有画像(OGP)用のデータを返す。"""
+    L = tables
+    name = node["name"]
+    children = L.kids_of.get(sector_id, [])
+    all_edges = L.ex["edges"]
+    sell = sorted(
+        [e for e in all_edges if e["s"] == sector_id and e["t"] != sector_id and e.get("v")],
+        key=lambda e: -e["v"],
+    )[:6]
+    buy = sorted(
+        [e for e in all_edges if e["t"] == sector_id and e["s"] != sector_id and e.get("v")],
+        key=lambda e: -e["v"],
+    )[:6]
+    group_name = L.group_names[node["grp"]]
+    stats = [
+        ["産出額（2020年）", f"{node['out']:.1f}兆円"],
+        ["実質成長（2011→20年）", sg(node["cagr"]) + "%/年"],
+        ["付加価値率", f"{node['va']:.0f}%"],
+        ["輸入依存度", f"{node['imp']:.0f}%"],
+    ]
+    body = render(
+        "sector.html.j2",
+        name=name,
+        group_name=group_name,
+        output=f"{node['out']:.1f}",
+        growth=sg(node["cagr"]),
+        value_added=f"{node['va']:.0f}",
+        export=f"{node['exp']:.0f}",
+        consumption=f"{node['cons']:.0f}",
+        import_dependence=f"{node['imp']:.0f}",
+        stats=stats,
+        sub_rows=[
+            [
+                industry_link(c["c"], c["n"]),
+                f"{c['o']:.2f}",
+                (sg(c["g"]) + "%") if c["g"] is not None else "−",
+            ]
+            for c in children
+        ],
+        sell_rows=sector_trade_rows(sell, "t", node, L.n37_nodes),
+        buy_rows=sector_trade_rows(buy, "s", node, L.n37_nodes),
+        stories=sector_stories(sell, L.n37_nodes) + sector_stories(buy, L.n37_nodes),
+    )
+    breadcrumb = breadcrumb_head([("産業一覧", site_url + "/industries"), (name, None)])
+    page(
+        f"industry/{sector_id}.html",
+        f"{name}（37部門）の取引先・規模・成長｜Keizai Atlas",
+        f"{name}（37部門の1つ）の2020年の産出額は{node['out']:.1f}兆円。主な販売先・仕入れ先、含まれる産業、取引の背景（仮説）。",
+        body,
+        breadcrumb,
+    )
+    return dict(
+        id=sector_id,
+        title=name,
+        kind="37部門の1つ｜" + group_name,
+        grp=int(node["grp"]),
+        stats=stats,
+        parts=[],
+    )
+
+
+# ---------- 産業一覧ページ
+
+
+def build_index_page(tables, page, palette):
+    """産業一覧(8つの大分類 > 37部門 > 108産業)を書き出す。"""
+    L = tables
+    groups = []
+    for group_index, group_name in enumerate(L.group_names):
+        ids = [i for i, n in L.n37_nodes.items() if n["grp"] == group_index]
+        sectors = []
+        for sector_id in sorted(ids, key=lambda i: -L.n37_nodes[i]["out"]):
+            output = L.n37_nodes[sector_id]["out"]
+            sectors.append(
+                dict(
+                    id=sector_id,
+                    name=L.n37_nodes[sector_id]["name"],
+                    output=f"{output:.1f}" if output < 10 else f"{output:.0f}",
+                    industries=[industry_link(c["c"], c["n"]) for c in L.kids_of.get(sector_id, [])],
                 )
-                + "</p></div>"
             )
-        sec += "</section>"
-    body = f"""<main class="flex-1 w-full max-w-4xl mx-auto px-4 py-10 space-y-6"><header class="space-y-3"><h1 class="text-3xl font-bold">産業一覧</h1><p class="text-base-content/80">日本の産業を、8つの大分類・37の部門・108の産業に分けて、それぞれの規模と取引先を見られます。名前をクリックすると、その産業のページに移ります。数字は2020年の産業連関表です。</p></header>{sec}</main>"""
+        groups.append(dict(color=palette["groups"][group_index], name=group_name, sectors=sectors))
     page(
         "industries.html",
         "産業一覧（37部門・108産業）｜Keizai Atlas",
         "日本の産業を8つの大分類・37部門・108産業に分けて、規模と取引先を見られる一覧。",
-        body,
-        '<base href="/">' if False else "",
+        render("industries.html.j2", groups=groups),
     )
-    (D / "ogp_cards.json").write_text(json.dumps(OGP, ensure_ascii=False, indent=0), encoding="utf-8")
+
+
+# ---------- 全体
+
+
+def prepare(palette):
+    """ページ生成に使う表・辞書をまとめる(名前→コードの逆引き、37部門ごとの子産業など)。"""
+    L = SimpleNamespace(**load())
+    L.group_names = L.ex["groups"]
+    L.n37_nodes = {x["id"]: x for x in L.ex["nodes"]}
+    L.group_of37 = {k: v["grp"] for k, v in L.n37_nodes.items()}
+    L.total_output = float(L.n108.output.sum())
+    L.names = {c: r["name"] for c, r in L.n108.iterrows()}
+    L.code_of = {short(v): k for k, v in L.names.items()}
+    L.sim_nodes = {x["c"]: x for x in L.sim["nodes"]}
+    L.blue_ocean = L.sim["groups"]
+    L.group_of = {c: g for g, v in L.blue_ocean.items() for c in v["codes"]}
+    L.kids_of = {}
+    for code, row in L.n108.iterrows():
+        growth = float(L.ts.loc[code].real_cagr_2015_2020) * 100 if code in L.ts.index else None
+        L.kids_of.setdefault("%02d" % int(row.parent37), []).append(
+            dict(c=code, n=row["name"], o=float(row.output) / 1000, g=growth)
+        )
+    for children in L.kids_of.values():
+        children.sort(key=lambda child: -child["o"])
+    return L
+
+
+def build(page, S, PAL, SITE_URL):
+    """108産業・37部門・産業一覧のページを書き出し、ページのパス一覧を返す。"""
+    tables = prepare(PAL)
+    (S / "industry").mkdir(exist_ok=True)
+    ogp_cards = []
+    out_pages = []
+    for code, row in tables.n108.iterrows():
+        ogp_cards.append(build_industry_page(code, row, tables, page, PAL, SITE_URL))
+        out_pages.append(f"industry/{code}")
+    for sector_id, node in tables.n37_nodes.items():
+        ogp_cards.append(build_sector_page(sector_id, node, tables, page, SITE_URL))
+        out_pages.append(f"industry/{sector_id}")
+    build_index_page(tables, page, PAL)
+    (D / "ogp_cards.json").write_text(json.dumps(ogp_cards, ensure_ascii=False, indent=0), encoding="utf-8")
     return out_pages + ["industries"]

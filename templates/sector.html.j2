@@ -1,0 +1,31 @@
+{# 37部門の個別ページの本文 #}
+{% from "_macros.html.j2" import stat_grid, section, data_table %}
+<main class="flex-1 w-full max-w-4xl mx-auto px-4 py-10 space-y-8">⏎
+<nav class="text-sm breadcrumbs"><ul>
+  <li><a href="industries.html">産業一覧</a></li>
+  <li>{{ group_name|esc }}</li>
+  <li>{{ name|esc }}</li>
+</ul></nav>⏎
+<header class="space-y-3">
+  <h1 class="text-3xl font-bold">{{ name|esc }}（37部門）の取引先・規模・成長</h1>
+  <p class="text-base-content/80">{% filter esc %}{% include "sector_facts.txt.j2" %}{% endfilter %}</p>
+</header>⏎
+{{ stat_grid(stats) }}⏎
+{% call section("含まれる産業（108産業）") %}{{ data_table(["産業", "産出額（兆円）", "実質成長（2015→20年/年）"], sub_rows) }}{% endcall %}⏎
+{% call section("主な販売先") %}{{ data_table(["販売先の部門", "金額（兆円）", "売上に占める割合"], sell_rows) }}{% endcall %}⏎
+{% call section("主な仕入れ先") %}{{ data_table(["仕入れ先の部門", "金額（兆円）", "費用に占める割合"], buy_rows) }}{% endcall %}⏎
+{% if stories %}
+  {% call section("取引のストーリー（筆者の仮説）") %}
+    <p class="text-sm text-base-content/70">主な取引のうち、背景を読み解いたもの。統計から確定できる事実ではありません。</p>
+    {% for s in stories %}
+    <div class="card bg-base-100 border border-base-300"><div class="card-body p-4 gap-1">
+      <b>{{ s.source|esc }} → {{ s.target|esc }}（{{ s.value }}兆円）<span class="badge badge-outline badge-sm ml-2">確度{{ s.confidence|esc }}</span></b>
+      <p class="text-sm">{{ s.story|esc }}</p>
+      <p class="text-xs text-base-content/60">根拠の目安：{{ s.basis|esc }}</p>
+    </div></div>
+    {% endfor %}
+  {% endcall %}
+{% endif %}⏎
+<p class="text-sm"><a class="btn btn-sm btn-outline" href="explorer.html">産業マップで見る →</a></p>⏎
+<p class="text-xs text-base-content/60">出典：総務省ほか「産業連関表」（2011・2015・2020年）、経済産業省「延長産業連関表」を筆者が集計。政府が作成したものではありません。<a class="link" href="about.html">方法と出典</a></p>⏎
+</main>

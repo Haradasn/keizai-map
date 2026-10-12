@@ -1,0 +1,44 @@
+{# 県別の産業構造の一覧ページの本文 #}
+{% from "_macros.html.j2" import section, data_table %}
+<main class="flex-1 w-full max-w-4xl mx-auto px-4 py-10 space-y-8">⏎
+<header class="space-y-3">
+  <h1 class="text-3xl font-bold">県別の産業構造</h1>
+  <p class="text-base-content/80">各都道府県が公表した2020年の産業連関表から、産業の構成を全国と比べます。現在は{{ names|length }}都道府県（{{ names|join("・") }}）です。公表された表が機械で読める県から順に追加します。<a class="link link-primary" href="prefecture-map.html">3Dの立体地図</a>でも見られます。</p>
+</header>⏎
+<section class="grid sm:grid-cols-2 gap-3">
+  {% for card in cards %}
+  <a href="prefecture/{{ card.slug }}.html" class="card bg-base-100 border border-base-300 hover:border-primary transition">
+    <div class="card-body gap-1 p-5">
+      <h3 class="font-bold">{{ card.name|esc }}</h3>
+      <p class="text-sm text-base-content/80">産出額 {{ card.output }}兆円。特化: {{ card.top_names|map("esc")|join("、") }}</p>
+    </div>
+  </a>
+  {% endfor %}
+</section>⏎
+{% call section("都道府県の比較") %}{{ data_table(["都道府県", "産出額（兆円）", "付加価値率", "移輸出（産出額比）", "移輸入（産出額比）"], compare_rows) }}{% endcall %}⏎
+{% call section("産業×都道府県の特化係数") %}
+  <p class="text-sm text-base-content/70">全国の割合を1としたときの、各都府県の産業の集中度です（<a class="link" href="glossary.html#tokka-keisu">特化係数</a>）。青が濃いほど、その産業が全国平均より集中しています。産出額の割合が0.5%未満の産業は、値が不安定なため色をつけていません。列は産出額の大きい順です。北海道は部門の分け方が異なるため、この表には入れていません（<a class="link" href="prefecture/hokkaido.html">北海道のページ</a>を見てください）。</p>
+  <div class="overflow-x-auto"><table class="table table-xs">
+    <thead><tr>
+      <th>産業</th>
+      {% for column in heat_columns %}
+      <th class="text-right"><a class="link" href="prefecture/{{ column.slug }}.html">{{ column.label|esc }}</a></th>
+      {% endfor %}
+    </tr></thead>
+    <tbody>
+      {% for row in heat_rows %}
+      <tr>
+        <td class="whitespace-nowrap">{{ row.name|esc }}</td>
+        {% for cell in row.cells %}
+        {% if cell %}
+        <td class="text-right{{ ' text-base-content/40' if cell.small else '' }}"{% if cell.alpha %} style="background:rgba(56,189,248,{{ cell.alpha }})"{% endif %}>{{ cell.text }}</td>
+        {% else %}
+        <td class="text-right">−</td>
+        {% endif %}
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table></div>
+{% endcall %}⏎
+<p class="text-xs text-base-content/60">出典：各都道府県「2020年（令和2年）産業連関表」を筆者が集計。政府・自治体が作成したものではありません。<a class="link" href="about.html">方法と出典</a></p></main>

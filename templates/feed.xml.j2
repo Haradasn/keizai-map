@@ -1,0 +1,19 @@
+{# 更新情報の Atom フィード。changelog=[{title, link, date, summary}](新しい順) #}
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>{{ site_name }} 更新情報</title>
+  <link href="{{ site_url }}/feed.xml" rel="self"/>
+  <link href="{{ site_url }}/"/>
+  <id>{{ site_url }}/</id>
+  <updated>{{ changelog[0].date }}T00:00:00+09:00</updated>
+  <author><name>{{ site_name }}</name></author>
+  {% for entry in changelog %}
+  <entry>
+    <title>{{ entry.title|xml_escape }}</title>
+    <link href="{{ site_url }}{{ entry.link }}"/>
+    <id>{{ site_url }}/feed#{{ entry.date }}-{{ loop.revindex }}</id>
+    <updated>{{ entry.date }}T00:00:00+09:00</updated>
+    <summary>{{ entry.summary|xml_escape }}</summary>
+  </entry>
+  {% endfor %}
+</feed>

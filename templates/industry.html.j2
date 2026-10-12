@@ -1,0 +1,46 @@
+{# 108産業の個別ページの本文 #}
+{% from "_macros.html.j2" import ind_link, stat_grid, section, chart_card, data_table %}
+{% from "_charts.html.j2" import stacked_bar, column_chart %}
+<main class="flex-1 w-full max-w-4xl mx-auto px-4 py-10 space-y-8">⏎
+<nav class="text-sm breadcrumbs"><ul>
+  <li><a href="industries.html">産業一覧</a></li>
+  <li><a href="industry/{{ sector_id }}.html">{{ sector_name|esc }}</a></li>
+  <li>{{ name|esc }}</li>
+</ul></nav>⏎
+<header class="space-y-3">
+  <h1 class="text-3xl font-bold">{{ name|esc }}の取引先・規模・成長</h1>
+  <p class="text-base-content/80">{{ facts }}</p>
+</header>⏎
+{{ stat_grid(stats) }}⏎
+{% call section("この産業の製品・サービスの行き先") %}
+  {% call chart_card() %}{{ stacked_bar(segments, legend) }}{% endcall %}
+  <p class="text-sm text-base-content/70">最大は「{{ top_label }}」で{{ top_share }}%。同じ産業内の取引は売上の{{ self_share }}です。</p>
+{% endcall %}⏎
+{% call section("主な販売先") %}{{ data_table(["販売先の産業", "金額（兆円）", "売上に占める割合"], sell_rows) }}{% endcall %}⏎
+{% call section("主な仕入れ先") %}{{ data_table(["仕入れ先の産業", "金額（兆円）", "費用に占める割合"], buy_rows) }}{% endcall %}⏎
+{% if trend %}
+  {% call section("規模の推移（実質、兆円）") %}
+    {% call chart_card() %}{{ column_chart(trend.chart) }}{% endcall %}
+    <p class="text-sm text-base-content/70">2011→2015年は年{{ trend.growth_2011_2015 }}%、2015→2020年は年{{ trend.growth_2015_2020 }}%（いずれも実質、2020年価格）。</p>
+  {% endcall %}
+{% endif %}⏎
+{% if group %}
+  {% call section("ブルーオーシャン候補グループの構成部門") %}
+    <p class="text-sm text-base-content/80">筆者の仮説で、この産業は「{{ group.name|esc }}」（{{ group.id }}）の構成部門としています。くわしくは<a class="link" href="similarity.html">近さの地図</a>を参照してください。</p>
+  {% endcall %}
+{% endif %}⏎
+{% call section("取引の相手が似ている産業") %}
+  <p class="text-sm text-base-content/70">仕入れ先・販売先の構成が近い産業です（<a class="link" href="similarity.html">近さの地図</a>と同じ計算）。</p>
+  <ul class="list-disc pl-6 text-sm">
+    {% for item in neighbors %}
+    <li>{{ ind_link(item.href, item.text) }}</li>
+    {% endfor %}
+  </ul>
+{% endcall %}⏎
+{% call section("同じ部門の産業") %}
+  <p class="text-sm">
+    {% for item in siblings %}{{ ind_link(item.href, item.text) }}{{ "、" if not loop.last else "" }}{% else %}なし{% endfor %}
+  </p>
+{% endcall %}⏎
+<p class="text-xs text-base-content/60">出典：総務省ほか「産業連関表」（2011・2015・2020年、108部門）を筆者が集計。成長率は接続産業連関表による実質値。政府が作成したものではありません。<a class="link" href="about.html">方法と出典</a></p>⏎
+</main>

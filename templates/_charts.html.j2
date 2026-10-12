@@ -1,0 +1,38 @@
+{# SVGグラフ。座標は Python(build_industry.py / build_pref.py)で計算し、ここでは並べるだけ #}
+
+{# 行き先の構成の横積み棒。segments=棒、legend=凡例 #}
+{% macro stacked_bar(segments, legend) %}
+<svg viewBox="0 0 640 70" width="100%" role="img" aria-label="行き先の構成" style="font-size:11px">
+{% for s in segments %}
+<rect x="{{ s.x }}" y="6" width="{{ s.width }}" height="26" fill="{{ s.color }}"/>
+{% if s.label_x %}<text x="{{ s.label_x }}" y="23" text-anchor="middle" fill="#0b1120" font-weight="700">{{ s.pct }}%</text>{% endif %}
+{% endfor %}
+{% for item in legend %}
+<rect x="{{ item.x }}" y="{{ item.y }}" width="9" height="9" fill="{{ item.color }}"/>
+<text x="{{ item.text_x }}" y="{{ item.text_y }}" fill="currentColor">{{ item.label }} {{ item.pct }}%</text>
+{% endfor %}
+</svg>
+{% endmacro %}
+
+{# 規模の推移の縦棒。chart={width, height, color, bars:[{x, y, width, height, text_x, value_y, value, label_y, label}]} #}
+{% macro column_chart(chart) %}
+<svg viewBox="0 0 {{ chart.width }} {{ chart.height }}" width="100%" style="max-width:360px;font-size:11px" role="img" aria-label="実質産出額の推移">
+{% for b in chart.bars %}
+<rect x="{{ b.x }}" y="{{ b.y }}" width="{{ b.width }}" height="{{ b.height }}" fill="{{ chart.color }}" rx="2"/>
+<text x="{{ b.text_x }}" y="{{ b.value_y }}" text-anchor="middle" fill="currentColor">{{ b.value }}</text>
+<text x="{{ b.text_x }}" y="{{ chart.label_y }}" text-anchor="middle" fill="currentColor" opacity=".7">{{ b.label }}</text>
+{% endfor %}
+</svg>
+{% endmacro %}
+
+{# 特化係数の横棒。chart={width, height, label_x, base_x, bars:[{name, text_x, text_y, rect_y, bar_width, value_x, value_y, value}]} #}
+{% macro horizontal_bars(chart) %}
+<svg viewBox="0 0 {{ chart.width }} {{ chart.height }}" width="100%" role="img" aria-label="特化係数の上位の産業" style="font-size:12px">
+<line x1="{{ chart.base_x }}" y1="0" x2="{{ chart.base_x }}" y2="{{ chart.height }}" stroke="currentColor" stroke-opacity=".4" stroke-dasharray="3 3"/>
+{% for item in chart.bars %}
+<text x="{{ chart.label_x }}" y="{{ item.text_y }}" text-anchor="end" fill="currentColor">{{ item.name|esc }}</text>
+<rect x="{{ chart.left }}" y="{{ item.rect_y }}" width="{{ item.bar_width }}" height="16" rx="2" fill="#38bdf8"/>
+<text x="{{ item.value_x }}" y="{{ item.value_y }}" fill="currentColor">{{ item.value }}</text>
+{% endfor %}
+</svg>
+{% endmacro %}

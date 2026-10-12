@@ -1,0 +1,14 @@
+{# 用語集の本文。groups=[{group, terms:[{id, t, d}]}] #}
+{% for group in groups %}
+<section class="space-y-2">
+  <h2 class="text-xl font-bold">{{ group.group }}</h2>
+  <dl class="space-y-3">
+    {% for term in group.terms %}
+    <div id="{{ term.id }}" class="scroll-mt-20">
+      <dt class="font-bold">{{ term.t }}</dt>
+      <dd class="text-sm text-base-content/80">{{ term.d }}</dd>
+    </div>
+    {% endfor %}
+  </dl>
+</section>
+{% endfor %}

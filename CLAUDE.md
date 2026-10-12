@@ -4,6 +4,7 @@
 
 ## 構成
 - `scripts/build_site.py` が全ページを生成。ページ本文は `pages/*.html` + `pages/meta.json`、数値は `{{key}}` で `scripts/derive.py` が `data/*.json` から計算。
+- HTML のひな形: `templates/*.j2`(Jinja2。共通の殻は `base.html.j2`、部品は `_macros.html.j2` / `_charts.html.j2`)。Python は表示する値(整形済みの文字列・座標)を用意して `scripts/_tpl.py` の `render()` を呼ぶだけ。テンプレートは読み込み時に行頭・行末の空白と改行を詰める(行末の `⏎` で改行、行頭の `|` で空白を残す)ので、インデントして書いてよい。自動エスケープはしないので、信頼できない文字列には `|esc` を付ける。出力を変えたら `lastmod.json` が動くので注意。
 - 産業ページ: `scripts/build_industry.py`(108産業+37部門)。県別: `scripts/build_pref.py`(データは `pipeline/pref_build.py` → `data/pref_37.json`)。
 - データ生成: `pipeline/*.py`(`scripts/run_all.sh`)。生データは `raw/`(gitignore)、県別の原本は `pref_raw/`(コミット済み、出典は `pref_raw/SOURCES.json`)。
 - CSS は Tailwind+daisyUI を `npm run build:css` で `site/assets.css` にビルドし、**コミットする**(CI が最新かを検査)。HTML に新しいクラスを足したら必ず再ビルド。
@@ -11,7 +12,7 @@
 - トップ(`pages/index.html`): 発見のカルーセル(`pages/insights.js` → `site/insights.js`)。スライドの数値は `{{...}}`、県別は `pref-map-data.js`、つながりは `net-mini.js`(build_site が出力)から JS で計算。
 - 3D: 県の立体地図は `pages/prefmap.js`(`data-prefmap="hero|page"`、トップは沖縄・奄美をはめ込み表示)。境界 `site/vendor/japan-pref.json` は地球地図日本(国土地理院)を `scripts/build_geo.py` で簡略化(非営利・出典明記が条件)。ライブラリは `site/vendor/` に同梱(MapLibre GL JS、3d-force-graph)。CDN は使わない。
 - 産業マップ: `pipeline/explorer_template.html` を build_site が共通シェルに入れて出力。`explorer.html?sel=66` で産業を選んだ状態で開く。
-- 読者の反応: 各ページ下の「👍」「こんな情報が欲しい」(`pages/feedback.js`、欄は `scripts/_shell.py` の FB。`pages/feedback.json` の Turnstile sitekey が空なら出さない)。送信先は `worker/index.js`(`/api/like`, `/api/request`, `/api/feedback/export`)→ D1 `keizai-feedback`。Worker の秘密値 TURNSTILE_SECRET と FEEDBACK_KEY は Cloudflare ダッシュボードで設定。週次レポートが FEEDBACK_KEY で読み出して集計。Turnstile の読み込みだけは外部スクリプト(入力欄を開いたときだけ)。
+- 読者の反応: 各ページ下の「👍」「こんな情報が欲しい」(`pages/feedback.js`、欄は `templates/_feedback.html.j2`、描画は `scripts/_shell.py`。`pages/feedback.json` の Turnstile sitekey が空なら出さない)。送信先は `worker/index.js`(`/api/like`, `/api/request`, `/api/feedback/export`)→ D1 `keizai-feedback`。Worker の秘密値 TURNSTILE_SECRET と FEEDBACK_KEY は Cloudflare ダッシュボードで設定。週次レポートが FEEDBACK_KEY で読み出して集計。Turnstile の読み込みだけは外部スクリプト(入力欄を開いたときだけ)。
 - 円安ページ(`pages/fx.html`): 輸入物価(日銀 cgpi_m_jp.csv → `pipeline/fx_import.py` → `data/fx_chart.json`、monthly-update で更新)と、2020年表の輸入品の含有率(`pipeline/import_content.py` → `data/import_content_37.json`)。
 - 更新履歴/RSS: `pages/changelog.json`(`scripts/add_changelog.py`)。ページや機能を足したら1件追記。
 

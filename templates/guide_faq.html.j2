@@ -1,0 +1,8 @@
+{# 入門ガイドの「よくある質問」(開閉式)。faq=[{q, a}] #}
+{% for item in faq %}
+<div class="collapse collapse-arrow bg-base-100 border border-base-300">
+  <input type="checkbox" aria-label="{{ item.q }}">
+  <div class="collapse-title font-medium">{{ item.q }}</div>
+  <div class="collapse-content text-sm text-base-content/80"><p>{{ item.a }}</p></div>
+</div>
+{% endfor %}

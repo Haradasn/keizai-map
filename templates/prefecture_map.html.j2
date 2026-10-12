@@ -1,0 +1,23 @@
+{# 県別の立体地図ページの本文。産業の選択肢 industries=[(コード, 名前)] #}
+<main class="flex-1 w-full max-w-5xl mx-auto px-4 py-10 space-y-6">⏎
+<header class="space-y-2">
+  <h1 class="text-3xl font-bold">県別の産業を立体地図で見る</h1>
+  <p class="text-base-content/80">産業を選ぶと、その産業の産出額が大きい県ほど高く立ち上がります。色は<a class="link" href="glossary.html#tokka-keisu">特化係数</a>（全国より集中している産業ほど濃い色）です。ドラッグで回転、右ボタンまたは2本指で傾き、ホイールで拡大できます。県をクリックすると詳細ページに進みます。</p>
+</header>⏎
+<div class="flex flex-wrap gap-2 items-center">
+  <label class="font-bold" for="pm-ind">産業</label>
+  <select id="pm-ind" class="select select-bordered select-sm max-w-full">
+    <option value="all">すべての産業（総産出額）</option>
+    {% for code, name in industries %}
+    <option value="{{ code }}">{{ name|esc }}</option>
+    {% endfor %}
+  </select>
+  <button id="pm-flat" type="button" class="btn btn-sm btn-ghost">真上から</button>
+  <button id="pm-tilt" type="button" class="btn btn-sm btn-ghost">傾ける</button>
+</div>⏎
+<div id="pm-map" data-prefmap="page" class="w-full rounded-box border border-base-300 overflow-hidden" style="height:min(72vh,640px);min-height:380px" role="img" aria-label="都道府県を産出額の高さで表した立体地図。同じ内容を下の表でも示しています"></div>⏎
+<p id="pm-note" class="text-sm text-base-content/70"></p>⏎
+<p class="text-xs text-base-content/60">高さは、見やすさのために産出額の平方根で表示しています（高さが2倍でも、産出額は4倍）。データがあるのは{{ count }}都道府県です。北海道は部門を粗くまとめているため、一部の産業では表示されません。東京都の「本社」部門は含みません。</p>⏎
+<section class="overflow-x-auto"><table id="pm-list" class="table table-sm"></table></section>⏎
+<p class="text-xs text-base-content/60">出典：各都道府県「2020年（令和2年）産業連関表」を筆者が集計。県の境界は地球地図日本（国土地理院）を簡略化したものです。政府・自治体が作成したものではありません。<a class="link" href="prefectures.html">県別の産業構造に戻る</a></p></main>⏎
+<script src="pref-map-data.js"></script><script src="prefmap.js"></script>
