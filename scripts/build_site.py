@@ -16,6 +16,7 @@ def page(name,title,desc,body,extra=""):
 # ---------- 共通: 色パレットと共通グラフJS
 PAL=json.loads((R/"pages"/"palette.json").read_text(encoding="utf-8"))
 (S/"charts.js").write_text("var KA={pal:"+json.dumps(PAL,ensure_ascii=False)+"};\n"+(R/"pages"/"charts.js").read_text(encoding="utf-8"),encoding="utf-8")
+(S/"feedback.js").write_text((R/"pages"/"feedback.js").read_text(encoding="utf-8"),encoding="utf-8")   # 読者の反応(pages/feedback.json に sitekey があるときだけ欄を出す)
 import glossary_link
 # ---------- 通常ページ: pages/<name>.html(本文) + pages/meta.json(title/desc/埋め込みデータ)
 META=json.loads((R/"pages"/"meta.json").read_text(encoding="utf-8"))

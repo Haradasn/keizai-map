@@ -20,12 +20,14 @@ jobs:
           CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
           CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
           GSC_SA_JSON: ${{ secrets.GSC_SA_JSON }}
+          FEEDBACK_KEY: ${{ secrets.FEEDBACK_KEY }}
         run: python3 scripts/weekly_report.py --check
       - name: レポートを作る(ファイルにだけ書く)
         env:
           CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
           CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
           GSC_SA_JSON: ${{ secrets.GSC_SA_JSON }}
+          FEEDBACK_KEY: ${{ secrets.FEEDBACK_KEY }}
         run: python3 scripts/weekly_report.py > /tmp/report.md 2>/tmp/report.err || { echo "レポート作成に失敗(詳細は非表示)"; exit 1; }
       - name: 非公開リポジトリに保存
         env:
