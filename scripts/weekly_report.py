@@ -47,6 +47,12 @@ def gsc(start,end):
     out={"total":post(u,body([],1),H).get("rows",[]),"queries":post(u,body(["query"],15),H).get("rows",[]),"pages":post(u,body(["page"],10),H).get("rows",[])}
     return site,out,None
 
+# ---------- 読者の反応(サイトの Worker が D1 に保存したもの。合言葉 FEEDBACK_KEY で読み出す)
+def feedback(since):
+    k=os.environ.get("FEEDBACK_KEY")
+    if not k: return None,"FEEDBACK_KEY が未設定"
+    return get("https://keizai-atlas.com/api/feedback/export?since="+since.isoformat(),{"Authorization":"Bearer "+k,"User-Agent":"keizai-atlas-weekly-report"}),None
+
 if __name__=="__main__":
     from zoneinfo import ZoneInfo
     today=dt.datetime.now(ZoneInfo('Asia/Tokyo')).date(); e=today;   # 日本時間の日付で集計 s=e-dt.timedelta(days=7)          # Cloudflare: 直近7日
@@ -55,7 +61,10 @@ if __name__=="__main__":
     except Exception as x: cf,cerr=None,f"{type(x).__name__}: {getattr(x,'reason','') or x}"[:300]
     try: site,g,gerr=gsc(gs,ge)
     except Exception as x: site,g,gerr=None,None,f"{type(x).__name__}: {getattr(x,'reason','') or x}"[:300]
+    try: fb,ferr=feedback(s)
+    except Exception as x: fb,ferr=None,f"{type(x).__name__}: {getattr(x,'reason','') or x}"[:300]
     if CHECK:
+        print("::notice::読者の反応 OK" if fb is not None else "::warning::読者の反応 NG - "+str(ferr))
         # GitHub Actions のアノテーションとして結果を残す(数値は含めない)
         print(("::notice::Cloudflare OK" if cf is not None else "::error::Cloudflare NG - "+str(cerr)).replace("\n"," "))
         print(("::notice::Search Console OK ("+site+")" if g is not None else "::error::Search Console NG - "+str(gerr)).replace("\n"," "))
@@ -75,4 +84,10 @@ if __name__=="__main__":
         L+=[f"| {x['keys'][0]} | {x['clicks']:.0f} | {x['impressions']:.0f} | {x['position']:.1f} |" for x in g["queries"]] or ["| （データなし） | | | |"]
         L+=["","| ページ | クリック | 表示 |","|---|---:|---:|"]+[f"| {x['keys'][0].replace('https://keizai-atlas.com','')} | {x['clicks']:.0f} | {x['impressions']:.0f} |" for x in g["pages"]] or ["| （データなし） | | |"]
     else: L+=["## Google検索","取得できませんでした："+gerr]
+    if fb is not None:
+        L+=["",f"## 読者の反応（{s}〜{e - dt.timedelta(days=1)}）","","**👍 役に立った**",""]
+        L+=[f"- {x['page']}：{x['n']}" for x in fb["likes"]] or ["- （なし）"]
+        L+=["","**届いた要望**",""]
+        L+=[f"- {x['ts'][:10]} {x['page'] or ''}：{x['body']}".replace("\n"," ") for x in fb["requests"]] or ["- （なし）"]
+    else: L+=["","## 読者の反応","取得できませんでした："+ferr]
     print("\n".join(L))
