@@ -8,8 +8,8 @@
     "format:check": "prettier --check pages/*.js worker/index.js pipeline/explorer_template.html pages/*.html"
   },
   "devDependencies": {
-    "tailwindcss": "3.4.17",
-    "daisyui": "4.12.23",
+    "tailwindcss": "4.3.3",
+    "daisyui": "5.7.47",
     "prettier": "3.9.10"
   },
   "dependencies": {
