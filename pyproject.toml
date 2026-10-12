@@ -1,0 +1,10 @@
+# コード整形・静的チェックの設定(ruff)。使い方: ruff format . && ruff check .
+[tool.ruff]
+line-length = 110
+target-version = "py312"
+extend-exclude = ["site", "node_modules", "pref_raw", "raw", "docs"]
+
+[tool.ruff.lint]
+# 未使用の import / 変数、未定義名などの基本チェック
+select = ["E9", "F"]
+ignore = ["E741"]
