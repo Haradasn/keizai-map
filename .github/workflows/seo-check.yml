@@ -1,0 +1,27 @@
+# Google の登録状況(Search Console の URL 検査・サイトマップ)を確かめ、非公開リポジトリの seo/ に保存する。
+name: seo-check
+on:
+  schedule:
+    - cron: "40 23 1 * *" # 毎月2日 8:40(日本時間)
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with: {python-version: "3.12"}
+      - run: pip install google-auth requests
+      - name: 登録状況を調べる(結果はファイルにだけ書く)
+        env:
+          GSC_SA_JSON: ${{ secrets.GSC_SA_JSON }}
+        run: python3 scripts/ops/index_status.py > /tmp/index.md 2>/tmp/index.err || { echo "::error::取得に失敗(詳細は非表示)"; exit 1; }
+      - name: 非公開リポジトリに保存
+        env:
+          REPORT_TOKEN: ${{ secrets.REPORT_TOKEN }}
+        run: |
+          git clone -q --depth 1 "https://x-access-token:${REPORT_TOKEN}@github.com/Haradasn/keizai-atlas-reports.git" /tmp/r
+          mkdir -p /tmp/r/seo && cp /tmp/index.md /tmp/r/seo/index-status.md
+          cd /tmp/r && git add seo && { git diff --cached --quiet || { git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -q -m "Google の登録状況" && git push -q origin HEAD:main; }; }
