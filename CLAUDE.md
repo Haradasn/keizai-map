@@ -16,6 +16,7 @@
 - 読者の反応: 各ページ下の「👍」「こんな情報が欲しい」(`pages/feedback.js`、欄は `templates/_feedback.html.j2`、描画は `scripts/build/_shell.py`。`pages/feedback.json` の Turnstile sitekey が空なら出さない)。送信先は `worker/index.js`(`/api/like`, `/api/request`, `/api/feedback/export`)→ D1 `keizai-feedback`。Worker の秘密値 TURNSTILE_SECRET と FEEDBACK_KEY は Cloudflare ダッシュボードで設定。週次レポートが FEEDBACK_KEY で読み出して集計。Turnstile の読み込みだけは外部スクリプト(入力欄を開いたときだけ)。
 - 円安ページ(`pages/fx.html`): 輸入物価(日銀 cgpi_m_jp.csv → `pipeline/fx_import.py` → `data/fx_chart.json`、monthly-update で更新)と、2020年表の輸入品の含有率(`pipeline/import_content.py` → `data/import_content_37.json`)。
 - 堅牢化(すべて無料の範囲): `site/_headers` で CSP などを付与(テストのサーバーも同じヘッダーで動き、CSP 違反を検出。外部から読むものを足したら CSP も更新)。Worker は本文 4KB 上限・連投制限(`ratelimits`)・👍の1日上限。`scripts/ops/check_data.py`(data/ の形の検査と前回比較。CI と月次更新)。テストに axe-core のアクセシビリティ検査(両テーマ)とページの重さの上限。`npm run typecheck`(checkJs、グローバルは `types/globals.d.ts`)。PR の見た目の差分は `visual-diff.yml`。死活監視は `uptime.yml`(3時間ごと、問題があれば Issue)。Dependabot・CodeQL。障害時の手順と秘密値の一覧は `docs/RUNBOOK.md`。
+- 検索エンジン: `seo-check.yml`(月1回・手動。`scripts/ops/index_status.py` が Search Console の URL 検査とサイトマップを調べ、非公開リポジトリの `seo/index-status.md` に保存)。`indexnow.yml`(main で `pages/lastmod.json` が変わるとデプロイ後に IndexNow へ送信。手動で all も可。キーは `site/<32桁>.txt`)。リポジトリの topics・homepage は API で変えられない(ユーザーが設定)。
 - 更新履歴/RSS: `pages/changelog.json`(`scripts/ops/add_changelog.py`)。ページや機能を足したら1件追記。
 
 ## 作業ルール
