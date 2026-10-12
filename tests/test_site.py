@@ -319,3 +319,14 @@ def test_weekly_report_runs_without_keys():
     assert r.returncode==0 and r.stdout.count("取得できませんでした")==3,(r.stdout,r.stderr)
     r=subprocess.run(["python3",str(R/"scripts/weekly_report.py"),"--check"],capture_output=True,text=True,env=env,timeout=60)
     assert "NameError" not in r.stdout and "未設定" in r.stdout,(r.stdout,r.stderr)
+
+
+def test_fx_page(browser,base):
+    import json
+    ic=json.loads((R/"data/import_content_37.json").read_text()); assert len(ic["rows"])==37 and all(0<=r["direct"]<=r["total"]<1 for r in ic["rows"])
+    fx=json.loads((R/"data/fx_chart.json").read_text()); assert fx["months"][0]=="202001" and len(fx["yen"])==len(fx["contract"])==len(fx["fx"])
+    pg=browser.new_page(viewport={"width":390,"height":800}); errs=[]
+    pg.on("pageerror",lambda e:errs.append(str(e)))
+    pg.goto(f"{base}/fx.html",wait_until="load"); pg.wait_for_timeout(500)
+    assert pg.locator("#fx-line svg").count()==1 and pg.locator("#ic-bars svg").count()==1 and pg.locator("#ic-table tbody tr").count()==37
+    assert "{{" not in pg.content() and pg.evaluate("document.documentElement.scrollWidth")<=392 and not errs,errs; pg.close()

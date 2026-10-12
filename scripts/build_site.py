@@ -64,7 +64,7 @@ import datetime,hashlib
 # lastmod: ページ内容のハッシュが変わった日だけ更新(pages/lastmod.json に記録)。変更が無ければ何日ビルドしても同じ。
 LM_F=R/"pages"/"lastmod.json"; LM=json.loads(LM_F.read_text(encoding="utf-8")) if LM_F.exists() else {}
 today=datetime.date.today().isoformat(); urls=[]
-for p in ("/","/explorer","/similarity","/latest","/international","/about","/industries","/guide","/glossary")+tuple("/"+x for x in IND+PREF if x!="industries"):
+for p in ("/","/explorer","/similarity","/latest","/international","/fx","/about","/industries","/guide","/glossary")+tuple("/"+x for x in IND+PREF if x!="industries"):
     f=S/(("index" if p=="/" else p[1:])+".html"); hsh=hashlib.sha256(f.read_bytes()).hexdigest()[:16]
     if LM.get(p,{}).get("hash")!=hsh: LM[p]={"hash":hsh,"date":today}
     urls.append(f"<url><loc>{SITE_URL}{p}</loc><lastmod>{LM[p]['date']}</lastmod></url>\n")

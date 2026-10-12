@@ -1,6 +1,6 @@
 {
  "/": {
-  "hash": "66ba9ca6ca132a4e",
+  "hash": "7918a576f5390eb3",
   "date": "2026-10-12"
  },
  "/explorer": {
@@ -12,7 +12,7 @@
   "date": "2026-10-12"
  },
  "/latest": {
-  "hash": "5d4b853586ff9170",
+  "hash": "ce90f03d9a0c5a4d",
   "date": "2026-10-12"
  },
  "/international": {
@@ -717,6 +717,10 @@
  },
  "/prefecture-map": {
   "hash": "37129a5b8b22db9f",
+  "date": "2026-10-12"
+ },
+ "/fx": {
+  "hash": "2fb6495fbfca89e7",
   "date": "2026-10-12"
  }
 }

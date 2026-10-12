@@ -1,0 +1,47 @@
+<main class="flex-1 w-full max-w-5xl mx-auto px-4 py-10 space-y-10">
+<header class="space-y-3"><h1 class="text-3xl font-bold">円安は、どの産業のコストを押し上げる？</h1>
+<p class="text-base-content/80">輸入品の値段は、2020年からどれだけ上がり、そのうち為替（円安）の分はどれくらいか。そして、輸入品をたくさん使う産業はどこか。日本銀行の輸入物価指数（{{fx_last}}分まで）と、2020年の産業連関表から見ます。</p>
+<div role="alert" class="alert alert-warning"><span>為替の先行きの予想や、投資・経営判断に使える情報ではありません。数値は公的統計から筆者が集計したもので、「試算」は前提つきの目安です。</span></div></header>
+
+<section id="import-price" class="space-y-3 scroll-mt-20"><h2 class="text-2xl font-bold">1. 輸入品の値段と、為替の分（2020年平均=100）</h2>
+<p class="text-base-content/80">輸入物価指数には、円に直した値段（円ベース）と、取引に使った通貨のままの値段（契約通貨ベース）があります。両者の比（円ベース÷契約通貨ベース）が、値段の動きのうち<b>為替による部分</b>の目安です。</p>
+<div class="card bg-base-100 border border-base-300"><div class="card-body"><div id="fx-line"></div></div></div>
+<p class="text-sm text-base-content/80"><b>読み取り（{{fx_last}}）:</b> 円ベースの輸入物価は<b>{{fx_yen1}}</b>（2020年の約{{fx_yen_x}}倍）、契約通貨ベースは{{fx_cc1}}です。為替の分を表す比は{{fx_fx1}}で、円ベースの上昇のうち、およそ<b>{{fx_share}}%が為替の動き</b>、残りが原材料などの国際価格の動きによるものです（上昇率を対数で分けた目安）。</p>
+<details class="text-sm text-base-content/80"><summary class="cursor-pointer link link-primary">品目別（円ベース、{{fx_last}}）</summary><div id="fx-cats" class="mt-2"></div></details>
+</section>
+
+<section id="import-content" class="space-y-3 scroll-mt-20"><h2 class="text-2xl font-bold">2. 輸入品をたくさん使う産業（2020年）</h2>
+<p class="text-base-content/80">生産額のうち、輸入品の仕入れが占める割合です。国産の部品や材料に含まれている輸入品も、さかのぼって合計しています（波及込み）。全産業の平均は<b>約{{ic_avg}}%</b>で、割合が大きいのは{{ic_top3}}です。</p>
+<div class="card bg-base-100 border border-base-300"><div class="card-body"><div id="ic-bars"></div><p class="text-xs text-base-content/60">棒の左側（はっきりした色）＝直接の仕入れに含まれる輸入品、右側（淡い色）＝国産の仕入れ品を通じた分（波及）。上位15部門。</p></div></div>
+<details class="text-sm"><summary class="cursor-pointer link link-primary">37部門すべてを見る</summary><div class="overflow-x-auto mt-2"><table class="table table-xs" id="ic-table"></table></div></details>
+</section>
+
+<section id="simulation" class="space-y-3 scroll-mt-20"><h2 class="text-2xl font-bold">3. 試算：輸入品が10%値上がりすると</h2>
+<p class="text-base-content/80">輸入品の円建ての値段がすべて10%上がり、ほかの値段や取引の量は変わらず、値上がり分をそのまま次の買い手に転嫁した、という前提で計算すると、コストの上昇は<b>平均で約{{ic_avg10}}%</b>、最も大きい{{ic_top1}}で<b>約{{ic_top1_10}}%</b>です。円安が10%進んだときの影響の、おおまかな目安になります。</p>
+<p class="text-sm text-base-content/70">実際には、為替の動きがすべて輸入価格に表れるとは限らず、企業が値上げを我慢したり、仕入れ先を変えたりもするので、この試算より小さく出ることが多いと考えられます（仮説）。</p>
+</section>
+
+<section class="text-sm text-base-content/70 space-y-1"><h2 class="text-lg font-bold text-base-content">方法と注意</h2>
+<ul class="list-disc pl-6 space-y-1">
+<li>輸入物価：日本銀行「企業物価指数（2020年基準）」の輸入物価指数（総平均、円ベース・契約通貨ベース）。月次で更新します。</li>
+<li>輸入品の割合：総務省ほか「2020年産業連関表」（37部門）。品目ごとの「国内で使われる量のうち輸入品の割合」が、どの買い手でも同じと仮定しています（競争輸入型）。波及込みの割合は、輸入係数×投入係数に、国産品を通じた波及（レオンチェフ逆行列）を掛けて計算しています。</li>
+<li>2020年の産業の構造が、その後も変わっていないと仮定しています。計算のスクリプトは <code>pipeline/import_content.py</code>、<code>pipeline/fx_import.py</code> です。</li>
+</ul></section>
+<p class="text-xs text-base-content/60">関連：<a class="link" href="latest.html#energy-import">エネルギー輸入（量と単価）</a>・<a class="link" href="international.html#energy">エネルギーの輸入比率の国際比較</a></p>
+</main>
+<script src="charts.js"></script>
+<script>
+(function(){
+var F=__FX__,I=__IMPC__,c=KA.pal.c;
+var m0=F.months.indexOf("202001");
+KA.line(document.getElementById("fx-line"),[{n:"円ベース",v:F.yen,c:c.amber,w:3.2},{n:"契約通貨ベース",v:F.contract,c:c.sky},{n:"為替の分(比)",v:F.fx,c:c.slate}],{labels:F.months,xlabel:function(i,m){return m.slice(4)=="01"?m.slice(0,4):null},ref:100,aria:"輸入物価指数(円ベース・契約通貨ベース)と、その比の推移"});
+var cats=Object.keys(F.cats_last).map(function(k){return [k,F.cats_last[k]]}).sort(function(a,b){return b[1]-a[1]});
+document.getElementById("fx-cats").innerHTML='<ul class="list-disc pl-6">'+cats.map(function(x){return '<li>'+x[0]+'：'+x[1].toFixed(1)+'</li>'}).join("")+'</ul>';
+var rows=I.rows.slice().sort(function(a,b){return b.total-a.total}),top=rows.slice(0,15),W=720,L=170,R=60,bh=22,H=top.length*bh+10,mx=top[0].total;
+var s='<svg viewBox="0 0 '+W+' '+H+'" width="100%" role="img" aria-label="生産額に占める輸入品の割合(波及込み)の上位15部門" style="font-size:12px">';
+top.forEach(function(r,i){var y=5+i*bh,wt=(W-L-R)*r.total/mx,wd=(W-L-R)*r.direct/mx;
+ s+='<text x="'+(L-8)+'" y="'+(y+14)+'" text-anchor="end" fill="currentColor"><a href="industry/'+r.code+'.html">'+r.name+'</a></text><rect x="'+L+'" y="'+(y+3)+'" width="'+wt.toFixed(1)+'" height="15" rx="2" fill="'+c.sky+'" opacity=".35"/><rect x="'+L+'" y="'+(y+3)+'" width="'+wd.toFixed(1)+'" height="15" rx="2" fill="'+c.sky+'"/><text x="'+(L+wt+6).toFixed(1)+'" y="'+(y+15)+'" fill="currentColor">'+(r.total*100).toFixed(0)+'%</text>'});
+document.getElementById("ic-bars").innerHTML=s+'</svg>';
+document.getElementById("ic-table").innerHTML='<thead><tr><th>産業</th><th class="text-right">直接</th><th class="text-right">波及込み</th><th class="text-right">輸入品10%値上がり時のコスト上昇（試算）</th></tr></thead><tbody>'+rows.map(function(r){return '<tr><td><a class="link" href="industry/'+r.code+'.html">'+r.name+'</a></td><td class="text-right">'+(r.direct*100).toFixed(1)+'%</td><td class="text-right">'+(r.total*100).toFixed(1)+'%</td><td class="text-right">+'+(r.total*10).toFixed(1)+'%</td></tr>'}).join("")+'</tbody>';
+})();
+</script>
