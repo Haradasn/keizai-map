@@ -47,6 +47,9 @@ PAL = json.loads((R / "pages" / "palette.json").read_text(encoding="utf-8"))
 (S / "feedback.js").write_text(
     (R / "pages" / "feedback.js").read_text(encoding="utf-8"), encoding="utf-8"
 )  # 読者の反応(pages/feedback.json に sitekey があるときだけ欄を出す)
+(S / "explorer.js").write_text(
+    (R / "pages" / "explorer.js").read_text(encoding="utf-8"), encoding="utf-8"
+)  # 産業マップのロジック(データは explorer.html の window.XP で渡す)
 import glossary_link
 
 # ---------- 通常ページ: pages/<name>.html(本文) + pages/meta.json(title/desc/埋め込みデータ)
@@ -107,7 +110,7 @@ _ed = sorted(
     encoding="utf-8",
 )
 # ---------- explorer(共通シェルの中に描画。配色トークンは #xp 内に限定)
-tpl = (R / "pipeline" / "explorer_template.html").read_text(encoding="utf-8")
+tpl = (R / "templates" / "explorer.html").read_text(encoding="utf-8")
 h = tpl.replace("__GC__", json.dumps(PAL["groups"])).replace(
     "__DATA__", (R / "data" / "explorer_data.json").read_text(encoding="utf-8")
 )
