@@ -57,6 +57,8 @@ if __name__=="__main__":
     from zoneinfo import ZoneInfo
     today=dt.datetime.now(ZoneInfo('Asia/Tokyo')).date()   # 日本時間の日付で集計
     e=today; s=e-dt.timedelta(days=7)          # Cloudflare: 直近7日
+    if os.environ.get("REPORT_SINCE"):         # 手動実行で開始日を指定したとき(例: 当日の動作確認)
+        s=dt.date.fromisoformat(os.environ["REPORT_SINCE"]); e=today+dt.timedelta(days=1)
     ge=today-dt.timedelta(days=3); gs=ge-dt.timedelta(days=6)          # Search Console は2〜3日遅れて確定するので、3日前までの7日間
     try: cf,cerr=cloudflare(s,e)
     except Exception as x: cf,cerr=None,f"{type(x).__name__}: {getattr(x,'reason','') or x}"[:300]
