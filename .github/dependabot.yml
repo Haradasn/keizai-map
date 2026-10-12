@@ -9,6 +9,11 @@ updates:
     open-pull-requests-limit: 3
     ignore:
       - dependency-name: 3d-force-graph
+      # Tailwind 4 / daisyUI 5 は設定の書き方が変わるので、移行するときに手で行う
+      - dependency-name: tailwindcss
+        update-types: ["version-update:semver-major"]
+      - dependency-name: daisyui
+        update-types: ["version-update:semver-major"]
     groups:
       build-tools:
         patterns: ["*"]
