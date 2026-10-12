@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       action:
-        description: "create(限定共有で新規投稿) / update(本文を更新) / publish(全体に公開)"
+        description: "create(限定共有で新規投稿) / update(本文を更新) / publish(全体に公開) / stats(閲覧数などを取得)"
         required: true
         default: create
 permissions:
@@ -25,9 +25,11 @@ jobs:
                      python3 scripts/qiita_post.py create ;;
             update)  python3 scripts/qiita_post.py update "$(jq -r .id /tmp/r/qiita/item.json)" "$(jq -r .private /tmp/r/qiita/item.json)" ;;
             publish) python3 scripts/qiita_post.py update "$(jq -r .id /tmp/r/qiita/item.json)" false ;;
+            stats)   python3 scripts/qiita_post.py stats "$(jq -r .id /tmp/r/qiita/item.json)" ;;
             *) echo "::error::action は create / update / publish"; exit 1 ;;
           esac
       - name: 状態を非公開リポジトリに保存
         run: |
-          mkdir -p /tmp/r/qiita && cp /tmp/qiita_state.json /tmp/r/qiita/item.json
-          cd /tmp/r && git add qiita/item.json && git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -q -m "Qiita記事の状態 (${{ inputs.action }})" && git push -q origin HEAD:main || echo "変更なし"
+          mkdir -p /tmp/r/qiita
+          if [ -e /tmp/qiita_stats.json ]; then cp /tmp/qiita_stats.json /tmp/r/qiita/stats.json; else cp /tmp/qiita_state.json /tmp/r/qiita/item.json; fi
+          cd /tmp/r && git add qiita && git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -q -m "Qiita記事の状態 (${{ inputs.action }})" && git push -q origin HEAD:main || echo "変更なし"
