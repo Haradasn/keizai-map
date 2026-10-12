@@ -10,11 +10,11 @@ jobs:
   diff:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with: {path: after}
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with: {path: before, ref: "${{ github.event.pull_request.base.sha }}"}
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with: {python-version: "3.12"}
       - run: pip install playwright pillow && playwright install --with-deps chromium
       - name: 撮影して比べる
