@@ -1,5 +1,1 @@
-https://opendata.pref.aomori.lg.jp/dataset/2441.html
-https://www3.pref.iwate.jp/webdb/view/outside/s14Tokei/bnyaBtKekka.html/B03/B0303/I015
-https://toukei.pref.shizuoka.jp/bunsekihan/data/15-050/
-https://www.pref.miyazaki.lg.jp/tokeichosa/kense/toke/20260324132058.html
-https://www.pref.ehime.jp/page/8634.html
+https://www.pref.miyazaki.lg.jp/tokeichosa/kense/toke/index.html
