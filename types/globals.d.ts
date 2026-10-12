@@ -12,3 +12,8 @@ interface Window {
 declare const maplibregl: any;
 declare const turnstile: any;
 declare const ForceGraph3D: any;
+
+// Cloudflare Workers だけにある API(worker/index.js の合言葉の比較で使う)
+interface SubtleCrypto {
+  timingSafeEqual(a: ArrayBuffer | ArrayBufferView, b: ArrayBuffer | ArrayBufferView): boolean;
+}
