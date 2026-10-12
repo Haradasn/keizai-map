@@ -10,40 +10,93 @@
  <label class="swap swap-rotate btn btn-ghost btn-sm btn-circle" aria-label="テーマ切替"><input type="checkbox" id="thm"><span class="swap-on">☀</span><span class="swap-off">☾</span></label></nav>
 </header>
 <main class="flex-1 w-full max-w-5xl mx-auto px-4 py-10 space-y-10">
-<header class="space-y-3"><h1 class="text-3xl font-bold">円安は、どの産業のコストを押し上げる？</h1>
-<p class="text-base-content/80">輸入品の値段は、2020年からどれだけ上がり、そのうち為替（円安）の分はどれくらいか。そして、輸入品をたくさん使う産業はどこか。日本銀行の輸入物価指数（2026年8月分まで）と、2020年の産業連関表から見ます。</p>
-<div role="alert" class="alert alert-warning"><span>為替の先行きの予想や、投資・経営判断に使える情報ではありません。数値は公的統計から筆者が集計したもので、「試算」は前提つきの目安です。</span></div></header>
+  <header class="space-y-3">
+    <h1 class="text-3xl font-bold">円安は、どの産業のコストを押し上げる？</h1>
+    <p class="text-base-content/80">
+      輸入品の値段は、2020年からどれだけ上がり、そのうち為替（円安）の分はどれくらいか。そして、輸入品をたくさん使う産業はどこか。日本銀行の輸入物価指数（2026年8月分まで）と、2020年の産業連関表から見ます。
+    </p>
+    <div role="alert" class="alert alert-warning">
+      <span
+        >為替の先行きの予想や、投資・経営判断に使える情報ではありません。数値は公的統計から筆者が集計したもので、「試算」は前提つきの目安です。</span
+      >
+    </div>
+  </header>
 
-<section id="import-price" class="space-y-3 scroll-mt-20"><h2 class="text-2xl font-bold">1. 輸入品の値段と、為替の分（2020年平均=100）</h2>
-<p class="text-base-content/80">輸入物価指数には、円に直した値段（円ベース）と、取引に使った通貨のままの値段（契約通貨ベース）があります。両者の比（円ベース÷契約通貨ベース）が、値段の動きのうち<b>為替による部分</b>の目安です。</p>
-<div class="card bg-base-100 border border-base-300"><div class="card-body"><div id="fx-line"></div></div></div>
-<p class="text-sm text-base-content/80"><b>読み取り（2026年8月）:</b> 円ベースの輸入物価は<b>193.7</b>（2020年の約1.9倍）、契約通貨ベースは142.0です。為替の分を表す比は136.4で、円ベースの上昇のうち、およそ<b>47%が為替の動き</b>、残りが原材料などの国際価格の動きによるものです（上昇率を対数で分けた目安）。</p>
-<details class="text-sm text-base-content/80"><summary class="cursor-pointer link link-primary">品目別（円ベース、2026年8月）</summary><div id="fx-cats" class="mt-2"></div></details>
-</section>
+  <section id="import-price" class="space-y-3 scroll-mt-20">
+    <h2 class="text-2xl font-bold">1. 輸入品の値段と、為替の分（2020年平均=100）</h2>
+    <p class="text-base-content/80">
+      輸入物価指数には、円に直した値段（円ベース）と、取引に使った通貨のままの値段（契約通貨ベース）があります。両者の比（円ベース÷契約通貨ベース）が、値段の動きのうち<b>為替による部分</b>の目安です。
+    </p>
+    <div class="card bg-base-100 border border-base-300">
+      <div class="card-body"><div id="fx-line"></div></div>
+    </div>
+    <p class="text-sm text-base-content/80">
+      <b>読み取り（2026年8月）:</b>
+      円ベースの輸入物価は<b>193.7</b>（2020年の約1.9倍）、契約通貨ベースは142.0です。為替の分を表す比は136.4で、円ベースの上昇のうち、およそ<b>47%が為替の動き</b>、残りが原材料などの国際価格の動きによるものです（上昇率を対数で分けた目安）。
+    </p>
+    <details class="text-sm text-base-content/80">
+      <summary class="cursor-pointer link link-primary">品目別（円ベース、2026年8月）</summary>
+      <div id="fx-cats" class="mt-2"></div>
+    </details>
+  </section>
 
-<section id="import-content" class="space-y-3 scroll-mt-20"><h2 class="text-2xl font-bold">2. 輸入品をたくさん使う産業（2020年）</h2>
-<p class="text-base-content/80">生産額のうち、輸入品の仕入れが占める割合です。国産の部品や材料に含まれている輸入品も、さかのぼって合計しています（波及込み）。全産業の平均は<b>約11.3%</b>で、割合が大きいのは石油・石炭製品、非鉄金属、電気・ガス・熱供給です。</p>
-<div class="card bg-base-100 border border-base-300"><div class="card-body"><div id="ic-bars"></div><p class="text-xs text-base-content/60">棒の左側（はっきりした色）＝直接の仕入れに含まれる輸入品、右側（淡い色）＝国産の仕入れ品を通じた分（波及）。上位15部門。</p></div></div>
-<details class="text-sm"><summary class="cursor-pointer link link-primary">37部門すべてを見る</summary><div class="overflow-x-auto mt-2"><table class="table table-xs" id="ic-table"></table></div></details>
-</section>
+  <section id="import-content" class="space-y-3 scroll-mt-20">
+    <h2 class="text-2xl font-bold">2. 輸入品をたくさん使う産業（2020年）</h2>
+    <p class="text-base-content/80">
+      生産額のうち、輸入品の仕入れが占める割合です。国産の部品や材料に含まれている輸入品も、さかのぼって合計しています（波及込み）。全産業の平均は<b>約11.3%</b>で、割合が大きいのは石油・石炭製品、非鉄金属、電気・ガス・熱供給です。
+    </p>
+    <div class="card bg-base-100 border border-base-300">
+      <div class="card-body">
+        <div id="ic-bars"></div>
+        <p class="text-xs text-base-content/60">
+          棒の左側（はっきりした色）＝直接の仕入れに含まれる輸入品、右側（淡い色）＝国産の仕入れ品を通じた分（波及）。上位15部門。
+        </p>
+      </div>
+    </div>
+    <details class="text-sm">
+      <summary class="cursor-pointer link link-primary">37部門すべてを見る</summary>
+      <div class="overflow-x-auto mt-2"><table class="table table-xs" id="ic-table"></table></div>
+    </details>
+  </section>
 
-<section id="simulation" class="space-y-3 scroll-mt-20"><h2 class="text-2xl font-bold">3. 試算：輸入品が10%値上がりすると</h2>
-<p class="text-base-content/80">輸入品の円建ての値段がすべて10%上がり、ほかの値段や取引の量は変わらず、値上がり分をそのまま次の買い手に転嫁した、という前提で計算すると、コストの上昇は<b>平均で約1.1%</b>、最も大きい石油・石炭製品で<b>約5.1%</b>です。円安が10%進んだときの影響の、おおまかな目安になります。</p>
-<p class="text-sm text-base-content/70">実際には、為替の動きがすべて輸入価格に表れるとは限らず、企業が値上げを我慢したり、仕入れ先を変えたりもするので、この試算より小さく出ることが多いと考えられます（<a class="underline decoration-dotted underline-offset-4 hover:text-primary" href="glossary.html#kasetsu">仮説</a>）。</p>
-</section>
+  <section id="simulation" class="space-y-3 scroll-mt-20">
+    <h2 class="text-2xl font-bold">3. 試算：輸入品が10%値上がりすると</h2>
+    <p class="text-base-content/80">
+      輸入品の円建ての値段がすべて10%上がり、ほかの値段や取引の量は変わらず、値上がり分をそのまま次の買い手に転嫁した、という前提で計算すると、コストの上昇は<b>平均で約1.1%</b>、最も大きい石油・石炭製品で<b>約5.1%</b>です。円安が10%進んだときの影響の、おおまかな目安になります。
+    </p>
+    <p class="text-sm text-base-content/70">
+      実際には、為替の動きがすべて輸入価格に表れるとは限らず、企業が値上げを我慢したり、仕入れ先を変えたりもするので、この試算より小さく出ることが多いと考えられます（<a class="underline decoration-dotted underline-offset-4 hover:text-primary" href="glossary.html#kasetsu">仮説</a>）。
+    </p>
+  </section>
 
-<section class="text-sm text-base-content/70 space-y-1"><h2 class="text-lg font-bold text-base-content">方法と注意</h2>
-<ul class="list-disc pl-6 space-y-1">
-<li>輸入物価：日本銀行「企業物価指数（2020年基準）」の輸入物価指数（総平均、円ベース・契約通貨ベース）。月次で更新します。</li>
-<li>輸入品の割合：総務省ほか「2020年産業連関表」（37部門）。品目ごとの「国内で使われる量のうち輸入品の割合」が、どの買い手でも同じと仮定しています（競争輸入型）。波及込みの割合は、輸入係数×投入係数に、国産品を通じた波及（レオンチェフ逆行列）を掛けて計算しています。</li>
-<li>2020年の産業の構造が、その後も変わっていないと仮定しています。計算のスクリプトは <code>pipeline/import_content.py</code>、<code>pipeline/fx_import.py</code> です。</li>
-</ul></section>
-<p class="text-xs text-base-content/60">関連：<a class="link" href="latest.html#energy-import">エネルギー輸入（量と単価）</a>・<a class="link" href="international.html#energy">エネルギーの輸入比率の国際比較</a></p>
+  <section class="text-sm text-base-content/70 space-y-1">
+    <h2 class="text-lg font-bold text-base-content">方法と注意</h2>
+    <ul class="list-disc pl-6 space-y-1">
+      <li>
+        輸入物価：日本銀行「企業物価指数（2020年基準）」の輸入物価指数（総平均、円ベース・契約通貨ベース）。月次で更新します。
+      </li>
+      <li>
+        輸入品の割合：総務省ほか「2020年産業連関表」（37部門）。品目ごとの「国内で使われる量のうち輸入品の割合」が、どの買い手でも同じと仮定しています（競争輸入型）。波及込みの割合は、輸入係数×投入係数に、国産品を通じた波及（レオンチェフ逆行列）を掛けて計算しています。
+      </li>
+      <li>
+        2020年の産業の構造が、その後も変わっていないと仮定しています。計算のスクリプトは
+        <code>pipeline/import_content.py</code>、<code>pipeline/fx_import.py</code> です。
+      </li>
+    </ul>
+  </section>
+  <p class="text-xs text-base-content/60">
+    関連：<a class="link" href="latest.html#energy-import">エネルギー輸入（量と単価）</a>・<a
+      class="link"
+      href="international.html#energy"
+      >エネルギーの輸入比率の国際比較</a
+    >
+  </p>
 </main>
 <script src="charts.js"></script>
 <script>
-(function(){
-var F={"months": ["202001", "202002", "202003", "202004", "202005", "202006", "202007", "202008", "202009", "202010", "202011", "202012", "202101", "202102", "202103", "202104", "202105", "202106", "202107", "202108", "202109", "202110", "202111", "202112", "202201", "202202", "202203", "202204", "202205", "202206", "202207", "202208", "202209", "202210", "202211", "202212", "202301", "202302", "202303", "202304", "202305", "202306", "202307", "202308", "202309", "202310", "202311", "202312", "202401", "202402", "202403", "202404", "202405", "202406", "202407", "202408", "202409", "202410", "202411", "202412", "202501", "202502", "202503", "202504", "202505", "202506", "202507", "202508", "202509", "202510", "202511", "202512", "202601", "202602", "202603", "202604", "202605", "202606", "202607", "202608"], "yen": [110.9, 111.0, 105.8, 99.4, 93.5, 94.1, 96.4, 97.4, 97.6, 97.1, 97.5, 99.4, 102.7, 107.2, 111.3, 114.2, 116.8, 120.1, 122.7, 125.4, 127.1, 132.5, 139.5, 139.4, 139.2, 142.7, 147.7, 162.8, 169.2, 178.3, 183.4, 179.5, 189.0, 188.5, 178.5, 170.3, 162.7, 164.1, 161.5, 156.8, 160.1, 157.4, 156.4, 158.6, 162.0, 166.2, 167.0, 161.7, 162.6, 164.7, 164.3, 167.7, 171.6, 172.3, 173.0, 162.3, 157.6, 162.1, 164.7, 163.6, 166.0, 162.7, 160.1, 155.3, 153.7, 151.2, 154.5, 155.2, 155.7, 159.5, 161.9, 163.9, 167.2, 167.3, 173.4, 189.0, 194.3, 197.4, 199.7, 193.7], "contract": [109.1, 108.9, 105.5, 99.0, 93.4, 93.7, 96.4, 97.7, 98.1, 98.0, 98.9, 101.1, 104.5, 108.0, 109.8, 112.2, 114.6, 117.2, 119.7, 122.6, 124.1, 126.8, 132.5, 132.7, 131.7, 134.6, 136.4, 143.3, 146.5, 149.7, 151.6, 150.0, 151.0, 147.7, 143.7, 142.7, 140.2, 139.4, 136.4, 132.8, 132.5, 127.9, 126.9, 126.3, 127.1, 129.1, 129.3, 129.0, 128.1, 127.9, 127.5, 127.7, 128.7, 128.3, 128.6, 128.1, 126.3, 125.9, 125.4, 124.7, 124.8, 125.1, 124.7, 123.9, 122.5, 120.7, 121.7, 121.7, 121.8, 122.6, 122.1, 123.0, 124.8, 125.8, 128.0, 138.1, 142.4, 143.0, 143.4, 142.0], "fx": [101.6, 101.9, 100.3, 100.4, 100.1, 100.4, 100.0, 99.7, 99.5, 99.1, 98.6, 98.3, 98.3, 99.3, 101.4, 101.8, 101.9, 102.5, 102.5, 102.3, 102.4, 104.5, 105.3, 105.0, 105.7, 106.0, 108.3, 113.6, 115.5, 119.1, 121.0, 119.7, 125.2, 127.6, 124.2, 119.3, 116.0, 117.7, 118.4, 118.1, 120.8, 123.1, 123.2, 125.6, 127.5, 128.7, 129.2, 125.3, 126.9, 128.8, 128.9, 131.3, 133.3, 134.3, 134.5, 126.7, 124.8, 128.8, 131.3, 131.2, 133.0, 130.1, 128.4, 125.3, 125.5, 125.3, 127.0, 127.5, 127.8, 130.1, 132.6, 133.3, 134.0, 133.0, 135.5, 136.9, 136.4, 138.0, 139.3, 136.4], "cats_last": {"飲食料品・食料用農水産物": 180.0, "繊維品": 136.5, "金属・同製品": 237.8, "木材・木製品・林産物": 175.7, "石油・石炭・天然ガス": 297.6, "化学製品": 116.2, "はん用・生産用・業務用機器": 160.0, "電気・電子機器": 164.1, "輸送用機器": 157.1, "その他産品・製品": 158.9}, "base": "2020年平均=100", "source": "日本銀行「企業物価指数(2020年基準) 輸入物価指数」"},I={
+  (function () {
+    var F = {"months": ["202001", "202002", "202003", "202004", "202005", "202006", "202007", "202008", "202009", "202010", "202011", "202012", "202101", "202102", "202103", "202104", "202105", "202106", "202107", "202108", "202109", "202110", "202111", "202112", "202201", "202202", "202203", "202204", "202205", "202206", "202207", "202208", "202209", "202210", "202211", "202212", "202301", "202302", "202303", "202304", "202305", "202306", "202307", "202308", "202309", "202310", "202311", "202312", "202401", "202402", "202403", "202404", "202405", "202406", "202407", "202408", "202409", "202410", "202411", "202412", "202501", "202502", "202503", "202504", "202505", "202506", "202507", "202508", "202509", "202510", "202511", "202512", "202601", "202602", "202603", "202604", "202605", "202606", "202607", "202608"], "yen": [110.9, 111.0, 105.8, 99.4, 93.5, 94.1, 96.4, 97.4, 97.6, 97.1, 97.5, 99.4, 102.7, 107.2, 111.3, 114.2, 116.8, 120.1, 122.7, 125.4, 127.1, 132.5, 139.5, 139.4, 139.2, 142.7, 147.7, 162.8, 169.2, 178.3, 183.4, 179.5, 189.0, 188.5, 178.5, 170.3, 162.7, 164.1, 161.5, 156.8, 160.1, 157.4, 156.4, 158.6, 162.0, 166.2, 167.0, 161.7, 162.6, 164.7, 164.3, 167.7, 171.6, 172.3, 173.0, 162.3, 157.6, 162.1, 164.7, 163.6, 166.0, 162.7, 160.1, 155.3, 153.7, 151.2, 154.5, 155.2, 155.7, 159.5, 161.9, 163.9, 167.2, 167.3, 173.4, 189.0, 194.3, 197.4, 199.7, 193.7], "contract": [109.1, 108.9, 105.5, 99.0, 93.4, 93.7, 96.4, 97.7, 98.1, 98.0, 98.9, 101.1, 104.5, 108.0, 109.8, 112.2, 114.6, 117.2, 119.7, 122.6, 124.1, 126.8, 132.5, 132.7, 131.7, 134.6, 136.4, 143.3, 146.5, 149.7, 151.6, 150.0, 151.0, 147.7, 143.7, 142.7, 140.2, 139.4, 136.4, 132.8, 132.5, 127.9, 126.9, 126.3, 127.1, 129.1, 129.3, 129.0, 128.1, 127.9, 127.5, 127.7, 128.7, 128.3, 128.6, 128.1, 126.3, 125.9, 125.4, 124.7, 124.8, 125.1, 124.7, 123.9, 122.5, 120.7, 121.7, 121.7, 121.8, 122.6, 122.1, 123.0, 124.8, 125.8, 128.0, 138.1, 142.4, 143.0, 143.4, 142.0], "fx": [101.6, 101.9, 100.3, 100.4, 100.1, 100.4, 100.0, 99.7, 99.5, 99.1, 98.6, 98.3, 98.3, 99.3, 101.4, 101.8, 101.9, 102.5, 102.5, 102.3, 102.4, 104.5, 105.3, 105.0, 105.7, 106.0, 108.3, 113.6, 115.5, 119.1, 121.0, 119.7, 125.2, 127.6, 124.2, 119.3, 116.0, 117.7, 118.4, 118.1, 120.8, 123.1, 123.2, 125.6, 127.5, 128.7, 129.2, 125.3, 126.9, 128.8, 128.9, 131.3, 133.3, 134.3, 134.5, 126.7, 124.8, 128.8, 131.3, 131.2, 133.0, 130.1, 128.4, 125.3, 125.5, 125.3, 127.0, 127.5, 127.8, 130.1, 132.6, 133.3, 134.0, 133.0, 135.5, 136.9, 136.4, 138.0, 139.3, 136.4], "cats_last": {"飲食料品・食料用農水産物": 180.0, "繊維品": 136.5, "金属・同製品": 237.8, "木材・木製品・林産物": 175.7, "石油・石炭・天然ガス": 297.6, "化学製品": 116.2, "はん用・生産用・業務用機器": 160.0, "電気・電子機器": 164.1, "輸送用機器": 157.1, "その他産品・製品": 158.9}, "base": "2020年平均=100", "source": "日本銀行「企業物価指数(2020年基準) 輸入物価指数」"},
+      I = {
 "rows": [
 {
 "code": "01",
@@ -309,18 +362,115 @@ var F={"months": ["202001", "202002", "202003", "202004", "202005", "202006", "2
 "avg_direct": 0.0599,
 "unit": "生産額に占める割合",
 "year": 2020
-},c=KA.pal.c;
-var m0=F.months.indexOf("202001");
-KA.line(document.getElementById("fx-line"),[{n:"円ベース",v:F.yen,c:c.amber,w:3.2},{n:"契約通貨ベース",v:F.contract,c:c.sky},{n:"為替の分(比)",v:F.fx,c:c.slate}],{labels:F.months,xlabel:function(i,m){return m.slice(4)=="01"?m.slice(0,4):null},ref:100,aria:"輸入物価指数(円ベース・契約通貨ベース)と、その比の推移"});
-var cats=Object.keys(F.cats_last).map(function(k){return [k,F.cats_last[k]]}).sort(function(a,b){return b[1]-a[1]});
-document.getElementById("fx-cats").innerHTML='<ul class="list-disc pl-6">'+cats.map(function(x){return '<li>'+x[0]+'：'+x[1].toFixed(1)+'</li>'}).join("")+'</ul>';
-var rows=I.rows.slice().sort(function(a,b){return b.total-a.total}),top=rows.slice(0,15),W=720,L=170,R=60,bh=22,H=top.length*bh+10,mx=top[0].total;
-var s='<svg viewBox="0 0 '+W+' '+H+'" width="100%" role="img" aria-label="生産額に占める輸入品の割合(波及込み)の上位15部門" style="font-size:12px">';
-top.forEach(function(r,i){var y=5+i*bh,wt=(W-L-R)*r.total/mx,wd=(W-L-R)*r.direct/mx;
- s+='<text x="'+(L-8)+'" y="'+(y+14)+'" text-anchor="end" fill="currentColor"><a href="industry/'+r.code+'.html">'+r.name+'</a></text><rect x="'+L+'" y="'+(y+3)+'" width="'+wt.toFixed(1)+'" height="15" rx="2" fill="'+c.sky+'" opacity=".35"/><rect x="'+L+'" y="'+(y+3)+'" width="'+wd.toFixed(1)+'" height="15" rx="2" fill="'+c.sky+'"/><text x="'+(L+wt+6).toFixed(1)+'" y="'+(y+15)+'" fill="currentColor">'+(r.total*100).toFixed(0)+'%</text>'});
-document.getElementById("ic-bars").innerHTML=s+'</svg>';
-document.getElementById("ic-table").innerHTML='<thead><tr><th>産業</th><th class="text-right">直接</th><th class="text-right">波及込み</th><th class="text-right">輸入品10%値上がり時のコスト上昇（試算）</th></tr></thead><tbody>'+rows.map(function(r){return '<tr><td><a class="link" href="industry/'+r.code+'.html">'+r.name+'</a></td><td class="text-right">'+(r.direct*100).toFixed(1)+'%</td><td class="text-right">'+(r.total*100).toFixed(1)+'%</td><td class="text-right">+'+(r.total*10).toFixed(1)+'%</td></tr>'}).join("")+'</tbody>';
-})();
+},
+      c = KA.pal.c;
+    var m0 = F.months.indexOf("202001");
+    KA.line(
+      document.getElementById("fx-line"),
+      [
+        { n: "円ベース", v: F.yen, c: c.amber, w: 3.2 },
+        { n: "契約通貨ベース", v: F.contract, c: c.sky },
+        { n: "為替の分(比)", v: F.fx, c: c.slate },
+      ],
+      {
+        labels: F.months,
+        xlabel: function (i, m) {
+          return m.slice(4) == "01" ? m.slice(0, 4) : null;
+        },
+        ref: 100,
+        aria: "輸入物価指数(円ベース・契約通貨ベース)と、その比の推移",
+      }
+    );
+    var cats = Object.keys(F.cats_last)
+      .map(function (k) {
+        return [k, F.cats_last[k]];
+      })
+      .sort(function (a, b) {
+        return b[1] - a[1];
+      });
+    document.getElementById("fx-cats").innerHTML =
+      '<ul class="list-disc pl-6">' +
+      cats
+        .map(function (x) {
+          return "<li>" + x[0] + "：" + x[1].toFixed(1) + "</li>";
+        })
+        .join("") +
+      "</ul>";
+    var rows = I.rows.slice().sort(function (a, b) {
+        return b.total - a.total;
+      }),
+      top = rows.slice(0, 15),
+      W = 720,
+      L = 170,
+      R = 60,
+      bh = 22,
+      H = top.length * bh + 10,
+      mx = top[0].total;
+    var s =
+      '<svg viewBox="0 0 ' +
+      W +
+      " " +
+      H +
+      '" width="100%" role="img" aria-label="生産額に占める輸入品の割合(波及込み)の上位15部門" style="font-size:12px">';
+    top.forEach(function (r, i) {
+      var y = 5 + i * bh,
+        wt = ((W - L - R) * r.total) / mx,
+        wd = ((W - L - R) * r.direct) / mx;
+      s +=
+        '<text x="' +
+        (L - 8) +
+        '" y="' +
+        (y + 14) +
+        '" text-anchor="end" fill="currentColor"><a href="industry/' +
+        r.code +
+        '.html">' +
+        r.name +
+        '</a></text><rect x="' +
+        L +
+        '" y="' +
+        (y + 3) +
+        '" width="' +
+        wt.toFixed(1) +
+        '" height="15" rx="2" fill="' +
+        c.sky +
+        '" opacity=".35"/><rect x="' +
+        L +
+        '" y="' +
+        (y + 3) +
+        '" width="' +
+        wd.toFixed(1) +
+        '" height="15" rx="2" fill="' +
+        c.sky +
+        '"/><text x="' +
+        (L + wt + 6).toFixed(1) +
+        '" y="' +
+        (y + 15) +
+        '" fill="currentColor">' +
+        (r.total * 100).toFixed(0) +
+        "%</text>";
+    });
+    document.getElementById("ic-bars").innerHTML = s + "</svg>";
+    document.getElementById("ic-table").innerHTML =
+      '<thead><tr><th>産業</th><th class="text-right">直接</th><th class="text-right">波及込み</th><th class="text-right">輸入品10%値上がり時のコスト上昇（試算）</th></tr></thead><tbody>' +
+      rows
+        .map(function (r) {
+          return (
+            '<tr><td><a class="link" href="industry/' +
+            r.code +
+            '.html">' +
+            r.name +
+            '</a></td><td class="text-right">' +
+            (r.direct * 100).toFixed(1) +
+            '%</td><td class="text-right">' +
+            (r.total * 100).toFixed(1) +
+            '%</td><td class="text-right">+' +
+            (r.total * 10).toFixed(1) +
+            "%</td></tr>"
+          );
+        })
+        .join("") +
+      "</tbody>";
+  })();
 </script>
 <section id="fb" class="max-w-3xl mx-auto w-full px-4 mt-12" data-sitekey="0x4AAAAAAFUK5Vw22jfpltSW"><div class="rounded-box border border-base-300 bg-base-100 p-5 space-y-3">
 <div class="flex flex-wrap items-center gap-3"><p class="font-bold">このページは役に立ちましたか？</p><button id="fb-like" type="button" class="btn btn-sm btn-outline">👍 役に立った</button><span id="fb-like-msg" class="text-sm text-base-content/70" aria-live="polite"></span></div>

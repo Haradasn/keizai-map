@@ -1,6 +1,6 @@
 {
  "/": {
-  "hash": "7918a576f5390eb3",
+  "hash": "220664ce27b9fa5b",
   "date": "2026-10-12"
  },
  "/explorer": {
@@ -8,19 +8,19 @@
   "date": "2026-10-12"
  },
  "/similarity": {
-  "hash": "f4df15e221d44c95",
+  "hash": "4c04f719238d7206",
   "date": "2026-10-12"
  },
  "/latest": {
-  "hash": "ce90f03d9a0c5a4d",
+  "hash": "a6bd20e627c71d47",
   "date": "2026-10-12"
  },
  "/international": {
-  "hash": "46bd92406be2669b",
+  "hash": "3527c2d6164b10d6",
   "date": "2026-10-12"
  },
  "/about": {
-  "hash": "18cb54033f0ec9f5",
+  "hash": "d5ff82acd2950042",
   "date": "2026-10-12"
  },
  "/industries": {
@@ -608,11 +608,11 @@
   "date": "2026-10-12"
  },
  "/guide": {
-  "hash": "185cb3fde8eb0d14",
+  "hash": "958e28fe40c2915a",
   "date": "2026-10-12"
  },
  "/glossary": {
-  "hash": "b0833d1c12553d99",
+  "hash": "e8c5458b68309509",
   "date": "2026-10-12"
  },
  "/prefectures": {
@@ -720,7 +720,7 @@
   "date": "2026-10-12"
  },
  "/fx": {
-  "hash": "2fb6495fbfca89e7",
+  "hash": "6b3333ee39e78591",
   "date": "2026-10-12"
  }
 }

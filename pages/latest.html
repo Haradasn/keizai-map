@@ -1,54 +1,297 @@
 <main class="flex-1 w-full max-w-5xl mx-auto px-4 py-10 space-y-10">
-<header class="space-y-3"><h1 class="text-3xl font-bold">最新動向：2023〜2026年</h1>
-<p class="text-base-content/80">産業連関表は2022年までです。その後の動きを、日本銀行の月次・四半期統計で補います（{{sppi_last}}分まで）。サービスの<b>価格</b>、デジタル関連の<b>海外への支払い</b>、エネルギーの<b>価格</b>の3つを見ます。</p>
-<div role="alert" class="alert alert-warning"><span>価格指数は「量」ではなく「価格」です。解釈は筆者の仮説で、2026年の値は速報（改訂されることがあります）です。</span></div><p class="text-sm">円安が産業のコストに与える影響は、<a class="link link-primary" href="fx.html">円安は、どの産業のコストを押し上げる？</a>にまとめています。</p></header>
-<section id="service-price" class="space-y-3 scroll-mt-20"><h2 class="text-2xl font-bold">1. 企業向けサービスの価格（2020年=100）</h2>
-<p class="text-base-content/80">企業が企業から買うサービスの価格指数（企業向けサービス価格指数）。産業マップの「対事業所サービス」「情報通信」に近い領域です。</p>
-<div class="card bg-base-100 border border-base-300"><div class="card-body"><div id="n-sppi"></div></div></div>
-<p class="text-sm text-base-content/80"><b>読み取り（{{base}}→{{sppi_last}}）:</b> 総平均は{{sppi_avg_0}}→{{sppi_avg_1}}（{{sppi_avg_p1}}%）。<b>技術サービスが{{sppi_tech_p0}}%</b>と最も上がり、職業紹介・労働者派遣が{{sppi_haken_p1}}%、情報サービスが{{sppi_info_p1}}%、通信が{{sppi_tsushin_p1}}%、専門サービスは{{sppi_senmon_p1}}%でした。人手不足や、システム・設計の需要の強さが、外注の単価に表れている可能性があります（仮説）。</p></section>
-<section id="digital-pay" class="space-y-3 scroll-mt-20"><h2 class="text-2xl font-bold">2. デジタル関連の海外への支払い（兆円）</h2>
-<p class="text-base-content/80">国際収支の「通信・コンピュータ・情報サービス」。クラウド、ソフトウェア、システム開発などへの、海外との受け払いです。</p>
-<div class="card bg-base-100 border border-base-300"><div class="card-body"><div id="n-bp"></div></div></div>
-<p class="text-sm text-base-content/80"><b>読み取り:</b> 支払いは{{bp_y0}}年の{{bp_pay0}}兆円から{{bp_y1}}年の{{bp_pay1}}兆円へ<b>約{{bp_pay_x}}倍</b>。受取（{{bp_rec0}}→{{bp_rec1}}兆円）も増えていますが、赤字（ネット）は{{bp_net0}}兆円から{{bp_net1}}兆円に広がりました（{{bp_netpeak_y}}年は{{bp_netpeak}}兆円で最大）。「国際比較」ページの、デジタル仕入れの輸入比率の上昇と整合します。専門・経営コンサルティングの赤字も、{{bp_con0}}兆円から{{bp_con1}}兆円に拡大しています。生成AIによる部分は、この統計からは切り分けられません。{{bp_part_y}}年は1〜{{bp_part_m}}月の累計です。</p></section>
-<section id="energy-price" class="space-y-3 scroll-mt-20"><h2 class="text-2xl font-bold">3. エネルギーの価格（国内企業物価、2020年=100）</h2>
-<div class="card bg-base-100 border border-base-300"><div class="card-body"><div id="n-cg"></div></div></div>
-<p class="text-sm text-base-content/80"><b>読み取り:</b> 電力・都市ガス・水道は、{{base}}の{{cg_el_0}}から、{{cg_el_min_ym}}に{{cg_el_min}}まで下がり、{{sppi_last}}は{{cg_el_1}}です。石炭・原油・天然ガスは{{cg_coal_0}}→{{cg_coal_1}}、石油・石炭製品は{{sppi_last}}に{{cg_oil_1}}と、期間内で目立つ水準でした。産業連関表の2022年（エネルギー高騰の年）から、高止まりしつつ落ち着いたあと、再び上がっている姿です。</p></section>
-<section id="activity" class="space-y-3 scroll-mt-20"><h2 class="text-2xl font-bold">4. 活動量（経産省 第3次産業活動指数、2019-2020年平均=100）</h2>
-<p class="text-base-content/80">価格ではなく<b>量</b>（サービスの活動の大きさ、季節調整済み）。{{meti_last}}分までです。</p>
-<div class="card bg-base-100 border border-base-300"><div class="card-body"><div id="n-meti"></div></div></div>
-<p class="text-sm text-base-content/80"><b>読み取り（{{base}}→{{meti_last}}）:</b> 情報通信業は{{meti_ict_0}}→{{meti_ict_1}}（{{meti_ict_p1}}%）。内訳では<b>インターネット附随サービス業が{{meti_inet_p0}}%、ソフトウェア業が{{meti_soft_p0}}%</b>と伸びています。職業紹介・労働者派遣業は{{meti_haken_p0}}%。一方、<b>技術サービス業は{{meti_tech_0}}→{{meti_tech_1}}（{{meti_tech_p0}}%）</b>と、量は減っています。価格（節1）が{{sppi_tech_p0}}%上がっているので、「需要があるのに供給が足りず、単価だけ上がっている」状態の可能性があります（仮説）。情報サービスと派遣は、価格も量も上がっていて、需要の強さが表れています。</p></section>
-<section id="energy-import" class="space-y-3 scroll-mt-20"><h2 class="text-2xl font-bold">5. エネルギー輸入：量と円建て単価（財務省 貿易統計、2019年=100）</h2>
-<div class="grid gap-4 md:grid-cols-2"><div class="card bg-base-100 border border-base-300"><div class="card-body"><h3 class="font-bold">輸入数量</h3><div id="n-tq"></div></div></div>
-<div class="card bg-base-100 border border-base-300"><div class="card-body"><h3 class="font-bold">円建ての単価（輸入額÷数量）</h3><div id="n-tp"></div></div></div></div>
-<p class="text-sm text-base-content/80"><b>読み取り:</b> 鉱物性燃料の輸入額は、{{tr_y0}}年の{{fuel_0}}兆円から、{{fuel_peak_y}}年の<b>{{fuel_peak}}兆円</b>へ約{{fuel_peak_x}}倍になり、{{tr_y1}}年は{{fuel_1}}兆円まで戻りました。数量は原油が{{tr_y0}}年比で{{q_crude}}%、LNGが{{q_lng}}%、石炭が{{q_coal}}%と減っているので、<b>輸入額の増減の大半は単価（円建て）の動き</b>です。単価は{{fuel_peak_y}}年のピークから下がっても、{{tr_y1}}年で原油{{p_crude}}倍、LNG{{p_lng}}倍、石炭{{p_coal}}倍と、{{tr_y0}}年より高い水準にあります。円安の影響も含まれます。{{bp_part_y}}年1〜{{ytd_m}}月の鉱物性燃料の輸入額は{{ytd_1}}兆円で、{{tr_y1}}年同期（{{ytd_0}}兆円）より約{{ytd_pct}}%多くなっています（{{ytd_m}}月は速報）。</p>
-<p class="text-sm text-base-content/80"><b>おまけ（デジタル機器）:</b> パソコンなど電算機類の輸入額は、{{tr_y0}}年の{{pc_0}}兆円から{{tr_y1}}年の{{pc_1}}兆円へ（{{pc_pct}}%）。数量はほぼ同じなのに、円建て単価が約{{pc_px}}倍になっています。</p></section>
-<section class="text-sm text-base-content/70 space-y-1"><h2 class="text-lg font-bold text-base-content">方法と注意</h2>
-<ul class="list-disc pl-6"><li>出典：日本銀行 時系列統計データ検索サイト「企業向けサービス価格指数（2020年基準）」「企業物価指数（2020年基準）」「国際収支統計」、経済産業省「第3次産業活動指数」、財務省「貿易統計」を筆者が加工。各機関が作成・保証したものではありません。</li>
-<li>国際収支は円建ての名目値で、円安の影響を含みます。年の合計は暦年（2026年のみ1〜8月）です。</li>
-<li>集計スクリプトは <code>pipeline/boj_nowcast.py</code>、<code>pipeline/nowcast2.py</code> にあります。</li></ul></section>
+  <header class="space-y-3">
+    <h1 class="text-3xl font-bold">最新動向：2023〜2026年</h1>
+    <p class="text-base-content/80">
+      産業連関表は2022年までです。その後の動きを、日本銀行の月次・四半期統計で補います（{{sppi_last}}分まで）。サービスの<b>価格</b>、デジタル関連の<b>海外への支払い</b>、エネルギーの<b>価格</b>の3つを見ます。
+    </p>
+    <div role="alert" class="alert alert-warning">
+      <span
+        >価格指数は「量」ではなく「価格」です。解釈は筆者の仮説で、2026年の値は速報（改訂されることがあります）です。</span
+      >
+    </div>
+    <p class="text-sm">
+      円安が産業のコストに与える影響は、<a class="link link-primary" href="fx.html"
+        >円安は、どの産業のコストを押し上げる？</a
+      >にまとめています。
+    </p>
+  </header>
+  <section id="service-price" class="space-y-3 scroll-mt-20">
+    <h2 class="text-2xl font-bold">1. 企業向けサービスの価格（2020年=100）</h2>
+    <p class="text-base-content/80">
+      企業が企業から買うサービスの価格指数（企業向けサービス価格指数）。産業マップの「対事業所サービス」「情報通信」に近い領域です。
+    </p>
+    <div class="card bg-base-100 border border-base-300">
+      <div class="card-body"><div id="n-sppi"></div></div>
+    </div>
+    <p class="text-sm text-base-content/80">
+      <b>読み取り（{{base}}→{{sppi_last}}）:</b>
+      総平均は{{sppi_avg_0}}→{{sppi_avg_1}}（{{sppi_avg_p1}}%）。<b>技術サービスが{{sppi_tech_p0}}%</b>と最も上がり、職業紹介・労働者派遣が{{sppi_haken_p1}}%、情報サービスが{{sppi_info_p1}}%、通信が{{sppi_tsushin_p1}}%、専門サービスは{{sppi_senmon_p1}}%でした。人手不足や、システム・設計の需要の強さが、外注の単価に表れている可能性があります（仮説）。
+    </p>
+  </section>
+  <section id="digital-pay" class="space-y-3 scroll-mt-20">
+    <h2 class="text-2xl font-bold">2. デジタル関連の海外への支払い（兆円）</h2>
+    <p class="text-base-content/80">
+      国際収支の「通信・コンピュータ・情報サービス」。クラウド、ソフトウェア、システム開発などへの、海外との受け払いです。
+    </p>
+    <div class="card bg-base-100 border border-base-300">
+      <div class="card-body"><div id="n-bp"></div></div>
+    </div>
+    <p class="text-sm text-base-content/80">
+      <b>読み取り:</b>
+      支払いは{{bp_y0}}年の{{bp_pay0}}兆円から{{bp_y1}}年の{{bp_pay1}}兆円へ<b>約{{bp_pay_x}}倍</b>。受取（{{bp_rec0}}→{{bp_rec1}}兆円）も増えていますが、赤字（ネット）は{{bp_net0}}兆円から{{bp_net1}}兆円に広がりました（{{bp_netpeak_y}}年は{{bp_netpeak}}兆円で最大）。「国際比較」ページの、デジタル仕入れの輸入比率の上昇と整合します。専門・経営コンサルティングの赤字も、{{bp_con0}}兆円から{{bp_con1}}兆円に拡大しています。生成AIによる部分は、この統計からは切り分けられません。{{bp_part_y}}年は1〜{{bp_part_m}}月の累計です。
+    </p>
+  </section>
+  <section id="energy-price" class="space-y-3 scroll-mt-20">
+    <h2 class="text-2xl font-bold">3. エネルギーの価格（国内企業物価、2020年=100）</h2>
+    <div class="card bg-base-100 border border-base-300">
+      <div class="card-body"><div id="n-cg"></div></div>
+    </div>
+    <p class="text-sm text-base-content/80">
+      <b>読み取り:</b>
+      電力・都市ガス・水道は、{{base}}の{{cg_el_0}}から、{{cg_el_min_ym}}に{{cg_el_min}}まで下がり、{{sppi_last}}は{{cg_el_1}}です。石炭・原油・天然ガスは{{cg_coal_0}}→{{cg_coal_1}}、石油・石炭製品は{{sppi_last}}に{{cg_oil_1}}と、期間内で目立つ水準でした。産業連関表の2022年（エネルギー高騰の年）から、高止まりしつつ落ち着いたあと、再び上がっている姿です。
+    </p>
+  </section>
+  <section id="activity" class="space-y-3 scroll-mt-20">
+    <h2 class="text-2xl font-bold">4. 活動量（経産省 第3次産業活動指数、2019-2020年平均=100）</h2>
+    <p class="text-base-content/80">
+      価格ではなく<b>量</b>（サービスの活動の大きさ、季節調整済み）。{{meti_last}}分までです。
+    </p>
+    <div class="card bg-base-100 border border-base-300">
+      <div class="card-body"><div id="n-meti"></div></div>
+    </div>
+    <p class="text-sm text-base-content/80">
+      <b>読み取り（{{base}}→{{meti_last}}）:</b>
+      情報通信業は{{meti_ict_0}}→{{meti_ict_1}}（{{meti_ict_p1}}%）。内訳では<b>インターネット附随サービス業が{{meti_inet_p0}}%、ソフトウェア業が{{meti_soft_p0}}%</b>と伸びています。職業紹介・労働者派遣業は{{meti_haken_p0}}%。一方、<b>技術サービス業は{{meti_tech_0}}→{{meti_tech_1}}（{{meti_tech_p0}}%）</b>と、量は減っています。価格（節1）が{{sppi_tech_p0}}%上がっているので、「需要があるのに供給が足りず、単価だけ上がっている」状態の可能性があります（仮説）。情報サービスと派遣は、価格も量も上がっていて、需要の強さが表れています。
+    </p>
+  </section>
+  <section id="energy-import" class="space-y-3 scroll-mt-20">
+    <h2 class="text-2xl font-bold">5. エネルギー輸入：量と円建て単価（財務省 貿易統計、2019年=100）</h2>
+    <div class="grid gap-4 md:grid-cols-2">
+      <div class="card bg-base-100 border border-base-300">
+        <div class="card-body">
+          <h3 class="font-bold">輸入数量</h3>
+          <div id="n-tq"></div>
+        </div>
+      </div>
+      <div class="card bg-base-100 border border-base-300">
+        <div class="card-body">
+          <h3 class="font-bold">円建ての単価（輸入額÷数量）</h3>
+          <div id="n-tp"></div>
+        </div>
+      </div>
+    </div>
+    <p class="text-sm text-base-content/80">
+      <b>読み取り:</b>
+      鉱物性燃料の輸入額は、{{tr_y0}}年の{{fuel_0}}兆円から、{{fuel_peak_y}}年の<b>{{fuel_peak}}兆円</b>へ約{{fuel_peak_x}}倍になり、{{tr_y1}}年は{{fuel_1}}兆円まで戻りました。数量は原油が{{tr_y0}}年比で{{q_crude}}%、LNGが{{q_lng}}%、石炭が{{q_coal}}%と減っているので、<b>輸入額の増減の大半は単価（円建て）の動き</b>です。単価は{{fuel_peak_y}}年のピークから下がっても、{{tr_y1}}年で原油{{p_crude}}倍、LNG{{p_lng}}倍、石炭{{p_coal}}倍と、{{tr_y0}}年より高い水準にあります。円安の影響も含まれます。{{bp_part_y}}年1〜{{ytd_m}}月の鉱物性燃料の輸入額は{{ytd_1}}兆円で、{{tr_y1}}年同期（{{ytd_0}}兆円）より約{{ytd_pct}}%多くなっています（{{ytd_m}}月は速報）。
+    </p>
+    <p class="text-sm text-base-content/80">
+      <b>おまけ（デジタル機器）:</b>
+      パソコンなど電算機類の輸入額は、{{tr_y0}}年の{{pc_0}}兆円から{{tr_y1}}年の{{pc_1}}兆円へ（{{pc_pct}}%）。数量はほぼ同じなのに、円建て単価が約{{pc_px}}倍になっています。
+    </p>
+  </section>
+  <section class="text-sm text-base-content/70 space-y-1">
+    <h2 class="text-lg font-bold text-base-content">方法と注意</h2>
+    <ul class="list-disc pl-6">
+      <li>
+        出典：日本銀行
+        時系列統計データ検索サイト「企業向けサービス価格指数（2020年基準）」「企業物価指数（2020年基準）」「国際収支統計」、経済産業省「第3次産業活動指数」、財務省「貿易統計」を筆者が加工。各機関が作成・保証したものではありません。
+      </li>
+      <li>国際収支は円建ての名目値で、円安の影響を含みます。年の合計は暦年（2026年のみ1〜8月）です。</li>
+      <li>
+        集計スクリプトは <code>pipeline/boj_nowcast.py</code>、<code>pipeline/nowcast2.py</code> にあります。
+      </li>
+    </ul>
+  </section>
 </main>
 <script src="charts.js"></script>
 <script>
-(function(){
-var N=__NOW__,N2=__NOW2__,P=KA.pal,c=P.c;
-function yr(i,m){return m.slice(4)=="01"?m.slice(0,4):null}
-function line(id,ser,o){o=o||{};o.labels=o.labels||N.months;o.xlabel=o.annual?null:yr;KA.line(document.getElementById(id),ser,o)}
-line("n-sppi",[{n:"技術サービス",v:N.sppi["技術サービス"],c:c.amber},{n:"労働者派遣",v:N.sppi["職業紹介・労働者派遣サービス"],c:c.green},{n:"情報サービス",v:N.sppi["情報サービス"],c:c.sky,w:3.2},{n:"総平均",v:N.sppi["総平均"],c:c.slate},{n:"通信",v:N.sppi["通信"],c:c.violet},{n:"専門サービス",v:N.sppi["専門サービス"],c:c.red}],{ref:100,aria:"企業向けサービス価格指数"});
-line("n-cg",[{n:"石炭・原油・天然ガス",v:N.cgpi["石炭・原油・天然ガス"],c:c.amber},{n:"石油・石炭製品",v:N.cgpi["石油・石炭製品"],c:c.red},{n:"電力・ガス・水道",v:N.cgpi["電力・都市ガス・水道"],c:c.sky,w:3.2}],{ref:100,aria:"企業物価指数(エネルギー)"});
-var m0=N2.months.indexOf("202001"),mm=N2.months.slice(m0),sl=function(a){return a.slice(m0)};
-line("n-meti",[{n:"ソフトウェア業",v:sl(N2.meti["ソフトウェア業"]),c:c.sky},{n:"ｲﾝﾀｰﾈｯﾄ附随",v:sl(N2.meti["インターネット附随サービス業"]),c:c.cyan},{n:"労働者派遣",v:sl(N2.meti["職業紹介・労働者派遣業"]),c:c.green},{n:"情報通信業",v:sl(N2.meti["情報通信業"]),c:c.violet,w:3.2},{n:"第3次産業総合",v:sl(N2.meti["第３次産業総合"]),c:c.slate},{n:"技術サービス業",v:sl(N2.meti["技術サービス業"]),c:c.amber,w:3.2}],{labels:mm,ref:100,aria:"第3次産業活動指数"});
-var T=N2.trade,yl=T.years.map(String);
-line("n-tq",[{n:"原油",v:T.crude_q_idx,c:c.red},{n:"LNG",v:T.lng_q_idx,c:c.sky},{n:"石炭",v:T.coal_q_idx,c:c.slate}],{labels:yl,annual:1,ref:100,aria:"エネルギー輸入"});
-line("n-tp",[{n:"石炭",v:T.coal_p_idx,c:c.slate},{n:"LNG",v:T.lng_p_idx,c:c.sky},{n:"原油",v:T.crude_p_idx,c:c.red}],{labels:yl,annual:1,ref:100,aria:"エネルギー輸入"});
-(function(){var el=document.getElementById("n-bp"),B=N.bp,ys=Object.keys(B.digital_pay),W=720,H=300,L=44,R=20,T=24,Bt=34,mx=5,bw=(W-L-R)/ys.length;
- function Y(v){return T+(H-T-Bt)*(1-v/mx)}
- var s='<svg viewBox="0 0 '+W+' '+H+'" width="100%" role="img" style="font-size:11px">';
- for(var v=0;v<=mx;v++)s+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(v)+'" y2="'+Y(v)+'" stroke="currentColor" opacity=".15"/><text x="'+(L-6)+'" y="'+(Y(v)+4)+'" text-anchor="end" fill="currentColor" opacity=".7">'+v+'</text>';
- ys.forEach(function(y,i){var x0=L+i*bw+bw*0.14,w=bw*0.34,part=B.digital_pay[y][1]<12,p=B.digital_pay[y][0],r=B.digital_rec[y][0],n=B.digital_net[y][0];
-  s+='<rect x="'+x0+'" y="'+Y(p)+'" width="'+w+'" height="'+(Y(0)-Y(p))+'" fill="'+c.amber+'" opacity="'+(part?.5:1)+'" rx="2"/><rect x="'+(x0+w+3)+'" y="'+Y(r)+'" width="'+w+'" height="'+(Y(0)-Y(r))+'" fill="'+c.sky+'" opacity="'+(part?.5:1)+'" rx="2"/>';
-  s+='<text x="'+(x0+w/2)+'" y="'+(Y(p)-4)+'" text-anchor="middle" fill="'+c.amber+'">'+p.toFixed(1)+'</text><text x="'+(x0+w*1.5+3)+'" y="'+(Y(r)-4)+'" text-anchor="middle" fill="'+c.sky+'">'+r.toFixed(1)+'</text>';
-  s+='<text x="'+(L+i*bw+bw/2)+'" y="'+(H-16)+'" text-anchor="middle" fill="currentColor" opacity=".8">'+y+(part?"(1-8月)":"")+'</text><text x="'+(L+i*bw+bw/2)+'" y="'+(H-3)+'" text-anchor="middle" fill="currentColor" opacity=".6">差 '+n.toFixed(1)+'</text>'});
- s+='<rect x="'+(W-190)+'" y="2" width="10" height="10" fill="'+c.amber+'"/><text x="'+(W-176)+'" y="11" fill="currentColor">支払</text><rect x="'+(W-130)+'" y="2" width="10" height="10" fill="'+c.sky+'"/><text x="'+(W-116)+'" y="11" fill="currentColor">受取</text>';
- el.innerHTML=s+'</svg>'})();
-})();
+  (function () {
+    var N = __NOW__,
+      N2 = __NOW2__,
+      P = KA.pal,
+      c = P.c;
+    function yr(i, m) {
+      return m.slice(4) == "01" ? m.slice(0, 4) : null;
+    }
+    function line(id, ser, o) {
+      o = o || {};
+      o.labels = o.labels || N.months;
+      o.xlabel = o.annual ? null : yr;
+      KA.line(document.getElementById(id), ser, o);
+    }
+    line(
+      "n-sppi",
+      [
+        { n: "技術サービス", v: N.sppi["技術サービス"], c: c.amber },
+        { n: "労働者派遣", v: N.sppi["職業紹介・労働者派遣サービス"], c: c.green },
+        { n: "情報サービス", v: N.sppi["情報サービス"], c: c.sky, w: 3.2 },
+        { n: "総平均", v: N.sppi["総平均"], c: c.slate },
+        { n: "通信", v: N.sppi["通信"], c: c.violet },
+        { n: "専門サービス", v: N.sppi["専門サービス"], c: c.red },
+      ],
+      { ref: 100, aria: "企業向けサービス価格指数" }
+    );
+    line(
+      "n-cg",
+      [
+        { n: "石炭・原油・天然ガス", v: N.cgpi["石炭・原油・天然ガス"], c: c.amber },
+        { n: "石油・石炭製品", v: N.cgpi["石油・石炭製品"], c: c.red },
+        { n: "電力・ガス・水道", v: N.cgpi["電力・都市ガス・水道"], c: c.sky, w: 3.2 },
+      ],
+      { ref: 100, aria: "企業物価指数(エネルギー)" }
+    );
+    var m0 = N2.months.indexOf("202001"),
+      mm = N2.months.slice(m0),
+      sl = function (a) {
+        return a.slice(m0);
+      };
+    line(
+      "n-meti",
+      [
+        { n: "ソフトウェア業", v: sl(N2.meti["ソフトウェア業"]), c: c.sky },
+        { n: "ｲﾝﾀｰﾈｯﾄ附随", v: sl(N2.meti["インターネット附随サービス業"]), c: c.cyan },
+        { n: "労働者派遣", v: sl(N2.meti["職業紹介・労働者派遣業"]), c: c.green },
+        { n: "情報通信業", v: sl(N2.meti["情報通信業"]), c: c.violet, w: 3.2 },
+        { n: "第3次産業総合", v: sl(N2.meti["第３次産業総合"]), c: c.slate },
+        { n: "技術サービス業", v: sl(N2.meti["技術サービス業"]), c: c.amber, w: 3.2 },
+      ],
+      { labels: mm, ref: 100, aria: "第3次産業活動指数" }
+    );
+    var T = N2.trade,
+      yl = T.years.map(String);
+    line(
+      "n-tq",
+      [
+        { n: "原油", v: T.crude_q_idx, c: c.red },
+        { n: "LNG", v: T.lng_q_idx, c: c.sky },
+        { n: "石炭", v: T.coal_q_idx, c: c.slate },
+      ],
+      { labels: yl, annual: 1, ref: 100, aria: "エネルギー輸入" }
+    );
+    line(
+      "n-tp",
+      [
+        { n: "石炭", v: T.coal_p_idx, c: c.slate },
+        { n: "LNG", v: T.lng_p_idx, c: c.sky },
+        { n: "原油", v: T.crude_p_idx, c: c.red },
+      ],
+      { labels: yl, annual: 1, ref: 100, aria: "エネルギー輸入" }
+    );
+    (function () {
+      var el = document.getElementById("n-bp"),
+        B = N.bp,
+        ys = Object.keys(B.digital_pay),
+        W = 720,
+        H = 300,
+        L = 44,
+        R = 20,
+        T = 24,
+        Bt = 34,
+        mx = 5,
+        bw = (W - L - R) / ys.length;
+      function Y(v) {
+        return T + (H - T - Bt) * (1 - v / mx);
+      }
+      var s = '<svg viewBox="0 0 ' + W + " " + H + '" width="100%" role="img" style="font-size:11px">';
+      for (var v = 0; v <= mx; v++)
+        s +=
+          '<line x1="' +
+          L +
+          '" x2="' +
+          (W - R) +
+          '" y1="' +
+          Y(v) +
+          '" y2="' +
+          Y(v) +
+          '" stroke="currentColor" opacity=".15"/><text x="' +
+          (L - 6) +
+          '" y="' +
+          (Y(v) + 4) +
+          '" text-anchor="end" fill="currentColor" opacity=".7">' +
+          v +
+          "</text>";
+      ys.forEach(function (y, i) {
+        var x0 = L + i * bw + bw * 0.14,
+          w = bw * 0.34,
+          part = B.digital_pay[y][1] < 12,
+          p = B.digital_pay[y][0],
+          r = B.digital_rec[y][0],
+          n = B.digital_net[y][0];
+        s +=
+          '<rect x="' +
+          x0 +
+          '" y="' +
+          Y(p) +
+          '" width="' +
+          w +
+          '" height="' +
+          (Y(0) - Y(p)) +
+          '" fill="' +
+          c.amber +
+          '" opacity="' +
+          (part ? 0.5 : 1) +
+          '" rx="2"/><rect x="' +
+          (x0 + w + 3) +
+          '" y="' +
+          Y(r) +
+          '" width="' +
+          w +
+          '" height="' +
+          (Y(0) - Y(r)) +
+          '" fill="' +
+          c.sky +
+          '" opacity="' +
+          (part ? 0.5 : 1) +
+          '" rx="2"/>';
+        s +=
+          '<text x="' +
+          (x0 + w / 2) +
+          '" y="' +
+          (Y(p) - 4) +
+          '" text-anchor="middle" fill="' +
+          c.amber +
+          '">' +
+          p.toFixed(1) +
+          '</text><text x="' +
+          (x0 + w * 1.5 + 3) +
+          '" y="' +
+          (Y(r) - 4) +
+          '" text-anchor="middle" fill="' +
+          c.sky +
+          '">' +
+          r.toFixed(1) +
+          "</text>";
+        s +=
+          '<text x="' +
+          (L + i * bw + bw / 2) +
+          '" y="' +
+          (H - 16) +
+          '" text-anchor="middle" fill="currentColor" opacity=".8">' +
+          y +
+          (part ? "(1-8月)" : "") +
+          '</text><text x="' +
+          (L + i * bw + bw / 2) +
+          '" y="' +
+          (H - 3) +
+          '" text-anchor="middle" fill="currentColor" opacity=".6">差 ' +
+          n.toFixed(1) +
+          "</text>";
+      });
+      s +=
+        '<rect x="' +
+        (W - 190) +
+        '" y="2" width="10" height="10" fill="' +
+        c.amber +
+        '"/><text x="' +
+        (W - 176) +
+        '" y="11" fill="currentColor">支払</text><rect x="' +
+        (W - 130) +
+        '" y="2" width="10" height="10" fill="' +
+        c.sky +
+        '"/><text x="' +
+        (W - 116) +
+        '" y="11" fill="currentColor">受取</text>';
+      el.innerHTML = s + "</svg>";
+    })();
+  })();
 </script>

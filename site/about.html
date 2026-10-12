@@ -10,26 +10,73 @@
  <label class="swap swap-rotate btn btn-ghost btn-sm btn-circle" aria-label="テーマ切替"><input type="checkbox" id="thm"><span class="swap-on">☀</span><span class="swap-off">☾</span></label></nav>
 </header>
 <main class="flex-1 w-full max-w-3xl mx-auto px-4 py-10 prose-sm sm:prose-base space-y-6">
-<h1 class="text-3xl font-bold">方法と出典</h1>
-<section><h2 class="text-xl font-bold mb-2">データ</h2><ul class="list-disc pl-6 space-y-1">
-<li>産業連関表（<a class="underline decoration-dotted underline-offset-4 hover:text-primary" href="glossary.html#kihon-hyo">基本表</a>）2011・2015・2020年、<a class="underline decoration-dotted underline-offset-4 hover:text-primary" href="glossary.html#setsuzoku-hyo">接続産業連関表</a>（2011-2015-2020）：総務省ほか</li>
-<li><a class="underline decoration-dotted underline-offset-4 hover:text-primary" href="glossary.html#encho-hyo">延長産業連関表</a>（2020年基準、2021・2022年）：経済産業省</li>
-<li>最新動向：日本銀行 時系列統計データ検索サイト（企業向けサービス価格指数、企業物価指数、<a class="underline decoration-dotted underline-offset-4 hover:text-primary" href="glossary.html#bop">国際収支</a>統計）</li>
-<li>国際比較：OECD Inter-Country Input-Output (<a class="underline decoration-dotted underline-offset-4 hover:text-primary" href="glossary.html#icio">ICIO</a>) Tables 2025 edition（regular ICIO、2016〜2022年）</li>
-<li>いずれも <a class="link" href="https://www.e-stat.go.jp/" target="_blank" rel="noopener">政府統計の総合窓口（e-Stat）</a> 掲載。</li></ul></section>
-<section><h2 class="text-xl font-bold mb-2">加工について</h2><ul class="list-disc pl-6 space-y-1">
-<li>本サイトの数値・図は、上記統計を筆者が集約・換算・再計算したもので、<b>政府が作成したものではありません</b>。</li>
-<li>108部門を37部門に集約。延長表（97部門）は対応表により37部門へ対応づけ。</li>
-<li>金額は兆円表示。実質値と<a class="underline decoration-dotted underline-offset-4 hover:text-primary" href="glossary.html#meimoku-jissitsu">名目</a>値を区別し、価格変化＝名目÷実質で試算。</li>
-<li>「<a class="underline decoration-dotted underline-offset-4 hover:text-primary" href="glossary.html#blue-ocean">ブルーオーシャン</a>」スコアは、成長率・他産業への波及・地図上の目立たなさ（筆者が業界地図の目次から判断）による簡易指標です。</li></ul></section>
-<section><h2 class="text-xl font-bold mb-2">制約</h2><ul class="list-disc pl-6 space-y-1">
-<li>2022年値は推計表で、サービス間取引の構造は特に粗いです。定義の違いから2020年基本表と完全には接続しません。</li>
-<li>2023年以降（生成AIの普及など）は反映していません。</li>
-<li>ストーリーには確度ラベル（A/B/C）を付けていますが、いずれも<a class="underline decoration-dotted underline-offset-4 hover:text-primary" href="glossary.html#kasetsu">仮説</a>です。</li></ul></section>
-<section id="feedback"><h2 class="text-xl font-bold mb-2">読者の反応の受け付け</h2><p>各ページの下の「👍 役に立った」と「こんな情報が欲しい」は、今後の更新の参考にするためのものです。保存するのは、ページ名、日付、送信された文章だけで、名前、メールアドレス、IPアドレスなどの個人を特定できる情報は保存しません。送信された文章は公開しません。いたずら防止のため、文章の送信時に Cloudflare Turnstile による確認を行います。個別の返信はできません。</p></section>
-<section><h2 class="text-xl font-bold mb-2">免責</h2><p>本サイトは個人の趣味による分析で、投資・経営・その他の判断を助言するものではありません。内容の正確性は保証しません。</p></section>
-<section><h2 class="text-xl font-bold mb-2">ソフトウェア</h2><p class="text-sm">Tailwind CSS（MIT）、daisyUI（MIT）、3d-force-graph（MIT）、MapLibre GL JS（BSD-3-Clause）を使用。コードは GitHub で管理しています。</p></section>
-</main><section id="fb" class="max-w-3xl mx-auto w-full px-4 mt-12" data-sitekey="0x4AAAAAAFUK5Vw22jfpltSW"><div class="rounded-box border border-base-300 bg-base-100 p-5 space-y-3">
+  <h1 class="text-3xl font-bold">方法と出典</h1>
+  <section>
+    <h2 class="text-xl font-bold mb-2">データ</h2>
+    <ul class="list-disc pl-6 space-y-1">
+      <li>産業連関表（<a class="underline decoration-dotted underline-offset-4 hover:text-primary" href="glossary.html#kihon-hyo">基本表</a>）2011・2015・2020年、<a class="underline decoration-dotted underline-offset-4 hover:text-primary" href="glossary.html#setsuzoku-hyo">接続産業連関表</a>（2011-2015-2020）：総務省ほか</li>
+      <li><a class="underline decoration-dotted underline-offset-4 hover:text-primary" href="glossary.html#encho-hyo">延長産業連関表</a>（2020年基準、2021・2022年）：経済産業省</li>
+      <li>
+        最新動向：日本銀行 時系列統計データ検索サイト（企業向けサービス価格指数、企業物価指数、<a class="underline decoration-dotted underline-offset-4 hover:text-primary" href="glossary.html#bop">国際収支</a>統計）
+      </li>
+      <li>
+        国際比較：OECD Inter-Country Input-Output (<a class="underline decoration-dotted underline-offset-4 hover:text-primary" href="glossary.html#icio">ICIO</a>) Tables 2025 edition（regular ICIO、2016〜2022年）
+      </li>
+      <li>
+        いずれも
+        <a class="link" href="https://www.e-stat.go.jp/" target="_blank" rel="noopener"
+          >政府統計の総合窓口（e-Stat）</a
+        >
+        掲載。
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2 class="text-xl font-bold mb-2">加工について</h2>
+    <ul class="list-disc pl-6 space-y-1">
+      <li>
+        本サイトの数値・図は、上記統計を筆者が集約・換算・再計算したもので、<b>政府が作成したものではありません</b>。
+      </li>
+      <li>108部門を37部門に集約。延長表（97部門）は対応表により37部門へ対応づけ。</li>
+      <li>金額は兆円表示。実質値と<a class="underline decoration-dotted underline-offset-4 hover:text-primary" href="glossary.html#meimoku-jissitsu">名目</a>値を区別し、価格変化＝名目÷実質で試算。</li>
+      <li>
+        「<a class="underline decoration-dotted underline-offset-4 hover:text-primary" href="glossary.html#blue-ocean">ブルーオーシャン</a>」スコアは、成長率・他産業への波及・地図上の目立たなさ（筆者が業界地図の目次から判断）による簡易指標です。
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2 class="text-xl font-bold mb-2">制約</h2>
+    <ul class="list-disc pl-6 space-y-1">
+      <li>
+        2022年値は推計表で、サービス間取引の構造は特に粗いです。定義の違いから2020年基本表と完全には接続しません。
+      </li>
+      <li>2023年以降（生成AIの普及など）は反映していません。</li>
+      <li>ストーリーには確度ラベル（A/B/C）を付けていますが、いずれも<a class="underline decoration-dotted underline-offset-4 hover:text-primary" href="glossary.html#kasetsu">仮説</a>です。</li>
+    </ul>
+  </section>
+  <section id="feedback">
+    <h2 class="text-xl font-bold mb-2">読者の反応の受け付け</h2>
+    <p>
+      各ページの下の「👍
+      役に立った」と「こんな情報が欲しい」は、今後の更新の参考にするためのものです。保存するのは、ページ名、日付、送信された文章だけで、名前、メールアドレス、IPアドレスなどの個人を特定できる情報は保存しません。送信された文章は公開しません。いたずら防止のため、文章の送信時に
+      Cloudflare Turnstile による確認を行います。個別の返信はできません。
+    </p>
+  </section>
+  <section>
+    <h2 class="text-xl font-bold mb-2">免責</h2>
+    <p>
+      本サイトは個人の趣味による分析で、投資・経営・その他の判断を助言するものではありません。内容の正確性は保証しません。
+    </p>
+  </section>
+  <section>
+    <h2 class="text-xl font-bold mb-2">ソフトウェア</h2>
+    <p class="text-sm">
+      Tailwind CSS（MIT）、daisyUI（MIT）、3d-force-graph（MIT）、MapLibre GL
+      JS（BSD-3-Clause）を使用。コードは GitHub で管理しています。
+    </p>
+  </section>
+</main>
+<section id="fb" class="max-w-3xl mx-auto w-full px-4 mt-12" data-sitekey="0x4AAAAAAFUK5Vw22jfpltSW"><div class="rounded-box border border-base-300 bg-base-100 p-5 space-y-3">
 <div class="flex flex-wrap items-center gap-3"><p class="font-bold">このページは役に立ちましたか？</p><button id="fb-like" type="button" class="btn btn-sm btn-outline">👍 役に立った</button><span id="fb-like-msg" class="text-sm text-base-content/70" aria-live="polite"></span></div>
 <details id="fb-req"><summary class="cursor-pointer text-sm link link-primary">「こんな情報が欲しい」を送る</summary>
 <form id="fb-form" class="mt-3 space-y-2"><label for="fb-body" class="text-sm block">知りたいこと、見てみたい統計、気づいた誤りなど（500字まで）</label><textarea id="fb-body" maxlength="500" rows="3" class="textarea textarea-bordered w-full" required></textarea><div id="fb-ts"></div>
