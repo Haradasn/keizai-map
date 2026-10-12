@@ -9,7 +9,7 @@ from _shell import breadcrumb_head
 from _tpl import render
 from build_industry import pct
 
-R = pathlib.Path(__file__).resolve().parent.parent
+R = pathlib.Path(__file__).resolve().parents[2]
 
 # 県のslug → 都道府県コード(JIS X 0401)。立体地図のデータのキーになる
 JIS = {

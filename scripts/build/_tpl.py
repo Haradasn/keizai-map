@@ -14,7 +14,7 @@ from xml.sax.saxutils import escape as xml_escape
 
 import jinja2
 
-TEMPLATE_DIR = pathlib.Path(__file__).resolve().parent.parent / "templates"
+TEMPLATE_DIR = pathlib.Path(__file__).resolve().parents[2] / "templates"
 NEWLINE_MARK = "⏎"
 KEEP_MARK = "|"
 

@@ -13,7 +13,7 @@ import pandas as pd
 from _shell import breadcrumb_head
 from _tpl import render
 
-R = pathlib.Path(__file__).resolve().parent.parent
+R = pathlib.Path(__file__).resolve().parents[2]
 D = R / "data"
 
 # 行き先の構成の分類(ラベル, 色)。順番が積み棒の並び順になる

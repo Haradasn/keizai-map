@@ -22,15 +22,15 @@ jobs:
         with: {node-version: "22"}
       - run: npm install --no-audit --no-fund
       - name: 更新前の数値を記録
-        run: python3 scripts/derive.py > /tmp/old_metrics.txt
+        run: python3 scripts/build/derive.py > /tmp/old_metrics.txt
       - name: データ取得と再計算
         run: |
-          scripts/fetch_latest.sh /tmp/raw
+          scripts/ops/fetch_latest.sh /tmp/raw
           python3 -I pipeline/boj_nowcast.py /tmp/raw data/nowcast_chart.json
           python3 -I pipeline/nowcast2.py /tmp/raw data/nowcast2_chart.json
           python3 -I pipeline/fx_import.py /tmp/raw data/fx_chart.json
           npm run build
-          python3 scripts/derive.py > /tmp/new_metrics.txt
+          python3 scripts/build/derive.py > /tmp/new_metrics.txt
       - name: 後退していないか確認(最新月が古くならないこと)
         run: |
           python3 - <<'P'
@@ -42,7 +42,7 @@ jobs:
               print("::notice::%s 最新月 %s (前回 %s)"%(f,new,old))
           P
       - name: データの検査(形の異常があれば PR を作らずに止める)
-        run: python3 scripts/check_data.py --base HEAD --github --report /tmp/data-check.md
+        run: python3 scripts/ops/check_data.py --base HEAD --github --report /tmp/data-check.md
       - name: 変更の有無
         id: diff
         run: |
@@ -54,7 +54,7 @@ jobs:
         run: |
           B="auto/data-$(date -u +%Y%m%d)"
           git config user.name "github-actions[bot]"; git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          python3 scripts/add_changelog.py "最新動向のデータを更新" "日銀・経済産業省・財務省の最新データで、最新動向のグラフと数値を更新しました。" /latest
+          python3 scripts/ops/add_changelog.py "最新動向のデータを更新" "日銀・経済産業省・財務省の最新データで、最新動向のグラフと数値を更新しました。" /latest
           npm run build
           git checkout -b "$B"; git add data site pages
           git commit -m "最新動向のデータ更新($(date -u +%Y-%m-%d))"

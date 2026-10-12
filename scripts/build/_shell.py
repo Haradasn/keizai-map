@@ -5,7 +5,7 @@ import pathlib
 
 from _tpl import render
 
-ROOT = pathlib.Path(__file__).resolve().parent.parent
+ROOT = pathlib.Path(__file__).resolve().parents[2]
 FEEDBACK = json.loads((ROOT / "pages" / "feedback.json").read_text(encoding="utf-8"))
 
 

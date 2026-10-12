@@ -1,5 +1,5 @@
 """サイトのスモークテスト。 実行: pip install pytest playwright && playwright install chromium && pytest tests/
-(事前に python3 scripts/build_site.py を実行しておく)"""
+(事前に python3 scripts/build/build_site.py を実行しておく)"""
 
 import re, json, pathlib, threading, http.server, functools
 import pytest
@@ -284,7 +284,7 @@ def test_no_unrendered_placeholders():
 def test_derived_metrics_sane():
     import sys
 
-    sys.path.insert(0, str(R / "scripts"))
+    sys.path.insert(0, str(R / "scripts" / "build"))
     from derive import metrics
 
     M = metrics()
@@ -529,11 +529,15 @@ def test_weekly_report_runs_without_keys():
         if k not in ("CF_API_TOKEN", "CF_ACCOUNT_ID", "GSC_SA_JSON", "FEEDBACK_KEY")
     }
     r = subprocess.run(
-        ["python3", str(R / "scripts/weekly_report.py")], capture_output=True, text=True, env=env, timeout=60
+        ["python3", str(R / "scripts/ops/weekly_report.py")],
+        capture_output=True,
+        text=True,
+        env=env,
+        timeout=60,
     )
     assert r.returncode == 0 and r.stdout.count("取得できませんでした") == 3, (r.stdout, r.stderr)
     r = subprocess.run(
-        ["python3", str(R / "scripts/weekly_report.py"), "--check"],
+        ["python3", str(R / "scripts/ops/weekly_report.py"), "--check"],
         capture_output=True,
         text=True,
         env=env,
@@ -597,10 +601,10 @@ def test_security_headers_served(base):
 
 
 def test_data_checks_pass():
-    """scripts/check_data.py の形の検査が通ること(比較元なし)"""
+    """scripts/ops/check_data.py の形の検査が通ること(比較元なし)"""
     import subprocess, sys
 
-    p = subprocess.run([sys.executable, str(R / "scripts/check_data.py")], capture_output=True, text=True)
+    p = subprocess.run([sys.executable, str(R / "scripts/ops/check_data.py")], capture_output=True, text=True)
     assert p.returncode == 0, p.stdout[-2000:]
 
 

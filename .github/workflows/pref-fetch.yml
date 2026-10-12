@@ -1,4 +1,4 @@
-name: pref-fetch  # 県別の公表ファイルを取得して pref-scratch ブランチに置く(手動実行。対象は scripts/pref_pages.txt, pref_files.txt)
+name: pref-fetch  # 県別の公表ファイルを取得して pref-scratch ブランチに置く(手動実行。対象は scripts/ops/pref_pages.txt, pref_files.txt)
 on:
   workflow_dispatch:
 permissions:
@@ -13,7 +13,7 @@ jobs:
         run: |
           mkdir -p /tmp/out; UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
           n=0
-          for u in $(grep -v '^#' scripts/pref_pages.txt); do
+          for u in $(grep -v '^#' scripts/ops/pref_pages.txt); do
             n=$((n+1)); curl -s -L -A "$UA" -o /tmp/out/page$n.html -w "$n $u %{http_code}\n" "$u" | tee -a /tmp/out/index.txt
             python3 - "$n" "$u" <<'P'
           import re,sys,urllib.parse,html
@@ -27,7 +27,7 @@ jobs:
       - name: ファイル取得
         run: |
           mkdir -p /tmp/out/files; UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
-          for u in $(grep -v '^#' scripts/pref_files.txt); do
+          for u in $(grep -v '^#' scripts/ops/pref_files.txt); do
             curl -s -L -A "$UA" -o "/tmp/out/files/$(echo "$u" | sed 's#https\?://##; s#[/:]#_#g')" -w "%{http_code} %{size_download} $u\n" "$u" | tee -a /tmp/out/files.txt
           done
       - name: 結果をブランチに保存

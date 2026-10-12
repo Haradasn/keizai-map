@@ -22,7 +22,7 @@ jobs:
       - name: データの検査(形と、比較元からの変化)
         run: |
           git fetch -q --depth=1 origin ${{ github.base_ref || 'main' }}
-          python3 scripts/check_data.py --base FETCH_HEAD --github --report data-check.md
+          python3 scripts/ops/check_data.py --base FETCH_HEAD --github --report data-check.md
           cat data-check.md >> $GITHUB_STEP_SUMMARY
       - run: npm install --no-audit --no-fund
       - name: JS の型チェック(TypeScript の checkJs)

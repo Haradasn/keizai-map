@@ -9,7 +9,7 @@ from site_config import SITE_URL, SITE_NAME
 from derive import metrics, render
 
 MET = metrics()
-R = pathlib.Path(__file__).resolve().parent.parent
+R = pathlib.Path(__file__).resolve().parents[2]
 S = R / "site"
 
 

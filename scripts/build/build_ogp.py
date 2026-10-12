@@ -1,10 +1,10 @@
 """SNS共有用の画像(OGP, 1200x630)を生成する。data/ogp_cards.json(build_siteが出力)から site/og/<id>.png と site/og.png を作る。
-日本語フォント(Noto Sans CJK)が必要なため、CIでは実行せず、手元で実行して生成物をコミットする。 実行: python3 scripts/build_ogp.py"""
+日本語フォント(Noto Sans CJK)が必要なため、CIでは実行せず、手元で実行して生成物をコミットする。 実行: python3 scripts/build/build_ogp.py"""
 
 import json, pathlib
 from PIL import Image, ImageDraw, ImageFont
 
-R = pathlib.Path(__file__).resolve().parent.parent
+R = pathlib.Path(__file__).resolve().parents[2]
 S = R / "site"
 PAL = json.loads((R / "pages/palette.json").read_text(encoding="utf-8"))
 FB = "/usr/share/fonts/opentype/noto/NotoSansCJK-Bold.ttc"

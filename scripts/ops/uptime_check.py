@@ -1,6 +1,6 @@
 """本番サイトの死活監視。主要ページ・配信ファイル・API(Worker と D1)・セキュリティヘッダーを確かめる。
 
-  python3 scripts/uptime_check.py [--base https://keizai-atlas.com]
+  python3 scripts/ops/uptime_check.py [--base https://keizai-atlas.com]
 
 問題があれば一覧を出して終了コード 1。書き込みはしない(API は存在しないパスに GET して、Worker と D1 の設定だけを見る)。
 """

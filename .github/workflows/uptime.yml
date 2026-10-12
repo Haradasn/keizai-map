@@ -18,7 +18,7 @@ jobs:
       - name: 確認(一時的な失敗を避けるため、失敗したら1分後にもう一度)
         id: check
         run: |
-          python3 scripts/uptime_check.py > out.txt 2>&1 || { sleep 60; python3 scripts/uptime_check.py > out.txt 2>&1; } && ok=true || ok=false
+          python3 scripts/ops/uptime_check.py > out.txt 2>&1 || { sleep 60; python3 scripts/ops/uptime_check.py > out.txt 2>&1; } && ok=true || ok=false
           cat out.txt
           echo "ok=$ok" >> $GITHUB_OUTPUT
       - name: Issue を開く/閉じる

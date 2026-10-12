@@ -9,7 +9,7 @@
 | サイトが表示されるか、API・ヘッダーが正しいか | `.github/workflows/uptime.yml`(問題があると Issue「サイトの監視で問題」が開く。直ると自動で閉じる) | 3時間ごと |
 | コードの変更で壊れていないか | `test.yml` の `smoke`(PR ごと。ビルド・型チェック・データの検査・ブラウザでの表示・CSP・アクセシビリティ・ページの重さ) | PR ごと |
 | 見た目がどう変わったか | `visual-diff.yml`(PR の Job Summary と Artifacts「visual-diff」) | site/ が変わる PR |
-| データの取得が誤っていないか | `scripts/check_data.py`(CI と月次更新。形の異常・最新月の後退は失敗、大きな改訂は警告) | PR ごと・週1 |
+| データの取得が誤っていないか | `scripts/ops/check_data.py`(CI と月次更新。形の異常・最新月の後退は失敗、大きな改訂は警告) | PR ごと・週1 |
 | 依存ライブラリの脆弱性・更新 | Dependabot(月1回 PR)、CodeQL(週1回、Security タブ) | 月1・週1 |
 | アクセス数・検索・読者の反応 | 週次レポート(非公開リポジトリ `keizai-atlas-reports` の Issue) | 毎週月曜 |
 
