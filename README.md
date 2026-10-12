@@ -1,6 +1,21 @@
-# Keizai Atlas（経済の地図帳）— 趣味の統計分析サイト
+# Keizai Atlas（経済の地図帳）
 
-産業連関表から産業間のお金の流れを可視化する静的サイト。公開物は `site/` のみ（サーバー不要）。
+**https://keizai-atlas.com** ― 日本の公的統計（産業連関表など）で、産業のつながりや地域の産業構造を眺める趣味のサイトです。
+
+![37産業の取引を3Dで眺める産業マップ](site/img/qiita/03_explorer.gif)
+
+- **産業マップ**: 37産業の取引を3Dのネットワークで表示。産業を選ぶと仕入れ先・販売先が浮かび上がり、取引ごとに筆者の仮説（確からしさ・確かめ方つき）を読めます。
+- **県別の立体地図**: 都道府県の得意な産業（特化係数）を高さで表示。
+- **108産業・37部門・24都道府県の個別ページ**: 規模・成長・取引先。業界研究や探究学習にも使えます（[就活・転職・探究に使う](https://keizai-atlas.com/learn)）。
+- **最新動向・円安・国際比較**: 日銀・経産省・財務省・OECD のデータを毎週自動で取り込み。
+
+![都道府県の得意な産業を高さで表した立体地図](site/img/qiita/02_pref_map.gif)
+
+作り方は Qiita の記事「[産業連関表を3Dで可視化して「日本経済の地図帳」を作った](https://qiita.com/Haradasn/items/cbe422339fa409dbb1ec)」で紹介しています。
+
+技術: Python（pandas・Jinja2）で静的サイトを生成 / Tailwind CSS + daisyUI / 3d-force-graph・MapLibre GL JS / Cloudflare Workers（静的アセット + D1）/ GitHub Actions（データ更新・テスト・監視）。費用ゼロで運用しています。
+
+数値・図は公的統計を筆者が加工したもので、政府が作成したものではありません。「仮説」は筆者の推測です。
 
 ## 構成
 - `site/` 公開ディレクトリ（index / explorer / about、`assets.css`、`vendor/` に3d-force-graph同梱）
