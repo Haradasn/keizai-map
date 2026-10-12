@@ -6,5 +6,7 @@
   "assets": { "directory": "./site", "binding": "ASSETS" },
   "d1_databases": [{ "binding": "DB", "database_name": "keizai-feedback", "database_id": "b6aa0514-8964-4755-bf85-423d06230f3b" }],
   // 秘密の値(TURNSTILE_SECRET, FEEDBACK_KEY)は Cloudflare のダッシュボードで設定済み。ここには書かない
+  // ダッシュボードで設定した値をデプロイで消さない
+  "keep_vars": true,
   "previews": {}
 }
