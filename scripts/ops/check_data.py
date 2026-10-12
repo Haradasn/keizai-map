@@ -1,7 +1,7 @@
 """data/ の検査。サイトが使うデータの「形」と、前回(比較元の git の版)からの変化を確かめる。
 
-  python3 scripts/check_data.py                 # 形の検査だけ
-  python3 scripts/check_data.py --base origin/main [--github] [--report out.md]
+  python3 scripts/ops/check_data.py                 # 形の検査だけ
+  python3 scripts/ops/check_data.py --base origin/main [--github] [--report out.md]
 
 - 形の検査で問題があれば終了コード 1(CI・月次更新を止める)。
 - 前回からの変化は、異常と言い切れない(統計の改訂はある)ので警告として報告するだけ。
@@ -19,7 +19,7 @@ import re
 import subprocess
 import sys
 
-R = pathlib.Path(__file__).resolve().parent.parent
+R = pathlib.Path(__file__).resolve().parents[2]
 D = R / "data"
 
 # 月次の系列: ファイル → months と同じ長さであるべき系列(「a.*」は a の下の全系列)

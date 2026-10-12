@@ -1,7 +1,7 @@
 """週次レポート: Cloudflare Web Analytics と Google Search Console から、直近7日の状況をまとめる。
 環境変数: CF_API_TOKEN, CF_ACCOUNT_ID, GSC_SA_JSON(サービスアカウントのJSON)。
-  python3 scripts/weekly_report.py --check   … キーが使えるかだけ確認(数値は出さない。公開リポジトリのログに残るため)
-  python3 scripts/weekly_report.py > report.md
+  python3 scripts/ops/weekly_report.py --check   … キーが使えるかだけ確認(数値は出さない。公開リポジトリのログに残るため)
+  python3 scripts/ops/weekly_report.py > report.md
 """
 
 import os, sys, json, datetime as dt, urllib.request, urllib.parse, urllib.error

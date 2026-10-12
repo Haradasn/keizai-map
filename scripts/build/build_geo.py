@@ -1,5 +1,5 @@
 """都道府県の境界(地球地図日本・dataofjapan/land の japan.geojson)を間引いて site/vendor/japan-pref.json にする(一度だけ実行。結果をコミット)。
-使い方: python3 scripts/build_geo.py /path/to/japan.geojson
+使い方: python3 scripts/build/build_geo.py /path/to/japan.geojson
 出典: 地球地図日本(国土地理院)。非営利での利用、出典の明記が条件。"""
 
 import json, sys, pathlib
@@ -23,7 +23,7 @@ for f in src["features"]:
             "geometry": m,
         }
     )
-p = pathlib.Path(__file__).resolve().parent.parent / "site/vendor/japan-pref.json"
+p = pathlib.Path(__file__).resolve().parents[2] / "site/vendor/japan-pref.json"
 p.write_text(
     json.dumps({"type": "FeatureCollection", "features": out}, ensure_ascii=False, separators=(",", ":")),
     encoding="utf-8",

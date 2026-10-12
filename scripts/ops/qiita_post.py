@@ -1,13 +1,13 @@
 """Qiita に記事を投稿・更新する(GitHub Actions から実行)。
   QIITA_TOKEN: Qiita の個人用アクセストークン(write_qiita)
-  python3 scripts/qiita_post.py create            -> 限定共有で新規投稿(IDとURLは /tmp/qiita_state.json に書く)
-  python3 scripts/qiita_post.py update <id> <private:true|false>  -> 本文を更新(false で全体に公開)
+  python3 scripts/ops/qiita_post.py create            -> 限定共有で新規投稿(IDとURLは /tmp/qiita_state.json に書く)
+  python3 scripts/ops/qiita_post.py update <id> <private:true|false>  -> 本文を更新(false で全体に公開)
 記事: docs/qiita/article.md(本文)と docs/qiita/meta.json(タイトル・タグ)。URLは公開ログに出さない(限定共有のため)。
 """
 
 import json, os, sys, urllib.request, pathlib
 
-R = pathlib.Path(__file__).resolve().parent.parent
+R = pathlib.Path(__file__).resolve().parents[2]
 tok = os.environ["QIITA_TOKEN"].strip()
 meta = json.loads((R / "docs/qiita/meta.json").read_text(encoding="utf-8"))
 body = (R / "docs/qiita/article.md").read_text(encoding="utf-8")

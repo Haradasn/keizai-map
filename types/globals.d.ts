@@ -8,6 +8,8 @@ interface Window {
   maplibregl: any;
   ForceGraph3D: any;
   fbTsReady: any;
+  // 産業マップ(explorer.html のインライン script が置く: 群の色と explorer_data.json)
+  XP: { gc: any; data: any };
 }
 // グラフの共通関数(ビルド時に KA.pal が注入され、charts.js が KA.line などを足す)
 declare var KA: any;

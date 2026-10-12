@@ -1,6 +1,6 @@
 """見た目の差分。2つの site/ (変更前・変更後)を同じ条件で撮影し、変わったページを報告する。
 
-  python3 scripts/visual_diff.py BEFORE_SITE AFTER_SITE OUT_DIR
+  python3 scripts/ops/visual_diff.py BEFORE_SITE AFTER_SITE OUT_DIR
 
 - 1280px と 390px で各ページを撮影し、画素の差がしきい値を超えたページを一覧にする。
 - 動く部分(WebGL の canvas、カルーセル)は塗りつぶして比べる(毎回違うため)。

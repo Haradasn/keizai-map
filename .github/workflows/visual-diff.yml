@@ -19,7 +19,7 @@ jobs:
       - run: pip install playwright pillow && playwright install --with-deps chromium
       - name: 撮影して比べる
         run: |
-          python3 after/scripts/visual_diff.py before/site after/site vd
+          python3 after/scripts/ops/visual_diff.py before/site after/site vd
           cat vd/summary.md >> $GITHUB_STEP_SUMMARY
       - uses: actions/upload-artifact@v7
         with:

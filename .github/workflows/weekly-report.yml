@@ -25,7 +25,7 @@ jobs:
           CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
           GSC_SA_JSON: ${{ secrets.GSC_SA_JSON }}
           FEEDBACK_KEY: ${{ secrets.FEEDBACK_KEY }}
-        run: python3 scripts/weekly_report.py --check
+        run: python3 scripts/ops/weekly_report.py --check
       - name: レポートを作る(ファイルにだけ書く)
         env:
           REPORT_SINCE: ${{ inputs.since }}
@@ -33,7 +33,7 @@ jobs:
           CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
           GSC_SA_JSON: ${{ secrets.GSC_SA_JSON }}
           FEEDBACK_KEY: ${{ secrets.FEEDBACK_KEY }}
-        run: python3 scripts/weekly_report.py > /tmp/report.md 2>/tmp/report.err || { echo "レポート作成に失敗(詳細は非表示)"; exit 1; }
+        run: python3 scripts/ops/weekly_report.py > /tmp/report.md 2>/tmp/report.err || { echo "レポート作成に失敗(詳細は非表示)"; exit 1; }
       - name: 非公開リポジトリに保存
         env:
           REPORT_TOKEN: ${{ secrets.REPORT_TOKEN }}

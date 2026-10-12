@@ -22,10 +22,10 @@ jobs:
         run: |
           case "${{ inputs.action }}" in
             create)  test ! -e /tmp/r/qiita/item.json || { echo "::error::すでに投稿済みです(update を使ってください)"; exit 1; }
-                     python3 scripts/qiita_post.py create ;;
-            update)  python3 scripts/qiita_post.py update "$(jq -r .id /tmp/r/qiita/item.json)" "$(jq -r .private /tmp/r/qiita/item.json)" ;;
-            publish) python3 scripts/qiita_post.py update "$(jq -r .id /tmp/r/qiita/item.json)" false ;;
-            stats)   python3 scripts/qiita_post.py stats "$(jq -r .id /tmp/r/qiita/item.json)" ;;
+                     python3 scripts/ops/qiita_post.py create ;;
+            update)  python3 scripts/ops/qiita_post.py update "$(jq -r .id /tmp/r/qiita/item.json)" "$(jq -r .private /tmp/r/qiita/item.json)" ;;
+            publish) python3 scripts/ops/qiita_post.py update "$(jq -r .id /tmp/r/qiita/item.json)" false ;;
+            stats)   python3 scripts/ops/qiita_post.py stats "$(jq -r .id /tmp/r/qiita/item.json)" ;;
             *) echo "::error::action は create / update / publish"; exit 1 ;;
           esac
       - name: 状態を非公開リポジトリに保存

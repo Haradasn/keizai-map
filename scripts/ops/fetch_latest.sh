@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# 最新動向の元データ(日銀・経産省・財務省)を取得する。 使い方: scripts/fetch_latest.sh <出力ディレクトリ>
+# 最新動向の元データ(日銀・経産省・財務省)を取得する。 使い方: scripts/ops/fetch_latest.sh <出力ディレクトリ>
 #  日銀: stat-search.boj.or.jp/info/{sppi,cgpi,bp}_m_jp.zip (zip内にcsv)
 #  財務省: customs.go.jp/toukei/suii/html/data/d61ma.csv (世界・月別・輸入)
 #  経産省: meti.go.jp/statistics/tyo/sanzi/result/excel/b2020_ksmj.xlsx (ブラウザ風のUAとRefererが必要。無いと403)
