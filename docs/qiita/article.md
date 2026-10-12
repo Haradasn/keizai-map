@@ -203,7 +203,7 @@ map.on("load", () => {
 
 県の形は、国土地理院の「地球地図日本」を GeoJSON にしたものを、shapely で間引いて使いました（約13MB → 約100KB）。
 
-```python:scripts/build_geo.py（抜粋）
+```python:scripts/build/build_geo.py（抜粋）
 from shapely.geometry import shape, mapping, MultiPolygon
 
 g = shape(feature["geometry"]).simplify(0.012, preserve_topology=True)
@@ -291,7 +291,7 @@ on:
 jobs:
   update:
     steps:
-      - run: scripts/fetch_latest.sh /tmp/raw
+      - run: scripts/ops/fetch_latest.sh /tmp/raw
       - run: python3 -I pipeline/fx_import.py /tmp/raw data/fx_chart.json
       - run: npm run build   # ページ生成 + 出力HTMLの整形
       # 差分があれば PR を作成 → テスト → 人がマージ
