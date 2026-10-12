@@ -126,6 +126,26 @@ TOK = "<style>" + "\n".join(_tok(k, t) for k, t in PAL["theme"].items()) + "</st
 page("explorer.html", "産業マップ｜Keizai Atlas", ED, "\n" + TOK + h)
 
 CL = json.loads((R / "pages" / "changelog.json").read_text(encoding="utf-8"))
+
+
+def changelog_days(entries):
+    """更新情報を日付ごとにまとめる(新しい日付が先)。"""
+    days = {}
+    for entry in entries:
+        days.setdefault(entry["date"], []).append(entry)
+    out = []
+    for date in sorted(days, reverse=True):
+        y, m, d = date.split("-")
+        out.append({"label": f"{int(y)}年{int(m)}月{int(d)}日", "entries": days[date]})
+    return out
+
+
+page(
+    "changelog.html",
+    "更新情報｜Keizai Atlas",
+    "Keizai Atlas に加えたページや機能、データの更新の記録。",
+    "\n" + render_template("changelog.html.j2", days=changelog_days(CL)),
+)
 (S / "feed.xml").write_text(
     render_template("feed.xml.j2", site_name=SITE_NAME, site_url=SITE_URL, changelog=CL),
     encoding="utf-8",
@@ -147,6 +167,7 @@ for p in (
     "/latest",
     "/international",
     "/fx",
+    "/changelog",
     "/about",
     "/industries",
     "/guide",

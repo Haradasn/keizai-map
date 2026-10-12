@@ -1,0 +1,20 @@
+{# 更新情報ページの本文。days=[{date, entries:[{title, summary, link}]}] #}
+<main class="flex-1 w-full max-w-3xl mx-auto px-4 py-10 space-y-8">⏎
+<header class="space-y-3">
+  <h1 class="text-3xl font-bold">更新情報</h1>
+  <p class="text-base-content/80">このサイトに加えたページや機能、データの更新の記録です。RSS リーダーで購読する場合は <a class="link" href="feed.xml">フィード（Atom）</a> を登録してください。</p>
+</header>⏎
+{% for day in days %}
+<section class="space-y-3">
+  <h2 class="text-lg font-bold text-base-content/70">{{ day.label }}</h2>
+  <ul class="space-y-3">
+    {% for e in day.entries %}
+    <li class="card bg-base-100 border border-base-300"><div class="card-body p-4 gap-1">
+      <a class="font-bold link link-hover" href="{{ e.link|esc }}">{{ e.title|esc }}</a>
+      <p class="text-sm text-base-content/80">{{ e.summary|esc }}</p>
+    </div></li>
+    {% endfor %}
+  </ul>
+</section>⏎
+{% endfor %}
+</main>
