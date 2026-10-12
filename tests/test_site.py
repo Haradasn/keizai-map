@@ -73,7 +73,7 @@ def test_sitemap_matches_pages():
 
 def test_index_cards_have_distinct_targets():
     h = (S / "index.html").read_text(encoding="utf-8")
-    hrefs = re.findall(r'<a href="([^"]+)" class="card ', h)
+    hrefs = re.findall(r'<a\s+href="([^"]+)"\s+class="card\s', h)  # 改行を挟む整形にも対応
     assert len(hrefs) >= 4 and len(hrefs) == len(set(hrefs))
 
 
