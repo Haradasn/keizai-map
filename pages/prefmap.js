@@ -7,7 +7,7 @@
     DATA = window.PREF_MAP,
     INDS = DATA.inds,
     P = DATA.prefs;
-  var sel = document.getElementById("pm-ind") || {
+  var sel = /** @type {HTMLSelectElement} */ (document.getElementById("pm-ind")) || {
       value: root.getAttribute("data-k") || "all",
       addEventListener: function () {},
     },
@@ -175,6 +175,7 @@
             t.v.toFixed(1) +
             '<small>兆円</small></span><span class="pm-ins-d">総産出額が最も大きい県</span>';
       } else {
+        /** @type {{n: string, lq: number} | null} */
         var best = null;
         Object.keys(P).forEach(function (id) {
           var p = P[id],
@@ -312,7 +313,7 @@
           else spin = true;
         })(performance.now());
         var b0 = -12,
-          last = null,
+          last = /** @type {number | null} */ (null),
           stop = false;
         ["mousedown", "touchstart", "wheel", "keydown"].forEach(function (ev) {
           box.addEventListener(

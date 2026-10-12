@@ -9,7 +9,7 @@
   {% for card in cards %}
   <a href="prefecture/{{ card.slug }}.html" class="card bg-base-100 border border-base-300 hover:border-primary transition">
     <div class="card-body gap-1 p-5">
-      <h3 class="font-bold">{{ card.name|esc }}</h3>
+      <h2 class="font-bold">{{ card.name|esc }}</h2>
       <p class="text-sm text-base-content/80">産出額 {{ card.output }}兆円。特化: {{ card.top_names|map("esc")|join("、") }}</p>
     </div>
   </a>
@@ -31,7 +31,7 @@
         <td class="whitespace-nowrap">{{ row.name|esc }}</td>
         {% for cell in row.cells %}
         {% if cell %}
-        <td class="text-right{{ ' text-base-content/40' if cell.small else '' }}"{% if cell.alpha %} style="background:rgba(56,189,248,{{ cell.alpha }})"{% endif %}>{{ cell.text }}</td>
+        <td class="text-right{{ ' text-base-content/70' if cell.small else '' }}"{% if cell.alpha %} style="background:rgba(56,189,248,{{ cell.alpha }})"{% endif %}>{{ cell.text }}</td>
         {% else %}
         <td class="text-right">−</td>
         {% endif %}
@@ -41,4 +41,4 @@
     </tbody>
   </table></div>
 {% endcall %}⏎
-<p class="text-xs text-base-content/60">出典：各都道府県「2020年（令和2年）産業連関表」を筆者が集計。政府・自治体が作成したものではありません。<a class="link" href="about.html">方法と出典</a></p></main>
+<p class="text-xs text-base-content/70">出典：各都道府県「2020年（令和2年）産業連関表」を筆者が集計。政府・自治体が作成したものではありません。<a class="link" href="about.html">方法と出典</a></p></main>

@@ -43,10 +43,10 @@
       <div class="flex-1">
         <a href="index.html" class="text-lg font-bold tracking-tight"
           >Keizai Atlas
-          <span class="text-xs font-normal text-base-content/60 ml-2 hidden sm:inline">経済の地図帳</span></a
+          <span class="text-xs font-normal text-base-content/70 ml-2 hidden sm:inline">経済の地図帳</span></a
         >
       </div>
-      <nav class="flex-none gap-1 items-center flex">
+      <nav aria-label="サイト内の主なページ" class="flex-none gap-1 items-center flex">
         <span class="hidden lg:flex gap-1"
           ><a class="btn btn-ghost btn-sm" href="guide.html">入門</a
           ><a class="btn btn-ghost btn-sm" href="explorer.html">産業マップ</a
@@ -80,8 +80,8 @@
       </nav>
     </header>
     <style>
-      [data-theme="night"] #xp{--bg:#0b1120;--panel:#0f172a;--panel2:#16213a;--fg:#e2e8f0;--muted:#94a3b8;--line:#1e293b;--accent:#38bdf8;--up:#38bdf8;--flat:#64748b;--down:#fb923c;--graph:#070c18;--label:#e2e8f0;--chip:#1e293b;--link:#8aa0c0;--lin:#67e8f9;--lout:#4f8dfd;color-scheme:dark}
-      [data-theme="nord"] #xp{--bg:#e5e9f0;--panel:#ffffff;--panel2:#eceff4;--fg:#2e3440;--muted:#5b6578;--line:#d8dee9;--accent:#5e81ac;--up:#3b6fb0;--flat:#8d94a3;--down:#c8501f;--graph:#eceff4;--label:#2e3440;--chip:#d8dee9;--link:#6b7a90;--lin:#0e9fbd;--lout:#1d4ed8;color-scheme:light}
+      [data-theme="night"] #xp{--bg:#0b1120;--panel:#0f172a;--panel2:#16213a;--fg:#e2e8f0;--muted:#94a3b8;--line:#1e293b;--accent:#38bdf8;--accentfg:#0b1120;--up:#38bdf8;--flat:#64748b;--down:#fb923c;--graph:#070c18;--label:#e2e8f0;--chip:#1e293b;--link:#8aa0c0;--lin:#67e8f9;--lout:#4f8dfd;color-scheme:dark}
+      [data-theme="nord"] #xp{--bg:#e5e9f0;--panel:#ffffff;--panel2:#eceff4;--fg:#2e3440;--muted:#5b6578;--line:#d8dee9;--accent:#3f6390;--accentfg:#ffffff;--up:#3b6fb0;--flat:#8d94a3;--down:#c8501f;--graph:#eceff4;--label:#2e3440;--chip:#d8dee9;--link:#6b7a90;--lin:#0e9fbd;--lout:#1d4ed8;color-scheme:light}
     </style>
     <style>
       #xp {
@@ -155,7 +155,7 @@
       }
       #xp button[aria-pressed="true"] {
         background: var(--accent);
-        color: #fff;
+        color: var(--accentfg);
         border-color: var(--accent);
       }
       #xp button:disabled {
@@ -1345,7 +1345,12 @@
         refresh();
       }).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
     </script>
-    <section id="fb" class="max-w-3xl mx-auto w-full px-4 mt-12" data-sitekey="0x4AAAAAAFUK5Vw22jfpltSW">
+    <section
+      id="fb"
+      aria-label="読者の反応"
+      class="max-w-3xl mx-auto w-full px-4 mt-12"
+      data-sitekey="0x4AAAAAAFUK5Vw22jfpltSW"
+    >
       <div class="rounded-box border border-base-300 bg-base-100 p-5 space-y-3">
         <div class="flex flex-wrap items-center gap-3">
           <p class="font-bold">このページは役に立ちましたか？</p>
@@ -1369,7 +1374,7 @@
               <button class="btn btn-sm btn-primary" type="submit">送信</button
               ><span id="fb-msg" class="text-sm" aria-live="polite"></span>
             </div>
-            <p class="text-xs text-base-content/60">
+            <p class="text-xs text-base-content/70">
               名前やメールアドレスは不要です。保存するのは送信内容とページ名だけで、IPアドレスなどは保存しません。個別の返信はできません。
             </p>
           </form>

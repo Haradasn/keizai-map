@@ -43,10 +43,10 @@
       <div class="flex-1">
         <a href="index.html" class="text-lg font-bold tracking-tight"
           >Keizai Atlas
-          <span class="text-xs font-normal text-base-content/60 ml-2 hidden sm:inline">経済の地図帳</span></a
+          <span class="text-xs font-normal text-base-content/70 ml-2 hidden sm:inline">経済の地図帳</span></a
         >
       </div>
-      <nav class="flex-none gap-1 items-center flex">
+      <nav aria-label="サイト内の主なページ" class="flex-none gap-1 items-center flex">
         <span class="hidden lg:flex gap-1"
           ><a class="btn btn-ghost btn-sm" href="guide.html">入門</a
           ><a class="btn btn-ghost btn-sm" href="explorer.html">産業マップ</a
@@ -326,7 +326,12 @@
     <script type="application/ld+json">
       {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "産業連関表は誰が作っているのですか？", "acceptedAnswer": {"@type": "Answer", "text": "総務省を中心とする複数の府省庁が共同で、5年ごとに作成しています（基本表）。経済産業省が、基本表のない年を推計した延長産業連関表を毎年作っています。"}}, {"@type": "Question", "name": "産業連関表からは何が分かりますか？", "acceptedAnswer": {"@type": "Answer", "text": "ある産業が、どの産業から何を仕入れ、どの産業に売っているかが分かります。そこから、産業の規模、付加価値の大きさ、輸入への頼り方、ある産業の需要が他の産業にどれだけ波及するかを計算できます。"}}, {"@type": "Question", "name": "このサイトの数字は最新ですか？", "acceptedAnswer": {"@type": "Answer", "text": "産業連関表そのものは、基本表が2020年、延長表が2022年までです。2023年以降は、日本銀行・経済産業省・財務省の月次統計で補った「最新動向」のページで確認できます（毎週自動で更新を確認しています）。"}}, {"@type": "Question", "name": "このサイトの分析は投資の参考にできますか？", "acceptedAnswer": {"@type": "Answer", "text": "できません。個人が趣味で行っている統計の分析で、「仮説」と書いた部分は筆者の推測です。投資や経営の判断の根拠にはしないでください。"}}]}
     </script>
-    <section id="fb" class="max-w-3xl mx-auto w-full px-4 mt-12" data-sitekey="0x4AAAAAAFUK5Vw22jfpltSW">
+    <section
+      id="fb"
+      aria-label="読者の反応"
+      class="max-w-3xl mx-auto w-full px-4 mt-12"
+      data-sitekey="0x4AAAAAAFUK5Vw22jfpltSW"
+    >
       <div class="rounded-box border border-base-300 bg-base-100 p-5 space-y-3">
         <div class="flex flex-wrap items-center gap-3">
           <p class="font-bold">このページは役に立ちましたか？</p>
@@ -350,7 +355,7 @@
               <button class="btn btn-sm btn-primary" type="submit">送信</button
               ><span id="fb-msg" class="text-sm" aria-live="polite"></span>
             </div>
-            <p class="text-xs text-base-content/60">
+            <p class="text-xs text-base-content/70">
               名前やメールアドレスは不要です。保存するのは送信内容とページ名だけで、IPアドレスなどは保存しません。個別の返信はできません。
             </p>
           </form>

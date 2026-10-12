@@ -2,7 +2,7 @@
 {% from "_macros.html.j2" import ind_link, stat_grid, section, chart_card, data_table %}
 {% from "_charts.html.j2" import stacked_bar, column_chart %}
 <main class="flex-1 w-full max-w-4xl mx-auto px-4 py-10 space-y-8">⏎
-<nav class="text-sm breadcrumbs"><ul>
+<nav aria-label="パンくずリスト" class="text-sm breadcrumbs"><ul>
   <li><a href="industries.html">産業一覧</a></li>
   <li><a href="industry/{{ sector_id }}.html">{{ sector_name|esc }}</a></li>
   <li>{{ name|esc }}</li>
@@ -42,5 +42,5 @@
     {% for item in siblings %}{{ ind_link(item.href, item.text) }}{{ "、" if not loop.last else "" }}{% else %}なし{% endfor %}
   </p>
 {% endcall %}⏎
-<p class="text-xs text-base-content/60">出典：総務省ほか「産業連関表」（2011・2015・2020年、108部門）を筆者が集計。成長率は接続産業連関表による実質値。政府が作成したものではありません。<a class="link" href="about.html">方法と出典</a></p>⏎
+<p class="text-xs text-base-content/70">出典：総務省ほか「産業連関表」（2011・2015・2020年、108部門）を筆者が集計。成長率は接続産業連関表による実質値。政府が作成したものではありません。<a class="link" href="about.html">方法と出典</a></p>⏎
 </main>

@@ -43,10 +43,10 @@
       <div class="flex-1">
         <a href="index.html" class="text-lg font-bold tracking-tight"
           >Keizai Atlas
-          <span class="text-xs font-normal text-base-content/60 ml-2 hidden sm:inline">経済の地図帳</span></a
+          <span class="text-xs font-normal text-base-content/70 ml-2 hidden sm:inline">経済の地図帳</span></a
         >
       </div>
-      <nav class="flex-none gap-1 items-center flex">
+      <nav aria-label="サイト内の主なページ" class="flex-none gap-1 items-center flex">
         <span class="hidden lg:flex gap-1"
           ><a class="btn btn-ghost btn-sm" href="guide.html">入門</a
           ><a class="btn btn-ghost btn-sm" href="explorer.html">産業マップ</a
@@ -292,7 +292,12 @@
           function Y(v) {
             return T + (H - T - Bt) * (1 - v / mx);
           }
-          var s = '<svg viewBox="0 0 ' + W + " " + H + '" width="100%" role="img" style="font-size:11px">';
+          var s =
+            '<svg viewBox="0 0 ' +
+            W +
+            " " +
+            H +
+            '" width="100%" role="img" aria-label="デジタル関連の海外への支払いと受け取り(年別、兆円)" style="font-size:11px">';
           for (var v = 0; v <= mx; v++)
             s +=
               '<line x1="' +
@@ -395,7 +400,12 @@
         })();
       })();
     </script>
-    <section id="fb" class="max-w-3xl mx-auto w-full px-4 mt-12" data-sitekey="0x4AAAAAAFUK5Vw22jfpltSW">
+    <section
+      id="fb"
+      aria-label="読者の反応"
+      class="max-w-3xl mx-auto w-full px-4 mt-12"
+      data-sitekey="0x4AAAAAAFUK5Vw22jfpltSW"
+    >
       <div class="rounded-box border border-base-300 bg-base-100 p-5 space-y-3">
         <div class="flex flex-wrap items-center gap-3">
           <p class="font-bold">このページは役に立ちましたか？</p>
@@ -419,7 +429,7 @@
               <button class="btn btn-sm btn-primary" type="submit">送信</button
               ><span id="fb-msg" class="text-sm" aria-live="polite"></span>
             </div>
-            <p class="text-xs text-base-content/60">
+            <p class="text-xs text-base-content/70">
               名前やメールアドレスは不要です。保存するのは送信内容とページ名だけで、IPアドレスなどは保存しません。個別の返信はできません。
             </p>
           </form>

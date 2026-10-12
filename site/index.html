@@ -46,10 +46,10 @@
       <div class="flex-1">
         <a href="index.html" class="text-lg font-bold tracking-tight"
           >Keizai Atlas
-          <span class="text-xs font-normal text-base-content/60 ml-2 hidden sm:inline">経済の地図帳</span></a
+          <span class="text-xs font-normal text-base-content/70 ml-2 hidden sm:inline">経済の地図帳</span></a
         >
       </div>
-      <nav class="flex-none gap-1 items-center flex">
+      <nav aria-label="サイト内の主なページ" class="flex-none gap-1 items-center flex">
         <span class="hidden lg:flex gap-1"
           ><a class="btn btn-ghost btn-sm" href="guide.html">入門</a
           ><a class="btn btn-ghost btn-sm" href="explorer.html">産業マップ</a
@@ -169,7 +169,7 @@
         .ins-src {
           margin-top: 0.5rem;
           font-size: 0.6875rem;
-          color: oklch(var(--bc) / 0.55);
+          color: oklch(var(--bc) / 0.7);
         }
         .ins-more {
           display: inline-block;
@@ -262,7 +262,7 @@
           left: 0.75rem;
           top: 0.6rem;
           font-size: 11px;
-          color: oklch(var(--bc) / 0.65);
+          color: oklch(var(--bc) / 0.75);
           pointer-events: none;
           display: flex;
           align-items: center;
@@ -279,8 +279,8 @@
           background: linear-gradient(to right, #bedef2, #0e87c8, #0369a1);
         }
         [data-prefmap="hero"] .maplibregl-ctrl-attrib {
-          background: oklch(var(--b1) / 0.45);
-          color: oklch(var(--bc) / 0.5);
+          background: oklch(var(--b1) / 0.6);
+          color: oklch(var(--bc) / 0.75);
           font-size: 10px;
           border-radius: 4px;
           margin: 0 6px 4px 0;
@@ -401,11 +401,11 @@
         }
       </style>
       <section class="max-w-5xl mx-auto px-4 pt-8 sm:pt-10 pb-4">
-        <p class="text-xs tracking-wide text-base-content/60">Keizai Atlas｜公的統計で読む日本経済</p>
+        <p class="text-xs tracking-wide text-base-content/70">Keizai Atlas｜公的統計で読む日本経済</p>
         <h1 class="mt-2 text-2xl sm:text-4xl font-bold tracking-tight leading-snug">
           統計から、<br class="sm:hidden" />日本経済の“なるほど”を。
         </h1>
-        <p class="mt-2 text-xs sm:text-sm text-base-content/65 max-w-2xl">
+        <p class="mt-2 text-xs sm:text-sm text-base-content/70 max-w-2xl">
           産業連関表など公的統計を、趣味で集計して眺めています。政府が作成・保証したものではありません。
         </p>
         <div
@@ -417,7 +417,7 @@
         >
           <div class="ins-grid">
             <div class="ins-stack" id="ins-stack">
-              <article class="ins-slide" role="group" aria-roledescription="スライド" aria-label="1 / 5 地域">
+              <div class="ins-slide" role="group" aria-roledescription="スライド" aria-label="1 / 5 地域">
                 <p class="ins-lens">地域</p>
                 <h2 class="m-0">
                   <span class="ins-lead">輸送機械は、特定の県に</span
@@ -436,8 +436,8 @@
                   >の0.5%以上を占める県のうち、集中度が最も高い県。
                 </p>
                 <a class="ins-more" href="prefecture-map.html">詳しく見る →</a>
-              </article>
-              <article class="ins-slide" role="group" aria-roledescription="スライド" aria-label="2 / 5 変化">
+              </div>
+              <div class="ins-slide" role="group" aria-roledescription="スライド" aria-label="2 / 5 変化">
                 <p class="ins-lens">変化</p>
                 <h2 class="m-0">
                   <span class="ins-lead">海外へのデジタル支払いが、約1.9倍に</span
@@ -453,8 +453,8 @@
                 </p>
                 <p class="ins-src">出典：国際収支（通信・コンピュータ・情報サービス、支払い）</p>
                 <a class="ins-more" href="latest.html#digital-pay">詳しく見る →</a>
-              </article>
-              <article class="ins-slide" role="group" aria-roledescription="スライド" aria-label="3 / 5 変化">
+              </div>
+              <div class="ins-slide" role="group" aria-roledescription="スライド" aria-label="3 / 5 変化">
                 <p class="ins-lens">変化</p>
                 <h2 class="m-0">
                   <span class="ins-lead">原油の輸入は、量は減り、単価は上がった</span
@@ -464,8 +464,8 @@
                 <p class="ins-mean">つまり、輸入額の増減の大半は、量ではなく単価の動きです。</p>
                 <p class="ins-src">出典：貿易統計</p>
                 <a class="ins-more" href="latest.html#energy-import">詳しく見る →</a>
-              </article>
-              <article class="ins-slide" role="group" aria-roledescription="スライド" aria-label="4 / 5 世界">
+              </div>
+              <div class="ins-slide" role="group" aria-roledescription="スライド" aria-label="4 / 5 世界">
                 <p class="ins-lens">世界</p>
                 <h2 class="m-0">
                   <span class="ins-lead">外注に使う割合は、日本は米国の半分以下</span
@@ -484,13 +484,8 @@
                   >（国際産業連関表）
                 </p>
                 <a class="ins-more" href="international.html#outsourcing">詳しく見る →</a>
-              </article>
-              <article
-                class="ins-slide"
-                role="group"
-                aria-roledescription="スライド"
-                aria-label="5 / 5 つながり"
-              >
+              </div>
+              <div class="ins-slide" role="group" aria-roledescription="スライド" aria-label="5 / 5 つながり">
                 <p class="ins-lens">つながり</p>
                 <h2 class="m-0">
                   <span class="ins-lead" data-f="lead5">金額の大きい産業間の取引の多くは、</span
@@ -504,7 +499,7 @@
                   出典：産業連関表（2020年、37部門）を筆者が集計。同じ産業の中での取引は除く。
                 </p>
                 <a class="ins-more" data-f="more5" href="explorer.html">詳しく見る →</a>
-              </article>
+              </div>
             </div>
             <div class="ins-vis" aria-label="スライドの図">
               <div class="ins-v map" data-v="0">
@@ -514,7 +509,7 @@
                     data-prefmap="hero"
                     data-k="35"
                     style="width: 100%; height: 100%"
-                    role="img"
+                    role="region"
                     aria-label="都道府県を輸送機械の産出額の高さで表した、ゆっくり回る日本の立体地図"
                   ></div>
                 </div>
@@ -638,7 +633,7 @@
               </svg>
             </button>
             <span class="flex-1"></span>
-            <span class="text-xs text-base-content/55 tabular-nums" id="ins-count" aria-hidden="true"
+            <span class="text-xs text-base-content/70 tabular-nums" id="ins-count" aria-hidden="true"
               >1 / 5</span
             >
             <button type="button" id="ins-pause" aria-label="自動切り替えを止める" aria-pressed="false">
@@ -717,7 +712,7 @@
             </div>
           </div>
         </div>
-        <p class="text-sm text-base-content/65 mt-3">
+        <p class="text-sm text-base-content/70 mt-3">
           はじめての方は <a class="link link-primary" href="guide.html">入門ガイド</a> から。
         </p>
       </section>
@@ -736,7 +731,7 @@
               <p class="text-sm text-base-content/80">
                 2019年→2025年。通信・コンピュータ・情報サービスの国際収支（支払い）。約1.9倍です。
               </p>
-              <p class="text-xs text-base-content/50 mt-1">出典：国際収支 →</p>
+              <p class="text-xs text-base-content/70 mt-1">出典：国際収支 →</p>
             </div></a
           >
           <a
@@ -748,7 +743,7 @@
               <p class="text-sm text-base-content/80">
                 2019年比（2025年）。円建ての単価は約1.5倍で、輸入額の増減の大半は単価の動きです。
               </p>
-              <p class="text-xs text-base-content/50 mt-1">出典：貿易統計 →</p>
+              <p class="text-xs text-base-content/70 mt-1">出典：貿易統計 →</p>
             </div></a
           >
           <a
@@ -760,7 +755,7 @@
               <p class="text-sm text-base-content/80">
                 2022年12月→2026年8月。需要に供給が追いつかない状態の可能性があります（仮説）。
               </p>
-              <p class="text-xs text-base-content/50 mt-1">出典：SPPI・第3次産業活動指数 →</p>
+              <p class="text-xs text-base-content/70 mt-1">出典：SPPI・第3次産業活動指数 →</p>
             </div></a
           >
           <a
@@ -772,7 +767,7 @@
               <p class="text-sm text-base-content/80">
                 仕入れに占める専門・事業支援サービスの割合（2022年）。ドイツ16%、韓国8%です。
               </p>
-              <p class="text-xs text-base-content/50 mt-1">出典：OECD ICIO →</p>
+              <p class="text-xs text-base-content/70 mt-1">出典：OECD ICIO →</p>
             </div></a
           >
           <a
@@ -784,7 +779,7 @@
               <p class="text-sm text-base-content/80">
                 日本、2016年→2022年。デジタル関連の仕入れのうち、輸入の割合です。
               </p>
-              <p class="text-xs text-base-content/50 mt-1">出典：OECD ICIO →</p>
+              <p class="text-xs text-base-content/70 mt-1">出典：OECD ICIO →</p>
             </div></a
           >
           <a
@@ -796,7 +791,7 @@
               <p class="text-sm text-base-content/80">
                 取引の相手の似かたをランダムと比べると、どれもずっと近い結果でした。うち1つは、近さを見て組み替えたものです。
               </p>
-              <p class="text-xs text-base-content/50 mt-1">出典：産業連関表 →</p>
+              <p class="text-xs text-base-content/70 mt-1">出典：産業連関表 →</p>
             </div></a
           >
         </div>
@@ -818,7 +813,12 @@
         </div>
       </section>
     </main>
-    <section id="fb" class="max-w-3xl mx-auto w-full px-4 mt-12" data-sitekey="0x4AAAAAAFUK5Vw22jfpltSW">
+    <section
+      id="fb"
+      aria-label="読者の反応"
+      class="max-w-3xl mx-auto w-full px-4 mt-12"
+      data-sitekey="0x4AAAAAAFUK5Vw22jfpltSW"
+    >
       <div class="rounded-box border border-base-300 bg-base-100 p-5 space-y-3">
         <div class="flex flex-wrap items-center gap-3">
           <p class="font-bold">このページは役に立ちましたか？</p>
@@ -842,7 +842,7 @@
               <button class="btn btn-sm btn-primary" type="submit">送信</button
               ><span id="fb-msg" class="text-sm" aria-live="polite"></span>
             </div>
-            <p class="text-xs text-base-content/60">
+            <p class="text-xs text-base-content/70">
               名前やメールアドレスは不要です。保存するのは送信内容とページ名だけで、IPアドレスなどは保存しません。個別の返信はできません。
             </p>
           </form>
