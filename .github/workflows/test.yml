@@ -4,6 +4,9 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
+# テストは読むだけ(GITHUB_TOKEN の権限を最小に)
+permissions:
+  contents: read
 jobs:
   smoke:
     runs-on: ubuntu-latest
