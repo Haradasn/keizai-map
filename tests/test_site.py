@@ -594,3 +594,11 @@ def test_security_headers_served(base):
     csp = h["Content-Security-Policy"]
     assert "object-src 'none'" in csp and "frame-ancestors 'none'" in csp
     assert h["X-Content-Type-Options"] == "nosniff"
+
+
+def test_data_checks_pass():
+    """scripts/check_data.py の形の検査が通ること(比較元なし)"""
+    import subprocess, sys
+
+    p = subprocess.run([sys.executable, str(R / "scripts/check_data.py")], capture_output=True, text=True)
+    assert p.returncode == 0, p.stdout[-2000:]

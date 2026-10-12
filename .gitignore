@@ -6,3 +6,4 @@ raw/
 data/import.cypher
 data/industry_graph.graphml
 data/*.png
+data-check.md

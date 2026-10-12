@@ -16,6 +16,11 @@ jobs:
         with: {node-version: "22"}
       - name: コードの整形・静的チェック(ruff / prettier)
         run: pip install ruff && ruff format --check . && ruff check .
+      - name: データの検査(形と、比較元からの変化)
+        run: |
+          git fetch -q --depth=1 origin ${{ github.base_ref || 'main' }}
+          python3 scripts/check_data.py --base FETCH_HEAD --github --report data-check.md
+          cat data-check.md >> $GITHUB_STEP_SUMMARY
       - run: npm install --no-audit --no-fund
       - name: ビルド(ページ生成 → 出力HTMLの整形 → CSS)
         run: npm run build && npm run build:css && npm run format:check

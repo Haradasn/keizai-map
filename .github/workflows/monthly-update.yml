@@ -41,6 +41,8 @@ jobs:
               assert new>=old,(f,new,old)
               print("::notice::%s 最新月 %s (前回 %s)"%(f,new,old))
           P
+      - name: データの検査(形の異常があれば PR を作らずに止める)
+        run: python3 scripts/check_data.py --base HEAD --github --report /tmp/data-check.md
       - name: 変更の有無
         id: diff
         run: |
@@ -57,7 +59,7 @@ jobs:
           git checkout -b "$B"; git add data site pages
           git commit -m "最新動向のデータ更新($(date -u +%Y-%m-%d))"
           git push -u origin "$B"
-          { echo "日銀・経産省・財務省の最新データで、最新動向ページを自動更新しました。本文の数字はデータから自動計算されています。"; echo; echo "### 数値の変化"; echo '```'; diff /tmp/old_metrics.txt /tmp/new_metrics.txt | grep '^[<>]' || true; echo '```'; echo; echo "**確認してほしいこと**: 解釈の文章(「〜の可能性があります」など)が、新しい数字と矛盾していないか。"; } > /tmp/body.md
+          { echo "日銀・経産省・財務省の最新データで、最新動向ページを自動更新しました。本文の数字はデータから自動計算されています。"; echo; echo "### 数値の変化"; echo '```'; diff /tmp/old_metrics.txt /tmp/new_metrics.txt | grep '^[<>]' || true; echo '```'; echo; cat /tmp/data-check.md; echo; echo "**確認してほしいこと**: 解釈の文章(「〜の可能性があります」など)が、新しい数字と矛盾していないか。"; } > /tmp/body.md
           gh workflow run test.yml --ref "$B" || echo "::warning::テストの起動に失敗"
           gh pr create --base main --head "$B" --title "最新動向のデータ更新($(date -u +%Y-%m-%d))" --body-file /tmp/body.md \
             || echo "::warning::PR作成に失敗。Settings > Actions > General > Workflow permissions で 'Allow GitHub Actions to create and approve pull requests' を有効にしてください。ブランチ $B は作成済みです"
