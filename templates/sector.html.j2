@@ -22,6 +22,7 @@
       <b>{{ s.source|esc }} → {{ s.target|esc }}（{{ s.value }}兆円）<span class="badge badge-outline badge-sm ml-2">確度{{ s.confidence|esc }}</span></b>
       <p class="text-sm">{{ s.story|esc }}</p>
       <p class="text-xs text-base-content/70">根拠の目安：{{ s.basis|esc }}</p>
+      <p><button type="button" class="link link-primary text-xs" data-hyp="{{ s.source|esc }}→{{ s.target|esc }}">この仮説に補足・反論を送る</button></p>
     </div></div>
     {% endfor %}
   {% endcall %}

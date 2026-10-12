@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="ja" data-theme="night">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>就活・転職・探究に使う（業界研究と探究学習のガイド）｜Keizai Atlas</title>
+    <meta
+      name="description"
+      content="大学生の業界研究、社会人の転職、高校の探究学習で、公的統計（産業連関表）を使うためのガイド。業界の規模・伸び・稼ぐ力・取引先の見方と、探究の問いの例。"
+    />
+    <link rel="canonical" href="https://keizai-atlas.com/learn" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Keizai Atlas" />
+    <meta property="og:title" content="就活・転職・探究に使う（業界研究と探究学習のガイド）｜Keizai Atlas" />
+    <meta
+      property="og:description"
+      content="大学生の業界研究、社会人の転職、高校の探究学習で、公的統計（産業連関表）を使うためのガイド。業界の規模・伸び・稼ぐ力・取引先の見方と、探究の問いの例。"
+    />
+    <meta property="og:url" content="https://keizai-atlas.com/learn" />
+    <meta property="og:image" content="https://keizai-atlas.com/og.png" />
+    <meta property="og:locale" content="ja_JP" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#0b1120" />
+    <link
+      rel="alternate"
+      type="application/atom+xml"
+      title="更新情報"
+      href="https://keizai-atlas.com/feed.xml"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets.css" />
+    <script>
+      try{var t=localStorage.getItem("theme");if(t!=="nord")t="night";document.documentElement.dataset.theme=t}catch(e){}
+    </script>
+  </head>
+  <body class="bg-base-200 text-base-content font-sans min-h-screen flex flex-col">
+    <header class="navbar bg-base-100/80 backdrop-blur border-b border-base-300 sticky top-0 z-50 px-4">
+      <div class="flex-1">
+        <a href="index.html" class="text-lg font-bold tracking-tight"
+          >Keizai Atlas
+          <span class="text-xs font-normal text-base-content/70 ml-2 hidden sm:inline">経済の地図帳</span></a
+        >
+      </div>
+      <nav aria-label="サイト内の主なページ" class="flex-none gap-1 items-center flex">
+        <span class="hidden lg:flex gap-1"
+          ><a class="btn btn-ghost btn-sm" href="guide.html">入門</a
+          ><a class="btn btn-ghost btn-sm" href="explorer.html">産業マップ</a
+          ><a class="btn btn-ghost btn-sm" href="industries.html">産業一覧</a
+          ><a class="btn btn-ghost btn-sm" href="prefectures.html">県別</a
+          ><a class="btn btn-ghost btn-sm" href="similarity.html">近さの地図</a
+          ><a class="btn btn-ghost btn-sm" href="latest.html">最新動向</a
+          ><a class="btn btn-ghost btn-sm" href="international.html">国際比較</a
+          ><a class="btn btn-ghost btn-sm" href="about.html">方法と出典</a></span
+        >
+        <div class="dropdown dropdown-end lg:hidden">
+          <label tabindex="0" class="btn btn-ghost btn-sm" aria-label="メニュー">☰</label>
+          <ul
+            tabindex="0"
+            class="menu dropdown-content z-50 mt-2 p-2 shadow bg-base-100 border border-base-300 rounded-box w-44"
+          >
+            <li><a href="guide.html">入門</a></li>
+            <li><a href="explorer.html">産業マップ</a></li>
+            <li><a href="industries.html">産業一覧</a></li>
+            <li><a href="prefectures.html">県別</a></li>
+            <li><a href="similarity.html">近さの地図</a></li>
+            <li><a href="latest.html">最新動向</a></li>
+            <li><a href="international.html">国際比較</a></li>
+            <li><a href="about.html">方法と出典</a></li>
+          </ul>
+        </div>
+        <label class="swap swap-rotate btn btn-ghost btn-sm btn-circle" aria-label="テーマ切替"
+          ><input type="checkbox" id="thm" /><span class="swap-on">☀</span
+          ><span class="swap-off">☾</span></label
+        >
+      </nav>
+    </header>
+    <main class="flex-1 w-full max-w-3xl mx-auto px-4 py-10 space-y-10">
+      <header class="space-y-3">
+        <h1 class="text-3xl font-bold">就活・転職・探究に使う</h1>
+        <p class="text-base-content/80">
+          大学生の業界研究、社会人の転職先選び、高校の「総合的な探究の時間」で、このサイトを使うためのガイドです。数字はすべて公的統計（産業連関表など）を筆者が集計したもので、政府が作成したものではありません。サイト内の「<a
+            class="underline decoration-dotted underline-offset-4 hover:text-primary"
+            href="glossary.html#kasetsu"
+            >仮説</a
+          >」は筆者の推測で、確かめられた事実ではありません。
+        </p>
+      </header>
+
+      <section class="space-y-4" aria-labelledby="job">
+        <h2 id="job" class="text-2xl font-bold">1. 就活・転職の業界研究に使う</h2>
+        <p class="text-base-content/80">
+          会社のホームページや説明会では「その会社から見た業界」しか分かりません。統計で業界全体を眺めると、志望理由や面接での話に、自分なりの視点を足せます。
+        </p>
+        <ol class="list-decimal pl-6 space-y-3">
+          <li>
+            <b>業界の大きさと伸びを見る。</b>
+            <a class="link link-primary" href="industries.html">産業一覧</a
+            >から業界のページを開き、生産額（規模）と実質の増減（伸び）を見ます。
+          </li>
+          <li>
+            <b>「稼ぐ力」を見る。</b>
+            <a
+              class="underline decoration-dotted underline-offset-4 hover:text-primary"
+              href="glossary.html#fuka-kachi-ritsu"
+              >付加価値率</a
+            >は、売上のうち給料と利益などに回る割合です。高いほど、仕入れた物に自分たちの価値を多く足している業界です。
+          </li>
+          <li>
+            <b>誰から買い、誰に売るかを見る。</b>
+            <a class="link link-primary" href="explorer.html?sel=35">産業マップ</a
+            >で業界を選ぶと、仕入れ先と販売先が浮かび上がります。売り先の業界が伸びているか、仕入れ先の値上がりの影響を受けやすいかが分かります。
+          </li>
+          <li>
+            <b>周りの業界に広げる。</b>
+            <a class="link link-primary" href="similarity.html">近さの地図</a
+            >では、取引の形が似た業界が近くに並びます。志望業界の隣にある業界も、候補として見えてきます。
+          </li>
+          <li>
+            <b>転職では「今の業界とのつながり」から探す。</b>
+            今の業界の仕入れ先・販売先の業界は、顧客や取引の知識がそのまま活きる転職先の候補です。近さの地図で隣にある業界は、取引の形が似ているので、業界の知識を活かしやすい可能性があります。
+          </li>
+          <li>
+            <b>働く場所の産業を見る。</b>
+            <a class="link link-primary" href="prefecture-map.html">県別の立体地図</a
+            >で、地元や勤務を考える地域が何で稼いでいるかを確かめられます。
+          </li>
+        </ol>
+        <div class="rounded-box border border-base-300 bg-base-100 p-4 text-sm space-y-1">
+          <p class="font-bold">使うときの注意</p>
+          <ul class="list-disc pl-5 space-y-1 text-base-content/80">
+            <li>
+              産業連関表は数年に一度の統計で、最新は2020年（コロナ禍の年）です。直近の動きは各社の決算資料などで補ってください。
+            </li>
+            <li>業界全体の平均なので、個々の会社の状況とは違います。</li>
+            <li>
+              面接で話すときは「統計の数字（事実）」と「自分の考え（仮説）」を分けて話すと、説得力が増します。
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="space-y-4" aria-labelledby="inquiry">
+        <h2 id="inquiry" class="text-2xl font-bold">2. 探究学習の「問い」に使う</h2>
+        <p class="text-base-content/80">
+          問いの例です。どれも、このサイトのページに手がかりがあり、さらに公的統計で確かめることができます。答えは一つとは限りません。
+        </p>
+        <div class="grid gap-3">
+          <div class="card bg-base-100 border border-base-300">
+            <div class="card-body p-4 gap-1">
+              <p class="font-bold">なぜ、自動車づくりの費用に占める鉄の割合は下がったのか？</p>
+              <p class="text-sm text-base-content/80">
+                手がかり：<a class="link link-primary" href="explorer.html?sel=35">産業マップ（輸送機械）</a
+                >の、鉄鋼とプラスチック・ゴム製品からの仕入れ。調べ方：鉄鋼の用途別の出荷、車の軽量化の動き。
+              </p>
+            </div>
+          </div>
+          <div class="card bg-base-100 border border-base-300">
+            <div class="card-body p-4 gap-1">
+              <p class="font-bold">自分の県は何で稼いでいて、全国と比べて何が得意なのか？</p>
+              <p class="text-sm text-base-content/80">
+                手がかり：<a class="link link-primary" href="prefectures.html">県別の産業構造</a
+                >の特化係数。調べ方：県の産業連関表、工場や観光地の立地。
+              </p>
+            </div>
+          </div>
+          <div class="card bg-base-100 border border-base-300">
+            <div class="card-body p-4 gap-1">
+              <p class="font-bold">円安になると、どの産業のコストが上がりやすいのか？</p>
+              <p class="text-sm text-base-content/80">
+                手がかり：<a class="link link-primary" href="fx.html">円安と輸入品</a
+                >の、輸入品の含有率。調べ方：日本銀行の輸入物価指数、為替レート。
+              </p>
+            </div>
+          </div>
+          <div class="card bg-base-100 border border-base-300">
+            <div class="card-body p-4 gap-1">
+              <p class="font-bold">コロナ禍の2020年、取引が大きく減ったのはどの産業か？ それはなぜか？</p>
+              <p class="text-sm text-base-content/80">
+                手がかり：<a class="link link-primary" href="explorer.html?sel=67"
+                  >産業マップ（対個人サービス）</a
+                >の仕入れ先。調べ方：宿泊旅行統計、外食産業の売上の統計。
+              </p>
+            </div>
+          </div>
+          <div class="card bg-base-100 border border-base-300">
+            <div class="card-body p-4 gap-1">
+              <p class="font-bold">日本が海外に払うデジタル関連の代金は、なぜ増えているのか？</p>
+              <p class="text-sm text-base-content/80">
+                手がかり：<a class="link link-primary" href="latest.html#digital-pay">最新動向</a>の<a
+                  class="underline decoration-dotted underline-offset-4 hover:text-primary"
+                  href="glossary.html#bop"
+                  >国際収支</a
+                >。調べ方：国際収支統計、クラウドや動画配信などの利用の広がり。
+              </p>
+            </div>
+          </div>
+          <div class="card bg-base-100 border border-base-300">
+            <div class="card-body p-4 gap-1">
+              <p class="font-bold">日本と他の国では、産業のつくりはどう違うのか？</p>
+              <p class="text-sm text-base-content/80">
+                手がかり：<a class="link link-primary" href="international.html">国際比較</a>。調べ方：OECD
+                の国際産業連関表。
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="rounded-box border border-base-300 bg-base-100 p-4 text-sm space-y-1">
+          <p class="font-bold">まとめ方のコツ</p>
+          <ul class="list-disc pl-5 space-y-1 text-base-content/80">
+            <li>「統計で分かったこと（事実）」と「自分の考え（仮説）」を分けて書く。</li>
+            <li>
+              数字には出典（統計の名前と年）を付ける。このサイトの数字を使うときは、もとの統計の名前と「Keizai
+              Atlas（筆者集計）」を書く。
+            </li>
+            <li>
+              仮説を確かめるための統計を、<a
+                class="link link-primary"
+                href="https://www.e-stat.go.jp/"
+                target="_blank"
+                rel="noopener"
+                >政府統計の総合窓口（e-Stat）</a
+              >で探してみる。
+            </li>
+            <li>
+              用語が分からないときは<a class="link link-primary" href="glossary.html">用語集</a>、仕組みは<a
+                class="link link-primary"
+                href="guide.html"
+                >入門ガイド</a
+              >へ。
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="space-y-3" aria-labelledby="voice">
+        <h2 id="voice" class="text-2xl font-bold">3. 仮説に意見を送る</h2>
+        <p class="text-base-content/80">
+          <a class="link link-primary" href="explorer.html">産業マップ</a
+          >や産業のページにある「筆者の仮説」には、「補足・反論を送る」ボタンがあります。その業界で働いている方の知見や、別の説明の可能性を歓迎します。届いた内容は確認したうえで、名前を出さずにサイトで紹介することがあります。
+        </p>
+        <p class="text-sm text-base-content/80">
+          送るときは、名前・学校名・連絡先など、個人が分かる情報は書かないでください。個別の返信はしていません。
+        </p>
+      </section>
+    </main>
+    <section
+      id="fb"
+      aria-label="読者の反応"
+      class="max-w-3xl mx-auto w-full px-4 mt-12"
+      data-sitekey="0x4AAAAAAFUK5Vw22jfpltSW"
+    >
+      <div class="rounded-box border border-base-300 bg-base-100 p-5 space-y-3">
+        <div class="flex flex-wrap items-center gap-3">
+          <p class="font-bold">このページは役に立ちましたか？</p>
+          <button id="fb-like" type="button" class="btn btn-sm btn-outline">👍 役に立った</button
+          ><span id="fb-like-msg" class="text-sm text-base-content/70" aria-live="polite"></span>
+        </div>
+        <details id="fb-req">
+          <summary class="cursor-pointer text-sm link link-primary">「こんな情報が欲しい」を送る</summary>
+          <form id="fb-form" class="mt-3 space-y-2">
+            <p id="fb-about" class="text-sm rounded-box bg-base-200 p-3" hidden></p>
+            <label for="fb-body" class="text-sm block"
+              >知りたいこと、見てみたい統計、気づいた誤りなど（500字まで）</label
+            ><textarea
+              id="fb-body"
+              maxlength="500"
+              rows="3"
+              class="textarea textarea-bordered w-full"
+              required
+            ></textarea>
+            <div id="fb-ts"></div>
+            <div class="flex items-center gap-3">
+              <button class="btn btn-sm btn-primary" type="submit">送信</button
+              ><span id="fb-msg" class="text-sm" aria-live="polite"></span>
+            </div>
+            <p class="text-xs text-base-content/70">
+              名前やメールアドレスは不要です。保存するのは送信内容とページ名だけで、IPアドレスなどは保存しません。個別の返信はできません。
+            </p>
+          </form>
+        </details>
+      </div>
+    </section>
+    <script src="/feedback.js" defer></script>
+    <footer
+      class="footer footer-center p-6 bg-base-100 border-t border-base-300 text-sm text-base-content/70 mt-12"
+    >
+      <p>
+        出典：総務省ほか「産業連関表」、経済産業省「延長産業連関表」（政府統計の総合窓口 e-Stat
+        掲載）を筆者が加工して作成。<br />加工・分析・「仮説」は筆者によるもので、政府が作成・保証したものではありません。投資・経営判断の根拠にはしないでください。
+      </p>
+      <p class="flex gap-4 flex-wrap justify-center">
+        <a class="link" href="guide.html">入門ガイド</a><a class="link" href="glossary.html">用語集</a
+        ><a class="link" href="learn.html">就活・転職・探究に使う</a
+        ><a class="link" href="industries.html">産業一覧</a><a class="link" href="prefectures.html">県別</a
+        ><a class="link" href="about.html">方法と出典・免責</a
+        ><a class="link" href="changelog.html">更新情報</a>
+      </p>
+    </footer>
+    <script>
+      document.getElementById("thm").checked=document.documentElement.dataset.theme==="nord";
+      document.getElementById("thm").onchange=function(e){var t=e.target.checked?"nord":"night";document.documentElement.dataset.theme=t;try{localStorage.setItem("theme",t)}catch(x){}}
+    </script>
+  </body>
+</html>

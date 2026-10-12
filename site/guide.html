@@ -321,7 +321,10 @@
           </div>
         </div>
       </section>
-      <p class="text-sm"><a class="btn btn-sm btn-outline" href="glossary.html">用語集を見る →</a></p>
+      <p class="text-sm flex flex-wrap gap-2">
+        <a class="btn btn-sm btn-outline" href="glossary.html">用語集を見る →</a>
+        <a class="btn btn-sm btn-outline" href="learn.html">就活・転職・探究に使う →</a>
+      </p>
     </main>
     <script type="application/ld+json">
       {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "産業連関表は誰が作っているのですか？", "acceptedAnswer": {"@type": "Answer", "text": "総務省を中心とする複数の府省庁が共同で、5年ごとに作成しています（基本表）。経済産業省が、基本表のない年を推計した延長産業連関表を毎年作っています。"}}, {"@type": "Question", "name": "産業連関表からは何が分かりますか？", "acceptedAnswer": {"@type": "Answer", "text": "ある産業が、どの産業から何を仕入れ、どの産業に売っているかが分かります。そこから、産業の規模、付加価値の大きさ、輸入への頼り方、ある産業の需要が他の産業にどれだけ波及するかを計算できます。"}}, {"@type": "Question", "name": "このサイトの数字は最新ですか？", "acceptedAnswer": {"@type": "Answer", "text": "産業連関表そのものは、基本表が2020年、延長表が2022年までです。2023年以降は、日本銀行・経済産業省・財務省の月次統計で補った「最新動向」のページで確認できます（毎週自動で更新を確認しています）。"}}, {"@type": "Question", "name": "このサイトの分析は投資の参考にできますか？", "acceptedAnswer": {"@type": "Answer", "text": "できません。個人が趣味で行っている統計の分析で、「仮説」と書いた部分は筆者の推測です。投資や経営の判断の根拠にはしないでください。"}}]}
@@ -341,6 +344,7 @@
         <details id="fb-req">
           <summary class="cursor-pointer text-sm link link-primary">「こんな情報が欲しい」を送る</summary>
           <form id="fb-form" class="mt-3 space-y-2">
+            <p id="fb-about" class="text-sm rounded-box bg-base-200 p-3" hidden></p>
             <label for="fb-body" class="text-sm block"
               >知りたいこと、見てみたい統計、気づいた誤りなど（500字まで）</label
             ><textarea
@@ -372,6 +376,7 @@
       </p>
       <p class="flex gap-4 flex-wrap justify-center">
         <a class="link" href="guide.html">入門ガイド</a><a class="link" href="glossary.html">用語集</a
+        ><a class="link" href="learn.html">就活・転職・探究に使う</a
         ><a class="link" href="industries.html">産業一覧</a><a class="link" href="prefectures.html">県別</a
         ><a class="link" href="about.html">方法と出典・免責</a
         ><a class="link" href="changelog.html">更新情報</a>

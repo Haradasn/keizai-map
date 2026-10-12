@@ -62,6 +62,27 @@
   det.addEventListener("toggle", function () {
     if (det.open) loadTs();
   });
+  // 仮説への補足・反論: [data-hyp] のボタン(産業マップ・産業ページ)から、対象の仮説を添えて入力欄を開く
+  var about = "",
+    aboutEl = document.getElementById("fb-about");
+  document.addEventListener("click", function (ev) {
+    var t = ev.target instanceof Element ? ev.target.closest("[data-hyp]") : null;
+    if (!t) return;
+    about = t.getAttribute("data-hyp") || "";
+    aboutEl.textContent =
+      "仮説「" +
+      about +
+      "」への補足・反論を送ります。業界の実情や、別の説明の可能性を教えてください。届いた内容は確認のうえ、名前を出さずにサイトで紹介することがあります。";
+    aboutEl.hidden = false;
+    var lb = document.querySelector('label[for="fb-body"]');
+    if (lb) lb.textContent = "補足・反論（500字まで）";
+    det.open = true;
+    box.scrollIntoView({ behavior: "smooth", block: "start" });
+    var ta = /** @type {HTMLTextAreaElement} */ (document.getElementById("fb-body"));
+    setTimeout(function () {
+      ta.focus({ preventScroll: true });
+    }, 400);
+  });
   form.addEventListener("submit", function (ev) {
     ev.preventDefault();
     var body = /** @type {HTMLTextAreaElement} */ (document.getElementById("fb-body")).value.trim();
@@ -78,7 +99,11 @@
     fetch("/api/request", {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify({ page: page, body: body, token: token }),
+      body: JSON.stringify({
+        page: page,
+        body: (about ? "【仮説 " + about + "】" : "") + body,
+        token: token,
+      }),
     })
       .then(function (r) {
         if (!r.ok) throw 0;

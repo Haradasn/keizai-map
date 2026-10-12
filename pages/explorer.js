@@ -573,7 +573,7 @@ function renderEdge(e) {
   const b20 =
     e.v != null
       ? `<h3>2020年(基本表)</h3><div class="kv"><div><b>${fmt(e.v, 1)}兆円</b><span>取引額</span></div><div><b>${fmt(e.sh, 1)}%</b><span>買い手の費用に占める割合</span></div><div><b>${sgn(e.g)}%</b><span>実質増減/年(2011→20)</span></div></div><div><b>目的:</b> ${e.p || "–"}</div>
-  ${e.story ? `<div class="story">${e.story}<small>確からしさ ${e.conf}(A=数字から確かめやすい / B=もっともらしいが未検証 / C=弱い推測)${e.ver ? "<br>確かめ方: " + e.ver : ""}</small></div>` : '<div class="note">この取引には、まだ個別の仮説を付けていません。</div>'}${e.cau ? `<div class="note">注意: ${e.cau}</div>` : ""}`
+  ${e.story ? `<div class="story">${e.story}<small>確からしさ ${e.conf}(A=数字から確かめやすい / B=もっともらしいが未検証 / C=弱い推測)${e.ver ? "<br>確かめ方: " + e.ver : ""}</small><button type="button" class="hyp-fb" data-hyp="${a.name}→${b.name}">この仮説に補足・反論を送る</button></div>` : '<div class="note">この取引には、まだ個別の仮説を付けていません。</div>'}${e.cau ? `<div class="note">注意: ${e.cau}</div>` : ""}`
       : "";
   const c22 =
     e.v22 != null
