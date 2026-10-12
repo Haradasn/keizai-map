@@ -19,7 +19,8 @@ def table(rows, name_row, first, code_col, name_col):
     cols = {}
     for j, v in enumerate(rows[name_row]):
         if v not in (None, ""):
-            cols.setdefault(norm(v), j)  # 同名は最初の列
+            # 宮城県の「県内需要合計③＝①＋②」のような丸数字以降の注記は外す
+            cols.setdefault(re.sub(r"[①-⑳].*$", "", norm(v)), j)  # 同名は最初の列
     rl = [
         (norm(r[code_col]) if r[code_col] is not None else "", norm(r[name_col]), i)
         for i, r in enumerate(rows)
@@ -38,6 +39,22 @@ def load(slug):
         ws = openpyxl.load_workbook(f, read_only=True, data_only=True)[s["sheet"]]
         rows = [list(r) for r in ws.iter_rows(values_only=True)]
         name_row, first, code_col, name_col = s["name_row"], s["first"], s["code_col"], s["name_col"]
+        if s.get(
+            "blocks"
+        ):  # 宮崎県: 表が上下2段に分かれている。[見出し行, 最初の行, 最後の行] ごとに横につなぐ
+            b0 = s["blocks"][0]
+            out = [[None, None] + [], *[[r[code_col], r[name_col]] for r in rows[b0[1] : b0[2] + 1]]]
+            for nr, fr, lr in s["blocks"]:
+                width = max(j for j, v in enumerate(rows[nr]) if v not in (None, "")) + 1
+                out[0] += rows[nr][name_col + 1 : width]
+                block = rows[fr : lr + 1]
+                assert [norm(r[name_col]) for r in block] == [norm(r[1]) for r in out[1:]], (
+                    slug,
+                    "段の行が一致しない",
+                )
+                for k, r in enumerate(block):
+                    out[k + 1] += r[name_col + 1 : width]
+            rows, name_row, first, code_col, name_col = out, 0, 1, 0, 1
     k = s.get("scale")
     if k:  # 単位を百万円にそろえる(例: 万円表記なら 0.01)
         rows = [
@@ -55,7 +72,7 @@ def load(slug):
 
 PICK = {
     "X": ["生産額", "県内生産額", "府内生産額", "都内生産額", "国内生産額", "県内生産額"],
-    "dem": ["都内需要合計", "県内需要合計", "府内需要合計", "県内需要計"],
+    "dem": ["都内需要合計", "県内需要合計", "府内需要合計", "県内需要計", "県内需用合計"],
     "int": ["内生部門計"],
     "mexp": ["移輸出計", "輸移出計", "移輸出"],
     "explicit_imp": ["（控除）移輸入計", "移輸入計", "（控除）移輸入"],
@@ -256,7 +273,65 @@ def build_hokkaido(slug):
     return dict(name=s["name"], year=s["year"], url=s["url"], file=s["file"], sectors=out, coarse=True)
 
 
+def nat37():
+    nd = pd.read_csv(OUT / "nodes.csv", encoding="utf-8-sig", dtype={"code": str})
+    return {norm(n): c for c, n in zip(nd[nd.level == 37].code, nd[nd.level == 37].name)}
+
+
+def build_by_name(slug):
+    """部門の分け方が全国の37部門と違う県(宮城38・大分36・広島45・秋田39など)。
+    部門名で全国の37部門に対応づけて合算する。SOURCES の by_name で名前ごとの行き先(全国コード、
+    または groups のキー)を指定し、指定のない名前は全国の部門名と同じものに対応づける。
+    全国の2部門以上をまとめた県の部門(例: 鉄鋼・非鉄金属)は groups に名前と全国コードを書く。"""
+    rows, cols, rl, s = load(slug)
+    NAT = nat37()
+    to = {norm(k): v for k, v in s.get("by_name", {}).items()}
+    groups = s.get("groups", {})
+    ti = [i for c, n, i in rl if n in ("内生部門計", "内生部門（中間投入）計")][0]
+    end = ti
+    VA_r = [i for c, n, i in rl if n == "粗付加価値部門計"][0]
+    cX, cD = col(cols, "X"), col(cols, "dem")
+    cME = colopt(cols, "mexp")
+    cEI = colopt(cols, "explicit_imp")
+    g = {}
+    for c, n, i in rl:
+        if i >= end:
+            break
+        key = to.get(n) or NAT.get(n)
+        assert key, (slug, "対応先のない部門", n)
+        r = rows[i]
+        j = cols.get(n)
+        X = num(r[cX])
+        e = (
+            num(r[cME])
+            if cME is not None
+            else num(r[cols["輸出" if "輸出" in cols else "輸出計"]]) + num(r[cols["移出"]])
+        )
+        dem = num(r[cD])
+        mi = dem + e - X
+        va, intin = num(rows[VA_r][j]), num(rows[ti][j])
+        if cEI is not None:
+            assert abs(abs(num(r[cEI])) - mi) <= max(2, X * 1e-6), (slug, n, "移輸入", num(r[cEI]), mi)
+        assert abs(intin + va - X) <= max(2, X * 1e-6), (slug, n, "費用側", intin + va, X)
+        a = g.setdefault(key, dict(out=0, va=0, exp=0, imp=0, dem=0))
+        for f, v in (("out", X), ("va", va), ("exp", e), ("imp", max(mi, 0)), ("dem", dem)):
+            a[f] += v
+    names = {v: k for k, v in NAT.items()}
+    nd = pd.read_csv(OUT / "nodes.csv", encoding="utf-8-sig", dtype={"code": str})
+    nat_name = dict(zip(nd[nd.level == 37].code, nd[nd.level == 37].name))
+    out = []
+    for key, v in g.items():
+        if key in groups:
+            out.append(dict(c=key, n=groups[key][0], nat_codes=groups[key][1], **v))
+        else:
+            assert key in names, (slug, key)
+            out.append(dict(c=key, n=nat_name[key], **v))
+    return dict(name=s["name"], year=s["year"], url=s["url"], file=s["file"], sectors=out)
+
+
 def build(slug):
+    if SRC[slug].get("special") == "by_name":
+        return build_by_name(slug)
     if SRC[slug].get("special") == "okinawa":
         return build_okinawa(slug)
     if SRC[slug].get("special") == "hokkaido":

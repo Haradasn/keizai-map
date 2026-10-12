@@ -616,7 +616,7 @@
   "date": "2026-10-12"
  },
  "/prefectures": {
-  "hash": "65675277ee7672f4",
+  "hash": "904b6d6e3f451631",
   "date": "2026-10-12"
  },
  "/prefecture/tokyo": {
@@ -716,7 +716,7 @@
   "date": "2026-10-12"
  },
  "/prefecture-map": {
-  "hash": "adf853aa4a9c98cc",
+  "hash": "b617581645ea33b6",
   "date": "2026-10-12"
  },
  "/fx": {
@@ -724,11 +724,75 @@
   "date": "2026-10-12"
  },
  "/changelog": {
-  "hash": "0f389d45b94143e9",
+  "hash": "259ad4f2998ce414",
   "date": "2026-10-12"
  },
  "/learn": {
   "hash": "5558377c6d1e50b8",
+  "date": "2026-10-12"
+ },
+ "/prefecture/miyagi": {
+  "hash": "dd6deb48ba9a8a45",
+  "date": "2026-10-12"
+ },
+ "/prefecture/akita": {
+  "hash": "20c2c4f1231f56e9",
+  "date": "2026-10-12"
+ },
+ "/prefecture/ishikawa": {
+  "hash": "b831f066e94e6c8b",
+  "date": "2026-10-12"
+ },
+ "/prefecture/nagano": {
+  "hash": "26625ea9e388b140",
+  "date": "2026-10-12"
+ },
+ "/prefecture/gifu": {
+  "hash": "299694f67deb54d4",
+  "date": "2026-10-12"
+ },
+ "/prefecture/hiroshima": {
+  "hash": "cb34dd6e36dafbe4",
+  "date": "2026-10-12"
+ },
+ "/prefecture/kagawa": {
+  "hash": "209ad6b2a7d6cb41",
+  "date": "2026-10-12"
+ },
+ "/prefecture/saga": {
+  "hash": "ab713817f7fb2166",
+  "date": "2026-10-12"
+ },
+ "/prefecture/oita": {
+  "hash": "083bfa9b557a8a76",
+  "date": "2026-10-12"
+ },
+ "/prefecture/yamagata": {
+  "hash": "5abbe265d4c449a0",
+  "date": "2026-10-12"
+ },
+ "/prefecture/yamaguchi": {
+  "hash": "b17bcb9612c21a4b",
+  "date": "2026-10-12"
+ },
+ "/prefecture/iwate": {
+  "hash": "7d18efe8d2369943",
+  "date": "2026-10-12"
+ },
+ "/prefecture/aomori": {
+  "hash": "1fd53169e145c1e5",
+  "date": "2026-10-12"
+ },
+ "/prefecture/shizuoka": {
+  "hash": "439bef255d0e1c79",
+  "date": "2026-10-12"
+ },
+ "/prefecture/ehime": {
+  "hash": "24bead37c19e4990",
+  "date": "2026-10-12"
+ },
+ "/prefecture/miyazaki": {
+  "hash": "68c1381201d29b41",
   "date": "2026-10-12"
  }
 }
