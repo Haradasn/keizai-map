@@ -263,7 +263,7 @@ def build_industry_page(code, row, tables, page, palette, site_url):
     description = re.sub(r"<[^>]+>", "", html.unescape(facts))[:150]
     page(
         f"industry/{code}.html",
-        f"{name}の取引先・規模・成長｜Keizai Atlas",
+        f"{name}の産業規模・取引先・成長率（統計で業界研究）｜Keizai Atlas",
         description,
         body,
         breadcrumb_for_industry(site_url, sector_id, sector_name, name),
@@ -356,7 +356,7 @@ def build_sector_page(sector_id, node, tables, page, site_url):
     breadcrumb = breadcrumb_head([("産業一覧", site_url + "/industries"), (name, None)])
     page(
         f"industry/{sector_id}.html",
-        f"{name}（37部門）の取引先・規模・成長｜Keizai Atlas",
+        f"{name}の産業規模・取引先・成長率（37部門）｜Keizai Atlas",
         f"{name}（37部門の1つ）の2020年の産出額は{node['out']:.1f}兆円。主な販売先・仕入れ先、含まれる産業、取引の背景（仮説）。",
         body,
         breadcrumb,
@@ -394,7 +394,7 @@ def build_index_page(tables, page, palette):
         groups.append(dict(color=palette["groups"][group_index], name=group_name, sectors=sectors))
     page(
         "industries.html",
-        "産業一覧（37部門・108産業）｜Keizai Atlas",
+        "産業一覧（業界研究に使える37部門・108産業の統計）｜Keizai Atlas",
         "日本の産業を8つの大分類・37部門・108産業に分けて、規模と取引先を見られる一覧。",
         render("industries.html.j2", groups=groups),
     )

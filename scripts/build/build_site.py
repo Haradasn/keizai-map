@@ -126,7 +126,7 @@ def _tok(k, t):
 
 
 TOK = "<style>" + "\n".join(_tok(k, t) for k, t in PAL["theme"].items()) + "</style>\n"
-page("explorer.html", "産業マップ｜Keizai Atlas", ED, "\n" + TOK + h)
+page("explorer.html", "産業マップ（日本の37産業の取引を3Dで）｜Keizai Atlas", ED, "\n" + TOK + h)
 
 CL = json.loads((R / "pages" / "changelog.json").read_text(encoding="utf-8"))
 

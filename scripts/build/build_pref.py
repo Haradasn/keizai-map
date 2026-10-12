@@ -194,7 +194,7 @@ def build_prefecture_page(slug, p, page, site_url):
     breadcrumb = breadcrumb_head([("県別の産業構造", site_url + "/prefectures"), (name, None)])
     page(
         f"prefecture/{slug}.html",
-        f"{name}の産業構造・得意な産業｜Keizai Atlas",
+        f"{name}の産業構造と主要産業・特化係数（産業連関表）｜Keizai Atlas",
         description,
         body,
         breadcrumb,
