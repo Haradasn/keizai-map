@@ -13,6 +13,7 @@
 ただ、これは Excel の数字の海です。眺めても全体像は頭に入ってきません。そこで、いろいろな可視化ライブラリで「絵」にしてみたら、思った以上に面白かったので紹介します。
 
 できたもの：**Keizai Atlas**（https://keizai-atlas.com）
+ソースコード：https://github.com/Haradasn/keizai-map （データの加工、サイトの生成、自動更新のワークフローまで、すべて公開しています）
 
 この記事で紹介すること：
 
@@ -355,10 +356,12 @@ export default {
 
 業界地図で「プレーヤー」を眺めるのとは違い、「お金がどこからどこへ流れているか」を眺めるのは、また別の面白さがありました。よかったら触ってみてください。
 
-https://keizai-atlas.com
+- サイト：https://keizai-atlas.com
+- ソースコード：https://github.com/Haradasn/keizai-map
 
 ## 参考
 
+- ソースコード：[Haradasn/keizai-map](https://github.com/Haradasn/keizai-map)
 - 総務省ほか「産業連関表」（e-Stat）
 - 経済産業省「延長産業連関表」
 - 日本銀行「企業物価指数」「企業向けサービス価格指数」「国際収支統計」
