@@ -175,6 +175,7 @@ for p in (
     "/industries",
     "/guide",
     "/glossary",
+    "/learn",
 ) + tuple("/" + x for x in IND + PREF if x != "industries"):
     f = S / (("index" if p == "/" else p[1:]) + ".html")
     hsh = hashlib.sha256(f.read_bytes()).hexdigest()[:16]

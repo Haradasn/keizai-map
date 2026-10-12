@@ -1,0 +1,157 @@
+<main class="flex-1 w-full max-w-3xl mx-auto px-4 py-10 space-y-10">
+  <header class="space-y-3">
+    <h1 class="text-3xl font-bold">就活・転職・探究に使う</h1>
+    <p class="text-base-content/80">
+      大学生の業界研究、社会人の転職先選び、高校の「総合的な探究の時間」で、このサイトを使うためのガイドです。数字はすべて公的統計（産業連関表など）を筆者が集計したもので、政府が作成したものではありません。サイト内の「仮説」は筆者の推測で、確かめられた事実ではありません。
+    </p>
+  </header>
+
+  <section class="space-y-4" aria-labelledby="job">
+    <h2 id="job" class="text-2xl font-bold">1. 就活・転職の業界研究に使う</h2>
+    <p class="text-base-content/80">
+      会社のホームページや説明会では「その会社から見た業界」しか分かりません。統計で業界全体を眺めると、志望理由や面接での話に、自分なりの視点を足せます。
+    </p>
+    <ol class="list-decimal pl-6 space-y-3">
+      <li>
+        <b>業界の大きさと伸びを見る。</b>
+        <a class="link link-primary" href="industries.html">産業一覧</a
+        >から業界のページを開き、生産額（規模）と実質の増減（伸び）を見ます。
+      </li>
+      <li>
+        <b>「稼ぐ力」を見る。</b>
+        付加価値率は、売上のうち給料と利益などに回る割合です。高いほど、仕入れた物に自分たちの価値を多く足している業界です。
+      </li>
+      <li>
+        <b>誰から買い、誰に売るかを見る。</b>
+        <a class="link link-primary" href="explorer.html?sel=35">産業マップ</a
+        >で業界を選ぶと、仕入れ先と販売先が浮かび上がります。売り先の業界が伸びているか、仕入れ先の値上がりの影響を受けやすいかが分かります。
+      </li>
+      <li>
+        <b>周りの業界に広げる。</b>
+        <a class="link link-primary" href="similarity.html">近さの地図</a
+        >では、取引の形が似た業界が近くに並びます。志望業界の隣にある業界も、候補として見えてきます。
+      </li>
+      <li>
+        <b>転職では「今の業界とのつながり」から探す。</b>
+        今の業界の仕入れ先・販売先の業界は、顧客や取引の知識がそのまま活きる転職先の候補です。近さの地図で隣にある業界は、取引の形が似ているので、業界の知識を活かしやすい可能性があります。
+      </li>
+      <li>
+        <b>働く場所の産業を見る。</b>
+        <a class="link link-primary" href="prefecture-map.html">県別の立体地図</a
+        >で、地元や勤務を考える地域が何で稼いでいるかを確かめられます。
+      </li>
+    </ol>
+    <div class="rounded-box border border-base-300 bg-base-100 p-4 text-sm space-y-1">
+      <p class="font-bold">使うときの注意</p>
+      <ul class="list-disc pl-5 space-y-1 text-base-content/80">
+        <li>
+          産業連関表は数年に一度の統計で、最新は2020年（コロナ禍の年）です。直近の動きは各社の決算資料などで補ってください。
+        </li>
+        <li>業界全体の平均なので、個々の会社の状況とは違います。</li>
+        <li>
+          面接で話すときは「統計の数字（事実）」と「自分の考え（仮説）」を分けて話すと、説得力が増します。
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="space-y-4" aria-labelledby="inquiry">
+    <h2 id="inquiry" class="text-2xl font-bold">2. 探究学習の「問い」に使う</h2>
+    <p class="text-base-content/80">
+      問いの例です。どれも、このサイトのページに手がかりがあり、さらに公的統計で確かめることができます。答えは一つとは限りません。
+    </p>
+    <div class="grid gap-3">
+      <div class="card bg-base-100 border border-base-300">
+        <div class="card-body p-4 gap-1">
+          <p class="font-bold">なぜ、自動車づくりの費用に占める鉄の割合は下がったのか？</p>
+          <p class="text-sm text-base-content/80">
+            手がかり：<a class="link link-primary" href="explorer.html?sel=35">産業マップ（輸送機械）</a
+            >の、鉄鋼とプラスチック・ゴム製品からの仕入れ。調べ方：鉄鋼の用途別の出荷、車の軽量化の動き。
+          </p>
+        </div>
+      </div>
+      <div class="card bg-base-100 border border-base-300">
+        <div class="card-body p-4 gap-1">
+          <p class="font-bold">自分の県は何で稼いでいて、全国と比べて何が得意なのか？</p>
+          <p class="text-sm text-base-content/80">
+            手がかり：<a class="link link-primary" href="prefectures.html">県別の産業構造</a
+            >の特化係数。調べ方：県の産業連関表、工場や観光地の立地。
+          </p>
+        </div>
+      </div>
+      <div class="card bg-base-100 border border-base-300">
+        <div class="card-body p-4 gap-1">
+          <p class="font-bold">円安になると、どの産業のコストが上がりやすいのか？</p>
+          <p class="text-sm text-base-content/80">
+            手がかり：<a class="link link-primary" href="fx.html">円安と輸入品</a
+            >の、輸入品の含有率。調べ方：日本銀行の輸入物価指数、為替レート。
+          </p>
+        </div>
+      </div>
+      <div class="card bg-base-100 border border-base-300">
+        <div class="card-body p-4 gap-1">
+          <p class="font-bold">コロナ禍の2020年、取引が大きく減ったのはどの産業か？ それはなぜか？</p>
+          <p class="text-sm text-base-content/80">
+            手がかり：<a class="link link-primary" href="explorer.html?sel=67">産業マップ（対個人サービス）</a
+            >の仕入れ先。調べ方：宿泊旅行統計、外食産業の売上の統計。
+          </p>
+        </div>
+      </div>
+      <div class="card bg-base-100 border border-base-300">
+        <div class="card-body p-4 gap-1">
+          <p class="font-bold">日本が海外に払うデジタル関連の代金は、なぜ増えているのか？</p>
+          <p class="text-sm text-base-content/80">
+            手がかり：<a class="link link-primary" href="latest.html#digital-pay">最新動向</a
+            >の国際収支。調べ方：国際収支統計、クラウドや動画配信などの利用の広がり。
+          </p>
+        </div>
+      </div>
+      <div class="card bg-base-100 border border-base-300">
+        <div class="card-body p-4 gap-1">
+          <p class="font-bold">日本と他の国では、産業のつくりはどう違うのか？</p>
+          <p class="text-sm text-base-content/80">
+            手がかり：<a class="link link-primary" href="international.html">国際比較</a>。調べ方：OECD
+            の国際産業連関表。
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="rounded-box border border-base-300 bg-base-100 p-4 text-sm space-y-1">
+      <p class="font-bold">まとめ方のコツ</p>
+      <ul class="list-disc pl-5 space-y-1 text-base-content/80">
+        <li>「統計で分かったこと（事実）」と「自分の考え（仮説）」を分けて書く。</li>
+        <li>
+          数字には出典（統計の名前と年）を付ける。このサイトの数字を使うときは、もとの統計の名前と「Keizai
+          Atlas（筆者集計）」を書く。
+        </li>
+        <li>
+          仮説を確かめるための統計を、<a
+            class="link link-primary"
+            href="https://www.e-stat.go.jp/"
+            target="_blank"
+            rel="noopener"
+            >政府統計の総合窓口（e-Stat）</a
+          >で探してみる。
+        </li>
+        <li>
+          用語が分からないときは<a class="link link-primary" href="glossary.html">用語集</a>、仕組みは<a
+            class="link link-primary"
+            href="guide.html"
+            >入門ガイド</a
+          >へ。
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="space-y-3" aria-labelledby="voice">
+    <h2 id="voice" class="text-2xl font-bold">3. 仮説に意見を送る</h2>
+    <p class="text-base-content/80">
+      <a class="link link-primary" href="explorer.html">産業マップ</a
+      >や産業のページにある「筆者の仮説」には、「補足・反論を送る」ボタンがあります。その業界で働いている方の知見や、別の説明の可能性を歓迎します。届いた内容は確認したうえで、名前を出さずにサイトで紹介することがあります。
+    </p>
+    <p class="text-sm text-base-content/80">
+      送るときは、名前・学校名・連絡先など、個人が分かる情報は書かないでください。個別の返信はしていません。
+    </p>
+  </section>
+</main>
