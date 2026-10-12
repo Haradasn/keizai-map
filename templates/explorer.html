@@ -363,12 +363,22 @@
   #xp .row:hover {
     background: var(--panel2);
   }
+  /* 名前が長いときは名前だけを省略し、仮説の印(A/B/C)は常に見せる */
   #xp .row .nm {
     flex: 1;
     min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+  }
+  #xp .row .nm .tx {
+    min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+  }
+  #xp .row .nm .tag {
+    flex: none;
   }
   #xp .row .num {
     font-family: var(--font-num);

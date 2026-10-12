@@ -541,7 +541,7 @@ function renderOverview() {
 }
 function edgeRow(e) {
   const v = val(e);
-  return `<div class="row" data-e="${D.edges.indexOf(e)}"><span class="nm">${N[e.s].name} → ${N[e.t].name}${(CH() ? e.st22 : e.story) ? `<span class="tag">${CH() ? e.c22 : e.conf}</span>` : ""}</span><span class="num">${v != null ? fmt(v, 1) + "兆" : "–"}</span>${CH() ? "" : bar(e.g)}</div>`;
+  return `<div class="row" data-e="${D.edges.indexOf(e)}"><span class="nm"><span class="tx">${N[e.s].name} → ${N[e.t].name}</span>${(CH() ? e.st22 : e.story) ? `<span class="tag">${CH() ? e.c22 : e.conf}</span>` : ""}</span><span class="num">${v != null ? fmt(v, 1) + "兆" : "–"}</span>${CH() ? "" : bar(e.g)}</div>`;
 }
 function renderNode(id) {
   const n = N[id],
