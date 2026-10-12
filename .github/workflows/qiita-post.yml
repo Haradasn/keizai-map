@@ -1,0 +1,33 @@
+name: qiita-post
+# docs/qiita/ の記事を Qiita に投稿・更新する(手動実行)。記事のIDとURLは非公開リポジトリ keizai-atlas-reports の qiita/item.json に保存する。
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: "create(限定共有で新規投稿) / update(本文を更新) / publish(全体に公開)"
+        required: true
+        default: create
+permissions:
+  contents: read
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: 記事の状態を読む
+        env: {REPORT_TOKEN: "${{ secrets.REPORT_TOKEN }}"}
+        run: git clone -q --depth 1 "https://x-access-token:${REPORT_TOKEN}@github.com/Haradasn/keizai-atlas-reports.git" /tmp/r
+      - name: 投稿・更新
+        env: {QIITA_TOKEN: "${{ secrets.QIITA_TOKEN }}"}
+        run: |
+          case "${{ inputs.action }}" in
+            create)  test ! -e /tmp/r/qiita/item.json || { echo "::error::すでに投稿済みです(update を使ってください)"; exit 1; }
+                     python3 scripts/qiita_post.py create ;;
+            update)  python3 scripts/qiita_post.py update "$(jq -r .id /tmp/r/qiita/item.json)" "$(jq -r .private /tmp/r/qiita/item.json)" ;;
+            publish) python3 scripts/qiita_post.py update "$(jq -r .id /tmp/r/qiita/item.json)" false ;;
+            *) echo "::error::action は create / update / publish"; exit 1 ;;
+          esac
+      - name: 状態を非公開リポジトリに保存
+        run: |
+          mkdir -p /tmp/r/qiita && cp /tmp/qiita_state.json /tmp/r/qiita/item.json
+          cd /tmp/r && git add qiita/item.json && git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -q -m "Qiita記事の状態 (${{ inputs.action }})" && git push -q origin HEAD:main || echo "変更なし"
