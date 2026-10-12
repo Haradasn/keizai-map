@@ -11,6 +11,7 @@
 - トップ(`pages/index.html`): 発見のカルーセル(`pages/insights.js` → `site/insights.js`)。スライドの数値は `{{...}}`、県別は `pref-map-data.js`、つながりは `net-mini.js`(build_site が出力)から JS で計算。
 - 3D: 県の立体地図は `pages/prefmap.js`(`data-prefmap="hero|page"`、トップは沖縄・奄美をはめ込み表示)。境界 `site/vendor/japan-pref.json` は地球地図日本(国土地理院)を `scripts/build_geo.py` で簡略化(非営利・出典明記が条件)。ライブラリは `site/vendor/` に同梱(MapLibre GL JS、3d-force-graph)。CDN は使わない。
 - 産業マップ: `pipeline/explorer_template.html` を build_site が共通シェルに入れて出力。`explorer.html?sel=66` で産業を選んだ状態で開く。
+- 読者の反応: 各ページ下の「👍」「こんな情報が欲しい」(`pages/feedback.js`、欄は `scripts/_shell.py` の FB。`pages/feedback.json` の Turnstile sitekey が空なら出さない)。送信先は `worker/index.js`(`/api/like`, `/api/request`, `/api/feedback/export`)→ D1 `keizai-feedback`。Worker の秘密値 TURNSTILE_SECRET と FEEDBACK_KEY は Cloudflare ダッシュボードで設定。週次レポートが FEEDBACK_KEY で読み出して集計。Turnstile の読み込みだけは外部スクリプト(入力欄を開いたときだけ)。
 - 更新履歴/RSS: `pages/changelog.json`(`scripts/add_changelog.py`)。ページや機能を足したら1件追記。
 
 ## 作業ルール

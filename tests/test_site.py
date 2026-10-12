@@ -300,3 +300,12 @@ def test_index_connect_slide(browser,base):
     txt=pg.inner_text(".ins-slide.is-on")
     assert "本" in txt and "対事業所サービス" in txt and not errs,(txt,errs)          # 件数と産業名はデータから計算
     assert "explorer.html?sel=" in pg.get_attribute(".ins-slide.is-on .ins-more","href"); pg.close()
+
+
+def test_feedback_block(browser,base):
+    for path in ("index.html","explorer.html","industry/66.html","prefecture/tokyo.html"):
+        pg=browser.new_page(viewport={"width":390,"height":800}); errs=[]
+        pg.on("pageerror",lambda e:errs.append(str(e)))
+        pg.goto(f"{base}/{path}",wait_until="load"); pg.wait_for_timeout(300)
+        assert pg.locator("#fb-like").count()==1 and pg.locator("#fb-body").count()==1,path   # 反応の欄が各ページにある
+        assert pg.evaluate("document.documentElement.scrollWidth")<=392 and not errs,(path,errs); pg.close()
