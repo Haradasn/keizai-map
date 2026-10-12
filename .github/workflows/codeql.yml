@@ -1,4 +1,5 @@
-# GitHub のコード検査(CodeQL)。公開リポジトリは無料。結果は Security タブに出る
+# GitHub のコード検査(CodeQL)。公開リポジトリは無料。結果は Security タブに出る。
+# 検出内容の一覧は非公開リポジトリ keizai-atlas-reports の codeql/ にも保存する(公開のログには出さない)
 name: codeql
 on:
   push:
@@ -27,3 +28,35 @@ jobs:
               - site/industry
               - site/prefecture
       - uses: github/codeql-action/analyze@v4
+        with:
+          output: sarif
+      - name: 検出内容を非公開リポジトリに保存
+        env:
+          REPORT_TOKEN: ${{ secrets.REPORT_TOKEN }}
+          LANG_NAME: ${{ matrix.language }}
+        run: |
+          python3 - > /tmp/codeql.md <<'P'
+          import glob, json, os
+          rows = []
+          for f in glob.glob("sarif/*.sarif"):
+              for run in json.load(open(f))["runs"]:
+                  rules = {r["id"]: r for r in run["tool"]["driver"].get("rules", [])}
+                  for r in run.get("results", []):
+                      rule = rules.get(r["ruleId"], {})
+                      sev = rule.get("properties", {}).get("security-severity", "")
+                      loc = r["locations"][0]["physicalLocation"]
+                      where = f'{loc["artifactLocation"]["uri"]}:{loc.get("region", {}).get("startLine", "")}'
+                      rows.append((sev, r["ruleId"], where, r["message"]["text"].replace("\n", " ")[:200]))
+          print(f"# CodeQL {os.environ['LANG_NAME']}({len(rows)} 件)\n")
+          print("| 重大度 | ルール | 場所 | 内容 |\n|---|---|---|---|")
+          for row in sorted(rows, reverse=True):
+              print("| " + " | ".join(x.replace("|", "\\|") for x in row) + " |")
+          P
+          git clone -q --depth 1 "https://x-access-token:${REPORT_TOKEN}@github.com/Haradasn/keizai-atlas-reports.git" /tmp/r
+          mkdir -p /tmp/r/codeql && cp /tmp/codeql.md "/tmp/r/codeql/${LANG_NAME}.md"
+          cd /tmp/r && git add codeql
+          git diff --cached --quiet && exit 0
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -q -m "CodeQL ${LANG_NAME}"
+          # 3言語のジョブが同時に書くので、ぶつかったら取り込み直して再送
+          for i in 1 2 3 4; do git push -q origin HEAD:main && exit 0; sleep $((i * 5)); git pull -q --rebase origin main; done
+          echo "::warning::保存に失敗"
