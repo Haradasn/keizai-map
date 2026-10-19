@@ -52,7 +52,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          B="auto/data-$(date -u +%Y%m%d)"
+          B="auto/data-$(date -u +%Y%m%d-%H%M)"  # 同じ日に作り直しても名前がぶつからないよう時刻も付ける
           git config user.name "github-actions[bot]"; git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           python3 scripts/ops/add_changelog.py "最新動向のデータを更新" "日銀・経済産業省・財務省の最新データで、最新動向のグラフと数値を更新しました。" /latest
           npm run build
