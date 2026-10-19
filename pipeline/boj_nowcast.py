@@ -14,14 +14,24 @@ def load(f):
     return d
 
 
-def series(d, code, start="202001"):
-    r = d[d.code == code].iloc[0]
-    m = [c for c in d.columns[3:] if c >= start]
-    return m, [None if pd.isna(r[c]) or r[c] == "" else round(float(r[c].replace(",", "")), 1) for c in m]
-
-
 sp = load("sppi_m_jp.csv")
 cg = load("cgpi_m_jp.csv")
+# 企業向けサービス価格指数(SPPI)と企業物価指数(CGPI)は公表月がずれることがある(CGPI が1か月先に出るなど)。
+# 両方の月を合わせた並びを共通の months にし、まだ公表されていない月は None にする
+START = "202001"
+MONTHS = sorted({c for d in (sp, cg) for c in d.columns[3:] if c >= START})
+
+
+def series(d, code, months=None):
+    r = d[d.code == code].iloc[0]
+    m = months or MONTHS
+
+    def val(c):
+        if c not in d.columns or pd.isna(r[c]) or r[c] == "":
+            return None
+        return round(float(r[c].replace(",", "")), 1)
+
+    return m, [val(c) for c in m]
 
 
 def by_label(d, lvl, label, first=True):
@@ -31,8 +41,7 @@ def by_label(d, lvl, label, first=True):
 
 
 out = {}
-months, _ = series(sp, "PRCS20_5200000000")
-out["months"] = months
+out["months"] = MONTHS
 out["sppi"] = {"総平均": series(sp, "PRCS20_5200000000")[1]}
 for lvl, lab in [
     ("類別", "情報サービス"),
