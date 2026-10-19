@@ -39,7 +39,8 @@ def metrics():
     # --- 1. SPPI
     mo = n["months"]
     ib = mo.index(B)
-    M["sppi_last"] = ym(mo[-1])
+    # 最新月は SPPI に値がある最後の月(CGPI の方が先に公表されると、months の末尾は SPPI では空)
+    M["sppi_last"] = ym(mo[max(i for i, x in enumerate(n["sppi"]["総平均"]) if x is not None)])
     M["base"] = ym(B)
     for key, name in (
         ("avg", "総平均"),
@@ -77,7 +78,7 @@ def metrics():
     v = c["電力・都市ガス・水道"]
     M["cg_el_0"] = f"{F(v[ib], 1)}"
     M["cg_el_1"] = f"{F(_last(v), 1)}"
-    seg = v[ib:]
+    seg = [x if x is not None else float("inf") for x in v[ib:]]
     im = seg.index(min(seg))
     M["cg_el_min"] = f"{F(seg[im], 1)}"
     M["cg_el_min_ym"] = ym(mo[ib + im])
