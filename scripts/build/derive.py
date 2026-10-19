@@ -76,6 +76,9 @@ def metrics():
     # --- 3. CGPI
     c = n["cgpi"]
     v = c["電力・都市ガス・水道"]
+    M["cg_last"] = ym(
+        mo[max(i for i, x in enumerate(v) if x is not None)]
+    )  # CGPI の最新月(SPPI と違うことがある)
     M["cg_el_0"] = f"{F(v[ib], 1)}"
     M["cg_el_1"] = f"{F(_last(v), 1)}"
     seg = [x if x is not None else float("inf") for x in v[ib:]]
