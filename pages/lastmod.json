@@ -1,7 +1,7 @@
 {
  "/": {
-  "hash": "30f00bde5641b324",
-  "date": "2026-10-12"
+  "hash": "44e74faaa6a3905f",
+  "date": "2026-11-02"
  },
  "/explorer": {
   "hash": "4fe0f56b1cc11ae0",
@@ -12,8 +12,8 @@
   "date": "2026-10-12"
  },
  "/latest": {
-  "hash": "59bcf776ab8b2e81",
-  "date": "2026-10-19"
+  "hash": "06e4ea9ca38b5070",
+  "date": "2026-11-02"
  },
  "/international": {
   "hash": "234b370709129862",
@@ -724,8 +724,8 @@
   "date": "2026-10-19"
  },
  "/changelog": {
-  "hash": "756f5d43eb6d3412",
-  "date": "2026-10-19"
+  "hash": "b9870139cfa6ffb2",
+  "date": "2026-11-02"
  },
  "/learn": {
   "hash": "5558377c6d1e50b8",
