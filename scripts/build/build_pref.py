@@ -194,9 +194,16 @@ def build_prefecture_page(slug, p, page, site_url):
         f"{name}の産業（{p['year']}年産業連関表）。産出額は{tril(total)}兆円で、最大の産業は"
         f"{biggest['n']}（{pct(biggest['share'], 1)}）。全国より集中している産業は{top_text}。"
     )
+    # 特化係数の高い上位3産業の解説ページ(全国の部門と1対1に対応するものだけ)
+    industry_links = [
+        {"href": f"/industry/{o.get('nat_codes', [o['c']])[0]}", "text": o["n"]}
+        for o in top[:3]
+        if o["c"] != "HQ" and len(o.get("nat_codes", [o["c"]])) == 1
+    ]
     body = render(
         "prefecture.html.j2",
         name=name,
+        industry_links=industry_links,
         year=p["year"],
         output=tril(total),
         value_added=tril(p["total_va"]),
