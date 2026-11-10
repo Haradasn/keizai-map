@@ -189,9 +189,10 @@ def build_prefecture_page(slug, p, page, site_url):
     export_share = pct(p["exp_total"] / total)
     import_share = pct(p["imp_total"] / total)
     top_text = "、".join(f"{o['n']}（{o['lq']:.1f}）" for o in top[:3])
+    biggest = max(sectors, key=lambda o: o["out"])
     description = (
-        f"{name}の産業構造（{p['year']}年産業連関表）。産出額{tril(total)}兆円。"
-        f"全国より集中している産業は{top_text}。全国との比較、移輸出入の割合。"
+        f"{name}の産業（{p['year']}年産業連関表）。産出額は{tril(total)}兆円で、最大の産業は"
+        f"{biggest['n']}（{pct(biggest['share'], 1)}）。全国より集中している産業は{top_text}。"
     )
     body = render(
         "prefecture.html.j2",
@@ -217,7 +218,7 @@ def build_prefecture_page(slug, p, page, site_url):
     breadcrumb = breadcrumb_head([("県別の産業構造", site_url + "/prefectures"), (name, None)])
     page(
         f"prefecture/{slug}.html",
-        f"{name}の産業構造と主要産業・特化係数（産業連関表）｜Keizai Atlas",
+        f"{name}の産業・産業連関表（{p['year']}年）｜主要産業と特化係数｜Keizai Atlas",
         description,
         body,
         breadcrumb,
