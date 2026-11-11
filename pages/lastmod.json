@@ -616,7 +616,7 @@
   "date": "2026-10-12"
  },
  "/prefectures": {
-  "hash": "7680bb9ab2dafbfa",
+  "hash": "553f5937befc0d6d",
   "date": "2026-11-11"
  },
  "/prefecture/tokyo": {
@@ -716,7 +716,7 @@
   "date": "2026-11-11"
  },
  "/prefecture-map": {
-  "hash": "03b74a3392b025c8",
+  "hash": "5f8a96db3802aba7",
   "date": "2026-11-11"
  },
  "/fx": {
@@ -724,7 +724,7 @@
   "date": "2026-10-19"
  },
  "/changelog": {
-  "hash": "698ae6f262a05cff",
+  "hash": "21156d882a0f0078",
   "date": "2026-11-11"
  },
  "/learn": {
@@ -801,6 +801,10 @@
  },
  "/prefecture/ibaraki": {
   "hash": "f7309c5ce81fc3c4",
+  "date": "2026-11-11"
+ },
+ "/prefecture/nagasaki": {
+  "hash": "0f8596e1c976b82a",
   "date": "2026-11-11"
  }
 }
