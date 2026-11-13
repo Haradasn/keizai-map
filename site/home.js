@@ -29,7 +29,10 @@
         .sort(function (a, b) {
           return p.s[b][1] - p.s[a][1];
         })
-        .slice(0, 4);
+        .slice(0, 4)
+        .filter(function (k, i) {
+          return i === 0 || p.s[k][1] >= 1.1; // 全国平均と同じ程度(1.1倍未満)のものは「集中している」に並べない
+        });
     };
     /** 割合を%の数字に。0.1%未満は小数2桁 @param {number} v */
     var pc = function (v) {

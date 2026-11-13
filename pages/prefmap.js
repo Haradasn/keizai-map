@@ -434,6 +434,11 @@
           if (!HERO)
             box.innerHTML =
               '<p class="p-6 text-sm">この環境では3D地図を表示できません。下の一覧をご覧ください。</p>';
+          else {
+            // トップ: 地図を描けない端末では、地図の枠と凡例ごと隠す(問いと答えの文はそのまま使える)
+            var hp = root.closest(".hp");
+            if (hp) hp.classList.add("hp-nomap");
+          }
           return;
         }
         loadLib(init);
