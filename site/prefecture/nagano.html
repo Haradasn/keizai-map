@@ -23,7 +23,7 @@
     <meta property="og:image" content="https://keizai-atlas.com/og.png" />
     <meta property="og:locale" content="ja_JP" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="theme-color" content="#0b1120" />
+    <meta name="theme-color" content="#0d1f2d" />
     <link
       rel="alternate"
       type="application/atom+xml"
@@ -37,20 +37,22 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600&family=IBM+Plex+Mono:wght@400;500&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="assets.css" />
     <script>
-      try{var t=localStorage.getItem("theme");if(t!=="nord")t="night";document.documentElement.dataset.theme=t}catch(e){}
+      try{var t=localStorage.getItem("theme");if(t!=="nord"&&t!=="night")t=matchMedia("(prefers-color-scheme: dark)").matches?"night":"nord";document.documentElement.dataset.theme=t}catch(e){}
     </script>
   </head>
   <body class="bg-base-200 text-base-content font-sans min-h-screen flex flex-col">
-    <header class="navbar bg-base-100/80 backdrop-blur border-b border-base-300 sticky top-0 z-50 px-4">
+    <header class="navbar k-nav sticky top-0 z-50 px-4">
       <div class="flex-1">
-        <a href="index.html" class="text-lg font-bold tracking-tight"
+        <a href="index.html" class="k-logo"
           >Keizai Atlas
-          <span class="text-xs font-normal text-base-content/70 ml-2 hidden sm:inline">経済の地図帳</span></a
+          <span class="font-sans text-xs font-normal text-base-content/70 hidden sm:inline"
+            >経済の地図帳</span
+          ></a
         >
       </div>
       <nav aria-label="サイト内の主なページ" class="flex-none gap-1 items-center flex">
@@ -93,31 +95,287 @@
           <li>長野県</li>
         </ul>
       </nav>
-      <header class="space-y-3">
-        <h1 class="text-3xl font-bold">長野県の産業構造</h1>
-        <p class="text-base-content/80">
-          長野県の2020年の産出額は14.9兆円、粗付加価値は8.0兆円です。産出額に対する移輸出（海外と他の都道府県への販売）は35%、移輸入（海外と他の都道府県からの購入）は41%でした。
-        </p>
+      <header class="pf-head">
+        <svg class="pf-shape" viewBox="0 0 200 200" aria-hidden="true">
+          <path
+            d="M140.8 6.0L144.2 7.0L145.9 10.5L146.1 18.0L154.6 23.8L153.7 27.4L155.0 28.9L152.8 32.2L155.0 35.9L147.9 39.3L142.3 39.5L139.9 41.0L141.6 43.4L140.8 45.0L135.3 46.8L130.8 58.3L130.5 67.1L135.2 68.7L135.4 70.2L141.5 70.5L146.4 68.3L151.0 69.9L151.5 80.7L147.0 83.2L150.1 93.9L145.1 94.5L146.9 97.6L150.8 99.4L149.6 108.9L156.4 113.3L158.6 118.1L157.7 121.1L154.7 122.1L153.3 125.1L148.9 125.1L147.6 123.9L148.0 121.1L146.3 119.9L139.5 119.7L137.9 122.4L134.9 122.0L134.5 117.3L128.0 114.7L120.8 126.2L117.0 123.8L112.7 132.8L116.9 136.6L112.2 141.2L115.5 148.3L113.1 154.9L110.8 154.6L109.1 157.4L110.5 158.4L108.7 160.8L108.9 163.0L111.0 163.6L110.6 166.1L107.2 168.4L109.9 173.5L109.1 176.3L104.5 179.6L102.0 179.0L98.9 183.4L91.5 186.0L90.6 188.2L88.6 187.8L86.7 191.8L78.8 193.5L70.9 190.2L62.4 194.0L59.7 188.4L61.7 185.4L60.6 182.5L64.5 179.7L64.0 175.5L62.1 173.3L67.1 173.1L63.6 168.5L66.7 166.1L66.8 162.1L62.0 158.5L61.7 154.5L59.0 154.4L57.0 152.1L59.6 147.6L55.7 143.8L52.5 136.3L41.4 130.6L45.9 122.8L50.2 121.5L53.9 122.6L59.4 113.5L63.7 110.4L65.3 103.9L60.1 100.5L60.4 97.4L63.7 94.1L62.0 89.2L68.5 80.5L67.9 76.8L63.2 73.6L63.1 71.7L66.9 68.1L70.0 59.4L72.9 58.6L71.5 54.0L76.7 51.2L76.7 34.5L83.3 28.8L87.0 22.8L86.4 17.8L98.5 19.0L99.9 21.7L97.6 26.9L101.7 29.7L106.8 24.6L111.1 25.1L115.0 22.5L121.3 24.9L122.0 18.1L125.7 17.3L130.0 9.5L140.8 6.0Z"
+          />
+        </svg>
+        <div class="space-y-3">
+          <h1 class="pf-h1">長野県の産業構造</h1>
+          <p class="text-base-content/80">
+            長野県の2020年の産出額は14.9兆円、粗付加価値は8.0兆円です。産出額に対する移輸出（海外と他の都道府県への販売）は35%、移輸入（海外と他の都道府県からの購入）は41%でした。
+          </p>
+        </div>
       </header>
+      <figure class="pf-comp">
+        <figcaption class="font-bold">産業の構成を、全国と比べる</figcaption>
+        <div class="pf-labs" aria-hidden="true">
+          <span style="left:33.9%">建設 7.6%</span><span style="left:55.8%">不動産 8.5%</span
+          ><span style="left:91.8%">医療・福祉 8.2%</span>
+        </div>
+        <svg
+          viewBox="0 0 1000 130"
+          preserveAspectRatio="none"
+          role="img"
+          aria-label="長野県の産業の構成（産出額に占める割合）を、全国と比べた帯の図。長野県で最も大きい産業は不動産（8.5%）"
+        >
+          <g fill="#2a78d6">
+            <title>農林漁業：長野県 2.4%、全国 1.2%</title>
+            <rect x="0.0" y="0" width="22.8" height="34" />
+            <polygon points="0.0,34 23.8,34 12.1,96 0.0,96" opacity="0.38" />
+            <rect x="0.0" y="96" width="11.1" height="34" />
+          </g>
+          <g fill="#2a78d6">
+            <title>鉱業：長野県 0.0%、全国 0.0%</title>
+            <rect x="23.8" y="0" width="0.2" height="34" />
+            <polygon points="23.8,34 24.0,34 12.5,96 12.1,96" opacity="0.38" />
+            <rect x="12.1" y="96" width="0.2" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>繊維製品：長野県 0.1%、全国 0.3%</title>
+            <rect x="24.0" y="0" width="0.2" height="34" />
+            <polygon points="24.0,34 25.0,34 15.4,96 12.5,96" opacity="0.38" />
+            <rect x="12.5" y="96" width="1.8" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>パルプ・紙・木製品：長野県 0.8%、全国 1.1%</title>
+            <rect x="25.0" y="0" width="7.4" height="34" />
+            <polygon points="25.0,34 33.4,34 26.5,96 15.4,96" opacity="0.38" />
+            <rect x="15.4" y="96" width="10.1" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>化学製品：長野県 0.9%、全国 2.8%</title>
+            <rect x="33.4" y="0" width="7.9" height="34" />
+            <polygon points="33.4,34 42.3,34 54.1,96 26.5,96" opacity="0.38" />
+            <rect x="26.5" y="96" width="26.6" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>石油・石炭製品：長野県 0.1%、全国 1.3%</title>
+            <rect x="42.3" y="0" width="0.2" height="34" />
+            <polygon points="42.3,34 42.9,34 67.0,96 54.1,96" opacity="0.38" />
+            <rect x="54.1" y="96" width="11.9" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>プラスチック・ゴム製品：長野県 1.3%、全国 1.3%</title>
+            <rect x="42.9" y="0" width="12.2" height="34" />
+            <polygon points="42.9,34 56.1,34 80.4,96 67.0,96" opacity="0.38" />
+            <rect x="67.0" y="96" width="12.3" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>窯業・土石製品：長野県 0.9%、全国 0.6%</title>
+            <rect x="56.1" y="0" width="8.2" height="34" />
+            <polygon points="56.1,34 65.3,34 86.8,96 80.4,96" opacity="0.38" />
+            <rect x="80.4" y="96" width="5.4" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>鉄鋼：長野県 0.2%、全国 2.1%</title>
+            <rect x="65.3" y="0" width="1.2" height="34" />
+            <polygon points="65.3,34 67.5,34 107.3,96 86.8,96" opacity="0.38" />
+            <rect x="86.8" y="96" width="19.5" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>非鉄金属：長野県 0.7%、全国 0.8%</title>
+            <rect x="67.5" y="0" width="5.6" height="34" />
+            <polygon points="67.5,34 74.1,34 115.3,96 107.3,96" opacity="0.38" />
+            <rect x="107.3" y="96" width="7.0" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>金属製品：長野県 1.8%、全国 1.2%</title>
+            <rect x="74.1" y="0" width="16.9" height="34" />
+            <polygon points="74.1,34 92.0,34 127.0,96 115.3,96" opacity="0.38" />
+            <rect x="115.3" y="96" width="10.7" height="34" />
+          </g>
+          <g fill="#1baf7a">
+            <title>飲食料品：長野県 4.6%、全国 3.7%</title>
+            <rect x="92.0" y="0" width="45.1" height="34" />
+            <polygon points="92.0,34 138.1,34 164.1,96 127.0,96" opacity="0.38" />
+            <rect x="127.0" y="96" width="36.1" height="34" />
+          </g>
+          <g fill="#1baf7a">
+            <title>その他の製造工業製品：長野県 1.2%、全国 0.9%</title>
+            <rect x="138.1" y="0" width="10.6" height="34" />
+            <polygon points="138.1,34 149.6,34 172.7,96 164.1,96" opacity="0.38" />
+            <rect x="164.1" y="96" width="7.5" height="34" />
+          </g>
+          <g fill="#1baf7a">
+            <title>事務用品：長野県 0.2%、全国 0.1%</title>
+            <rect x="149.6" y="0" width="0.6" height="34" />
+            <polygon points="149.6,34 151.2,34 174.1,96 172.7,96" opacity="0.38" />
+            <rect x="172.7" y="96" width="0.4" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>はん用機械：長野県 2.0%、全国 1.0%</title>
+            <rect x="151.2" y="0" width="18.7" height="34" />
+            <polygon points="151.2,34 170.9,34 184.3,96 174.1,96" opacity="0.38" />
+            <rect x="174.1" y="96" width="9.1" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>生産用機械：長野県 4.0%、全国 1.6%</title>
+            <rect x="170.9" y="0" width="39.4" height="34" />
+            <polygon points="170.9,34 211.3,34 200.4,96 184.3,96" opacity="0.38" />
+            <rect x="184.3" y="96" width="15.1" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>業務用機械：長野県 1.4%、全国 0.6%</title>
+            <rect x="211.3" y="0" width="12.9" height="34" />
+            <polygon points="211.3,34 225.2,34 205.9,96 200.4,96" opacity="0.38" />
+            <rect x="200.4" y="96" width="4.6" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>電子部品：長野県 4.2%、全国 1.3%</title>
+            <rect x="225.2" y="0" width="41.3" height="34" />
+            <polygon points="225.2,34 267.5,34 218.6,96 205.9,96" opacity="0.38" />
+            <rect x="205.9" y="96" width="11.7" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>電気機械：長野県 1.8%、全国 1.5%</title>
+            <rect x="267.5" y="0" width="17.0" height="34" />
+            <polygon points="267.5,34 285.5,34 233.8,96 218.6,96" opacity="0.38" />
+            <rect x="218.6" y="96" width="14.2" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>情報通信機器：長野県 3.0%、全国 0.5%</title>
+            <rect x="285.5" y="0" width="28.7" height="34" />
+            <polygon points="285.5,34 315.2,34 238.5,96 233.8,96" opacity="0.38" />
+            <rect x="233.8" y="96" width="3.7" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>輸送機械：長野県 2.4%、全国 4.6%</title>
+            <rect x="315.2" y="0" width="22.7" height="34" />
+            <polygon points="315.2,34 338.9,34 284.5,96 238.5,96" opacity="0.38" />
+            <rect x="238.5" y="96" width="45.1" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>建設：長野県 7.6%、全国 6.7%</title>
+            <rect x="338.9" y="0" width="75.4" height="34" />
+            <polygon points="338.9,34 415.3,34 351.7,96 284.5,96" opacity="0.38" />
+            <rect x="284.5" y="96" width="66.1" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>電気・ガス・熱供給：長野県 1.9%、全国 2.3%</title>
+            <rect x="415.3" y="0" width="18.0" height="34" />
+            <polygon points="415.3,34 434.2,34 374.3,96 351.7,96" opacity="0.38" />
+            <rect x="351.7" y="96" width="21.7" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>水道：長野県 0.6%、全国 0.4%</title>
+            <rect x="434.2" y="0" width="5.4" height="34" />
+            <polygon points="434.2,34 440.6,34 378.7,96 374.3,96" opacity="0.38" />
+            <rect x="374.3" y="96" width="3.4" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>廃棄物処理：長野県 0.7%、全国 0.6%</title>
+            <rect x="440.6" y="0" width="5.7" height="34" />
+            <polygon points="440.6,34 447.3,34 384.6,96 378.7,96" opacity="0.38" />
+            <rect x="378.7" y="96" width="4.8" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>商業：長野県 7.8%、全国 9.0%</title>
+            <rect x="447.3" y="0" width="77.0" height="34" />
+            <polygon points="447.3,34 525.3,34 474.9,96 384.6,96" opacity="0.38" />
+            <rect x="384.6" y="96" width="89.4" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>金融・保険：長野県 3.3%、全国 3.5%</title>
+            <rect x="525.3" y="0" width="32.0" height="34" />
+            <polygon points="525.3,34 558.3,34 510.3,96 474.9,96" opacity="0.38" />
+            <rect x="474.9" y="96" width="34.4" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>不動産：長野県 8.5%、全国 8.8%</title>
+            <rect x="558.3" y="0" width="83.7" height="34" />
+            <polygon points="558.3,34 642.9,34 598.6,96 510.3,96" opacity="0.38" />
+            <rect x="510.3" y="96" width="87.2" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>運輸・郵便：長野県 4.2%、全国 4.9%</title>
+            <rect x="642.9" y="0" width="41.0" height="34" />
+            <polygon points="642.9,34 684.9,34 647.1,96 598.6,96" opacity="0.38" />
+            <rect x="598.6" y="96" width="47.5" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>情報通信：長野県 3.3%、全国 6.3%</title>
+            <rect x="684.9" y="0" width="32.1" height="34" />
+            <polygon points="684.9,34 718.0,34 710.4,96 647.1,96" opacity="0.38" />
+            <rect x="647.1" y="96" width="62.3" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>他に分類されない会員制団体：長野県 0.8%、全国 0.5%</title>
+            <rect x="718.0" y="0" width="7.4" height="34" />
+            <polygon points="718.0,34 726.5,34 715.1,96 710.4,96" opacity="0.38" />
+            <rect x="710.4" y="96" width="3.7" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>対事業所サービス：長野県 5.8%、全国 8.2%</title>
+            <rect x="726.5" y="0" width="57.5" height="34" />
+            <polygon points="726.5,34 784.9,34 797.5,96 715.1,96" opacity="0.38" />
+            <rect x="715.1" y="96" width="81.4" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>対個人サービス：長野県 4.1%、全国 3.9%</title>
+            <rect x="784.9" y="0" width="40.3" height="34" />
+            <polygon points="784.9,34 826.2,34 836.1,96 797.5,96" opacity="0.38" />
+            <rect x="797.5" y="96" width="37.6" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>分類不明：長野県 0.5%、全国 0.8%</title>
+            <rect x="826.2" y="0" width="3.7" height="34" />
+            <polygon points="826.2,34 830.9,34 843.6,96 836.1,96" opacity="0.38" />
+            <rect x="836.1" y="96" width="6.5" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>公務：長野県 4.2%、全国 4.2%</title>
+            <rect x="830.9" y="0" width="41.4" height="34" />
+            <polygon points="830.9,34 873.3,34 885.2,96 843.6,96" opacity="0.38" />
+            <rect x="843.6" y="96" width="40.5" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>教育・研究：長野県 4.4%、全国 4.5%</title>
+            <rect x="873.3" y="0" width="43.3" height="34" />
+            <polygon points="873.3,34 917.6,34 929.9,96 885.2,96" opacity="0.38" />
+            <rect x="885.2" y="96" width="43.7" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>医療・福祉：長野県 8.2%、全国 7.0%</title>
+            <rect x="917.6" y="0" width="81.4" height="34" />
+            <polygon points="917.6,34 1000.0,34 1000.0,96 929.9,96" opacity="0.38" />
+            <rect x="929.9" y="96" width="69.1" height="34" />
+          </g>
+        </svg>
+        <ul class="pf-legend">
+          <li><i style="background:#2a78d6"></i>資源・一次産業</li>
+          <li><i style="background:#eb6834"></i>素材</li>
+          <li><i style="background:#1baf7a"></i>食品・生活関連製造</li>
+          <li><i style="background:#eda100"></i>機械・電機・輸送機械</li>
+          <li><i style="background:#e87ba4"></i>建設・エネルギー・環境</li>
+          <li><i style="background:#009a2e"></i>流通・金融・不動産・運輸通信</li>
+          <li><i style="background:#7a68e8"></i>対事業所・対個人サービス等</li>
+          <li><i style="background:#e34948"></i>公務・教育・医療</li>
+        </ul>
+        <p class="text-xs text-base-content/70">
+          上の帯が長野県、下の帯が全国。幅は産出額に占める割合で、同じ産業どうしをつないでいます。下へすぼまる産業は、全国より長野県に集中しています。
+        </p>
+      </figure>
       <section class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">産出額（2020年）</span><b class="text-xl">14.9兆円</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">産出額（2020年）</span><b class="k-num">14.9兆円</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">付加価値率</span><b class="text-xl">54%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">付加価値率</span><b class="k-num">54%</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">移輸出（産出額比）</span><b class="text-xl">35%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">移輸出（産出額比）</span><b class="k-num">35%</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">移輸入（産出額比）</span><b class="text-xl">41%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">移輸入（産出額比）</span><b class="k-num">41%</b>
           </div>
         </div>
       </section>
@@ -149,28 +407,28 @@
                 stroke-dasharray="3 3"
               />
               <text x="162" y="19" text-anchor="end" fill="currentColor">情報通信機器</text>
-              <rect x="170" y="7" width="420.0" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="7" width="420.0" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="596.0" y="20" fill="currentColor">6.37</text>
               <text x="162" y="45" text-anchor="end" fill="currentColor">電子部品</text>
-              <rect x="170" y="33" width="220.3" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="33" width="220.3" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="396.3" y="46" fill="currentColor">3.34</text>
               <text x="162" y="71" text-anchor="end" fill="currentColor">生産用機械</text>
-              <rect x="170" y="59" width="165.4" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="59" width="165.4" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="341.4" y="72" fill="currentColor">2.51</text>
               <text x="162" y="97" text-anchor="end" fill="currentColor">業務用機械</text>
-              <rect x="170" y="85" width="165.3" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="85" width="165.3" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="341.3" y="98" fill="currentColor">2.51</text>
               <text x="162" y="123" text-anchor="end" fill="currentColor">農林漁業</text>
-              <rect x="170" y="111" width="130.0" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="111" width="130.0" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="306.0" y="124" fill="currentColor">1.97</text>
               <text x="162" y="149" text-anchor="end" fill="currentColor">はん用機械</text>
-              <rect x="170" y="137" width="128.2" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="137" width="128.2" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="304.2" y="150" fill="currentColor">1.94</text>
               <text x="162" y="175" text-anchor="end" fill="currentColor">他に分類されない会員制団体</text>
-              <rect x="170" y="163" width="119.5" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="163" width="119.5" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="295.5" y="176" fill="currentColor">1.81</text>
               <text x="162" y="201" text-anchor="end" fill="currentColor">金属製品</text>
-              <rect x="170" y="189" width="100.5" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="189" width="100.5" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="276.5" y="202" fill="currentColor">1.52</text>
             </svg>
           </div>
@@ -639,9 +897,7 @@
       </div>
     </section>
     <script src="/feedback.js" defer></script>
-    <footer
-      class="footer footer-center p-6 bg-base-100 border-t border-base-300 text-sm text-base-content/70 mt-12"
-    >
+    <footer class="footer footer-center p-6 k-foot text-sm text-base-content/70 mt-12">
       <p>
         出典：総務省ほか「産業連関表」、経済産業省「延長産業連関表」（政府統計の総合窓口 e-Stat
         掲載）を筆者が加工して作成。<br />加工・分析・「仮説」は筆者によるもので、政府が作成・保証したものではありません。投資・経営判断の根拠にはしないでください。

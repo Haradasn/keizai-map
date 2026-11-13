@@ -23,7 +23,7 @@
     <meta property="og:image" content="https://keizai-atlas.com/og.png" />
     <meta property="og:locale" content="ja_JP" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="theme-color" content="#0b1120" />
+    <meta name="theme-color" content="#0d1f2d" />
     <link
       rel="alternate"
       type="application/atom+xml"
@@ -37,20 +37,22 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600&family=IBM+Plex+Mono:wght@400;500&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="assets.css" />
     <script>
-      try{var t=localStorage.getItem("theme");if(t!=="nord")t="night";document.documentElement.dataset.theme=t}catch(e){}
+      try{var t=localStorage.getItem("theme");if(t!=="nord"&&t!=="night")t=matchMedia("(prefers-color-scheme: dark)").matches?"night":"nord";document.documentElement.dataset.theme=t}catch(e){}
     </script>
   </head>
   <body class="bg-base-200 text-base-content font-sans min-h-screen flex flex-col">
-    <header class="navbar bg-base-100/80 backdrop-blur border-b border-base-300 sticky top-0 z-50 px-4">
+    <header class="navbar k-nav sticky top-0 z-50 px-4">
       <div class="flex-1">
-        <a href="index.html" class="text-lg font-bold tracking-tight"
+        <a href="index.html" class="k-logo"
           >Keizai Atlas
-          <span class="text-xs font-normal text-base-content/70 ml-2 hidden sm:inline">経済の地図帳</span></a
+          <span class="font-sans text-xs font-normal text-base-content/70 hidden sm:inline"
+            >経済の地図帳</span
+          ></a
         >
       </div>
       <nav aria-label="サイト内の主なページ" class="flex-none gap-1 items-center flex">
@@ -93,31 +95,287 @@
           <li>神奈川県</li>
         </ul>
       </nav>
-      <header class="space-y-3">
-        <h1 class="text-3xl font-bold">神奈川県の産業構造</h1>
-        <p class="text-base-content/80">
-          神奈川県の2020年の産出額は61.5兆円、粗付加価値は34.1兆円です。産出額に対する移輸出（海外と他の都道府県への販売）は35%、移輸入（海外と他の都道府県からの購入）は43%でした。
-        </p>
+      <header class="pf-head">
+        <svg class="pf-shape" viewBox="0 0 200 200" aria-hidden="true">
+          <path
+            d="M51.9 29.9L70.1 36.7L78.0 48.3L84.2 45.4L109.3 53.0L124.1 74.6L127.8 74.1L125.2 55.2L128.8 53.0L128.8 58.8L132.5 55.2L120.0 45.7L123.0 42.3L130.3 47.5L136.3 37.5L166.3 51.7L174.3 65.4L186.3 63.6L193.1 68.0L194.0 72.0L190.1 72.5L188.6 69.1L185.0 66.5L187.8 72.0L184.8 68.8L181.1 75.1L182.0 71.5L179.2 70.7L180.7 75.1L178.8 73.0L173.0 79.4L171.5 76.5L170.0 82.2L162.1 81.5L159.3 84.1L159.5 87.8L165.3 90.7L168.3 88.3L168.7 93.3L171.9 91.2L167.4 100.7L159.3 98.6L162.1 100.7L157.1 102.5L164.6 108.5L164.6 116.7L160.8 117.2L158.8 119.9L157.1 119.3L159.7 122.0L165.5 120.4L159.7 129.1L165.5 132.2L167.8 127.5L171.9 136.4L183.9 140.1L177.7 141.7L179.2 150.9L164.6 158.0L169.1 170.1L154.8 169.6L154.8 163.8L158.2 163.8L152.4 155.4L158.4 150.1L147.3 140.1L145.8 129.3L138.7 125.4L126.3 128.3L117.7 122.8L76.7 129.9L55.5 143.3L53.2 159.6L58.3 169.6L30.0 166.9L18.6 144.6L27.9 119.9L24.2 101.7L6.0 98.8L10.3 88.6L48.0 65.4L51.4 58.3L49.1 34.9L51.9 29.9Z"
+          />
+        </svg>
+        <div class="space-y-3">
+          <h1 class="pf-h1">神奈川県の産業構造</h1>
+          <p class="text-base-content/80">
+            神奈川県の2020年の産出額は61.5兆円、粗付加価値は34.1兆円です。産出額に対する移輸出（海外と他の都道府県への販売）は35%、移輸入（海外と他の都道府県からの購入）は43%でした。
+          </p>
+        </div>
       </header>
+      <figure class="pf-comp">
+        <figcaption class="font-bold">産業の構成を、全国と比べる</figcaption>
+        <div class="pf-labs" aria-hidden="true">
+          <span style="left:36.2%">商業 7.1%</span><span style="left:69.5%">対事業所サービス 9.0%</span
+          ><span style="left:92.7%">医療・福祉 7.3%</span>
+        </div>
+        <svg
+          viewBox="0 0 1000 130"
+          preserveAspectRatio="none"
+          role="img"
+          aria-label="神奈川県の産業の構成（産出額に占める割合）を、全国と比べた帯の図。神奈川県で最も大きい産業は不動産（11.4%）"
+        >
+          <g fill="#2a78d6">
+            <title>農林漁業：神奈川県 0.1%、全国 1.2%</title>
+            <rect x="0.0" y="0" width="0.4" height="34" />
+            <polygon points="0.0,34 1.4,34 12.1,96 0.0,96" opacity="0.38" />
+            <rect x="0.0" y="96" width="11.1" height="34" />
+          </g>
+          <g fill="#2a78d6">
+            <title>鉱業：神奈川県 0.0%、全国 0.0%</title>
+            <rect x="1.4" y="0" width="0.2" height="34" />
+            <polygon points="1.4,34 1.5,34 12.5,96 12.1,96" opacity="0.38" />
+            <rect x="12.1" y="96" width="0.2" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>繊維製品：神奈川県 0.1%、全国 0.3%</title>
+            <rect x="1.5" y="0" width="0.2" height="34" />
+            <polygon points="1.5,34 2.0,34 15.4,96 12.5,96" opacity="0.38" />
+            <rect x="12.5" y="96" width="1.8" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>パルプ・紙・木製品：神奈川県 0.6%、全国 1.1%</title>
+            <rect x="2.0" y="0" width="4.8" height="34" />
+            <polygon points="2.0,34 7.9,34 26.5,96 15.4,96" opacity="0.38" />
+            <rect x="15.4" y="96" width="10.1" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>化学製品：神奈川県 3.5%、全国 2.8%</title>
+            <rect x="7.9" y="0" width="33.6" height="34" />
+            <polygon points="7.9,34 42.4,34 54.1,96 26.5,96" opacity="0.38" />
+            <rect x="26.5" y="96" width="26.6" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>石油・石炭製品：神奈川県 2.8%、全国 1.3%</title>
+            <rect x="42.4" y="0" width="26.7" height="34" />
+            <polygon points="42.4,34 70.1,34 67.0,96 54.1,96" opacity="0.38" />
+            <rect x="54.1" y="96" width="11.9" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>プラスチック・ゴム製品：神奈川県 0.8%、全国 1.3%</title>
+            <rect x="70.1" y="0" width="7.3" height="34" />
+            <polygon points="70.1,34 78.4,34 80.4,96 67.0,96" opacity="0.38" />
+            <rect x="67.0" y="96" width="12.3" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>窯業・土石製品：神奈川県 0.5%、全国 0.6%</title>
+            <rect x="78.4" y="0" width="3.5" height="34" />
+            <polygon points="78.4,34 82.9,34 86.8,96 80.4,96" opacity="0.38" />
+            <rect x="80.4" y="96" width="5.4" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>鉄鋼：神奈川県 1.3%、全国 2.1%</title>
+            <rect x="82.9" y="0" width="12.5" height="34" />
+            <polygon points="82.9,34 96.4,34 107.3,96 86.8,96" opacity="0.38" />
+            <rect x="86.8" y="96" width="19.5" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>非鉄金属：神奈川県 0.5%、全国 0.8%</title>
+            <rect x="96.4" y="0" width="3.8" height="34" />
+            <polygon points="96.4,34 101.2,34 115.3,96 107.3,96" opacity="0.38" />
+            <rect x="107.3" y="96" width="7.0" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>金属製品：神奈川県 0.6%、全国 1.2%</title>
+            <rect x="101.2" y="0" width="4.9" height="34" />
+            <polygon points="101.2,34 107.1,34 127.0,96 115.3,96" opacity="0.38" />
+            <rect x="115.3" y="96" width="10.7" height="34" />
+          </g>
+          <g fill="#1baf7a">
+            <title>飲食料品：神奈川県 3.0%、全国 3.7%</title>
+            <rect x="107.1" y="0" width="29.3" height="34" />
+            <polygon points="107.1,34 137.4,34 164.1,96 127.0,96" opacity="0.38" />
+            <rect x="127.0" y="96" width="36.1" height="34" />
+          </g>
+          <g fill="#1baf7a">
+            <title>その他の製造工業製品：神奈川県 0.5%、全国 0.9%</title>
+            <rect x="137.4" y="0" width="4.0" height="34" />
+            <polygon points="137.4,34 142.4,34 172.7,96 164.1,96" opacity="0.38" />
+            <rect x="164.1" y="96" width="7.5" height="34" />
+          </g>
+          <g fill="#1baf7a">
+            <title>事務用品：神奈川県 0.1%、全国 0.1%</title>
+            <rect x="142.4" y="0" width="0.5" height="34" />
+            <polygon points="142.4,34 143.9,34 174.1,96 172.7,96" opacity="0.38" />
+            <rect x="172.7" y="96" width="0.4" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>はん用機械：神奈川県 0.8%、全国 1.0%</title>
+            <rect x="143.9" y="0" width="7.4" height="34" />
+            <polygon points="143.9,34 152.3,34 184.3,96 174.1,96" opacity="0.38" />
+            <rect x="174.1" y="96" width="9.1" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>生産用機械：神奈川県 1.7%、全国 1.6%</title>
+            <rect x="152.3" y="0" width="16.1" height="34" />
+            <polygon points="152.3,34 169.4,34 200.4,96 184.3,96" opacity="0.38" />
+            <rect x="184.3" y="96" width="15.1" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>業務用機械：神奈川県 0.7%、全国 0.6%</title>
+            <rect x="169.4" y="0" width="6.2" height="34" />
+            <polygon points="169.4,34 176.7,34 205.9,96 200.4,96" opacity="0.38" />
+            <rect x="200.4" y="96" width="4.6" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>電子部品：神奈川県 0.5%、全国 1.3%</title>
+            <rect x="176.7" y="0" width="3.6" height="34" />
+            <polygon points="176.7,34 181.3,34 218.6,96 205.9,96" opacity="0.38" />
+            <rect x="205.9" y="96" width="11.7" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>電気機械：神奈川県 1.1%、全国 1.5%</title>
+            <rect x="181.3" y="0" width="10.4" height="34" />
+            <polygon points="181.3,34 192.7,34 233.8,96 218.6,96" opacity="0.38" />
+            <rect x="218.6" y="96" width="14.2" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>情報通信機器：神奈川県 1.0%、全国 0.5%</title>
+            <rect x="192.7" y="0" width="9.3" height="34" />
+            <polygon points="192.7,34 202.9,34 238.5,96 233.8,96" opacity="0.38" />
+            <rect x="233.8" y="96" width="3.7" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>輸送機械：神奈川県 4.5%、全国 4.6%</title>
+            <rect x="202.9" y="0" width="44.0" height="34" />
+            <polygon points="202.9,34 248.0,34 284.5,96 238.5,96" opacity="0.38" />
+            <rect x="238.5" y="96" width="45.1" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>建設：神奈川県 6.7%、全国 6.7%</title>
+            <rect x="248.0" y="0" width="65.8" height="34" />
+            <polygon points="248.0,34 314.8,34 351.7,96 284.5,96" opacity="0.38" />
+            <rect x="284.5" y="96" width="66.1" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>電気・ガス・熱供給：神奈川県 3.5%、全国 2.3%</title>
+            <rect x="314.8" y="0" width="34.5" height="34" />
+            <polygon points="314.8,34 350.3,34 374.3,96 351.7,96" opacity="0.38" />
+            <rect x="351.7" y="96" width="21.7" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>水道：神奈川県 0.5%、全国 0.4%</title>
+            <rect x="350.3" y="0" width="3.7" height="34" />
+            <polygon points="350.3,34 355.0,34 378.7,96 374.3,96" opacity="0.38" />
+            <rect x="374.3" y="96" width="3.4" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>廃棄物処理：神奈川県 0.7%、全国 0.6%</title>
+            <rect x="355.0" y="0" width="5.9" height="34" />
+            <polygon points="355.0,34 361.9,34 384.6,96 378.7,96" opacity="0.38" />
+            <rect x="378.7" y="96" width="4.8" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>商業：神奈川県 7.1%、全国 9.0%</title>
+            <rect x="361.9" y="0" width="69.8" height="34" />
+            <polygon points="361.9,34 432.7,34 474.9,96 384.6,96" opacity="0.38" />
+            <rect x="384.6" y="96" width="89.4" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>金融・保険：神奈川県 2.7%、全国 3.5%</title>
+            <rect x="432.7" y="0" width="26.0" height="34" />
+            <polygon points="432.7,34 459.7,34 510.3,96 474.9,96" opacity="0.38" />
+            <rect x="474.9" y="96" width="34.4" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>不動産：神奈川県 11.4%、全国 8.8%</title>
+            <rect x="459.7" y="0" width="112.8" height="34" />
+            <polygon points="459.7,34 573.5,34 598.6,96 510.3,96" opacity="0.38" />
+            <rect x="510.3" y="96" width="87.2" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>運輸・郵便：神奈川県 4.9%、全国 4.9%</title>
+            <rect x="573.5" y="0" width="47.7" height="34" />
+            <polygon points="573.5,34 622.2,34 647.1,96 598.6,96" opacity="0.38" />
+            <rect x="598.6" y="96" width="47.5" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>情報通信：神奈川県 6.9%、全国 6.3%</title>
+            <rect x="622.2" y="0" width="68.0" height="34" />
+            <polygon points="622.2,34 691.2,34 710.4,96 647.1,96" opacity="0.38" />
+            <rect x="647.1" y="96" width="62.3" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>他に分類されない会員制団体：神奈川県 0.4%、全国 0.5%</title>
+            <rect x="691.2" y="0" width="3.0" height="34" />
+            <polygon points="691.2,34 695.1,34 715.1,96 710.4,96" opacity="0.38" />
+            <rect x="710.4" y="96" width="3.7" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>対事業所サービス：神奈川県 9.0%、全国 8.2%</title>
+            <rect x="695.1" y="0" width="88.8" height="34" />
+            <polygon points="695.1,34 784.9,34 797.5,96 715.1,96" opacity="0.38" />
+            <rect x="715.1" y="96" width="81.4" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>対個人サービス：神奈川県 4.1%、全国 3.9%</title>
+            <rect x="784.9" y="0" width="40.4" height="34" />
+            <polygon points="784.9,34 826.4,34 836.1,96 797.5,96" opacity="0.38" />
+            <rect x="797.5" y="96" width="37.6" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>分類不明：神奈川県 0.8%、全国 0.8%</title>
+            <rect x="826.4" y="0" width="6.5" height="34" />
+            <polygon points="826.4,34 833.9,34 843.6,96 836.1,96" opacity="0.38" />
+            <rect x="836.1" y="96" width="6.5" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>公務：神奈川県 2.8%、全国 4.2%</title>
+            <rect x="833.9" y="0" width="27.5" height="34" />
+            <polygon points="833.9,34 862.4,34 885.2,96 843.6,96" opacity="0.38" />
+            <rect x="843.6" y="96" width="40.5" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>教育・研究：神奈川県 6.4%、全国 4.5%</title>
+            <rect x="862.4" y="0" width="63.5" height="34" />
+            <polygon points="862.4,34 926.9,34 929.9,96 885.2,96" opacity="0.38" />
+            <rect x="885.2" y="96" width="43.7" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>医療・福祉：神奈川県 7.3%、全国 7.0%</title>
+            <rect x="926.9" y="0" width="72.1" height="34" />
+            <polygon points="926.9,34 1000.0,34 1000.0,96 929.9,96" opacity="0.38" />
+            <rect x="929.9" y="96" width="69.1" height="34" />
+          </g>
+        </svg>
+        <ul class="pf-legend">
+          <li><i style="background:#2a78d6"></i>資源・一次産業</li>
+          <li><i style="background:#eb6834"></i>素材</li>
+          <li><i style="background:#1baf7a"></i>食品・生活関連製造</li>
+          <li><i style="background:#eda100"></i>機械・電機・輸送機械</li>
+          <li><i style="background:#e87ba4"></i>建設・エネルギー・環境</li>
+          <li><i style="background:#009a2e"></i>流通・金融・不動産・運輸通信</li>
+          <li><i style="background:#7a68e8"></i>対事業所・対個人サービス等</li>
+          <li><i style="background:#e34948"></i>公務・教育・医療</li>
+        </ul>
+        <p class="text-xs text-base-content/70">
+          上の帯が神奈川県、下の帯が全国。幅は産出額に占める割合で、同じ産業どうしをつないでいます。下へすぼまる産業は、全国より神奈川県に集中しています。
+        </p>
+      </figure>
       <section class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">産出額（2020年）</span><b class="text-xl">61.5兆円</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">産出額（2020年）</span><b class="k-num">61.5兆円</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">付加価値率</span><b class="text-xl">56%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">付加価値率</span><b class="k-num">56%</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">移輸出（産出額比）</span><b class="text-xl">35%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">移輸出（産出額比）</span><b class="k-num">35%</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">移輸入（産出額比）</span><b class="text-xl">43%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">移輸入（産出額比）</span><b class="k-num">43%</b>
           </div>
         </div>
       </section>
@@ -149,28 +407,28 @@
                 stroke-dasharray="3 3"
               />
               <text x="162" y="19" text-anchor="end" fill="currentColor">情報通信機器</text>
-              <rect x="170" y="7" width="420.0" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="7" width="420.0" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="596.0" y="20" fill="currentColor">2.20</text>
               <text x="162" y="45" text-anchor="end" fill="currentColor">石油・石炭製品</text>
-              <rect x="170" y="33" width="408.7" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="33" width="408.7" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="584.7" y="46" fill="currentColor">2.14</text>
               <text x="162" y="71" text-anchor="end" fill="currentColor">電気・ガス・熱供給</text>
-              <rect x="170" y="59" width="298.7" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="59" width="298.7" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="474.7" y="72" fill="currentColor">1.57</text>
               <text x="162" y="97" text-anchor="end" fill="currentColor">教育・研究</text>
-              <rect x="170" y="85" width="274.9" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="85" width="274.9" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="450.9" y="98" fill="currentColor">1.44</text>
               <text x="162" y="123" text-anchor="end" fill="currentColor">業務用機械</text>
-              <rect x="170" y="111" width="247.9" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="111" width="247.9" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="423.9" y="124" fill="currentColor">1.30</text>
               <text x="162" y="149" text-anchor="end" fill="currentColor">不動産</text>
-              <rect x="170" y="137" width="246.0" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="137" width="246.0" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="422.0" y="150" fill="currentColor">1.29</text>
               <text x="162" y="175" text-anchor="end" fill="currentColor">化学製品</text>
-              <rect x="170" y="163" width="238.8" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="163" width="238.8" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="414.8" y="176" fill="currentColor">1.25</text>
               <text x="162" y="201" text-anchor="end" fill="currentColor">廃棄物処理</text>
-              <rect x="170" y="189" width="225.9" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="189" width="225.9" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="401.9" y="202" fill="currentColor">1.18</text>
             </svg>
           </div>
@@ -639,9 +897,7 @@
       </div>
     </section>
     <script src="/feedback.js" defer></script>
-    <footer
-      class="footer footer-center p-6 bg-base-100 border-t border-base-300 text-sm text-base-content/70 mt-12"
-    >
+    <footer class="footer footer-center p-6 k-foot text-sm text-base-content/70 mt-12">
       <p>
         出典：総務省ほか「産業連関表」、経済産業省「延長産業連関表」（政府統計の総合窓口 e-Stat
         掲載）を筆者が加工して作成。<br />加工・分析・「仮説」は筆者によるもので、政府が作成・保証したものではありません。投資・経営判断の根拠にはしないでください。

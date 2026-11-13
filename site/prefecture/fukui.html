@@ -23,7 +23,7 @@
     <meta property="og:image" content="https://keizai-atlas.com/og.png" />
     <meta property="og:locale" content="ja_JP" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="theme-color" content="#0b1120" />
+    <meta name="theme-color" content="#0d1f2d" />
     <link
       rel="alternate"
       type="application/atom+xml"
@@ -37,20 +37,22 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600&family=IBM+Plex+Mono:wght@400;500&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="assets.css" />
     <script>
-      try{var t=localStorage.getItem("theme");if(t!=="nord")t="night";document.documentElement.dataset.theme=t}catch(e){}
+      try{var t=localStorage.getItem("theme");if(t!=="nord"&&t!=="night")t=matchMedia("(prefers-color-scheme: dark)").matches?"night":"nord";document.documentElement.dataset.theme=t}catch(e){}
     </script>
   </head>
   <body class="bg-base-200 text-base-content font-sans min-h-screen flex flex-col">
-    <header class="navbar bg-base-100/80 backdrop-blur border-b border-base-300 sticky top-0 z-50 px-4">
+    <header class="navbar k-nav sticky top-0 z-50 px-4">
       <div class="flex-1">
-        <a href="index.html" class="text-lg font-bold tracking-tight"
+        <a href="index.html" class="k-logo"
           >Keizai Atlas
-          <span class="text-xs font-normal text-base-content/70 ml-2 hidden sm:inline">経済の地図帳</span></a
+          <span class="font-sans text-xs font-normal text-base-content/70 hidden sm:inline"
+            >経済の地図帳</span
+          ></a
         >
       </div>
       <nav aria-label="サイト内の主なページ" class="flex-none gap-1 items-center flex">
@@ -93,31 +95,286 @@
           <li>福井県</li>
         </ul>
       </nav>
-      <header class="space-y-3">
-        <h1 class="text-3xl font-bold">福井県の産業構造</h1>
-        <p class="text-base-content/80">
-          福井県の2020年の産出額は6.8兆円、粗付加価値は3.7兆円です。産出額に対する移輸出（海外と他の都道府県への販売）は36%、移輸入（海外と他の都道府県からの購入）は35%でした。
-        </p>
+      <header class="pf-head">
+        <svg class="pf-shape" viewBox="0 0 200 200" aria-hidden="true">
+          <path
+            d="M114.4 20.1L126.4 31.3L126.9 38.7L130.1 41.9L136.9 40.9L143.3 46.9L147.8 43.1L156.4 43.7L171.6 58.4L183.9 55.3L185.3 58.4L181.0 61.5L180.1 70.4L183.5 71.5L183.8 77.2L189.1 78.7L188.0 82.5L193.2 87.2L194.0 95.1L190.6 96.0L188.7 103.5L179.7 102.0L171.1 106.2L169.1 102.2L159.0 107.1L152.4 105.4L150.1 111.8L147.2 107.4L132.7 104.2L125.8 107.6L125.3 117.3L119.4 127.0L106.3 119.5L101.6 120.5L99.4 125.2L105.2 137.6L104.2 142.8L96.5 139.8L95.4 148.9L84.7 148.7L81.9 155.1L78.7 155.9L72.9 150.4L66.1 169.9L62.3 171.4L61.1 168.5L55.9 168.3L49.5 177.9L40.4 179.9L16.9 173.9L16.4 167.0L12.4 166.3L7.4 159.1L9.5 155.6L6.0 149.7L8.2 145.2L11.0 144.0L8.7 148.7L10.2 150.0L14.2 147.9L13.0 144.7L15.4 145.3L14.0 153.2L17.6 155.6L23.3 154.9L34.9 145.7L36.0 149.5L30.4 150.0L32.3 152.4L30.1 155.6L25.8 154.6L24.0 155.4L42.7 156.4L48.9 147.7L42.7 150.4L42.5 147.0L38.7 145.3L42.0 142.2L46.9 142.7L48.0 146.5L49.1 144.2L53.6 149.5L58.5 147.7L54.0 141.8L59.2 143.2L61.5 138.3L55.8 129.9L62.8 135.4L78.4 131.9L76.2 127.5L77.8 120.8L74.8 116.6L83.4 109.4L87.0 119.1L84.5 123.3L87.1 127.0L91.2 126.5L94.8 107.2L80.3 88.6L80.7 80.5L75.4 72.8L82.6 64.1L84.9 53.6L94.1 43.4L96.4 35.3L96.7 37.4L98.7 37.5L97.9 28.0L104.7 27.3L114.4 20.1Z"
+          />
+        </svg>
+        <div class="space-y-3">
+          <h1 class="pf-h1">福井県の産業構造</h1>
+          <p class="text-base-content/80">
+            福井県の2020年の産出額は6.8兆円、粗付加価値は3.7兆円です。産出額に対する移輸出（海外と他の都道府県への販売）は36%、移輸入（海外と他の都道府県からの購入）は35%でした。
+          </p>
+        </div>
       </header>
+      <figure class="pf-comp">
+        <figcaption class="font-bold">産業の構成を、全国と比べる</figcaption>
+        <div class="pf-labs" aria-hidden="true">
+          <span style="left:30.3%">建設 12.0%</span><span style="left:93.0%">医療・福祉 7.0%</span>
+        </div>
+        <svg
+          viewBox="0 0 1000 130"
+          preserveAspectRatio="none"
+          role="img"
+          aria-label="福井県の産業の構成（産出額に占める割合）を、全国と比べた帯の図。福井県で最も大きい産業は建設（12.0%）"
+        >
+          <g fill="#2a78d6">
+            <title>農林漁業：福井県 0.9%、全国 1.2%</title>
+            <rect x="0.0" y="0" width="7.9" height="34" />
+            <polygon points="0.0,34 8.9,34 12.1,96 0.0,96" opacity="0.38" />
+            <rect x="0.0" y="96" width="11.1" height="34" />
+          </g>
+          <g fill="#2a78d6">
+            <title>鉱業：福井県 0.0%、全国 0.0%</title>
+            <rect x="8.9" y="0" width="0.2" height="34" />
+            <polygon points="8.9,34 9.4,34 12.5,96 12.1,96" opacity="0.38" />
+            <rect x="12.1" y="96" width="0.2" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>繊維製品：福井県 2.7%、全国 0.3%</title>
+            <rect x="9.4" y="0" width="25.8" height="34" />
+            <polygon points="9.4,34 36.2,34 15.4,96 12.5,96" opacity="0.38" />
+            <rect x="12.5" y="96" width="1.8" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>パルプ・紙・木製品：福井県 2.0%、全国 1.1%</title>
+            <rect x="36.2" y="0" width="18.8" height="34" />
+            <polygon points="36.2,34 56.0,34 26.5,96 15.4,96" opacity="0.38" />
+            <rect x="15.4" y="96" width="10.1" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>化学製品：福井県 3.1%、全国 2.8%</title>
+            <rect x="56.0" y="0" width="30.1" height="34" />
+            <polygon points="56.0,34 87.1,34 54.1,96 26.5,96" opacity="0.38" />
+            <rect x="26.5" y="96" width="26.6" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>石油・石炭製品：福井県 0.1%、全国 1.3%</title>
+            <rect x="87.1" y="0" width="0.2" height="34" />
+            <polygon points="87.1,34 87.8,34 67.0,96 54.1,96" opacity="0.38" />
+            <rect x="54.1" y="96" width="11.9" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>プラスチック・ゴム製品：福井県 2.1%、全国 1.3%</title>
+            <rect x="87.8" y="0" width="19.8" height="34" />
+            <polygon points="87.8,34 108.7,34 80.4,96 67.0,96" opacity="0.38" />
+            <rect x="67.0" y="96" width="12.3" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>窯業・土石製品：福井県 0.9%、全国 0.6%</title>
+            <rect x="108.7" y="0" width="7.6" height="34" />
+            <polygon points="108.7,34 117.3,34 86.8,96 80.4,96" opacity="0.38" />
+            <rect x="80.4" y="96" width="5.4" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>鉄鋼：福井県 0.2%、全国 2.1%</title>
+            <rect x="117.3" y="0" width="0.7" height="34" />
+            <polygon points="117.3,34 118.9,34 107.3,96 86.8,96" opacity="0.38" />
+            <rect x="86.8" y="96" width="19.5" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>非鉄金属：福井県 2.0%、全国 0.8%</title>
+            <rect x="118.9" y="0" width="18.8" height="34" />
+            <polygon points="118.9,34 138.8,34 115.3,96 107.3,96" opacity="0.38" />
+            <rect x="107.3" y="96" width="7.0" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>金属製品：福井県 1.6%、全国 1.2%</title>
+            <rect x="138.8" y="0" width="15.2" height="34" />
+            <polygon points="138.8,34 155.0,34 127.0,96 115.3,96" opacity="0.38" />
+            <rect x="115.3" y="96" width="10.7" height="34" />
+          </g>
+          <g fill="#1baf7a">
+            <title>飲食料品：福井県 1.1%、全国 3.7%</title>
+            <rect x="155.0" y="0" width="9.6" height="34" />
+            <polygon points="155.0,34 165.6,34 164.1,96 127.0,96" opacity="0.38" />
+            <rect x="127.0" y="96" width="36.1" height="34" />
+          </g>
+          <g fill="#1baf7a">
+            <title>その他の製造工業製品：福井県 1.7%、全国 0.9%</title>
+            <rect x="165.6" y="0" width="15.9" height="34" />
+            <polygon points="165.6,34 182.5,34 172.7,96 164.1,96" opacity="0.38" />
+            <rect x="164.1" y="96" width="7.5" height="34" />
+          </g>
+          <g fill="#1baf7a">
+            <title>事務用品：福井県 0.1%、全国 0.1%</title>
+            <rect x="182.5" y="0" width="0.4" height="34" />
+            <polygon points="182.5,34 183.9,34 174.1,96 172.7,96" opacity="0.38" />
+            <rect x="172.7" y="96" width="0.4" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>はん用機械：福井県 0.3%、全国 1.0%</title>
+            <rect x="183.9" y="0" width="1.7" height="34" />
+            <polygon points="183.9,34 186.6,34 184.3,96 174.1,96" opacity="0.38" />
+            <rect x="174.1" y="96" width="9.1" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>生産用機械：福井県 0.9%、全国 1.6%</title>
+            <rect x="186.6" y="0" width="8.5" height="34" />
+            <polygon points="186.6,34 196.1,34 200.4,96 184.3,96" opacity="0.38" />
+            <rect x="184.3" y="96" width="15.1" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>業務用機械：福井県 0.2%、全国 0.6%</title>
+            <rect x="196.1" y="0" width="1.0" height="34" />
+            <polygon points="196.1,34 198.1,34 205.9,96 200.4,96" opacity="0.38" />
+            <rect x="200.4" y="96" width="4.6" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>電子部品：福井県 5.7%、全国 1.3%</title>
+            <rect x="198.1" y="0" width="55.7" height="34" />
+            <polygon points="198.1,34 254.8,34 218.6,96 205.9,96" opacity="0.38" />
+            <rect x="205.9" y="96" width="11.7" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>電気機械：福井県 1.9%、全国 1.5%</title>
+            <rect x="254.8" y="0" width="18.4" height="34" />
+            <polygon points="254.8,34 274.2,34 233.8,96 218.6,96" opacity="0.38" />
+            <rect x="218.6" y="96" width="14.2" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>情報通信機器：福井県 0.1%、全国 0.5%</title>
+            <rect x="274.2" y="0" width="0.2" height="34" />
+            <polygon points="274.2,34 274.9,34 238.5,96 233.8,96" opacity="0.38" />
+            <rect x="233.8" y="96" width="3.7" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>輸送機械：福井県 2.8%、全国 4.6%</title>
+            <rect x="274.9" y="0" width="26.7" height="34" />
+            <polygon points="274.9,34 302.5,34 284.5,96 238.5,96" opacity="0.38" />
+            <rect x="238.5" y="96" width="45.1" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>建設：福井県 12.0%、全国 6.7%</title>
+            <rect x="302.5" y="0" width="119.5" height="34" />
+            <polygon points="302.5,34 423.0,34 351.7,96 284.5,96" opacity="0.38" />
+            <rect x="284.5" y="96" width="66.1" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>電気・ガス・熱供給：福井県 7.6%、全国 2.3%</title>
+            <rect x="423.0" y="0" width="74.9" height="34" />
+            <polygon points="423.0,34 498.9,34 374.3,96 351.7,96" opacity="0.38" />
+            <rect x="351.7" y="96" width="21.7" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>水道：福井県 0.4%、全国 0.4%</title>
+            <rect x="498.9" y="0" width="3.4" height="34" />
+            <polygon points="498.9,34 503.3,34 378.7,96 374.3,96" opacity="0.38" />
+            <rect x="374.3" y="96" width="3.4" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>廃棄物処理：福井県 0.6%、全国 0.6%</title>
+            <rect x="503.3" y="0" width="4.8" height="34" />
+            <polygon points="503.3,34 509.2,34 384.6,96 378.7,96" opacity="0.38" />
+            <rect x="378.7" y="96" width="4.8" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>商業：福井県 6.3%、全国 9.0%</title>
+            <rect x="509.2" y="0" width="62.1" height="34" />
+            <polygon points="509.2,34 572.3,34 474.9,96 384.6,96" opacity="0.38" />
+            <rect x="384.6" y="96" width="89.4" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>金融・保険：福井県 3.3%、全国 3.5%</title>
+            <rect x="572.3" y="0" width="31.7" height="34" />
+            <polygon points="572.3,34 605.0,34 510.3,96 474.9,96" opacity="0.38" />
+            <rect x="474.9" y="96" width="34.4" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>不動産：福井県 6.6%、全国 8.8%</title>
+            <rect x="605.0" y="0" width="65.2" height="34" />
+            <polygon points="605.0,34 671.2,34 598.6,96 510.3,96" opacity="0.38" />
+            <rect x="510.3" y="96" width="87.2" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>運輸・郵便：福井県 4.1%、全国 4.9%</title>
+            <rect x="671.2" y="0" width="40.2" height="34" />
+            <polygon points="671.2,34 712.3,34 647.1,96 598.6,96" opacity="0.38" />
+            <rect x="598.6" y="96" width="47.5" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>情報通信：福井県 2.9%、全国 6.3%</title>
+            <rect x="712.3" y="0" width="28.0" height="34" />
+            <polygon points="712.3,34 741.3,34 710.4,96 647.1,96" opacity="0.38" />
+            <rect x="647.1" y="96" width="62.3" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>他に分類されない会員制団体：福井県 0.7%、全国 0.5%</title>
+            <rect x="741.3" y="0" width="5.8" height="34" />
+            <polygon points="741.3,34 748.2,34 715.1,96 710.4,96" opacity="0.38" />
+            <rect x="710.4" y="96" width="3.7" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>対事業所サービス：福井県 5.1%、全国 8.2%</title>
+            <rect x="748.2" y="0" width="49.5" height="34" />
+            <polygon points="748.2,34 798.7,34 797.5,96 715.1,96" opacity="0.38" />
+            <rect x="715.1" y="96" width="81.4" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>対個人サービス：福井県 3.1%、全国 3.9%</title>
+            <rect x="798.7" y="0" width="30.4" height="34" />
+            <polygon points="798.7,34 830.1,34 836.1,96 797.5,96" opacity="0.38" />
+            <rect x="797.5" y="96" width="37.6" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>分類不明：福井県 0.8%、全国 0.8%</title>
+            <rect x="830.1" y="0" width="6.5" height="34" />
+            <polygon points="830.1,34 837.6,34 843.6,96 836.1,96" opacity="0.38" />
+            <rect x="836.1" y="96" width="6.5" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>公務：福井県 4.6%、全国 4.2%</title>
+            <rect x="837.6" y="0" width="45.4" height="34" />
+            <polygon points="837.6,34 884.0,34 885.2,96 843.6,96" opacity="0.38" />
+            <rect x="843.6" y="96" width="40.5" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>教育・研究：福井県 4.6%、全国 4.5%</title>
+            <rect x="884.0" y="0" width="44.9" height="34" />
+            <polygon points="884.0,34 930.0,34 929.9,96 885.2,96" opacity="0.38" />
+            <rect x="885.2" y="96" width="43.7" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>医療・福祉：福井県 7.0%、全国 7.0%</title>
+            <rect x="930.0" y="0" width="69.0" height="34" />
+            <polygon points="930.0,34 1000.0,34 1000.0,96 929.9,96" opacity="0.38" />
+            <rect x="929.9" y="96" width="69.1" height="34" />
+          </g>
+        </svg>
+        <ul class="pf-legend">
+          <li><i style="background:#2a78d6"></i>資源・一次産業</li>
+          <li><i style="background:#eb6834"></i>素材</li>
+          <li><i style="background:#1baf7a"></i>食品・生活関連製造</li>
+          <li><i style="background:#eda100"></i>機械・電機・輸送機械</li>
+          <li><i style="background:#e87ba4"></i>建設・エネルギー・環境</li>
+          <li><i style="background:#009a2e"></i>流通・金融・不動産・運輸通信</li>
+          <li><i style="background:#7a68e8"></i>対事業所・対個人サービス等</li>
+          <li><i style="background:#e34948"></i>公務・教育・医療</li>
+        </ul>
+        <p class="text-xs text-base-content/70">
+          上の帯が福井県、下の帯が全国。幅は産出額に占める割合で、同じ産業どうしをつないでいます。下へすぼまる産業は、全国より福井県に集中しています。
+        </p>
+      </figure>
       <section class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">産出額（2020年）</span><b class="text-xl">6.8兆円</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">産出額（2020年）</span><b class="k-num">6.8兆円</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">付加価値率</span><b class="text-xl">55%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">付加価値率</span><b class="k-num">55%</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">移輸出（産出額比）</span><b class="text-xl">36%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">移輸出（産出額比）</span><b class="k-num">36%</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">移輸入（産出額比）</span><b class="text-xl">35%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">移輸入（産出額比）</span><b class="k-num">35%</b>
           </div>
         </div>
       </section>
@@ -149,28 +406,28 @@
                 stroke-dasharray="3 3"
               />
               <text x="162" y="19" text-anchor="end" fill="currentColor">繊維製品</text>
-              <rect x="170" y="7" width="420.0" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="7" width="420.0" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="596.0" y="20" fill="currentColor">9.44</text>
               <text x="162" y="45" text-anchor="end" fill="currentColor">電子部品</text>
-              <rect x="170" y="33" width="199.2" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="33" width="199.2" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="375.2" y="46" fill="currentColor">4.48</text>
               <text x="162" y="71" text-anchor="end" fill="currentColor">電気・ガス・熱供給</text>
-              <rect x="170" y="59" width="148.9" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="59" width="148.9" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="324.9" y="72" fill="currentColor">3.35</text>
               <text x="162" y="97" text-anchor="end" fill="currentColor">非鉄金属</text>
-              <rect x="170" y="85" width="110.2" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="85" width="110.2" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="286.2" y="98" fill="currentColor">2.48</text>
               <text x="162" y="123" text-anchor="end" fill="currentColor">その他の製造工業製品</text>
-              <rect x="170" y="111" width="87.8" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="111" width="87.8" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="263.8" y="124" fill="currentColor">1.97</text>
               <text x="162" y="149" text-anchor="end" fill="currentColor">建設</text>
-              <rect x="170" y="137" width="79.8" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="137" width="79.8" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="255.8" y="150" fill="currentColor">1.79</text>
               <text x="162" y="175" text-anchor="end" fill="currentColor">パルプ・紙・木製品</text>
-              <rect x="170" y="163" width="79.1" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="163" width="79.1" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="255.1" y="176" fill="currentColor">1.78</text>
               <text x="162" y="201" text-anchor="end" fill="currentColor">プラスチック・ゴム製品</text>
-              <rect x="170" y="189" width="69.5" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="189" width="69.5" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="245.5" y="202" fill="currentColor">1.56</text>
             </svg>
           </div>
@@ -639,9 +896,7 @@
       </div>
     </section>
     <script src="/feedback.js" defer></script>
-    <footer
-      class="footer footer-center p-6 bg-base-100 border-t border-base-300 text-sm text-base-content/70 mt-12"
-    >
+    <footer class="footer footer-center p-6 k-foot text-sm text-base-content/70 mt-12">
       <p>
         出典：総務省ほか「産業連関表」、経済産業省「延長産業連関表」（政府統計の総合窓口 e-Stat
         掲載）を筆者が加工して作成。<br />加工・分析・「仮説」は筆者によるもので、政府が作成・保証したものではありません。投資・経営判断の根拠にはしないでください。

@@ -23,7 +23,7 @@
     <meta property="og:image" content="https://keizai-atlas.com/og.png" />
     <meta property="og:locale" content="ja_JP" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="theme-color" content="#0b1120" />
+    <meta name="theme-color" content="#0d1f2d" />
     <link
       rel="alternate"
       type="application/atom+xml"
@@ -37,20 +37,22 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600&family=IBM+Plex+Mono:wght@400;500&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="assets.css" />
     <script>
-      try{var t=localStorage.getItem("theme");if(t!=="nord")t="night";document.documentElement.dataset.theme=t}catch(e){}
+      try{var t=localStorage.getItem("theme");if(t!=="nord"&&t!=="night")t=matchMedia("(prefers-color-scheme: dark)").matches?"night":"nord";document.documentElement.dataset.theme=t}catch(e){}
     </script>
   </head>
   <body class="bg-base-200 text-base-content font-sans min-h-screen flex flex-col">
-    <header class="navbar bg-base-100/80 backdrop-blur border-b border-base-300 sticky top-0 z-50 px-4">
+    <header class="navbar k-nav sticky top-0 z-50 px-4">
       <div class="flex-1">
-        <a href="index.html" class="text-lg font-bold tracking-tight"
+        <a href="index.html" class="k-logo"
           >Keizai Atlas
-          <span class="text-xs font-normal text-base-content/70 ml-2 hidden sm:inline">経済の地図帳</span></a
+          <span class="font-sans text-xs font-normal text-base-content/70 hidden sm:inline"
+            >経済の地図帳</span
+          ></a
         >
       </div>
       <nav aria-label="サイト内の主なページ" class="flex-none gap-1 items-center flex">
@@ -93,31 +95,288 @@
           <li>石川県</li>
         </ul>
       </nav>
-      <header class="space-y-3">
-        <h1 class="text-3xl font-bold">石川県の産業構造</h1>
-        <p class="text-base-content/80">
-          石川県の2020年の産出額は8.3兆円、粗付加価値は4.6兆円です。産出額に対する移輸出（海外と他の都道府県への販売）は40%、移輸入（海外と他の都道府県からの購入）は41%でした。
-        </p>
+      <header class="pf-head">
+        <svg class="pf-shape" viewBox="0 0 200 200" aria-hidden="true">
+          <path
+            d="M112.5 23.7L148.7 6.0L155.7 8.2L157.3 16.4L146.7 19.0L144.8 26.4L147.8 31.2L144.3 36.2L135.8 35.0L130.4 38.6L127.4 46.4L121.3 50.9L114.7 46.7L116.6 44.2L112.6 44.5L113.3 46.0L111.6 45.3L110.6 46.4L112.4 46.8L113.0 47.8L112.7 48.9L110.7 48.3L107.2 55.8L110.0 56.7L109.3 60.2L105.8 60.8L107.0 63.2L105.8 65.0L113.7 63.2L117.3 68.2L120.7 67.1L123.4 60.7L126.1 60.5L126.1 78.5L118.8 78.6L117.5 81.5L113.2 80.7L109.5 84.0L105.5 94.9L104.6 105.5L98.6 110.6L102.2 116.7L98.1 123.8L98.9 129.7L101.5 131.9L99.2 137.5L99.3 145.7L96.6 148.4L100.5 156.8L98.1 158.8L98.9 164.4L105.1 170.9L99.5 180.5L96.3 182.1L97.6 185.5L95.0 191.6L86.8 194.0L74.3 182.8L67.8 182.3L62.8 185.1L59.6 180.7L52.9 180.5L51.7 173.3L42.7 164.7L48.3 157.6L60.3 148.8L76.5 127.4L86.3 112.8L94.8 93.8L96.4 74.1L91.8 67.2L92.3 57.2L86.4 55.3L87.4 48.0L93.1 37.7L92.0 32.3L95.2 27.7L104.1 23.1L112.5 23.7Z"
+          />
+        </svg>
+        <div class="space-y-3">
+          <h1 class="pf-h1">石川県の産業構造</h1>
+          <p class="text-base-content/80">
+            石川県の2020年の産出額は8.3兆円、粗付加価値は4.6兆円です。産出額に対する移輸出（海外と他の都道府県への販売）は40%、移輸入（海外と他の都道府県からの購入）は41%でした。
+          </p>
+        </div>
       </header>
+      <figure class="pf-comp">
+        <figcaption class="font-bold">産業の構成を、全国と比べる</figcaption>
+        <div class="pf-labs" aria-hidden="true">
+          <span style="left:27.7%">建設 8.9%</span><span style="left:40.8%">商業 8.6%</span
+          ><span style="left:68.9%">対事業所サービス 7.2%</span
+          ><span style="left:92.1%">医療・福祉 7.9%</span>
+        </div>
+        <svg
+          viewBox="0 0 1000 130"
+          preserveAspectRatio="none"
+          role="img"
+          aria-label="石川県の産業の構成（産出額に占める割合）を、全国と比べた帯の図。石川県で最も大きい産業は建設（8.9%）"
+        >
+          <g fill="#2a78d6">
+            <title>農林漁業：石川県 1.0%、全国 1.2%</title>
+            <rect x="0.0" y="0" width="8.6" height="34" />
+            <polygon points="0.0,34 9.6,34 12.1,96 0.0,96" opacity="0.38" />
+            <rect x="0.0" y="96" width="11.1" height="34" />
+          </g>
+          <g fill="#2a78d6">
+            <title>鉱業：石川県 0.0%、全国 0.0%</title>
+            <rect x="9.6" y="0" width="0.2" height="34" />
+            <polygon points="9.6,34 9.8,34 12.5,96 12.1,96" opacity="0.38" />
+            <rect x="12.1" y="96" width="0.2" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>繊維製品：石川県 1.2%、全国 0.3%</title>
+            <rect x="9.8" y="0" width="11.0" height="34" />
+            <polygon points="9.8,34 21.8,34 15.4,96 12.5,96" opacity="0.38" />
+            <rect x="12.5" y="96" width="1.8" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>パルプ・紙・木製品：石川県 1.2%、全国 1.1%</title>
+            <rect x="21.8" y="0" width="10.5" height="34" />
+            <polygon points="21.8,34 33.3,34 26.5,96 15.4,96" opacity="0.38" />
+            <rect x="15.4" y="96" width="10.1" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>化学製品：石川県 2.2%、全国 2.8%</title>
+            <rect x="33.3" y="0" width="21.1" height="34" />
+            <polygon points="33.3,34 55.4,34 54.1,96 26.5,96" opacity="0.38" />
+            <rect x="26.5" y="96" width="26.6" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>石油・石炭製品：石川県 0.1%、全国 1.3%</title>
+            <rect x="55.4" y="0" width="0.2" height="34" />
+            <polygon points="55.4,34 56.3,34 67.0,96 54.1,96" opacity="0.38" />
+            <rect x="54.1" y="96" width="11.9" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>プラスチック・ゴム製品：石川県 0.8%、全国 1.3%</title>
+            <rect x="56.3" y="0" width="7.0" height="34" />
+            <polygon points="56.3,34 64.3,34 80.4,96 67.0,96" opacity="0.38" />
+            <rect x="67.0" y="96" width="12.3" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>窯業・土石製品：石川県 0.5%、全国 0.6%</title>
+            <rect x="64.3" y="0" width="4.0" height="34" />
+            <polygon points="64.3,34 69.3,34 86.8,96 80.4,96" opacity="0.38" />
+            <rect x="80.4" y="96" width="5.4" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>鉄鋼：石川県 0.5%、全国 2.1%</title>
+            <rect x="69.3" y="0" width="3.6" height="34" />
+            <polygon points="69.3,34 73.9,34 107.3,96 86.8,96" opacity="0.38" />
+            <rect x="86.8" y="96" width="19.5" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>非鉄金属：石川県 0.4%、全国 0.8%</title>
+            <rect x="73.9" y="0" width="3.2" height="34" />
+            <polygon points="73.9,34 78.1,34 115.3,96 107.3,96" opacity="0.38" />
+            <rect x="107.3" y="96" width="7.0" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>金属製品：石川県 1.1%、全国 1.2%</title>
+            <rect x="78.1" y="0" width="9.6" height="34" />
+            <polygon points="78.1,34 88.7,34 127.0,96 115.3,96" opacity="0.38" />
+            <rect x="115.3" y="96" width="10.7" height="34" />
+          </g>
+          <g fill="#1baf7a">
+            <title>飲食料品：石川県 2.3%、全国 3.7%</title>
+            <rect x="88.7" y="0" width="21.9" height="34" />
+            <polygon points="88.7,34 111.6,34 164.1,96 127.0,96" opacity="0.38" />
+            <rect x="127.0" y="96" width="36.1" height="34" />
+          </g>
+          <g fill="#1baf7a">
+            <title>その他の製造工業製品：石川県 0.9%、全国 0.9%</title>
+            <rect x="111.6" y="0" width="7.9" height="34" />
+            <polygon points="111.6,34 120.5,34 172.7,96 164.1,96" opacity="0.38" />
+            <rect x="164.1" y="96" width="7.5" height="34" />
+          </g>
+          <g fill="#1baf7a">
+            <title>事務用品：石川県 0.2%、全国 0.1%</title>
+            <rect x="120.5" y="0" width="0.5" height="34" />
+            <polygon points="120.5,34 122.0,34 174.1,96 172.7,96" opacity="0.38" />
+            <rect x="172.7" y="96" width="0.4" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>はん用機械：石川県 1.2%、全国 1.0%</title>
+            <rect x="122.0" y="0" width="11.5" height="34" />
+            <polygon points="122.0,34 134.5,34 184.3,96 174.1,96" opacity="0.38" />
+            <rect x="174.1" y="96" width="9.1" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>生産用機械：石川県 6.9%、全国 1.6%</title>
+            <rect x="134.5" y="0" width="68.2" height="34" />
+            <polygon points="134.5,34 203.6,34 200.4,96 184.3,96" opacity="0.38" />
+            <rect x="184.3" y="96" width="15.1" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>業務用機械：石川県 1.6%、全国 0.6%</title>
+            <rect x="203.6" y="0" width="14.6" height="34" />
+            <polygon points="203.6,34 219.3,34 205.9,96 200.4,96" opacity="0.38" />
+            <rect x="200.4" y="96" width="4.6" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>電子部品：石川県 1.7%、全国 1.3%</title>
+            <rect x="219.3" y="0" width="15.5" height="34" />
+            <polygon points="219.3,34 235.8,34 218.6,96 205.9,96" opacity="0.38" />
+            <rect x="205.9" y="96" width="11.7" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>電気機械：石川県 0.9%、全国 1.5%</title>
+            <rect x="235.8" y="0" width="8.2" height="34" />
+            <polygon points="235.8,34 245.0,34 233.8,96 218.6,96" opacity="0.38" />
+            <rect x="218.6" y="96" width="14.2" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>情報通信機器：石川県 1.8%、全国 0.5%</title>
+            <rect x="245.0" y="0" width="17.2" height="34" />
+            <polygon points="245.0,34 263.2,34 238.5,96 233.8,96" opacity="0.38" />
+            <rect x="233.8" y="96" width="3.7" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>輸送機械：石川県 1.4%、全国 4.6%</title>
+            <rect x="263.2" y="0" width="12.6" height="34" />
+            <polygon points="263.2,34 276.7,34 284.5,96 238.5,96" opacity="0.38" />
+            <rect x="238.5" y="96" width="45.1" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>建設：石川県 8.9%、全国 6.7%</title>
+            <rect x="276.7" y="0" width="88.0" height="34" />
+            <polygon points="276.7,34 365.8,34 351.7,96 284.5,96" opacity="0.38" />
+            <rect x="284.5" y="96" width="66.1" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>電力・ガス・熱供給：石川県 2.7%、全国 2.3%</title>
+            <rect x="365.8" y="0" width="26.4" height="34" />
+            <polygon points="365.8,34 393.2,34 374.3,96 351.7,96" opacity="0.38" />
+            <rect x="351.7" y="96" width="21.7" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>水道：石川県 0.7%、全国 0.4%</title>
+            <rect x="393.2" y="0" width="6.5" height="34" />
+            <polygon points="393.2,34 400.7,34 378.7,96 374.3,96" opacity="0.38" />
+            <rect x="374.3" y="96" width="3.4" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>廃棄物処理：石川県 0.7%、全国 0.6%</title>
+            <rect x="400.7" y="0" width="5.9" height="34" />
+            <polygon points="400.7,34 407.6,34 384.6,96 378.7,96" opacity="0.38" />
+            <rect x="378.7" y="96" width="4.8" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>商業：石川県 8.6%、全国 9.0%</title>
+            <rect x="407.6" y="0" width="84.8" height="34" />
+            <polygon points="407.6,34 493.4,34 474.9,96 384.6,96" opacity="0.38" />
+            <rect x="384.6" y="96" width="89.4" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>金融・保険：石川県 2.6%、全国 3.5%</title>
+            <rect x="493.4" y="0" width="25.1" height="34" />
+            <polygon points="493.4,34 519.4,34 510.3,96 474.9,96" opacity="0.38" />
+            <rect x="474.9" y="96" width="34.4" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>不動産：石川県 7.3%、全国 8.8%</title>
+            <rect x="519.4" y="0" width="72.3" height="34" />
+            <polygon points="519.4,34 592.8,34 598.6,96 510.3,96" opacity="0.38" />
+            <rect x="510.3" y="96" width="87.2" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>運輸・郵便：石川県 5.0%、全国 4.9%</title>
+            <rect x="592.8" y="0" width="48.9" height="34" />
+            <polygon points="592.8,34 642.6,34 647.1,96 598.6,96" opacity="0.38" />
+            <rect x="598.6" y="96" width="47.5" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>情報通信：石川県 4.0%、全国 6.3%</title>
+            <rect x="642.6" y="0" width="39.0" height="34" />
+            <polygon points="642.6,34 682.6,34 710.4,96 647.1,96" opacity="0.38" />
+            <rect x="647.1" y="96" width="62.3" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>他に分類されない会員制団体：石川県 0.7%、全国 0.5%</title>
+            <rect x="682.6" y="0" width="5.6" height="34" />
+            <polygon points="682.6,34 689.2,34 715.1,96 710.4,96" opacity="0.38" />
+            <rect x="710.4" y="96" width="3.7" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>対事業所サービス：石川県 7.2%、全国 8.2%</title>
+            <rect x="689.2" y="0" width="70.8" height="34" />
+            <polygon points="689.2,34 761.0,34 797.5,96 715.1,96" opacity="0.38" />
+            <rect x="715.1" y="96" width="81.4" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>対個人サービス：石川県 5.2%、全国 3.9%</title>
+            <rect x="761.0" y="0" width="51.4" height="34" />
+            <polygon points="761.0,34 813.4,34 836.1,96 797.5,96" opacity="0.38" />
+            <rect x="797.5" y="96" width="37.6" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>分類不明：石川県 0.5%、全国 0.8%</title>
+            <rect x="813.4" y="0" width="4.0" height="34" />
+            <polygon points="813.4,34 818.4,34 843.6,96 836.1,96" opacity="0.38" />
+            <rect x="836.1" y="96" width="6.5" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>公務：石川県 4.9%、全国 4.2%</title>
+            <rect x="818.4" y="0" width="47.5" height="34" />
+            <polygon points="818.4,34 867.0,34 885.2,96 843.6,96" opacity="0.38" />
+            <rect x="843.6" y="96" width="40.5" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>教育・研究：石川県 5.4%、全国 4.5%</title>
+            <rect x="867.0" y="0" width="53.3" height="34" />
+            <polygon points="867.0,34 921.3,34 929.9,96 885.2,96" opacity="0.38" />
+            <rect x="885.2" y="96" width="43.7" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>医療・福祉：石川県 7.9%、全国 7.0%</title>
+            <rect x="921.3" y="0" width="77.7" height="34" />
+            <polygon points="921.3,34 1000.0,34 1000.0,96 929.9,96" opacity="0.38" />
+            <rect x="929.9" y="96" width="69.1" height="34" />
+          </g>
+        </svg>
+        <ul class="pf-legend">
+          <li><i style="background:#2a78d6"></i>資源・一次産業</li>
+          <li><i style="background:#eb6834"></i>素材</li>
+          <li><i style="background:#1baf7a"></i>食品・生活関連製造</li>
+          <li><i style="background:#eda100"></i>機械・電機・輸送機械</li>
+          <li><i style="background:#e87ba4"></i>建設・エネルギー・環境</li>
+          <li><i style="background:#009a2e"></i>流通・金融・不動産・運輸通信</li>
+          <li><i style="background:#7a68e8"></i>対事業所・対個人サービス等</li>
+          <li><i style="background:#e34948"></i>公務・教育・医療</li>
+        </ul>
+        <p class="text-xs text-base-content/70">
+          上の帯が石川県、下の帯が全国。幅は産出額に占める割合で、同じ産業どうしをつないでいます。下へすぼまる産業は、全国より石川県に集中しています。
+        </p>
+      </figure>
       <section class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">産出額（2020年）</span><b class="text-xl">8.3兆円</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">産出額（2020年）</span><b class="k-num">8.3兆円</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">付加価値率</span><b class="text-xl">56%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">付加価値率</span><b class="k-num">56%</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">移輸出（産出額比）</span><b class="text-xl">40%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">移輸出（産出額比）</span><b class="k-num">40%</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">移輸入（産出額比）</span><b class="text-xl">41%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">移輸入（産出額比）</span><b class="k-num">41%</b>
           </div>
         </div>
       </section>
@@ -149,28 +408,28 @@
                 stroke-dasharray="3 3"
               />
               <text x="162" y="19" text-anchor="end" fill="currentColor">生産用機械</text>
-              <rect x="170" y="7" width="420.0" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="7" width="420.0" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="596.0" y="20" fill="currentColor">4.29</text>
               <text x="162" y="45" text-anchor="end" fill="currentColor">繊維製品</text>
-              <rect x="170" y="33" width="413.9" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="33" width="413.9" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="589.9" y="46" fill="currentColor">4.23</text>
               <text x="162" y="71" text-anchor="end" fill="currentColor">情報通信機器</text>
-              <rect x="170" y="59" width="381.0" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="59" width="381.0" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="557.0" y="72" fill="currentColor">3.89</text>
               <text x="162" y="97" text-anchor="end" fill="currentColor">業務用機械</text>
-              <rect x="170" y="85" width="275.2" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="85" width="275.2" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="451.2" y="98" fill="currentColor">2.81</text>
               <text x="162" y="123" text-anchor="end" fill="currentColor">水道</text>
-              <rect x="170" y="111" width="165.8" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="111" width="165.8" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="341.8" y="124" fill="currentColor">1.69</text>
               <text x="162" y="149" text-anchor="end" fill="currentColor">他に分類されない会員制団体</text>
-              <rect x="170" y="137" width="139.7" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="137" width="139.7" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="315.7" y="150" fill="currentColor">1.43</text>
               <text x="162" y="175" text-anchor="end" fill="currentColor">対個人サービス</text>
-              <rect x="170" y="163" width="133.0" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="163" width="133.0" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="309.0" y="176" fill="currentColor">1.36</text>
               <text x="162" y="201" text-anchor="end" fill="currentColor">建設</text>
-              <rect x="170" y="189" width="129.7" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="189" width="129.7" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="305.7" y="202" fill="currentColor">1.33</text>
             </svg>
           </div>
@@ -639,9 +898,7 @@
       </div>
     </section>
     <script src="/feedback.js" defer></script>
-    <footer
-      class="footer footer-center p-6 bg-base-100 border-t border-base-300 text-sm text-base-content/70 mt-12"
-    >
+    <footer class="footer footer-center p-6 k-foot text-sm text-base-content/70 mt-12">
       <p>
         出典：総務省ほか「産業連関表」、経済産業省「延長産業連関表」（政府統計の総合窓口 e-Stat
         掲載）を筆者が加工して作成。<br />加工・分析・「仮説」は筆者によるもので、政府が作成・保証したものではありません。投資・経営判断の根拠にはしないでください。

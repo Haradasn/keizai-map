@@ -23,7 +23,7 @@
     <meta property="og:image" content="https://keizai-atlas.com/og.png" />
     <meta property="og:locale" content="ja_JP" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="theme-color" content="#0b1120" />
+    <meta name="theme-color" content="#0d1f2d" />
     <link
       rel="alternate"
       type="application/atom+xml"
@@ -37,20 +37,22 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600&family=IBM+Plex+Mono:wght@400;500&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="assets.css" />
     <script>
-      try{var t=localStorage.getItem("theme");if(t!=="nord")t="night";document.documentElement.dataset.theme=t}catch(e){}
+      try{var t=localStorage.getItem("theme");if(t!=="nord"&&t!=="night")t=matchMedia("(prefers-color-scheme: dark)").matches?"night":"nord";document.documentElement.dataset.theme=t}catch(e){}
     </script>
   </head>
   <body class="bg-base-200 text-base-content font-sans min-h-screen flex flex-col">
-    <header class="navbar bg-base-100/80 backdrop-blur border-b border-base-300 sticky top-0 z-50 px-4">
+    <header class="navbar k-nav sticky top-0 z-50 px-4">
       <div class="flex-1">
-        <a href="index.html" class="text-lg font-bold tracking-tight"
+        <a href="index.html" class="k-logo"
           >Keizai Atlas
-          <span class="text-xs font-normal text-base-content/70 ml-2 hidden sm:inline">経済の地図帳</span></a
+          <span class="font-sans text-xs font-normal text-base-content/70 hidden sm:inline"
+            >経済の地図帳</span
+          ></a
         >
       </div>
       <nav aria-label="サイト内の主なページ" class="flex-none gap-1 items-center flex">
@@ -93,31 +95,234 @@
           <li>北海道</li>
         </ul>
       </nav>
-      <header class="space-y-3">
-        <h1 class="text-3xl font-bold">北海道の産業構造</h1>
-        <p class="text-base-content/80">
-          北海道の2020年の産出額は36.2兆円、粗付加価値は21.2兆円です。産出額に対する移輸出（海外と他の都道府県への販売）は18%、移輸入（海外と他の都道府県からの購入）は24%でした。
-        </p>
+      <header class="pf-head">
+        <svg class="pf-shape" viewBox="0 0 200 200" aria-hidden="true">
+          <path
+            d="M62.1 26.8L61.9 24.4L63.2 22.6L63.2 21.0L64.5 19.5L63.9 17.3L64.2 15.2L65.3 17.2L68.9 17.0L70.8 15.8L71.9 12.6L73.5 12.1L76.8 17.2L80.5 19.8L87.3 28.5L90.9 31.8L92.2 34.9L93.4 36.0L93.6 37.8L95.8 41.1L106.3 53.2L117.2 61.1L117.8 62.6L119.3 63.8L123.8 66.2L134.4 70.4L143.4 72.5L145.1 72.2L145.4 75.3L146.5 76.1L146.8 77.7L150.1 79.3L156.8 80.5L162.2 79.9L169.1 72.7L174.6 68.6L178.9 62.3L180.0 66.0L178.9 68.8L176.5 71.6L176.0 74.5L173.1 78.3L171.5 81.6L171.4 84.0L170.5 85.2L170.7 87.5L173.1 92.1L178.7 94.2L179.2 94.6L179.3 95.8L177.6 96.1L177.3 95.6L178.8 95.6L179.1 94.9L178.6 95.0L178.9 94.5L178.2 94.1L176.2 94.4L176.9 93.6L174.7 93.0L177.1 102.2L180.6 107.2L183.9 108.2L185.1 106.2L188.8 103.0L191.0 103.3L192.3 102.6L194.0 103.2L193.9 103.9L189.7 106.3L187.9 106.1L186.9 107.8L186.3 107.5L185.9 110.3L184.4 111.8L184.8 112.6L184.0 112.9L183.7 111.7L181.2 111.7L177.4 112.4L174.9 113.8L173.2 113.4L172.2 114.4L172.3 116.2L171.3 116.8L171.3 117.6L169.6 118.4L169.3 119.6L167.8 120.4L164.8 120.2L163.4 119.0L164.0 117.5L162.4 117.1L160.7 118.6L160.0 120.5L161.6 122.4L157.1 121.7L151.5 122.0L148.8 120.8L148.7 119.6L145.9 119.5L139.0 122.1L135.0 125.0L125.0 134.9L118.5 144.5L116.0 151.1L116.8 154.1L116.1 159.9L114.4 162.1L114.1 165.4L111.5 163.0L110.6 161.1L105.3 157.2L100.7 156.2L90.3 150.7L83.9 146.2L81.3 143.2L76.1 141.6L71.2 137.1L67.4 135.7L63.8 135.4L65.8 134.2L55.0 139.1L48.0 144.4L44.2 149.4L42.0 147.9L42.6 147.4L43.6 148.4L43.5 147.6L44.4 147.4L41.5 146.5L40.1 142.6L37.3 140.9L37.1 139.4L35.1 137.4L31.2 138.0L29.6 137.1L27.6 137.2L24.6 140.8L22.8 144.4L21.6 149.0L21.9 151.5L25.4 153.0L30.0 157.4L31.3 157.6L35.0 156.3L36.6 157.3L38.5 160.7L41.3 162.9L42.8 165.8L48.7 168.4L48.7 169.4L49.9 170.7L47.6 171.3L45.8 173.9L43.1 174.6L41.0 173.0L37.1 171.8L34.8 173.3L34.8 171.4L35.2 172.2L35.6 171.6L35.3 170.5L32.9 170.1L31.7 173.2L29.4 175.0L26.8 175.7L26.7 181.2L25.7 182.8L21.1 184.3L19.2 187.9L17.5 186.6L15.8 187.1L13.9 185.2L12.6 181.4L12.5 179.1L13.3 175.4L15.2 171.9L15.2 170.5L16.8 169.8L16.9 168.4L16.5 168.1L17.3 166.7L17.1 163.3L13.8 157.4L10.6 156.5L9.3 153.4L7.2 152.8L6.0 151.2L6.2 147.2L7.7 145.5L8.4 142.5L7.5 136.1L9.8 133.3L14.4 132.6L15.3 131.2L17.4 130.2L18.8 127.0L20.7 129.5L22.5 129.0L22.5 126.9L25.2 122.9L29.2 120.0L29.4 118.3L26.4 113.5L23.1 110.2L24.2 106.2L23.8 105.4L26.2 105.6L27.3 104.9L27.4 103.8L28.5 103.7L31.1 106.4L32.6 106.9L32.9 108.2L37.2 110.0L37.6 111.3L44.6 109.4L44.5 111.4L49.2 113.4L53.1 111.2L57.3 105.6L57.5 101.7L55.3 97.5L56.1 94.6L54.4 88.7L56.2 85.2L61.6 83.0L63.6 80.4L63.8 78.7L64.0 79.3L64.3 79.3L64.7 75.4L64.3 63.6L67.4 58.5L68.8 49.6L68.3 44.9L66.6 37.8L62.1 26.8Z"
+          />
+        </svg>
+        <div class="space-y-3">
+          <h1 class="pf-h1">北海道の産業構造</h1>
+          <p class="text-base-content/80">
+            北海道の2020年の産出額は36.2兆円、粗付加価値は21.2兆円です。産出額に対する移輸出（海外と他の都道府県への販売）は18%、移輸入（海外と他の都道府県からの購入）は24%でした。
+          </p>
+        </div>
       </header>
+      <figure class="pf-comp">
+        <figcaption class="font-bold">産業の構成を、全国と比べる</figcaption>
+        <div class="pf-labs" aria-hidden="true">
+          <span style="left:22.1%">建設 10.3%</span><span style="left:36.2%">商業 9.6%</span
+          ><span style="left:67.5%">対事業所サービス 7.5%</span
+          ><span style="left:90.9%">医療・福祉 9.1%</span>
+        </div>
+        <svg
+          viewBox="0 0 1000 130"
+          preserveAspectRatio="none"
+          role="img"
+          aria-label="北海道の産業の構成（産出額に占める割合）を、全国と比べた帯の図。北海道で最も大きい産業は金融・保険・不動産（11.9%）"
+        >
+          <g fill="#2a78d6">
+            <title>農林漁業：北海道 5.0%、全国 1.2%</title>
+            <rect x="0.0" y="0" width="49.3" height="34" />
+            <polygon points="0.0,34 50.3,34 12.1,96 0.0,96" opacity="0.38" />
+            <rect x="0.0" y="96" width="11.1" height="34" />
+          </g>
+          <g fill="#2a78d6">
+            <title>鉱業：北海道 0.1%、全国 0.0%</title>
+            <rect x="50.3" y="0" width="0.2" height="34" />
+            <polygon points="50.3,34 51.5,34 12.5,96 12.1,96" opacity="0.38" />
+            <rect x="12.1" y="96" width="0.2" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>繊維製品：北海道 0.1%、全国 0.3%</title>
+            <rect x="51.5" y="0" width="0.2" height="34" />
+            <polygon points="51.5,34 52.3,34 15.4,96 12.5,96" opacity="0.38" />
+            <rect x="12.5" y="96" width="1.8" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>木材・家具・パルプ・紙：北海道 1.4%、全国 1.1%</title>
+            <rect x="52.3" y="0" width="13.4" height="34" />
+            <polygon points="52.3,34 66.7,34 26.5,96 15.4,96" opacity="0.38" />
+            <rect x="15.4" y="96" width="10.1" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>化学製品：北海道 0.6%、全国 2.8%</title>
+            <rect x="66.7" y="0" width="4.5" height="34" />
+            <polygon points="66.7,34 72.2,34 54.1,96 26.5,96" opacity="0.38" />
+            <rect x="26.5" y="96" width="26.6" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>石油・石炭製品：北海道 1.8%、全国 1.3%</title>
+            <rect x="72.2" y="0" width="17.2" height="34" />
+            <polygon points="72.2,34 90.4,34 67.0,96 54.1,96" opacity="0.38" />
+            <rect x="54.1" y="96" width="11.9" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>プラ・ゴム・印刷等の製造：北海道 0.7%、全国 2.2%</title>
+            <rect x="90.4" y="0" width="6.2" height="34" />
+            <polygon points="90.4,34 97.6,34 88.9,96 67.0,96" opacity="0.38" />
+            <rect x="67.0" y="96" width="20.9" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>窯業・土石製品：北海道 0.5%、全国 0.6%</title>
+            <rect x="97.6" y="0" width="4.2" height="34" />
+            <polygon points="97.6,34 102.8,34 95.3,96 88.9,96" opacity="0.38" />
+            <rect x="88.9" y="96" width="5.4" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>鉄鋼：北海道 1.6%、全国 2.1%</title>
+            <rect x="102.8" y="0" width="14.6" height="34" />
+            <polygon points="102.8,34 118.4,34 115.8,96 95.3,96" opacity="0.38" />
+            <rect x="95.3" y="96" width="19.5" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>非鉄金属：北海道 0.1%、全国 0.8%</title>
+            <rect x="118.4" y="0" width="0.2" height="34" />
+            <polygon points="118.4,34 119.3,34 123.9,96 115.8,96" opacity="0.38" />
+            <rect x="115.8" y="96" width="7.0" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>金属製品：北海道 0.7%、全国 1.2%</title>
+            <rect x="119.3" y="0" width="5.9" height="34" />
+            <polygon points="119.3,34 126.1,34 135.6,96 123.9,96" opacity="0.38" />
+            <rect x="123.9" y="96" width="10.7" height="34" />
+          </g>
+          <g fill="#1baf7a">
+            <title>飲食料品：北海道 6.8%、全国 3.7%</title>
+            <rect x="126.1" y="0" width="67.0" height="34" />
+            <polygon points="126.1,34 194.1,34 172.7,96 135.6,96" opacity="0.38" />
+            <rect x="135.6" y="96" width="36.1" height="34" />
+          </g>
+          <g fill="#1baf7a">
+            <title>事務用品：北海道 0.1%、全国 0.1%</title>
+            <rect x="194.1" y="0" width="0.5" height="34" />
+            <polygon points="194.1,34 195.6,34 174.1,96 172.7,96" opacity="0.38" />
+            <rect x="172.7" y="96" width="0.4" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>機械（7部門合算）：北海道 2.6%、全国 11.0%</title>
+            <rect x="195.6" y="0" width="24.8" height="34" />
+            <polygon points="195.6,34 221.3,34 284.5,96 174.1,96" opacity="0.38" />
+            <rect x="174.1" y="96" width="109.4" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>建設：北海道 10.3%、全国 6.7%</title>
+            <rect x="221.3" y="0" width="101.7" height="34" />
+            <polygon points="221.3,34 324.1,34 351.7,96 284.5,96" opacity="0.38" />
+            <rect x="284.5" y="96" width="66.1" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>電気・ガス・熱供給・水道：北海道 3.0%、全国 2.7%</title>
+            <rect x="324.1" y="0" width="28.5" height="34" />
+            <polygon points="324.1,34 353.6,34 378.7,96 351.7,96" opacity="0.38" />
+            <rect x="351.7" y="96" width="26.1" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>廃棄物処理：北海道 0.8%、全国 0.6%</title>
+            <rect x="353.6" y="0" width="7.1" height="34" />
+            <polygon points="353.6,34 361.6,34 384.6,96 378.7,96" opacity="0.38" />
+            <rect x="378.7" y="96" width="4.8" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>商業：北海道 9.6%、全国 9.0%</title>
+            <rect x="361.6" y="0" width="94.8" height="34" />
+            <polygon points="361.6,34 457.4,34 474.9,96 384.6,96" opacity="0.38" />
+            <rect x="384.6" y="96" width="89.4" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>金融・保険・不動産：北海道 11.9%、全国 12.4%</title>
+            <rect x="457.4" y="0" width="117.8" height="34" />
+            <polygon points="457.4,34 576.2,34 598.6,96 474.9,96" opacity="0.38" />
+            <rect x="474.9" y="96" width="122.6" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>運輸・郵便：北海道 4.9%、全国 4.9%</title>
+            <rect x="576.2" y="0" width="47.8" height="34" />
+            <polygon points="576.2,34 625.0,34 647.1,96 598.6,96" opacity="0.38" />
+            <rect x="598.6" y="96" width="47.5" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>情報通信：北海道 4.4%、全国 6.3%</title>
+            <rect x="625.0" y="0" width="43.0" height="34" />
+            <polygon points="625.0,34 669.0,34 710.4,96 647.1,96" opacity="0.38" />
+            <rect x="647.1" y="96" width="62.3" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>他に分類されない会員制団体：北海道 0.6%、全国 0.5%</title>
+            <rect x="669.0" y="0" width="4.6" height="34" />
+            <polygon points="669.0,34 674.6,34 715.1,96 710.4,96" opacity="0.38" />
+            <rect x="710.4" y="96" width="3.7" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>対事業所サービス：北海道 7.5%、全国 8.2%</title>
+            <rect x="674.6" y="0" width="73.6" height="34" />
+            <polygon points="674.6,34 749.2,34 797.5,96 715.1,96" opacity="0.38" />
+            <rect x="715.1" y="96" width="81.4" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>対個人サービス：北海道 4.1%、全国 3.9%</title>
+            <rect x="749.2" y="0" width="40.1" height="34" />
+            <polygon points="749.2,34 790.3,34 836.1,96 797.5,96" opacity="0.38" />
+            <rect x="797.5" y="96" width="37.6" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>分類不明：北海道 0.8%、全国 0.8%</title>
+            <rect x="790.3" y="0" width="7.3" height="34" />
+            <polygon points="790.3,34 798.6,34 843.6,96 836.1,96" opacity="0.38" />
+            <rect x="836.1" y="96" width="6.5" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>公務：北海道 7.3%、全国 4.2%</title>
+            <rect x="798.6" y="0" width="72.4" height="34" />
+            <polygon points="798.6,34 872.0,34 885.2,96 843.6,96" opacity="0.38" />
+            <rect x="843.6" y="96" width="40.5" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>教育・研究：北海道 3.7%、全国 4.5%</title>
+            <rect x="872.0" y="0" width="35.9" height="34" />
+            <polygon points="872.0,34 908.8,34 929.9,96 885.2,96" opacity="0.38" />
+            <rect x="885.2" y="96" width="43.7" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>医療・福祉：北海道 9.1%、全国 7.0%</title>
+            <rect x="908.8" y="0" width="90.2" height="34" />
+            <polygon points="908.8,34 1000.0,34 1000.0,96 929.9,96" opacity="0.38" />
+            <rect x="929.9" y="96" width="69.1" height="34" />
+          </g>
+        </svg>
+        <ul class="pf-legend">
+          <li><i style="background:#2a78d6"></i>資源・一次産業</li>
+          <li><i style="background:#eb6834"></i>素材</li>
+          <li><i style="background:#1baf7a"></i>食品・生活関連製造</li>
+          <li><i style="background:#eda100"></i>機械・電機・輸送機械</li>
+          <li><i style="background:#e87ba4"></i>建設・エネルギー・環境</li>
+          <li><i style="background:#009a2e"></i>流通・金融・不動産・運輸通信</li>
+          <li><i style="background:#7a68e8"></i>対事業所・対個人サービス等</li>
+          <li><i style="background:#e34948"></i>公務・教育・医療</li>
+        </ul>
+        <p class="text-xs text-base-content/70">
+          上の帯が北海道、下の帯が全国。幅は産出額に占める割合で、同じ産業どうしをつないでいます。下へすぼまる産業は、全国より北海道に集中しています。
+        </p>
+      </figure>
       <section class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">産出額（2020年）</span><b class="text-xl">36.2兆円</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">産出額（2020年）</span><b class="k-num">36.2兆円</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">付加価値率</span><b class="text-xl">59%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">付加価値率</span><b class="k-num">59%</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">移輸出（産出額比）</span><b class="text-xl">18%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">移輸出（産出額比）</span><b class="k-num">18%</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">移輸入（産出額比）</span><b class="text-xl">24%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">移輸入（産出額比）</span><b class="k-num">24%</b>
           </div>
         </div>
       </section>
@@ -149,28 +354,28 @@
                 stroke-dasharray="3 3"
               />
               <text x="162" y="19" text-anchor="end" fill="currentColor">農林漁業</text>
-              <rect x="170" y="7" width="420.0" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="7" width="420.0" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="596.0" y="20" fill="currentColor">4.17</text>
               <text x="162" y="45" text-anchor="end" fill="currentColor">飲食料品</text>
-              <rect x="170" y="33" width="184.5" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="33" width="184.5" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="360.5" y="46" fill="currentColor">1.83</text>
               <text x="162" y="71" text-anchor="end" fill="currentColor">公務</text>
-              <rect x="170" y="59" width="177.8" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="59" width="177.8" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="353.8" y="72" fill="currentColor">1.77</text>
               <text x="162" y="97" text-anchor="end" fill="currentColor">建設</text>
-              <rect x="170" y="85" width="154.1" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="85" width="154.1" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="330.1" y="98" fill="currentColor">1.53</text>
               <text x="162" y="123" text-anchor="end" fill="currentColor">石油・石炭製品</text>
-              <rect x="170" y="111" width="141.5" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="111" width="141.5" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="317.5" y="124" fill="currentColor">1.41</text>
               <text x="162" y="149" text-anchor="end" fill="currentColor">廃棄物処理</text>
-              <rect x="170" y="137" width="139.3" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="137" width="139.3" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="315.3" y="150" fill="currentColor">1.38</text>
               <text x="162" y="175" text-anchor="end" fill="currentColor">医療・福祉</text>
-              <rect x="170" y="163" width="130.9" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="163" width="130.9" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="306.9" y="176" fill="currentColor">1.30</text>
               <text x="162" y="201" text-anchor="end" fill="currentColor">木材・家具・パルプ・紙</text>
-              <rect x="170" y="189" width="130.2" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="189" width="130.2" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="306.2" y="202" fill="currentColor">1.29</text>
             </svg>
           </div>
@@ -552,9 +757,7 @@
       </div>
     </section>
     <script src="/feedback.js" defer></script>
-    <footer
-      class="footer footer-center p-6 bg-base-100 border-t border-base-300 text-sm text-base-content/70 mt-12"
-    >
+    <footer class="footer footer-center p-6 k-foot text-sm text-base-content/70 mt-12">
       <p>
         出典：総務省ほか「産業連関表」、経済産業省「延長産業連関表」（政府統計の総合窓口 e-Stat
         掲載）を筆者が加工して作成。<br />加工・分析・「仮説」は筆者によるもので、政府が作成・保証したものではありません。投資・経営判断の根拠にはしないでください。

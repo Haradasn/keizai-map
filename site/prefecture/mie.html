@@ -23,7 +23,7 @@
     <meta property="og:image" content="https://keizai-atlas.com/og.png" />
     <meta property="og:locale" content="ja_JP" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="theme-color" content="#0b1120" />
+    <meta name="theme-color" content="#0d1f2d" />
     <link
       rel="alternate"
       type="application/atom+xml"
@@ -37,20 +37,22 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600&family=IBM+Plex+Mono:wght@400;500&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="assets.css" />
     <script>
-      try{var t=localStorage.getItem("theme");if(t!=="nord")t="night";document.documentElement.dataset.theme=t}catch(e){}
+      try{var t=localStorage.getItem("theme");if(t!=="nord"&&t!=="night")t=matchMedia("(prefers-color-scheme: dark)").matches?"night":"nord";document.documentElement.dataset.theme=t}catch(e){}
     </script>
   </head>
   <body class="bg-base-200 text-base-content font-sans min-h-screen flex flex-col">
-    <header class="navbar bg-base-100/80 backdrop-blur border-b border-base-300 sticky top-0 z-50 px-4">
+    <header class="navbar k-nav sticky top-0 z-50 px-4">
       <div class="flex-1">
-        <a href="index.html" class="text-lg font-bold tracking-tight"
+        <a href="index.html" class="k-logo"
           >Keizai Atlas
-          <span class="text-xs font-normal text-base-content/70 ml-2 hidden sm:inline">経済の地図帳</span></a
+          <span class="font-sans text-xs font-normal text-base-content/70 hidden sm:inline"
+            >経済の地図帳</span
+          ></a
         >
       </div>
       <nav aria-label="サイト内の主なページ" class="flex-none gap-1 items-center flex">
@@ -93,31 +95,284 @@
           <li>三重県</li>
         </ul>
       </nav>
-      <header class="space-y-3">
-        <h1 class="text-3xl font-bold">三重県の産業構造</h1>
-        <p class="text-base-content/80">
-          三重県の2020年の産出額は18.7兆円、粗付加価値は8.1兆円です。産出額に対する移輸出（海外と他の都道府県への販売）は57%、移輸入（海外と他の都道府県からの購入）は52%でした。
-        </p>
+      <header class="pf-head">
+        <svg class="pf-shape" viewBox="0 0 200 200" aria-hidden="true">
+          <path
+            d="M114.1 6.0L123.1 19.2L126.0 19.8L126.1 17.3L136.3 27.6L138.9 34.7L136.5 33.1L131.3 35.2L131.6 36.8L129.1 36.5L126.6 38.5L124.8 43.7L128.2 45.3L126.2 45.6L124.0 53.7L114.8 67.9L113.8 77.0L117.1 77.9L114.2 85.3L125.8 87.7L128.0 91.7L142.7 97.9L143.3 100.7L144.8 98.2L146.6 102.3L149.5 102.1L149.4 107.6L151.4 104.7L154.1 105.6L153.1 114.1L150.6 112.1L147.4 115.6L147.2 115.2L146.4 114.6L143.0 115.1L144.2 116.9L148.2 115.6L148.3 118.1L152.6 115.4L149.6 118.9L151.8 126.3L148.8 126.7L146.4 129.9L138.2 128.3L136.8 126.7L145.2 128.4L148.1 127.1L145.0 127.0L145.1 124.5L147.2 125.1L148.5 125.0L144.4 123.3L146.5 121.8L144.0 121.6L142.2 122.3L142.2 120.0L140.9 122.3L142.8 123.8L140.9 124.9L137.8 121.4L138.0 124.4L134.0 122.9L130.2 125.2L131.5 120.3L132.5 121.3L134.3 118.3L130.9 117.5L131.1 118.9L129.7 120.5L130.7 117.9L127.5 117.9L128.7 120.3L127.5 120.0L127.4 120.8L126.7 120.6L125.3 121.8L125.3 122.4L129.2 121.4L122.0 128.6L118.6 126.5L120.9 125.7L120.5 124.0L116.2 125.6L116.2 129.5L115.4 126.2L114.1 128.4L114.5 126.7L111.7 126.1L113.2 130.9L111.4 128.6L111.7 130.3L110.1 130.1L109.7 130.9L111.8 131.1L112.1 132.0L109.5 133.2L107.6 131.7L107.9 128.7L105.4 129.8L106.4 133.2L101.1 135.3L101.2 133.3L99.6 133.7L97.4 137.0L96.5 134.2L93.3 136.2L94.8 136.0L94.3 138.1L91.4 138.1L88.9 140.3L89.6 145.8L92.6 146.1L90.9 149.5L85.9 148.5L87.9 144.4L83.7 147.9L84.6 149.5L81.2 150.7L86.2 152.6L85.4 155.4L89.3 157.7L85.3 158.3L88.3 159.6L86.7 160.4L88.2 163.5L84.8 164.0L86.3 162.1L82.1 160.2L82.5 162.1L80.2 163.6L83.2 163.4L84.1 166.7L79.0 167.8L80.8 170.0L79.0 170.8L75.6 169.0L75.7 172.8L73.9 174.3L72.7 172.6L67.4 179.8L61.9 194.0L59.1 192.5L57.3 194.0L46.2 182.5L45.9 177.2L46.7 175.4L47.8 177.5L50.2 176.2L48.5 171.4L49.9 170.0L53.9 170.3L52.5 169.7L53.5 167.4L57.6 168.9L58.4 164.3L61.9 164.3L60.2 160.2L62.7 155.8L71.2 157.0L70.2 150.0L72.7 150.1L70.8 145.6L72.3 140.7L70.2 136.2L74.0 129.3L70.4 123.3L73.8 121.4L67.7 111.9L70.5 106.9L81.6 105.1L83.9 99.6L82.6 95.5L77.6 96.4L76.5 91.7L72.3 93.3L65.7 89.1L68.0 82.1L64.8 78.9L67.2 80.3L69.3 77.3L66.1 73.8L67.6 71.6L62.8 63.5L69.9 60.4L69.4 57.6L73.6 54.5L69.3 52.6L72.0 49.6L86.0 55.0L97.8 49.3L98.5 44.7L102.6 40.1L103.0 31.7L105.4 29.7L104.9 21.7L106.7 17.8L102.0 14.7L102.7 10.9L112.1 8.7L114.1 6.0Z"
+          />
+        </svg>
+        <div class="space-y-3">
+          <h1 class="pf-h1">三重県の産業構造</h1>
+          <p class="text-base-content/80">
+            三重県の2020年の産出額は18.7兆円、粗付加価値は8.1兆円です。産出額に対する移輸出（海外と他の都道府県への販売）は57%、移輸入（海外と他の都道府県からの購入）は52%でした。
+          </p>
+        </div>
       </header>
+      <figure class="pf-comp">
+        <figcaption class="font-bold">産業の構成を、全国と比べる</figcaption>
+        <div class="pf-labs" aria-hidden="true"><span style="left:30.0%">電子部品 9.9%</span></div>
+        <svg
+          viewBox="0 0 1000 130"
+          preserveAspectRatio="none"
+          role="img"
+          aria-label="三重県の産業の構成（産出額に占める割合）を、全国と比べた帯の図。三重県で最も大きい産業は輸送機械（12.2%）"
+        >
+          <g fill="#2a78d6">
+            <title>農林漁業：三重県 0.9%、全国 1.2%</title>
+            <rect x="0.0" y="0" width="7.6" height="34" />
+            <polygon points="0.0,34 8.6,34 12.1,96 0.0,96" opacity="0.38" />
+            <rect x="0.0" y="96" width="11.1" height="34" />
+          </g>
+          <g fill="#2a78d6">
+            <title>鉱業：三重県 0.1%、全国 0.0%</title>
+            <rect x="8.6" y="0" width="0.2" height="34" />
+            <polygon points="8.6,34 9.2,34 12.5,96 12.1,96" opacity="0.38" />
+            <rect x="12.1" y="96" width="0.2" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>繊維製品：三重県 0.3%、全国 0.3%</title>
+            <rect x="9.2" y="0" width="1.6" height="34" />
+            <polygon points="9.2,34 11.8,34 15.4,96 12.5,96" opacity="0.38" />
+            <rect x="12.5" y="96" width="1.8" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>パルプ・紙・木製品：三重県 1.0%、全国 1.1%</title>
+            <rect x="11.8" y="0" width="8.6" height="34" />
+            <polygon points="11.8,34 21.4,34 26.5,96 15.4,96" opacity="0.38" />
+            <rect x="15.4" y="96" width="10.1" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>化学製品：三重県 6.4%、全国 2.8%</title>
+            <rect x="21.4" y="0" width="63.5" height="34" />
+            <polygon points="21.4,34 85.9,34 54.1,96 26.5,96" opacity="0.38" />
+            <rect x="26.5" y="96" width="26.6" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>石油・石炭製品：三重県 3.2%、全国 1.3%</title>
+            <rect x="85.9" y="0" width="30.8" height="34" />
+            <polygon points="85.9,34 117.7,34 67.0,96 54.1,96" opacity="0.38" />
+            <rect x="54.1" y="96" width="11.9" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>プラスチック・ゴム製品：三重県 3.6%、全国 1.3%</title>
+            <rect x="117.7" y="0" width="34.9" height="34" />
+            <polygon points="117.7,34 153.6,34 80.4,96 67.0,96" opacity="0.38" />
+            <rect x="67.0" y="96" width="12.3" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>窯業・土石製品：三重県 1.2%、全国 0.6%</title>
+            <rect x="153.6" y="0" width="10.7" height="34" />
+            <polygon points="153.6,34 165.3,34 86.8,96 80.4,96" opacity="0.38" />
+            <rect x="80.4" y="96" width="5.4" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>鉄鋼：三重県 0.4%、全国 2.1%</title>
+            <rect x="165.3" y="0" width="2.9" height="34" />
+            <polygon points="165.3,34 169.2,34 107.3,96 86.8,96" opacity="0.38" />
+            <rect x="86.8" y="96" width="19.5" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>非鉄金属：三重県 2.0%、全国 0.8%</title>
+            <rect x="169.2" y="0" width="18.6" height="34" />
+            <polygon points="169.2,34 188.9,34 115.3,96 107.3,96" opacity="0.38" />
+            <rect x="107.3" y="96" width="7.0" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>金属製品：三重県 2.1%、全国 1.2%</title>
+            <rect x="188.9" y="0" width="20.3" height="34" />
+            <polygon points="188.9,34 210.1,34 127.0,96 115.3,96" opacity="0.38" />
+            <rect x="115.3" y="96" width="10.7" height="34" />
+          </g>
+          <g fill="#1baf7a">
+            <title>飲食料品：三重県 3.5%、全国 3.7%</title>
+            <rect x="210.1" y="0" width="34.4" height="34" />
+            <polygon points="210.1,34 245.6,34 164.1,96 127.0,96" opacity="0.38" />
+            <rect x="127.0" y="96" width="36.1" height="34" />
+          </g>
+          <g fill="#1baf7a">
+            <title>その他の製造工業製品：三重県 0.9%、全国 0.9%</title>
+            <rect x="245.6" y="0" width="8.1" height="34" />
+            <polygon points="245.6,34 254.6,34 172.7,96 164.1,96" opacity="0.38" />
+            <rect x="164.1" y="96" width="7.5" height="34" />
+          </g>
+          <g fill="#1baf7a">
+            <title>事務用品：三重県 0.2%、全国 0.1%</title>
+            <rect x="254.6" y="0" width="0.6" height="34" />
+            <polygon points="254.6,34 256.3,34 174.1,96 172.7,96" opacity="0.38" />
+            <rect x="172.7" y="96" width="0.4" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>はん用機械：三重県 2.2%、全国 1.0%</title>
+            <rect x="256.3" y="0" width="21.1" height="34" />
+            <polygon points="256.3,34 278.3,34 184.3,96 174.1,96" opacity="0.38" />
+            <rect x="174.1" y="96" width="9.1" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>生産用機械：三重県 1.4%、全国 1.6%</title>
+            <rect x="278.3" y="0" width="12.6" height="34" />
+            <polygon points="278.3,34 292.0,34 200.4,96 184.3,96" opacity="0.38" />
+            <rect x="184.3" y="96" width="15.1" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>業務用機械：三重県 0.8%、全国 0.6%</title>
+            <rect x="292.0" y="0" width="7.5" height="34" />
+            <polygon points="292.0,34 300.4,34 205.9,96 200.4,96" opacity="0.38" />
+            <rect x="200.4" y="96" width="4.6" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>電子部品：三重県 9.9%、全国 1.3%</title>
+            <rect x="300.4" y="0" width="97.9" height="34" />
+            <polygon points="300.4,34 399.3,34 218.6,96 205.9,96" opacity="0.38" />
+            <rect x="205.9" y="96" width="11.7" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>電気機械：三重県 4.3%、全国 1.5%</title>
+            <rect x="399.3" y="0" width="42.3" height="34" />
+            <polygon points="399.3,34 442.6,34 233.8,96 218.6,96" opacity="0.38" />
+            <rect x="218.6" y="96" width="14.2" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>情報通信機器：三重県 0.4%、全国 0.5%</title>
+            <rect x="442.6" y="0" width="3.2" height="34" />
+            <polygon points="442.6,34 446.9,34 238.5,96 233.8,96" opacity="0.38" />
+            <rect x="233.8" y="96" width="3.7" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>輸送機械：三重県 12.2%、全国 4.6%</title>
+            <rect x="446.9" y="0" width="120.9" height="34" />
+            <polygon points="446.9,34 568.7,34 284.5,96 238.5,96" opacity="0.38" />
+            <rect x="238.5" y="96" width="45.1" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>建設：三重県 5.0%、全国 6.7%</title>
+            <rect x="568.7" y="0" width="49.2" height="34" />
+            <polygon points="568.7,34 618.9,34 351.7,96 284.5,96" opacity="0.38" />
+            <rect x="284.5" y="96" width="66.1" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>電力・ガス・熱供給：三重県 3.1%、全国 2.3%</title>
+            <rect x="618.9" y="0" width="30.4" height="34" />
+            <polygon points="618.9,34 650.3,34 374.3,96 351.7,96" opacity="0.38" />
+            <rect x="351.7" y="96" width="21.7" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>水道：三重県 0.4%、全国 0.4%</title>
+            <rect x="650.3" y="0" width="2.8" height="34" />
+            <polygon points="650.3,34 654.1,34 378.7,96 374.3,96" opacity="0.38" />
+            <rect x="374.3" y="96" width="3.4" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>廃棄物処理：三重県 0.7%、全国 0.6%</title>
+            <rect x="654.1" y="0" width="5.5" height="34" />
+            <polygon points="654.1,34 660.6,34 384.6,96 378.7,96" opacity="0.38" />
+            <rect x="378.7" y="96" width="4.8" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>商業：三重県 4.3%、全国 9.0%</title>
+            <rect x="660.6" y="0" width="42.1" height="34" />
+            <polygon points="660.6,34 703.8,34 474.9,96 384.6,96" opacity="0.38" />
+            <rect x="384.6" y="96" width="89.4" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>金融・保険：三重県 2.9%、全国 3.5%</title>
+            <rect x="703.8" y="0" width="27.7" height="34" />
+            <polygon points="703.8,34 732.4,34 510.3,96 474.9,96" opacity="0.38" />
+            <rect x="474.9" y="96" width="34.4" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>不動産：三重県 4.7%、全国 8.8%</title>
+            <rect x="732.4" y="0" width="46.4" height="34" />
+            <polygon points="732.4,34 779.8,34 598.6,96 510.3,96" opacity="0.38" />
+            <rect x="510.3" y="96" width="87.2" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>運輸・郵便：三重県 3.1%、全国 4.9%</title>
+            <rect x="779.8" y="0" width="30.5" height="34" />
+            <polygon points="779.8,34 811.3,34 647.1,96 598.6,96" opacity="0.38" />
+            <rect x="598.6" y="96" width="47.5" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>情報通信：三重県 1.7%、全国 6.3%</title>
+            <rect x="811.3" y="0" width="16.0" height="34" />
+            <polygon points="811.3,34 828.3,34 710.4,96 647.1,96" opacity="0.38" />
+            <rect x="647.1" y="96" width="62.3" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>他に分類されない会員制団体：三重県 0.5%、全国 0.5%</title>
+            <rect x="828.3" y="0" width="3.9" height="34" />
+            <polygon points="828.3,34 833.3,34 715.1,96 710.4,96" opacity="0.38" />
+            <rect x="710.4" y="96" width="3.7" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>対事業所サービス：三重県 3.8%、全国 8.2%</title>
+            <rect x="833.3" y="0" width="36.5" height="34" />
+            <polygon points="833.3,34 870.8,34 797.5,96 715.1,96" opacity="0.38" />
+            <rect x="715.1" y="96" width="81.4" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>対個人サービス：三重県 2.6%、全国 3.9%</title>
+            <rect x="870.8" y="0" width="25.2" height="34" />
+            <polygon points="870.8,34 897.0,34 836.1,96 797.5,96" opacity="0.38" />
+            <rect x="797.5" y="96" width="37.6" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>分類不明：三重県 0.4%、全国 0.8%</title>
+            <rect x="897.0" y="0" width="2.6" height="34" />
+            <polygon points="897.0,34 900.6,34 843.6,96 836.1,96" opacity="0.38" />
+            <rect x="836.1" y="96" width="6.5" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>公務：三重県 2.7%、全国 4.2%</title>
+            <rect x="900.6" y="0" width="25.6" height="34" />
+            <polygon points="900.6,34 927.2,34 885.2,96 843.6,96" opacity="0.38" />
+            <rect x="843.6" y="96" width="40.5" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>教育・研究：三重県 2.1%、全国 4.5%</title>
+            <rect x="927.2" y="0" width="19.5" height="34" />
+            <polygon points="927.2,34 947.8,34 929.9,96 885.2,96" opacity="0.38" />
+            <rect x="885.2" y="96" width="43.7" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>医療・福祉：三重県 5.2%、全国 7.0%</title>
+            <rect x="947.8" y="0" width="51.2" height="34" />
+            <polygon points="947.8,34 1000.0,34 1000.0,96 929.9,96" opacity="0.38" />
+            <rect x="929.9" y="96" width="69.1" height="34" />
+          </g>
+        </svg>
+        <ul class="pf-legend">
+          <li><i style="background:#2a78d6"></i>資源・一次産業</li>
+          <li><i style="background:#eb6834"></i>素材</li>
+          <li><i style="background:#1baf7a"></i>食品・生活関連製造</li>
+          <li><i style="background:#eda100"></i>機械・電機・輸送機械</li>
+          <li><i style="background:#e87ba4"></i>建設・エネルギー・環境</li>
+          <li><i style="background:#009a2e"></i>流通・金融・不動産・運輸通信</li>
+          <li><i style="background:#7a68e8"></i>対事業所・対個人サービス等</li>
+          <li><i style="background:#e34948"></i>公務・教育・医療</li>
+        </ul>
+        <p class="text-xs text-base-content/70">
+          上の帯が三重県、下の帯が全国。幅は産出額に占める割合で、同じ産業どうしをつないでいます。下へすぼまる産業は、全国より三重県に集中しています。
+        </p>
+      </figure>
       <section class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">産出額（2020年）</span><b class="text-xl">18.7兆円</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">産出額（2020年）</span><b class="k-num">18.7兆円</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">付加価値率</span><b class="text-xl">43%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">付加価値率</span><b class="k-num">43%</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">移輸出（産出額比）</span><b class="text-xl">57%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">移輸出（産出額比）</span><b class="k-num">57%</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">移輸入（産出額比）</span><b class="text-xl">52%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">移輸入（産出額比）</span><b class="k-num">52%</b>
           </div>
         </div>
       </section>
@@ -149,28 +404,28 @@
                 stroke-dasharray="3 3"
               />
               <text x="162" y="19" text-anchor="end" fill="currentColor">電子部品</text>
-              <rect x="170" y="7" width="420.0" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="7" width="420.0" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="596.0" y="20" fill="currentColor">7.81</text>
               <text x="162" y="45" text-anchor="end" fill="currentColor">電気機械</text>
-              <rect x="170" y="33" width="153.1" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="33" width="153.1" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="329.1" y="46" fill="currentColor">2.85</text>
               <text x="162" y="71" text-anchor="end" fill="currentColor">プラスチック・ゴム製品</text>
-              <rect x="170" y="59" width="144.6" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="59" width="144.6" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="320.6" y="72" fill="currentColor">2.69</text>
               <text x="162" y="97" text-anchor="end" fill="currentColor">輸送機械</text>
-              <rect x="170" y="85" width="142.2" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="85" width="142.2" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="318.2" y="98" fill="currentColor">2.64</text>
               <text x="162" y="123" text-anchor="end" fill="currentColor">石油・石炭製品</text>
-              <rect x="170" y="111" width="132.5" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="111" width="132.5" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="308.5" y="124" fill="currentColor">2.47</text>
               <text x="162" y="149" text-anchor="end" fill="currentColor">非鉄金属</text>
-              <rect x="170" y="137" width="131.7" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="137" width="131.7" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="307.7" y="150" fill="currentColor">2.45</text>
               <text x="162" y="175" text-anchor="end" fill="currentColor">化学製品</text>
-              <rect x="170" y="163" width="125.6" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="163" width="125.6" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="301.6" y="176" fill="currentColor">2.34</text>
               <text x="162" y="201" text-anchor="end" fill="currentColor">はん用機械</text>
-              <rect x="170" y="189" width="117.2" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="189" width="117.2" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="293.2" y="202" fill="currentColor">2.18</text>
             </svg>
           </div>
@@ -639,9 +894,7 @@
       </div>
     </section>
     <script src="/feedback.js" defer></script>
-    <footer
-      class="footer footer-center p-6 bg-base-100 border-t border-base-300 text-sm text-base-content/70 mt-12"
-    >
+    <footer class="footer footer-center p-6 k-foot text-sm text-base-content/70 mt-12">
       <p>
         出典：総務省ほか「産業連関表」、経済産業省「延長産業連関表」（政府統計の総合窓口 e-Stat
         掲載）を筆者が加工して作成。<br />加工・分析・「仮説」は筆者によるもので、政府が作成・保証したものではありません。投資・経営判断の根拠にはしないでください。

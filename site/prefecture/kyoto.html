@@ -23,7 +23,7 @@
     <meta property="og:image" content="https://keizai-atlas.com/og.png" />
     <meta property="og:locale" content="ja_JP" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="theme-color" content="#0b1120" />
+    <meta name="theme-color" content="#0d1f2d" />
     <link
       rel="alternate"
       type="application/atom+xml"
@@ -37,20 +37,22 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600&family=IBM+Plex+Mono:wght@400;500&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="assets.css" />
     <script>
-      try{var t=localStorage.getItem("theme");if(t!=="nord")t="night";document.documentElement.dataset.theme=t}catch(e){}
+      try{var t=localStorage.getItem("theme");if(t!=="nord"&&t!=="night")t=matchMedia("(prefers-color-scheme: dark)").matches?"night":"nord";document.documentElement.dataset.theme=t}catch(e){}
     </script>
   </head>
   <body class="bg-base-200 text-base-content font-sans min-h-screen flex flex-col">
-    <header class="navbar bg-base-100/80 backdrop-blur border-b border-base-300 sticky top-0 z-50 px-4">
+    <header class="navbar k-nav sticky top-0 z-50 px-4">
       <div class="flex-1">
-        <a href="index.html" class="text-lg font-bold tracking-tight"
+        <a href="index.html" class="k-logo"
           >Keizai Atlas
-          <span class="text-xs font-normal text-base-content/70 ml-2 hidden sm:inline">経済の地図帳</span></a
+          <span class="font-sans text-xs font-normal text-base-content/70 hidden sm:inline"
+            >経済の地図帳</span
+          ></a
         >
       </div>
       <nav aria-label="サイト内の主なページ" class="flex-none gap-1 items-center flex">
@@ -93,31 +95,287 @@
           <li>京都府</li>
         </ul>
       </nav>
-      <header class="space-y-3">
-        <h1 class="text-3xl font-bold">京都府の産業構造</h1>
-        <p class="text-base-content/80">
-          京都府の2020年の産出額は18.0兆円、粗付加価値は10.6兆円です。産出額に対する移輸出（海外と他の都道府県への販売）は38%、移輸入（海外と他の都道府県からの購入）は38%でした。
-        </p>
+      <header class="pf-head">
+        <svg class="pf-shape" viewBox="0 0 200 200" aria-hidden="true">
+          <path
+            d="M40.2 48.4L24.4 52.6L22.6 47.0L14.1 39.5L16.6 33.9L15.9 27.2L25.6 28.4L32.8 21.2L43.7 18.4L47.3 12.8L66.9 6.0L79.0 20.9L78.3 26.3L73.3 25.6L62.6 42.4L62.6 48.2L71.4 37.5L70.9 42.6L74.2 44.2L70.0 44.2L69.9 48.6L82.2 51.9L80.2 63.5L84.6 55.9L91.9 58.6L91.6 52.3L84.2 54.2L83.9 45.8L95.9 43.1L101.1 36.8L99.6 43.1L104.5 44.7L99.2 50.7L102.9 54.0L100.6 60.5L105.9 68.0L110.1 68.7L110.7 75.9L135.3 82.2L144.9 80.1L153.9 94.1L157.7 91.9L153.6 103.8L157.5 114.6L154.5 132.2L151.6 134.4L154.2 138.6L153.3 144.1L156.5 144.1L160.6 151.8L158.9 161.4L163.5 165.1L169.6 161.2L170.3 168.4L178.8 170.0L182.1 174.2L179.5 177.4L182.8 181.2L182.2 185.1L185.9 188.4L182.2 194.0L176.1 192.4L174.5 187.9L167.3 188.0L167.3 184.9L162.3 193.5L143.0 190.3L139.1 181.4L141.6 176.8L134.4 169.1L131.6 160.2L125.3 153.9L120.8 155.1L122.7 147.6L117.0 147.4L114.7 153.4L118.1 155.8L112.5 157.4L103.8 151.4L104.7 143.9L89.6 140.7L87.8 133.0L92.6 126.9L90.6 119.9L83.6 116.2L75.3 117.1L76.5 112.7L74.2 111.5L64.6 114.3L61.7 112.4L63.1 106.9L57.3 102.9L57.6 96.9L50.6 95.9L44.7 101.0L43.1 96.2L24.4 88.0L25.5 71.2L33.5 74.9L41.8 71.2L40.2 48.4Z"
+          />
+        </svg>
+        <div class="space-y-3">
+          <h1 class="pf-h1">京都府の産業構造</h1>
+          <p class="text-base-content/80">
+            京都府の2020年の産出額は18.0兆円、粗付加価値は10.6兆円です。産出額に対する移輸出（海外と他の都道府県への販売）は38%、移輸入（海外と他の都道府県からの購入）は38%でした。
+          </p>
+        </div>
       </header>
+      <figure class="pf-comp">
+        <figcaption class="font-bold">産業の構成を、全国と比べる</figcaption>
+        <div class="pf-labs" aria-hidden="true">
+          <span style="left:7.7%">飲食料品 7.2%</span><span style="left:37.0%">商業 8.7%</span
+          ><span style="left:49.4%">不動産 9.2%</span><span style="left:82.3%">教育・研究 9.4%</span>
+        </div>
+        <svg
+          viewBox="0 0 1000 130"
+          preserveAspectRatio="none"
+          role="img"
+          aria-label="京都府の産業の構成（産出額に占める割合）を、全国と比べた帯の図。京都府で最も大きい産業は教育・研究（9.4%）"
+        >
+          <g fill="#2a78d6">
+            <title>農林漁業：京都府 0.5%、全国 1.2%</title>
+            <rect x="0.0" y="0" width="3.7" height="34" />
+            <polygon points="0.0,34 4.7,34 12.1,96 0.0,96" opacity="0.38" />
+            <rect x="0.0" y="96" width="11.1" height="34" />
+          </g>
+          <g fill="#2a78d6">
+            <title>鉱業：京都府 0.0%、全国 0.0%</title>
+            <rect x="4.7" y="0" width="0.2" height="34" />
+            <polygon points="4.7,34 5.0,34 12.5,96 12.1,96" opacity="0.38" />
+            <rect x="12.1" y="96" width="0.2" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>繊維製品：京都府 0.5%、全国 0.3%</title>
+            <rect x="5.0" y="0" width="3.8" height="34" />
+            <polygon points="5.0,34 9.8,34 15.4,96 12.5,96" opacity="0.38" />
+            <rect x="12.5" y="96" width="1.8" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>パルプ・紙・木製品：京都府 1.3%、全国 1.1%</title>
+            <rect x="9.8" y="0" width="11.7" height="34" />
+            <polygon points="9.8,34 22.5,34 26.5,96 15.4,96" opacity="0.38" />
+            <rect x="15.4" y="96" width="10.1" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>化学製品：京都府 1.1%、全国 2.8%</title>
+            <rect x="22.5" y="0" width="10.3" height="34" />
+            <polygon points="22.5,34 33.8,34 54.1,96 26.5,96" opacity="0.38" />
+            <rect x="26.5" y="96" width="26.6" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>石油・石炭製品：京都府 0.0%、全国 1.3%</title>
+            <rect x="33.8" y="0" width="0.2" height="34" />
+            <polygon points="33.8,34 34.2,34 67.0,96 54.1,96" opacity="0.38" />
+            <rect x="54.1" y="96" width="11.9" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>プラスチック・ゴム製品：京都府 1.1%、全国 1.3%</title>
+            <rect x="34.2" y="0" width="10.2" height="34" />
+            <polygon points="34.2,34 45.4,34 80.4,96 67.0,96" opacity="0.38" />
+            <rect x="67.0" y="96" width="12.3" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>窯業・土石製品：京都府 1.3%、全国 0.6%</title>
+            <rect x="45.4" y="0" width="12.0" height="34" />
+            <polygon points="45.4,34 58.4,34 86.8,96 80.4,96" opacity="0.38" />
+            <rect x="80.4" y="96" width="5.4" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>鉄鋼：京都府 0.3%、全国 2.1%</title>
+            <rect x="58.4" y="0" width="2.1" height="34" />
+            <polygon points="58.4,34 61.5,34 107.3,96 86.8,96" opacity="0.38" />
+            <rect x="86.8" y="96" width="19.5" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>非鉄金属：京都府 0.4%、全国 0.8%</title>
+            <rect x="61.5" y="0" width="3.4" height="34" />
+            <polygon points="61.5,34 65.9,34 115.3,96 107.3,96" opacity="0.38" />
+            <rect x="107.3" y="96" width="7.0" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>金属製品：京都府 1.2%、全国 1.2%</title>
+            <rect x="65.9" y="0" width="10.6" height="34" />
+            <polygon points="65.9,34 77.5,34 127.0,96 115.3,96" opacity="0.38" />
+            <rect x="115.3" y="96" width="10.7" height="34" />
+          </g>
+          <g fill="#1baf7a">
+            <title>飲食料品：京都府 7.2%、全国 3.7%</title>
+            <rect x="77.5" y="0" width="71.4" height="34" />
+            <polygon points="77.5,34 149.9,34 164.1,96 127.0,96" opacity="0.38" />
+            <rect x="127.0" y="96" width="36.1" height="34" />
+          </g>
+          <g fill="#1baf7a">
+            <title>その他の製造工業製品：京都府 1.3%、全国 0.9%</title>
+            <rect x="149.9" y="0" width="12.1" height="34" />
+            <polygon points="149.9,34 163.0,34 172.7,96 164.1,96" opacity="0.38" />
+            <rect x="164.1" y="96" width="7.5" height="34" />
+          </g>
+          <g fill="#1baf7a">
+            <title>事務用品：京都府 0.2%、全国 0.1%</title>
+            <rect x="163.0" y="0" width="0.7" height="34" />
+            <polygon points="163.0,34 164.7,34 174.1,96 172.7,96" opacity="0.38" />
+            <rect x="172.7" y="96" width="0.4" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>はん用機械：京都府 0.6%、全国 1.0%</title>
+            <rect x="164.7" y="0" width="4.7" height="34" />
+            <polygon points="164.7,34 170.4,34 184.3,96 174.1,96" opacity="0.38" />
+            <rect x="174.1" y="96" width="9.1" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>生産用機械：京都府 2.3%、全国 1.6%</title>
+            <rect x="170.4" y="0" width="21.9" height="34" />
+            <polygon points="170.4,34 193.3,34 200.4,96 184.3,96" opacity="0.38" />
+            <rect x="184.3" y="96" width="15.1" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>業務用機械：京都府 1.3%、全国 0.6%</title>
+            <rect x="193.3" y="0" width="12.3" height="34" />
+            <polygon points="193.3,34 206.6,34 205.9,96 200.4,96" opacity="0.38" />
+            <rect x="200.4" y="96" width="4.6" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>電子部品：京都府 1.5%、全国 1.3%</title>
+            <rect x="206.6" y="0" width="14.3" height="34" />
+            <polygon points="206.6,34 221.8,34 218.6,96 205.9,96" opacity="0.38" />
+            <rect x="205.9" y="96" width="11.7" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>電気機械：京都府 2.2%、全国 1.5%</title>
+            <rect x="221.8" y="0" width="21.4" height="34" />
+            <polygon points="221.8,34 244.3,34 233.8,96 218.6,96" opacity="0.38" />
+            <rect x="218.6" y="96" width="14.2" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>情報通信機器：京都府 0.2%、全国 0.5%</title>
+            <rect x="244.3" y="0" width="1.1" height="34" />
+            <polygon points="244.3,34 246.3,34 238.5,96 233.8,96" opacity="0.38" />
+            <rect x="233.8" y="96" width="3.7" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>輸送機械：京都府 2.2%、全国 4.6%</title>
+            <rect x="246.3" y="0" width="20.9" height="34" />
+            <polygon points="246.3,34 268.2,34 284.5,96 238.5,96" opacity="0.38" />
+            <rect x="238.5" y="96" width="45.1" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>建設：京都府 6.4%、全国 6.7%</title>
+            <rect x="268.2" y="0" width="62.8" height="34" />
+            <polygon points="268.2,34 332.1,34 351.7,96 284.5,96" opacity="0.38" />
+            <rect x="284.5" y="96" width="66.1" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>電気・ガス・熱供給：京都府 2.8%、全国 2.3%</title>
+            <rect x="332.1" y="0" width="26.8" height="34" />
+            <polygon points="332.1,34 359.9,34 374.3,96 351.7,96" opacity="0.38" />
+            <rect x="351.7" y="96" width="21.7" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>水道：京都府 0.5%、全国 0.4%</title>
+            <rect x="359.9" y="0" width="4.0" height="34" />
+            <polygon points="359.9,34 364.8,34 378.7,96 374.3,96" opacity="0.38" />
+            <rect x="374.3" y="96" width="3.4" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>廃棄物処理：京都府 0.6%、全国 0.6%</title>
+            <rect x="364.8" y="0" width="4.6" height="34" />
+            <polygon points="364.8,34 370.4,34 384.6,96 378.7,96" opacity="0.38" />
+            <rect x="378.7" y="96" width="4.8" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>商業：京都府 8.7%、全国 9.0%</title>
+            <rect x="370.4" y="0" width="85.6" height="34" />
+            <polygon points="370.4,34 457.0,34 474.9,96 384.6,96" opacity="0.38" />
+            <rect x="384.6" y="96" width="89.4" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>金融・保険：京都府 3.7%、全国 3.5%</title>
+            <rect x="457.0" y="0" width="35.5" height="34" />
+            <polygon points="457.0,34 493.5,34 510.3,96 474.9,96" opacity="0.38" />
+            <rect x="474.9" y="96" width="34.4" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>不動産：京都府 9.2%、全国 8.8%</title>
+            <rect x="493.5" y="0" width="90.9" height="34" />
+            <polygon points="493.5,34 585.4,34 598.6,96 510.3,96" opacity="0.38" />
+            <rect x="510.3" y="96" width="87.2" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>運輸・郵便：京都府 5.2%、全国 4.9%</title>
+            <rect x="585.4" y="0" width="50.7" height="34" />
+            <polygon points="585.4,34 637.2,34 647.1,96 598.6,96" opacity="0.38" />
+            <rect x="598.6" y="96" width="47.5" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>情報通信：京都府 3.7%、全国 6.3%</title>
+            <rect x="637.2" y="0" width="36.4" height="34" />
+            <polygon points="637.2,34 674.6,34 710.4,96 647.1,96" opacity="0.38" />
+            <rect x="647.1" y="96" width="62.3" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>他に分類されない会員制団体：京都府 0.5%、全国 0.5%</title>
+            <rect x="674.6" y="0" width="4.2" height="34" />
+            <polygon points="674.6,34 679.7,34 715.1,96 710.4,96" opacity="0.38" />
+            <rect x="710.4" y="96" width="3.7" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>対事業所サービス：京都府 5.0%、全国 8.2%</title>
+            <rect x="679.7" y="0" width="49.2" height="34" />
+            <polygon points="679.7,34 730.0,34 797.5,96 715.1,96" opacity="0.38" />
+            <rect x="715.1" y="96" width="81.4" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>対個人サービス：京都府 4.8%、全国 3.9%</title>
+            <rect x="730.0" y="0" width="46.9" height="34" />
+            <polygon points="730.0,34 777.8,34 836.1,96 797.5,96" opacity="0.38" />
+            <rect x="797.5" y="96" width="37.6" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>分類不明：京都府 0.9%、全国 0.8%</title>
+            <rect x="777.8" y="0" width="8.4" height="34" />
+            <polygon points="777.8,34 787.3,34 843.6,96 836.1,96" opacity="0.38" />
+            <rect x="836.1" y="96" width="6.5" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>公務：京都府 3.6%、全国 4.2%</title>
+            <rect x="787.3" y="0" width="34.7" height="34" />
+            <polygon points="787.3,34 823.0,34 885.2,96 843.6,96" opacity="0.38" />
+            <rect x="843.6" y="96" width="40.5" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>教育・研究：京都府 9.4%、全国 4.5%</title>
+            <rect x="823.0" y="0" width="92.9" height="34" />
+            <polygon points="823.0,34 916.9,34 929.9,96 885.2,96" opacity="0.38" />
+            <rect x="885.2" y="96" width="43.7" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>医療・福祉：京都府 8.3%、全国 7.0%</title>
+            <rect x="916.9" y="0" width="82.1" height="34" />
+            <polygon points="916.9,34 1000.0,34 1000.0,96 929.9,96" opacity="0.38" />
+            <rect x="929.9" y="96" width="69.1" height="34" />
+          </g>
+        </svg>
+        <ul class="pf-legend">
+          <li><i style="background:#2a78d6"></i>資源・一次産業</li>
+          <li><i style="background:#eb6834"></i>素材</li>
+          <li><i style="background:#1baf7a"></i>食品・生活関連製造</li>
+          <li><i style="background:#eda100"></i>機械・電機・輸送機械</li>
+          <li><i style="background:#e87ba4"></i>建設・エネルギー・環境</li>
+          <li><i style="background:#009a2e"></i>流通・金融・不動産・運輸通信</li>
+          <li><i style="background:#7a68e8"></i>対事業所・対個人サービス等</li>
+          <li><i style="background:#e34948"></i>公務・教育・医療</li>
+        </ul>
+        <p class="text-xs text-base-content/70">
+          上の帯が京都府、下の帯が全国。幅は産出額に占める割合で、同じ産業どうしをつないでいます。下へすぼまる産業は、全国より京都府に集中しています。
+        </p>
+      </figure>
       <section class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">産出額（2020年）</span><b class="text-xl">18.0兆円</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">産出額（2020年）</span><b class="k-num">18.0兆円</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">付加価値率</span><b class="text-xl">59%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">付加価値率</span><b class="k-num">59%</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">移輸出（産出額比）</span><b class="text-xl">38%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">移輸出（産出額比）</span><b class="k-num">38%</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">移輸入（産出額比）</span><b class="text-xl">38%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">移輸入（産出額比）</span><b class="k-num">38%</b>
           </div>
         </div>
       </section>
@@ -149,28 +407,28 @@
                 stroke-dasharray="3 3"
               />
               <text x="162" y="19" text-anchor="end" fill="currentColor">業務用機械</text>
-              <rect x="170" y="7" width="420.0" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="7" width="420.0" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="596.0" y="20" fill="currentColor">2.39</text>
               <text x="162" y="45" text-anchor="end" fill="currentColor">教育・研究</text>
-              <rect x="170" y="33" width="369.4" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="33" width="369.4" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="545.4" y="46" fill="currentColor">2.10</text>
               <text x="162" y="71" text-anchor="end" fill="currentColor">窯業・土石製品</text>
-              <rect x="170" y="59" width="356.6" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="59" width="356.6" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="532.6" y="72" fill="currentColor">2.03</text>
               <text x="162" y="97" text-anchor="end" fill="currentColor">飲食料品</text>
-              <rect x="170" y="85" width="343.4" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="85" width="343.4" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="519.4" y="98" fill="currentColor">1.95</text>
               <text x="162" y="123" text-anchor="end" fill="currentColor">その他の製造工業製品</text>
-              <rect x="170" y="111" width="270.5" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="111" width="270.5" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="446.5" y="124" fill="currentColor">1.54</text>
               <text x="162" y="149" text-anchor="end" fill="currentColor">電気機械</text>
-              <rect x="170" y="137" width="259.4" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="137" width="259.4" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="435.4" y="150" fill="currentColor">1.47</text>
               <text x="162" y="175" text-anchor="end" fill="currentColor">生産用機械</text>
-              <rect x="170" y="163" width="249.7" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="163" width="249.7" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="425.7" y="176" fill="currentColor">1.42</text>
               <text x="162" y="201" text-anchor="end" fill="currentColor">分類不明</text>
-              <rect x="170" y="189" width="219.9" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="189" width="219.9" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="395.9" y="202" fill="currentColor">1.25</text>
             </svg>
           </div>
@@ -639,9 +897,7 @@
       </div>
     </section>
     <script src="/feedback.js" defer></script>
-    <footer
-      class="footer footer-center p-6 bg-base-100 border-t border-base-300 text-sm text-base-content/70 mt-12"
-    >
+    <footer class="footer footer-center p-6 k-foot text-sm text-base-content/70 mt-12">
       <p>
         出典：総務省ほか「産業連関表」、経済産業省「延長産業連関表」（政府統計の総合窓口 e-Stat
         掲載）を筆者が加工して作成。<br />加工・分析・「仮説」は筆者によるもので、政府が作成・保証したものではありません。投資・経営判断の根拠にはしないでください。

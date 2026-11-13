@@ -23,7 +23,7 @@
     <meta property="og:image" content="https://keizai-atlas.com/og.png" />
     <meta property="og:locale" content="ja_JP" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="theme-color" content="#0b1120" />
+    <meta name="theme-color" content="#0d1f2d" />
     <link
       rel="alternate"
       type="application/atom+xml"
@@ -37,20 +37,22 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600&family=IBM+Plex+Mono:wght@400;500&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="assets.css" />
     <script>
-      try{var t=localStorage.getItem("theme");if(t!=="nord")t="night";document.documentElement.dataset.theme=t}catch(e){}
+      try{var t=localStorage.getItem("theme");if(t!=="nord"&&t!=="night")t=matchMedia("(prefers-color-scheme: dark)").matches?"night":"nord";document.documentElement.dataset.theme=t}catch(e){}
     </script>
   </head>
   <body class="bg-base-200 text-base-content font-sans min-h-screen flex flex-col">
-    <header class="navbar bg-base-100/80 backdrop-blur border-b border-base-300 sticky top-0 z-50 px-4">
+    <header class="navbar k-nav sticky top-0 z-50 px-4">
       <div class="flex-1">
-        <a href="index.html" class="text-lg font-bold tracking-tight"
+        <a href="index.html" class="k-logo"
           >Keizai Atlas
-          <span class="text-xs font-normal text-base-content/70 ml-2 hidden sm:inline">経済の地図帳</span></a
+          <span class="font-sans text-xs font-normal text-base-content/70 hidden sm:inline"
+            >経済の地図帳</span
+          ></a
         >
       </div>
       <nav aria-label="サイト内の主なページ" class="flex-none gap-1 items-center flex">
@@ -93,31 +95,263 @@
           <li>岩手県</li>
         </ul>
       </nav>
-      <header class="space-y-3">
-        <h1 class="text-3xl font-bold">岩手県の産業構造</h1>
-        <p class="text-base-content/80">
-          岩手県の2020年の産出額は8.9兆円、粗付加価値は4.7兆円です。産出額に対する移輸出（海外と他の都道府県への販売）は31%、移輸入（海外と他の都道府県からの購入）は39%でした。
-        </p>
+      <header class="pf-head">
+        <svg class="pf-shape" viewBox="0 0 200 200" aria-hidden="true">
+          <path
+            d="M118.6 14.5L119.1 10.9L127.3 6.0L138.7 25.9L140.1 31.4L137.8 32.0L138.4 34.8L137.8 34.0L136.8 34.7L143.7 39.9L140.9 41.4L139.7 46.2L150.5 57.4L151.2 60.9L149.2 64.7L151.9 68.8L152.9 79.1L154.7 80.6L153.4 82.4L154.6 83.3L151.9 85.6L153.2 86.5L151.7 89.9L153.0 90.4L151.8 94.3L152.9 94.8L149.8 101.0L156.6 93.9L156.6 102.4L159.2 102.8L160.5 105.7L159.2 108.7L157.2 107.9L155.2 113.8L150.4 114.6L152.5 117.7L157.5 113.0L159.5 114.2L158.1 119.4L153.2 121.2L152.3 119.2L149.1 123.6L151.6 124.9L150.7 126.8L147.1 126.9L145.7 129.1L147.1 130.4L154.1 127.5L151.8 131.7L144.7 132.8L148.2 136.7L144.8 136.1L146.0 138.0L145.1 139.1L151.8 138.8L149.6 139.7L150.0 142.3L145.0 144.5L143.1 143.5L143.0 145.0L147.6 146.6L140.4 150.2L147.6 154.8L144.2 157.1L138.3 154.0L139.1 157.9L143.7 159.2L138.4 160.1L141.8 163.1L137.4 163.6L137.1 161.6L131.6 164.2L131.3 158.5L129.6 163.6L132.5 166.8L129.6 166.8L128.5 169.8L131.2 171.6L129.2 173.1L126.1 169.0L127.2 166.5L125.9 165.7L122.3 166.3L122.9 169.6L117.4 166.8L110.9 166.6L111.0 175.7L107.5 180.0L108.7 182.2L107.4 184.4L108.1 186.8L105.7 187.3L106.4 190.4L104.1 192.0L102.7 188.5L95.4 185.9L94.8 189.2L92.4 188.8L90.7 192.9L87.5 194.0L78.0 185.9L81.4 182.3L80.9 179.9L67.8 180.1L65.4 176.4L54.1 170.3L49.7 171.0L48.9 166.4L52.8 160.1L52.1 157.7L47.9 156.8L49.4 152.7L47.7 150.9L52.7 146.5L49.0 144.5L51.0 140.1L43.0 133.2L44.2 129.9L41.7 124.1L39.5 123.2L39.9 120.4L41.9 119.9L41.9 115.7L45.4 113.2L44.6 111.3L46.9 107.2L46.0 103.8L51.6 99.7L53.8 94.5L53.9 90.3L49.8 85.1L56.0 78.4L50.8 75.3L50.5 70.7L54.1 68.3L56.4 70.7L58.6 69.7L56.0 60.3L55.8 47.7L58.7 44.0L57.6 41.4L59.0 38.3L57.1 36.6L60.1 32.2L65.1 28.4L67.3 31.5L71.2 31.3L77.9 27.4L77.6 24.7L87.3 21.0L96.0 14.6L98.9 19.2L102.9 15.2L106.8 14.3L114.8 17.4L118.6 14.5Z"
+          />
+        </svg>
+        <div class="space-y-3">
+          <h1 class="pf-h1">岩手県の産業構造</h1>
+          <p class="text-base-content/80">
+            岩手県の2020年の産出額は8.9兆円、粗付加価値は4.7兆円です。産出額に対する移輸出（海外と他の都道府県への販売）は31%、移輸入（海外と他の都道府県からの購入）は39%でした。
+          </p>
+        </div>
       </header>
+      <figure class="pf-comp">
+        <figcaption class="font-bold">産業の構成を、全国と比べる</figcaption>
+        <div class="pf-labs" aria-hidden="true">
+          <span style="left:32.4%">建設 11.5%</span><span style="left:46.8%">商業 7.8%</span
+          ><span style="left:92.1%">医療・福祉 7.9%</span>
+        </div>
+        <svg
+          viewBox="0 0 1000 130"
+          preserveAspectRatio="none"
+          role="img"
+          aria-label="岩手県の産業の構成（産出額に占める割合）を、全国と比べた帯の図。岩手県で最も大きい産業は建設（11.5%）"
+        >
+          <g fill="#2a78d6">
+            <title>農林漁業：岩手県 4.3%、全国 1.2%</title>
+            <rect x="0.0" y="0" width="41.8" height="34" />
+            <polygon points="0.0,34 42.8,34 12.1,96 0.0,96" opacity="0.38" />
+            <rect x="0.0" y="96" width="11.1" height="34" />
+          </g>
+          <g fill="#2a78d6">
+            <title>鉱業：岩手県 0.1%、全国 0.0%</title>
+            <rect x="42.8" y="0" width="0.5" height="34" />
+            <polygon points="42.8,34 44.3,34 12.5,96 12.1,96" opacity="0.38" />
+            <rect x="12.1" y="96" width="0.2" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>繊維製品：岩手県 0.3%、全国 0.3%</title>
+            <rect x="44.3" y="0" width="1.7" height="34" />
+            <polygon points="44.3,34 47.0,34 15.4,96 12.5,96" opacity="0.38" />
+            <rect x="12.5" y="96" width="1.8" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>パルプ・紙・木製品：岩手県 1.1%、全国 1.1%</title>
+            <rect x="47.0" y="0" width="10.1" height="34" />
+            <polygon points="47.0,34 58.1,34 26.5,96 15.4,96" opacity="0.38" />
+            <rect x="15.4" y="96" width="10.1" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>化学製品：岩手県 0.7%、全国 2.8%</title>
+            <rect x="58.1" y="0" width="6.1" height="34" />
+            <polygon points="58.1,34 65.2,34 54.1,96 26.5,96" opacity="0.38" />
+            <rect x="26.5" y="96" width="26.6" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>石油・石炭製品：岩手県 0.1%、全国 1.3%</title>
+            <rect x="65.2" y="0" width="0.2" height="34" />
+            <polygon points="65.2,34 66.4,34 67.0,96 54.1,96" opacity="0.38" />
+            <rect x="54.1" y="96" width="11.9" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>プラスチック・ゴム製品とその他の製造工業製品：岩手県 1.7%、全国 2.2%</title>
+            <rect x="66.4" y="0" width="15.6" height="34" />
+            <polygon points="66.4,34 83.0,34 88.9,96 67.0,96" opacity="0.38" />
+            <rect x="67.0" y="96" width="20.9" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>窯業・土石製品：岩手県 1.0%、全国 0.6%</title>
+            <rect x="83.0" y="0" width="8.7" height="34" />
+            <polygon points="83.0,34 92.7,34 95.3,96 88.9,96" opacity="0.38" />
+            <rect x="88.9" y="96" width="5.4" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>鉄鋼：岩手県 0.7%、全国 2.1%</title>
+            <rect x="92.7" y="0" width="5.8" height="34" />
+            <polygon points="92.7,34 99.4,34 115.8,96 95.3,96" opacity="0.38" />
+            <rect x="95.3" y="96" width="19.5" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>非鉄金属：岩手県 0.2%、全国 0.8%</title>
+            <rect x="99.4" y="0" width="0.9" height="34" />
+            <polygon points="99.4,34 101.3,34 123.9,96 115.8,96" opacity="0.38" />
+            <rect x="115.8" y="96" width="7.0" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>金属製品：岩手県 1.3%、全国 1.2%</title>
+            <rect x="101.3" y="0" width="11.8" height="34" />
+            <polygon points="101.3,34 114.2,34 135.6,96 123.9,96" opacity="0.38" />
+            <rect x="123.9" y="96" width="10.7" height="34" />
+          </g>
+          <g fill="#1baf7a">
+            <title>飲食料品：岩手県 5.6%、全国 3.7%</title>
+            <rect x="114.2" y="0" width="54.6" height="34" />
+            <polygon points="114.2,34 169.7,34 172.7,96 135.6,96" opacity="0.38" />
+            <rect x="135.6" y="96" width="36.1" height="34" />
+          </g>
+          <g fill="#1baf7a">
+            <title>事務用品：岩手県 0.1%、全国 0.1%</title>
+            <rect x="169.7" y="0" width="0.4" height="34" />
+            <polygon points="169.7,34 171.2,34 174.1,96 172.7,96" opacity="0.38" />
+            <rect x="172.7" y="96" width="0.4" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>はん用・生産用・業務用機械：岩手県 5.3%、全国 3.2%</title>
+            <rect x="171.2" y="0" width="52.4" height="34" />
+            <polygon points="171.2,34 224.6,34 205.9,96 174.1,96" opacity="0.38" />
+            <rect x="174.1" y="96" width="30.8" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>電子部品：岩手県 2.5%、全国 1.3%</title>
+            <rect x="224.6" y="0" width="24.4" height="34" />
+            <polygon points="224.6,34 249.9,34 218.6,96 205.9,96" opacity="0.38" />
+            <rect x="205.9" y="96" width="11.7" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>電気機械：岩手県 0.6%、全国 1.5%</title>
+            <rect x="249.9" y="0" width="5.3" height="34" />
+            <polygon points="249.9,34 256.2,34 233.8,96 218.6,96" opacity="0.38" />
+            <rect x="218.6" y="96" width="14.2" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>情報通信機器：岩手県 0.4%、全国 0.5%</title>
+            <rect x="256.2" y="0" width="2.7" height="34" />
+            <polygon points="256.2,34 259.9,34 238.5,96 233.8,96" opacity="0.38" />
+            <rect x="233.8" y="96" width="3.7" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>輸送機械：岩手県 6.4%、全国 4.6%</title>
+            <rect x="259.9" y="0" width="63.4" height="34" />
+            <polygon points="259.9,34 324.3,34 284.5,96 238.5,96" opacity="0.38" />
+            <rect x="238.5" y="96" width="45.1" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>建設：岩手県 11.5%、全国 6.7%</title>
+            <rect x="324.3" y="0" width="114.1" height="34" />
+            <polygon points="324.3,34 439.4,34 351.7,96 284.5,96" opacity="0.38" />
+            <rect x="284.5" y="96" width="66.1" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>電気・ガス・熱供給・水道：岩手県 1.9%、全国 2.7%</title>
+            <rect x="439.4" y="0" width="18.4" height="34" />
+            <polygon points="439.4,34 458.8,34 378.7,96 351.7,96" opacity="0.38" />
+            <rect x="351.7" y="96" width="26.1" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>廃棄物処理：岩手県 0.9%、全国 0.6%</title>
+            <rect x="458.8" y="0" width="7.7" height="34" />
+            <polygon points="458.8,34 467.5,34 384.6,96 378.7,96" opacity="0.38" />
+            <rect x="378.7" y="96" width="4.8" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>商業：岩手県 7.8%、全国 9.0%</title>
+            <rect x="467.5" y="0" width="76.7" height="34" />
+            <polygon points="467.5,34 545.3,34 474.9,96 384.6,96" opacity="0.38" />
+            <rect x="384.6" y="96" width="89.4" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>金融・保険：岩手県 2.7%、全国 3.5%</title>
+            <rect x="545.3" y="0" width="25.8" height="34" />
+            <polygon points="545.3,34 572.0,34 510.3,96 474.9,96" opacity="0.38" />
+            <rect x="474.9" y="96" width="34.4" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>不動産：岩手県 8.0%、全国 8.8%</title>
+            <rect x="572.0" y="0" width="79.2" height="34" />
+            <polygon points="572.0,34 652.2,34 598.6,96 510.3,96" opacity="0.38" />
+            <rect x="510.3" y="96" width="87.2" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>運輸・郵便：岩手県 3.9%、全国 4.9%</title>
+            <rect x="652.2" y="0" width="38.5" height="34" />
+            <polygon points="652.2,34 691.6,34 647.1,96 598.6,96" opacity="0.38" />
+            <rect x="598.6" y="96" width="47.5" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>情報通信：岩手県 3.3%、全国 6.3%</title>
+            <rect x="691.6" y="0" width="31.9" height="34" />
+            <polygon points="691.6,34 724.5,34 710.4,96 647.1,96" opacity="0.38" />
+            <rect x="647.1" y="96" width="62.3" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>他に分類されない会員制団体：岩手県 0.5%、全国 0.5%</title>
+            <rect x="724.5" y="0" width="4.5" height="34" />
+            <polygon points="724.5,34 730.0,34 715.1,96 710.4,96" opacity="0.38" />
+            <rect x="710.4" y="96" width="3.7" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>対事業所サービス：岩手県 6.5%、全国 8.2%</title>
+            <rect x="730.0" y="0" width="63.6" height="34" />
+            <polygon points="730.0,34 794.5,34 797.5,96 715.1,96" opacity="0.38" />
+            <rect x="715.1" y="96" width="81.4" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>対個人サービス：岩手県 3.9%、全国 3.9%</title>
+            <rect x="794.5" y="0" width="37.8" height="34" />
+            <polygon points="794.5,34 833.3,34 836.1,96 797.5,96" opacity="0.38" />
+            <rect x="797.5" y="96" width="37.6" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>分類不明：岩手県 0.5%、全国 0.8%</title>
+            <rect x="833.3" y="0" width="3.8" height="34" />
+            <polygon points="833.3,34 838.1,34 843.6,96 836.1,96" opacity="0.38" />
+            <rect x="836.1" y="96" width="6.5" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>公務：岩手県 3.6%、全国 4.2%</title>
+            <rect x="838.1" y="0" width="35.4" height="34" />
+            <polygon points="838.1,34 874.5,34 885.2,96 843.6,96" opacity="0.38" />
+            <rect x="843.6" y="96" width="40.5" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>教育・研究：岩手県 4.6%、全国 4.5%</title>
+            <rect x="874.5" y="0" width="45.1" height="34" />
+            <polygon points="874.5,34 920.6,34 929.9,96 885.2,96" opacity="0.38" />
+            <rect x="885.2" y="96" width="43.7" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>医療・福祉：岩手県 7.9%、全国 7.0%</title>
+            <rect x="920.6" y="0" width="78.4" height="34" />
+            <polygon points="920.6,34 1000.0,34 1000.0,96 929.9,96" opacity="0.38" />
+            <rect x="929.9" y="96" width="69.1" height="34" />
+          </g>
+        </svg>
+        <ul class="pf-legend">
+          <li><i style="background:#2a78d6"></i>資源・一次産業</li>
+          <li><i style="background:#eb6834"></i>素材</li>
+          <li><i style="background:#1baf7a"></i>食品・生活関連製造</li>
+          <li><i style="background:#eda100"></i>機械・電機・輸送機械</li>
+          <li><i style="background:#e87ba4"></i>建設・エネルギー・環境</li>
+          <li><i style="background:#009a2e"></i>流通・金融・不動産・運輸通信</li>
+          <li><i style="background:#7a68e8"></i>対事業所・対個人サービス等</li>
+          <li><i style="background:#e34948"></i>公務・教育・医療</li>
+        </ul>
+        <p class="text-xs text-base-content/70">
+          上の帯が岩手県、下の帯が全国。幅は産出額に占める割合で、同じ産業どうしをつないでいます。下へすぼまる産業は、全国より岩手県に集中しています。
+        </p>
+      </figure>
       <section class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">産出額（2020年）</span><b class="text-xl">8.9兆円</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">産出額（2020年）</span><b class="k-num">8.9兆円</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">付加価値率</span><b class="text-xl">53%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">付加価値率</span><b class="k-num">53%</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">移輸出（産出額比）</span><b class="text-xl">31%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">移輸出（産出額比）</span><b class="k-num">31%</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">移輸入（産出額比）</span><b class="text-xl">39%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">移輸入（産出額比）</span><b class="k-num">39%</b>
           </div>
         </div>
       </section>
@@ -149,28 +383,28 @@
                 stroke-dasharray="3 3"
               />
               <text x="162" y="19" text-anchor="end" fill="currentColor">農林漁業</text>
-              <rect x="170" y="7" width="420.0" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="7" width="420.0" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="596.0" y="20" fill="currentColor">3.55</text>
               <text x="162" y="45" text-anchor="end" fill="currentColor">電子部品</text>
-              <rect x="170" y="33" width="236.8" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="33" width="236.8" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="412.8" y="46" fill="currentColor">2.00</text>
               <text x="162" y="71" text-anchor="end" fill="currentColor">建設</text>
-              <rect x="170" y="59" width="202.5" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="59" width="202.5" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="378.5" y="72" fill="currentColor">1.71</text>
               <text x="162" y="97" text-anchor="end" fill="currentColor">はん用・生産用・業務用機械</text>
-              <rect x="170" y="85" width="198.4" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="85" width="198.4" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="374.4" y="98" fill="currentColor">1.68</text>
               <text x="162" y="123" text-anchor="end" fill="currentColor">窯業・土石製品</text>
-              <rect x="170" y="111" width="178.2" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="111" width="178.2" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="354.2" y="124" fill="currentColor">1.51</text>
               <text x="162" y="149" text-anchor="end" fill="currentColor">飲食料品</text>
-              <rect x="170" y="137" width="177.0" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="137" width="177.0" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="353.0" y="150" fill="currentColor">1.50</text>
               <text x="162" y="175" text-anchor="end" fill="currentColor">廃棄物処理</text>
-              <rect x="170" y="163" width="175.9" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="163" width="175.9" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="351.9" y="176" fill="currentColor">1.49</text>
               <text x="162" y="201" text-anchor="end" fill="currentColor">輸送機械</text>
-              <rect x="170" y="189" width="165.1" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="189" width="165.1" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="341.1" y="202" fill="currentColor">1.40</text>
             </svg>
           </div>
@@ -602,9 +836,7 @@
       </div>
     </section>
     <script src="/feedback.js" defer></script>
-    <footer
-      class="footer footer-center p-6 bg-base-100 border-t border-base-300 text-sm text-base-content/70 mt-12"
-    >
+    <footer class="footer footer-center p-6 k-foot text-sm text-base-content/70 mt-12">
       <p>
         出典：総務省ほか「産業連関表」、経済産業省「延長産業連関表」（政府統計の総合窓口 e-Stat
         掲載）を筆者が加工して作成。<br />加工・分析・「仮説」は筆者によるもので、政府が作成・保証したものではありません。投資・経営判断の根拠にはしないでください。

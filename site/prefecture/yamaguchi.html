@@ -23,7 +23,7 @@
     <meta property="og:image" content="https://keizai-atlas.com/og.png" />
     <meta property="og:locale" content="ja_JP" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="theme-color" content="#0b1120" />
+    <meta name="theme-color" content="#0d1f2d" />
     <link
       rel="alternate"
       type="application/atom+xml"
@@ -37,20 +37,22 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600&family=IBM+Plex+Mono:wght@400;500&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="assets.css" />
     <script>
-      try{var t=localStorage.getItem("theme");if(t!=="nord")t="night";document.documentElement.dataset.theme=t}catch(e){}
+      try{var t=localStorage.getItem("theme");if(t!=="nord"&&t!=="night")t=matchMedia("(prefers-color-scheme: dark)").matches?"night":"nord";document.documentElement.dataset.theme=t}catch(e){}
     </script>
   </head>
   <body class="bg-base-200 text-base-content font-sans min-h-screen flex flex-col">
-    <header class="navbar bg-base-100/80 backdrop-blur border-b border-base-300 sticky top-0 z-50 px-4">
+    <header class="navbar k-nav sticky top-0 z-50 px-4">
       <div class="flex-1">
-        <a href="index.html" class="text-lg font-bold tracking-tight"
+        <a href="index.html" class="k-logo"
           >Keizai Atlas
-          <span class="text-xs font-normal text-base-content/70 ml-2 hidden sm:inline">経済の地図帳</span></a
+          <span class="font-sans text-xs font-normal text-base-content/70 hidden sm:inline"
+            >経済の地図帳</span
+          ></a
         >
       </div>
       <nav aria-label="サイト内の主なページ" class="flex-none gap-1 items-center flex">
@@ -93,31 +95,287 @@
           <li>山口県</li>
         </ul>
       </nav>
-      <header class="space-y-3">
-        <h1 class="text-3xl font-bold">山口県の産業構造</h1>
-        <p class="text-base-content/80">
-          山口県の2020年の産出額は12.5兆円、粗付加価値は6.1兆円です。産出額に対する移輸出（海外と他の都道府県への販売）は48%、移輸入（海外と他の都道府県からの購入）は49%でした。
-        </p>
+      <header class="pf-head">
+        <svg class="pf-shape" viewBox="0 0 200 200" aria-hidden="true">
+          <path
+            d="M118.6 30.4L119.1 40.2L122.4 41.7L123.5 47.3L120.2 49.4L120.6 54.8L115.5 59.4L119.8 64.3L119.7 70.7L132.6 70.6L128.6 79.4L130.2 87.5L137.6 92.4L144.4 91.4L149.6 86.6L154.9 91.9L162.4 81.1L160.2 71.9L164.0 66.3L169.6 65.3L171.5 69.6L170.0 83.7L177.9 87.5L180.3 103.4L188.3 104.5L187.2 108.6L193.9 107.5L191.8 111.6L194.0 117.8L187.8 122.4L189.5 141.6L185.6 148.5L176.5 150.1L181.9 167.5L176.5 169.6L176.8 162.6L166.6 157.0L168.1 156.3L168.5 154.5L163.9 158.1L158.2 153.7L156.6 155.7L155.6 151.3L142.0 144.0L142.0 140.9L137.8 140.3L132.7 144.2L136.2 146.0L134.9 147.3L128.2 146.2L137.2 137.3L134.0 135.0L131.1 137.2L133.1 132.2L125.6 134.0L127.1 130.4L111.1 134.4L107.7 138.6L106.6 137.6L106.8 136.0L105.7 135.0L98.1 142.6L89.3 135.8L90.0 140.1L85.9 140.4L87.4 144.0L84.3 144.9L81.7 139.6L78.6 144.7L81.4 138.3L77.1 134.0L73.0 147.8L61.1 154.7L59.2 152.4L56.5 154.0L57.3 150.1L49.1 153.4L46.3 149.8L47.9 142.7L43.0 141.6L43.3 143.6L37.5 136.0L30.0 132.7L23.8 144.2L15.0 150.8L14.5 156.2L12.0 156.2L7.8 150.4L13.7 150.8L12.9 132.4L6.0 124.0L6.7 119.8L10.5 119.9L14.8 114.2L15.4 107.5L6.8 95.0L11.0 90.1L11.4 82.7L15.0 86.0L16.0 84.3L20.4 83.4L25.0 80.7L29.6 81.4L26.8 75.6L19.3 75.3L18.9 78.3L15.6 77.6L21.1 69.6L27.6 74.7L42.8 73.5L45.9 80.9L51.7 77.0L54.2 81.2L55.4 77.6L66.4 79.3L70.7 73.5L81.3 72.2L82.2 69.7L78.8 68.6L78.7 66.6L81.3 68.4L87.5 62.4L86.8 55.8L93.2 54.5L97.8 49.7L100.4 41.2L106.8 39.7L104.9 38.2L106.8 33.5L111.0 33.2L111.5 35.9L113.0 36.9L118.6 30.4Z"
+          />
+        </svg>
+        <div class="space-y-3">
+          <h1 class="pf-h1">山口県の産業構造</h1>
+          <p class="text-base-content/80">
+            山口県の2020年の産出額は12.5兆円、粗付加価値は6.1兆円です。産出額に対する移輸出（海外と他の都道府県への販売）は48%、移輸入（海外と他の都道府県からの購入）は49%でした。
+          </p>
+        </div>
       </header>
+      <figure class="pf-comp">
+        <figcaption class="font-bold">産業の構成を、全国と比べる</figcaption>
+        <div class="pf-labs" aria-hidden="true">
+          <span style="left:1.9%">化学製品 13.6%</span><span style="left:37.7%">輸送機械 7.2%</span
+          ><span style="left:92.8%">医療・福祉 7.2%</span>
+        </div>
+        <svg
+          viewBox="0 0 1000 130"
+          preserveAspectRatio="none"
+          role="img"
+          aria-label="山口県の産業の構成（産出額に占める割合）を、全国と比べた帯の図。山口県で最も大きい産業は化学製品（13.6%）"
+        >
+          <g fill="#2a78d6">
+            <title>農林漁業：山口県 0.7%、全国 1.2%</title>
+            <rect x="0.0" y="0" width="5.8" height="34" />
+            <polygon points="0.0,34 6.8,34 12.1,96 0.0,96" opacity="0.38" />
+            <rect x="0.0" y="96" width="11.1" height="34" />
+          </g>
+          <g fill="#2a78d6">
+            <title>鉱業：山口県 0.1%、全国 0.0%</title>
+            <rect x="6.8" y="0" width="0.2" height="34" />
+            <polygon points="6.8,34 7.9,34 12.5,96 12.1,96" opacity="0.38" />
+            <rect x="12.1" y="96" width="0.2" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>繊維製品：山口県 0.1%、全国 0.3%</title>
+            <rect x="7.9" y="0" width="0.4" height="34" />
+            <polygon points="7.9,34 9.3,34 15.4,96 12.5,96" opacity="0.38" />
+            <rect x="12.5" y="96" width="1.8" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>パルプ・紙・木製品：山口県 1.0%、全国 1.1%</title>
+            <rect x="9.3" y="0" width="9.1" height="34" />
+            <polygon points="9.3,34 19.4,34 26.5,96 15.4,96" opacity="0.38" />
+            <rect x="15.4" y="96" width="10.1" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>化学製品：山口県 13.6%、全国 2.8%</title>
+            <rect x="19.4" y="0" width="135.2" height="34" />
+            <polygon points="19.4,34 155.6,34 54.1,96 26.5,96" opacity="0.38" />
+            <rect x="26.5" y="96" width="26.6" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>石油・石炭製品：山口県 6.9%、全国 1.3%</title>
+            <rect x="155.6" y="0" width="67.9" height="34" />
+            <polygon points="155.6,34 224.6,34 67.0,96 54.1,96" opacity="0.38" />
+            <rect x="54.1" y="96" width="11.9" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>プラスチック・ゴム製品：山口県 1.9%、全国 1.3%</title>
+            <rect x="224.6" y="0" width="17.8" height="34" />
+            <polygon points="224.6,34 243.3,34 80.4,96 67.0,96" opacity="0.38" />
+            <rect x="67.0" y="96" width="12.3" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>窯業・土石製品：山口県 1.5%、全国 0.6%</title>
+            <rect x="243.3" y="0" width="14.4" height="34" />
+            <polygon points="243.3,34 258.7,34 86.8,96 80.4,96" opacity="0.38" />
+            <rect x="80.4" y="96" width="5.4" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>鉄鋼：山口県 4.2%、全国 2.1%</title>
+            <rect x="258.7" y="0" width="41.2" height="34" />
+            <polygon points="258.7,34 300.9,34 107.3,96 86.8,96" opacity="0.38" />
+            <rect x="86.8" y="96" width="19.5" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>非鉄金属：山口県 1.0%、全国 0.8%</title>
+            <rect x="300.9" y="0" width="8.6" height="34" />
+            <polygon points="300.9,34 310.5,34 115.3,96 107.3,96" opacity="0.38" />
+            <rect x="107.3" y="96" width="7.0" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>金属製品：山口県 1.1%、全国 1.2%</title>
+            <rect x="310.5" y="0" width="10.0" height="34" />
+            <polygon points="310.5,34 321.6,34 127.0,96 115.3,96" opacity="0.38" />
+            <rect x="115.3" y="96" width="10.7" height="34" />
+          </g>
+          <g fill="#1baf7a">
+            <title>飲食料品：山口県 2.1%、全国 3.7%</title>
+            <rect x="321.6" y="0" width="19.5" height="34" />
+            <polygon points="321.6,34 342.1,34 164.1,96 127.0,96" opacity="0.38" />
+            <rect x="127.0" y="96" width="36.1" height="34" />
+          </g>
+          <g fill="#1baf7a">
+            <title>その他の製造工業製品：山口県 0.3%、全国 0.9%</title>
+            <rect x="342.1" y="0" width="1.9" height="34" />
+            <polygon points="342.1,34 345.0,34 172.7,96 164.1,96" opacity="0.38" />
+            <rect x="164.1" y="96" width="7.5" height="34" />
+          </g>
+          <g fill="#1baf7a">
+            <title>事務用品：山口県 0.1%、全国 0.1%</title>
+            <rect x="345.0" y="0" width="0.2" height="34" />
+            <polygon points="345.0,34 346.2,34 174.1,96 172.7,96" opacity="0.38" />
+            <rect x="172.7" y="96" width="0.4" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>はん用機械：山口県 0.8%、全国 1.0%</title>
+            <rect x="346.2" y="0" width="7.3" height="34" />
+            <polygon points="346.2,34 354.5,34 184.3,96 174.1,96" opacity="0.38" />
+            <rect x="174.1" y="96" width="9.1" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>生産用機械：山口県 1.2%、全国 1.6%</title>
+            <rect x="354.5" y="0" width="11.5" height="34" />
+            <polygon points="354.5,34 366.9,34 200.4,96 184.3,96" opacity="0.38" />
+            <rect x="184.3" y="96" width="15.1" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>業務用機械：山口県 0.3%、全国 0.6%</title>
+            <rect x="366.9" y="0" width="2.1" height="34" />
+            <polygon points="366.9,34 370.1,34 205.9,96 200.4,96" opacity="0.38" />
+            <rect x="200.4" y="96" width="4.6" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>電子部品：山口県 0.5%、全国 1.3%</title>
+            <rect x="370.1" y="0" width="3.7" height="34" />
+            <polygon points="370.1,34 374.8,34 218.6,96 205.9,96" opacity="0.38" />
+            <rect x="205.9" y="96" width="11.7" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>電気機械：山口県 0.2%、全国 1.5%</title>
+            <rect x="374.8" y="0" width="1.5" height="34" />
+            <polygon points="374.8,34 377.3,34 233.8,96 218.6,96" opacity="0.38" />
+            <rect x="218.6" y="96" width="14.2" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>情報通信機器：山口県 0.0%、全国 0.5%</title>
+            <rect x="377.3" y="0" width="0.2" height="34" />
+            <polygon points="377.3,34 377.3,34 238.5,96 233.8,96" opacity="0.38" />
+            <rect x="233.8" y="96" width="3.7" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>輸送機械：山口県 7.2%、全国 4.6%</title>
+            <rect x="377.3" y="0" width="71.0" height="34" />
+            <polygon points="377.3,34 449.2,34 284.5,96 238.5,96" opacity="0.38" />
+            <rect x="238.5" y="96" width="45.1" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>建設：山口県 5.8%、全国 6.7%</title>
+            <rect x="449.2" y="0" width="57.1" height="34" />
+            <polygon points="449.2,34 507.4,34 351.7,96 284.5,96" opacity="0.38" />
+            <rect x="284.5" y="96" width="66.1" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>電気・ガス・熱供給：山口県 4.6%、全国 2.3%</title>
+            <rect x="507.4" y="0" width="45.5" height="34" />
+            <polygon points="507.4,34 553.8,34 374.3,96 351.7,96" opacity="0.38" />
+            <rect x="351.7" y="96" width="21.7" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>水道：山口県 0.4%、全国 0.4%</title>
+            <rect x="553.8" y="0" width="2.7" height="34" />
+            <polygon points="553.8,34 557.6,34 378.7,96 374.3,96" opacity="0.38" />
+            <rect x="374.3" y="96" width="3.4" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>廃棄物処理：山口県 0.5%、全国 0.6%</title>
+            <rect x="557.6" y="0" width="4.2" height="34" />
+            <polygon points="557.6,34 562.8,34 384.6,96 378.7,96" opacity="0.38" />
+            <rect x="378.7" y="96" width="4.8" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>商業：山口県 6.0%、全国 9.0%</title>
+            <rect x="562.8" y="0" width="59.3" height="34" />
+            <polygon points="562.8,34 623.0,34 474.9,96 384.6,96" opacity="0.38" />
+            <rect x="384.6" y="96" width="89.4" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>金融・保険：山口県 2.3%、全国 3.5%</title>
+            <rect x="623.0" y="0" width="22.4" height="34" />
+            <polygon points="623.0,34 646.4,34 510.3,96 474.9,96" opacity="0.38" />
+            <rect x="474.9" y="96" width="34.4" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>不動産：山口県 5.8%、全国 8.8%</title>
+            <rect x="646.4" y="0" width="56.7" height="34" />
+            <polygon points="646.4,34 704.1,34 598.6,96 510.3,96" opacity="0.38" />
+            <rect x="510.3" y="96" width="87.2" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>運輸・郵便：山口県 5.3%、全国 4.9%</title>
+            <rect x="704.1" y="0" width="51.6" height="34" />
+            <polygon points="704.1,34 756.6,34 647.1,96 598.6,96" opacity="0.38" />
+            <rect x="598.6" y="96" width="47.5" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>情報通信：山口県 2.2%、全国 6.3%</title>
+            <rect x="756.6" y="0" width="21.4" height="34" />
+            <polygon points="756.6,34 779.0,34 710.4,96 647.1,96" opacity="0.38" />
+            <rect x="647.1" y="96" width="62.3" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>他に分類されない会員制団体：山口県 0.6%、全国 0.5%</title>
+            <rect x="779.0" y="0" width="5.0" height="34" />
+            <polygon points="779.0,34 785.0,34 715.1,96 710.4,96" opacity="0.38" />
+            <rect x="710.4" y="96" width="3.7" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>対事業所サービス：山口県 3.7%、全国 8.2%</title>
+            <rect x="785.0" y="0" width="35.8" height="34" />
+            <polygon points="785.0,34 821.8,34 797.5,96 715.1,96" opacity="0.38" />
+            <rect x="715.1" y="96" width="81.4" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>対個人サービス：山口県 2.9%、全国 3.9%</title>
+            <rect x="821.8" y="0" width="28.0" height="34" />
+            <polygon points="821.8,34 850.8,34 836.1,96 797.5,96" opacity="0.38" />
+            <rect x="797.5" y="96" width="37.6" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>分類不明：山口県 0.4%、全国 0.8%</title>
+            <rect x="850.8" y="0" width="3.0" height="34" />
+            <polygon points="850.8,34 854.8,34 843.6,96 836.1,96" opacity="0.38" />
+            <rect x="836.1" y="96" width="6.5" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>公務：山口県 3.8%、全国 4.2%</title>
+            <rect x="854.8" y="0" width="37.1" height="34" />
+            <polygon points="854.8,34 892.9,34 885.2,96 843.6,96" opacity="0.38" />
+            <rect x="843.6" y="96" width="40.5" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>教育・研究：山口県 3.5%、全国 4.5%</title>
+            <rect x="892.9" y="0" width="34.0" height="34" />
+            <polygon points="892.9,34 927.9,34 929.9,96 885.2,96" opacity="0.38" />
+            <rect x="885.2" y="96" width="43.7" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>医療・福祉：山口県 7.2%、全国 7.0%</title>
+            <rect x="927.9" y="0" width="71.1" height="34" />
+            <polygon points="927.9,34 1000.0,34 1000.0,96 929.9,96" opacity="0.38" />
+            <rect x="929.9" y="96" width="69.1" height="34" />
+          </g>
+        </svg>
+        <ul class="pf-legend">
+          <li><i style="background:#2a78d6"></i>資源・一次産業</li>
+          <li><i style="background:#eb6834"></i>素材</li>
+          <li><i style="background:#1baf7a"></i>食品・生活関連製造</li>
+          <li><i style="background:#eda100"></i>機械・電機・輸送機械</li>
+          <li><i style="background:#e87ba4"></i>建設・エネルギー・環境</li>
+          <li><i style="background:#009a2e"></i>流通・金融・不動産・運輸通信</li>
+          <li><i style="background:#7a68e8"></i>対事業所・対個人サービス等</li>
+          <li><i style="background:#e34948"></i>公務・教育・医療</li>
+        </ul>
+        <p class="text-xs text-base-content/70">
+          上の帯が山口県、下の帯が全国。幅は産出額に占める割合で、同じ産業どうしをつないでいます。下へすぼまる産業は、全国より山口県に集中しています。
+        </p>
+      </figure>
       <section class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">産出額（2020年）</span><b class="text-xl">12.5兆円</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">産出額（2020年）</span><b class="k-num">12.5兆円</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">付加価値率</span><b class="text-xl">49%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">付加価値率</span><b class="k-num">49%</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">移輸出（産出額比）</span><b class="text-xl">48%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">移輸出（産出額比）</span><b class="k-num">48%</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">移輸入（産出額比）</span><b class="text-xl">49%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">移輸入（産出額比）</span><b class="k-num">49%</b>
           </div>
         </div>
       </section>
@@ -149,28 +407,28 @@
                 stroke-dasharray="3 3"
               />
               <text x="162" y="19" text-anchor="end" fill="currentColor">石油・石炭製品</text>
-              <rect x="170" y="7" width="420.0" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="7" width="420.0" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="596.0" y="20" fill="currentColor">5.34</text>
               <text x="162" y="45" text-anchor="end" fill="currentColor">化学製品</text>
-              <rect x="170" y="33" width="388.4" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="33" width="388.4" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="564.4" y="46" fill="currentColor">4.94</text>
               <text x="162" y="71" text-anchor="end" fill="currentColor">窯業・土石製品</text>
-              <rect x="170" y="59" width="188.7" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="59" width="188.7" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="364.7" y="72" fill="currentColor">2.40</text>
               <text x="162" y="97" text-anchor="end" fill="currentColor">鉄鋼</text>
-              <rect x="170" y="85" width="162.1" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="85" width="162.1" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="338.1" y="98" fill="currentColor">2.06</text>
               <text x="162" y="123" text-anchor="end" fill="currentColor">電気・ガス・熱供給</text>
-              <rect x="170" y="111" width="161.4" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="111" width="161.4" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="337.4" y="124" fill="currentColor">2.05</text>
               <text x="162" y="149" text-anchor="end" fill="currentColor">輸送機械</text>
-              <rect x="170" y="137" width="122.9" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="137" width="122.9" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="298.9" y="150" fill="currentColor">1.56</text>
               <text x="162" y="175" text-anchor="end" fill="currentColor">プラスチック・ゴム製品</text>
-              <rect x="170" y="163" width="110.6" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="163" width="110.6" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="286.6" y="176" fill="currentColor">1.41</text>
               <text x="162" y="201" text-anchor="end" fill="currentColor">他に分類されない会員制団体</text>
-              <rect x="170" y="189" width="102.2" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="189" width="102.2" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="278.2" y="202" fill="currentColor">1.30</text>
             </svg>
           </div>
@@ -642,9 +900,7 @@
       </div>
     </section>
     <script src="/feedback.js" defer></script>
-    <footer
-      class="footer footer-center p-6 bg-base-100 border-t border-base-300 text-sm text-base-content/70 mt-12"
-    >
+    <footer class="footer footer-center p-6 k-foot text-sm text-base-content/70 mt-12">
       <p>
         出典：総務省ほか「産業連関表」、経済産業省「延長産業連関表」（政府統計の総合窓口 e-Stat
         掲載）を筆者が加工して作成。<br />加工・分析・「仮説」は筆者によるもので、政府が作成・保証したものではありません。投資・経営判断の根拠にはしないでください。

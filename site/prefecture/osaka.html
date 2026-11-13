@@ -23,7 +23,7 @@
     <meta property="og:image" content="https://keizai-atlas.com/og.png" />
     <meta property="og:locale" content="ja_JP" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="theme-color" content="#0b1120" />
+    <meta name="theme-color" content="#0d1f2d" />
     <link
       rel="alternate"
       type="application/atom+xml"
@@ -37,20 +37,22 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600&family=IBM+Plex+Mono:wght@400;500&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="assets.css" />
     <script>
-      try{var t=localStorage.getItem("theme");if(t!=="nord")t="night";document.documentElement.dataset.theme=t}catch(e){}
+      try{var t=localStorage.getItem("theme");if(t!=="nord"&&t!=="night")t=matchMedia("(prefers-color-scheme: dark)").matches?"night":"nord";document.documentElement.dataset.theme=t}catch(e){}
     </script>
   </head>
   <body class="bg-base-200 text-base-content font-sans min-h-screen flex flex-col">
-    <header class="navbar bg-base-100/80 backdrop-blur border-b border-base-300 sticky top-0 z-50 px-4">
+    <header class="navbar k-nav sticky top-0 z-50 px-4">
       <div class="flex-1">
-        <a href="index.html" class="text-lg font-bold tracking-tight"
+        <a href="index.html" class="k-logo"
           >Keizai Atlas
-          <span class="text-xs font-normal text-base-content/70 ml-2 hidden sm:inline">経済の地図帳</span></a
+          <span class="font-sans text-xs font-normal text-base-content/70 hidden sm:inline"
+            >経済の地図帳</span
+          ></a
         >
       </div>
       <nav aria-label="サイト内の主なページ" class="flex-none gap-1 items-center flex">
@@ -93,31 +95,287 @@
           <li>大阪府</li>
         </ul>
       </nav>
-      <header class="space-y-3">
-        <h1 class="text-3xl font-bold">大阪府の産業構造</h1>
-        <p class="text-base-content/80">
-          大阪府の2020年の産出額は72.1兆円、粗付加価値は39.4兆円です。産出額に対する移輸出（海外と他の都道府県への販売）は33%、移輸入（海外と他の都道府県からの購入）は32%でした。
-        </p>
+      <header class="pf-head">
+        <svg class="pf-shape" viewBox="0 0 200 200" aria-hidden="true">
+          <path
+            d="M90.4 6.0L92.6 14.5L114.4 19.6L112.4 29.3L124.6 37.6L132.4 35.4L127.6 32.0L130.8 23.8L138.8 24.0L136.2 34.5L144.8 34.0L165.2 64.6L161.8 70.9L158.4 70.2L157.0 84.1L150.8 89.4L146.2 112.0L152.6 117.9L146.2 127.6L151.6 132.5L153.4 150.5L149.2 157.0L152.2 160.9L147.2 166.5L132.0 168.7L117.8 178.2L113.2 171.9L95.6 179.7L83.8 178.7L74.8 187.4L72.6 182.8L57.8 185.2L53.0 192.3L38.4 194.0L34.8 183.5L59.8 176.2L91.4 145.1L89.6 134.4L91.8 130.8L94.2 137.3L96.6 133.9L97.2 136.1L102.6 130.8L105.4 124.7L98.2 123.7L96.6 114.2L100.4 121.5L101.4 116.7L106.6 122.7L106.2 118.1L109.0 118.8L109.4 117.9L101.4 115.9L105.2 114.7L100.8 111.6L100.8 109.6L105.6 110.6L106.4 103.3L99.0 101.6L101.0 91.6L96.8 91.6L108.2 81.9L99.4 61.0L105.2 41.8L99.8 39.1L109.6 34.2L85.4 25.5L87.0 11.1L82.2 8.4L90.4 6.0Z"
+          />
+        </svg>
+        <div class="space-y-3">
+          <h1 class="pf-h1">大阪府の産業構造</h1>
+          <p class="text-base-content/80">
+            大阪府の2020年の産出額は72.1兆円、粗付加価値は39.4兆円です。産出額に対する移輸出（海外と他の都道府県への販売）は33%、移輸入（海外と他の都道府県からの購入）は32%でした。
+          </p>
+        </div>
       </header>
+      <figure class="pf-comp">
+        <figcaption class="font-bold">産業の構成を、全国と比べる</figcaption>
+        <div class="pf-labs" aria-hidden="true">
+          <span style="left:30.9%">商業 11.9%</span><span style="left:46.7%">不動産 9.0%</span
+          ><span style="left:60.7%">情報通信 8.8%</span><span style="left:92.8%">医療・福祉 7.2%</span>
+        </div>
+        <svg
+          viewBox="0 0 1000 130"
+          preserveAspectRatio="none"
+          role="img"
+          aria-label="大阪府の産業の構成（産出額に占める割合）を、全国と比べた帯の図。大阪府で最も大きい産業は商業（11.9%）"
+        >
+          <g fill="#2a78d6">
+            <title>農林漁業：大阪府 0.1%、全国 1.2%</title>
+            <rect x="0.0" y="0" width="0.2" height="34" />
+            <polygon points="0.0,34 0.7,34 12.1,96 0.0,96" opacity="0.38" />
+            <rect x="0.0" y="96" width="11.1" height="34" />
+          </g>
+          <g fill="#2a78d6">
+            <title>鉱業：大阪府 0.0%、全国 0.0%</title>
+            <rect x="0.7" y="0" width="0.2" height="34" />
+            <polygon points="0.7,34 0.7,34 12.5,96 12.1,96" opacity="0.38" />
+            <rect x="12.1" y="96" width="0.2" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>繊維製品：大阪府 0.3%、全国 0.3%</title>
+            <rect x="0.7" y="0" width="1.7" height="34" />
+            <polygon points="0.7,34 3.5,34 15.4,96 12.5,96" opacity="0.38" />
+            <rect x="12.5" y="96" width="1.8" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>パルプ・紙・木製品：大阪府 0.8%、全国 1.1%</title>
+            <rect x="3.5" y="0" width="7.4" height="34" />
+            <polygon points="3.5,34 11.8,34 26.5,96 15.4,96" opacity="0.38" />
+            <rect x="15.4" y="96" width="10.1" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>化学製品：大阪府 2.6%、全国 2.8%</title>
+            <rect x="11.8" y="0" width="25.1" height="34" />
+            <polygon points="11.8,34 37.9,34 54.1,96 26.5,96" opacity="0.38" />
+            <rect x="26.5" y="96" width="26.6" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>石油・石炭製品：大阪府 1.7%、全国 1.3%</title>
+            <rect x="37.9" y="0" width="16.2" height="34" />
+            <polygon points="37.9,34 55.1,34 67.0,96 54.1,96" opacity="0.38" />
+            <rect x="54.1" y="96" width="11.9" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>プラスチック・ゴム製品：大阪府 1.0%、全国 1.3%</title>
+            <rect x="55.1" y="0" width="9.2" height="34" />
+            <polygon points="55.1,34 65.3,34 80.4,96 67.0,96" opacity="0.38" />
+            <rect x="67.0" y="96" width="12.3" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>窯業・土石製品：大阪府 0.3%、全国 0.6%</title>
+            <rect x="65.3" y="0" width="2.3" height="34" />
+            <polygon points="65.3,34 68.6,34 86.8,96 80.4,96" opacity="0.38" />
+            <rect x="80.4" y="96" width="5.4" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>鉄鋼：大阪府 2.6%、全国 2.1%</title>
+            <rect x="68.6" y="0" width="25.2" height="34" />
+            <polygon points="68.6,34 94.8,34 107.3,96 86.8,96" opacity="0.38" />
+            <rect x="86.8" y="96" width="19.5" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>非鉄金属：大阪府 0.6%、全国 0.8%</title>
+            <rect x="94.8" y="0" width="5.2" height="34" />
+            <polygon points="94.8,34 101.0,34 115.3,96 107.3,96" opacity="0.38" />
+            <rect x="107.3" y="96" width="7.0" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>金属製品：大阪府 2.0%、全国 1.2%</title>
+            <rect x="101.0" y="0" width="18.7" height="34" />
+            <polygon points="101.0,34 120.7,34 127.0,96 115.3,96" opacity="0.38" />
+            <rect x="115.3" y="96" width="10.7" height="34" />
+          </g>
+          <g fill="#1baf7a">
+            <title>飲食料品：大阪府 2.1%、全国 3.7%</title>
+            <rect x="120.7" y="0" width="19.9" height="34" />
+            <polygon points="120.7,34 141.6,34 164.1,96 127.0,96" opacity="0.38" />
+            <rect x="127.0" y="96" width="36.1" height="34" />
+          </g>
+          <g fill="#1baf7a">
+            <title>その他の製造工業製品：大阪府 0.9%、全国 0.9%</title>
+            <rect x="141.6" y="0" width="8.2" height="34" />
+            <polygon points="141.6,34 150.8,34 172.7,96 164.1,96" opacity="0.38" />
+            <rect x="164.1" y="96" width="7.5" height="34" />
+          </g>
+          <g fill="#1baf7a">
+            <title>事務用品：大阪府 0.2%、全国 0.1%</title>
+            <rect x="150.8" y="0" width="0.7" height="34" />
+            <polygon points="150.8,34 152.5,34 174.1,96 172.7,96" opacity="0.38" />
+            <rect x="172.7" y="96" width="0.4" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>はん用機械：大阪府 1.1%、全国 1.0%</title>
+            <rect x="152.5" y="0" width="10.4" height="34" />
+            <polygon points="152.5,34 163.9,34 184.3,96 174.1,96" opacity="0.38" />
+            <rect x="174.1" y="96" width="9.1" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>生産用機械：大阪府 1.7%、全国 1.6%</title>
+            <rect x="163.9" y="0" width="15.9" height="34" />
+            <polygon points="163.9,34 180.8,34 200.4,96 184.3,96" opacity="0.38" />
+            <rect x="184.3" y="96" width="15.1" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>業務用機械：大阪府 0.3%、全国 0.6%</title>
+            <rect x="180.8" y="0" width="2.4" height="34" />
+            <polygon points="180.8,34 184.2,34 205.9,96 200.4,96" opacity="0.38" />
+            <rect x="200.4" y="96" width="4.6" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>電子部品：大阪府 0.6%、全国 1.3%</title>
+            <rect x="184.2" y="0" width="5.2" height="34" />
+            <polygon points="184.2,34 190.4,34 218.6,96 205.9,96" opacity="0.38" />
+            <rect x="205.9" y="96" width="11.7" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>電気機械：大阪府 1.2%、全国 1.5%</title>
+            <rect x="190.4" y="0" width="10.5" height="34" />
+            <polygon points="190.4,34 201.9,34 233.8,96 218.6,96" opacity="0.38" />
+            <rect x="218.6" y="96" width="14.2" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>情報通信機器：大阪府 0.3%、全国 0.5%</title>
+            <rect x="201.9" y="0" width="1.5" height="34" />
+            <polygon points="201.9,34 204.5,34 238.5,96 233.8,96" opacity="0.38" />
+            <rect x="233.8" y="96" width="3.7" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>輸送機械：大阪府 1.3%、全国 4.6%</title>
+            <rect x="204.5" y="0" width="11.7" height="34" />
+            <polygon points="204.5,34 217.2,34 284.5,96 238.5,96" opacity="0.38" />
+            <rect x="238.5" y="96" width="45.1" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>建設：大阪府 6.6%、全国 6.7%</title>
+            <rect x="217.2" y="0" width="65.4" height="34" />
+            <polygon points="217.2,34 283.6,34 351.7,96 284.5,96" opacity="0.38" />
+            <rect x="284.5" y="96" width="66.1" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>電気・ガス・熱供給：大阪府 1.5%、全国 2.3%</title>
+            <rect x="283.6" y="0" width="14.0" height="34" />
+            <polygon points="283.6,34 298.6,34 374.3,96 351.7,96" opacity="0.38" />
+            <rect x="351.7" y="96" width="21.7" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>水道：大阪府 0.6%、全国 0.4%</title>
+            <rect x="298.6" y="0" width="4.7" height="34" />
+            <polygon points="298.6,34 304.3,34 378.7,96 374.3,96" opacity="0.38" />
+            <rect x="374.3" y="96" width="3.4" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>廃棄物処理：大阪府 0.5%、全国 0.6%</title>
+            <rect x="304.3" y="0" width="4.1" height="34" />
+            <polygon points="304.3,34 309.5,34 384.6,96 378.7,96" opacity="0.38" />
+            <rect x="378.7" y="96" width="4.8" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>商業：大阪府 11.9%、全国 9.0%</title>
+            <rect x="309.5" y="0" width="117.8" height="34" />
+            <polygon points="309.5,34 428.3,34 474.9,96 384.6,96" opacity="0.38" />
+            <rect x="384.6" y="96" width="89.4" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>金融・保険：大阪府 3.8%、全国 3.5%</title>
+            <rect x="428.3" y="0" width="37.4" height="34" />
+            <polygon points="428.3,34 466.7,34 510.3,96 474.9,96" opacity="0.38" />
+            <rect x="474.9" y="96" width="34.4" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>不動産：大阪府 9.0%、全国 8.8%</title>
+            <rect x="466.7" y="0" width="89.3" height="34" />
+            <polygon points="466.7,34 557.0,34 598.6,96 510.3,96" opacity="0.38" />
+            <rect x="510.3" y="96" width="87.2" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>運輸・郵便：大阪府 5.0%、全国 4.9%</title>
+            <rect x="557.0" y="0" width="48.5" height="34" />
+            <polygon points="557.0,34 606.6,34 647.1,96 598.6,96" opacity="0.38" />
+            <rect x="598.6" y="96" width="47.5" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>情報通信：大阪府 8.8%、全国 6.3%</title>
+            <rect x="606.6" y="0" width="87.1" height="34" />
+            <polygon points="606.6,34 694.6,34 710.4,96 647.1,96" opacity="0.38" />
+            <rect x="647.1" y="96" width="62.3" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>他に分類されない会員制団体：大阪府 0.4%、全国 0.5%</title>
+            <rect x="694.6" y="0" width="2.7" height="34" />
+            <polygon points="694.6,34 698.3,34 715.1,96 710.4,96" opacity="0.38" />
+            <rect x="710.4" y="96" width="3.7" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>対事業所サービス：大阪府 10.4%、全国 8.2%</title>
+            <rect x="698.3" y="0" width="102.5" height="34" />
+            <polygon points="698.3,34 801.8,34 797.5,96 715.1,96" opacity="0.38" />
+            <rect x="715.1" y="96" width="81.4" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>対個人サービス：大阪府 4.4%、全国 3.9%</title>
+            <rect x="801.8" y="0" width="43.4" height="34" />
+            <polygon points="801.8,34 846.2,34 836.1,96 797.5,96" opacity="0.38" />
+            <rect x="797.5" y="96" width="37.6" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>分類不明：大阪府 0.8%、全国 0.8%</title>
+            <rect x="846.2" y="0" width="7.1" height="34" />
+            <polygon points="846.2,34 854.4,34 843.6,96 836.1,96" opacity="0.38" />
+            <rect x="836.1" y="96" width="6.5" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>公務：大阪府 3.1%、全国 4.2%</title>
+            <rect x="854.4" y="0" width="29.6" height="34" />
+            <polygon points="854.4,34 885.0,34 885.2,96 843.6,96" opacity="0.38" />
+            <rect x="843.6" y="96" width="40.5" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>教育・研究：大阪府 4.3%、全国 4.5%</title>
+            <rect x="885.0" y="0" width="42.0" height="34" />
+            <polygon points="885.0,34 928.0,34 929.9,96 885.2,96" opacity="0.38" />
+            <rect x="885.2" y="96" width="43.7" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>医療・福祉：大阪府 7.2%、全国 7.0%</title>
+            <rect x="928.0" y="0" width="71.0" height="34" />
+            <polygon points="928.0,34 1000.0,34 1000.0,96 929.9,96" opacity="0.38" />
+            <rect x="929.9" y="96" width="69.1" height="34" />
+          </g>
+        </svg>
+        <ul class="pf-legend">
+          <li><i style="background:#2a78d6"></i>資源・一次産業</li>
+          <li><i style="background:#eb6834"></i>素材</li>
+          <li><i style="background:#1baf7a"></i>食品・生活関連製造</li>
+          <li><i style="background:#eda100"></i>機械・電機・輸送機械</li>
+          <li><i style="background:#e87ba4"></i>建設・エネルギー・環境</li>
+          <li><i style="background:#009a2e"></i>流通・金融・不動産・運輸通信</li>
+          <li><i style="background:#7a68e8"></i>対事業所・対個人サービス等</li>
+          <li><i style="background:#e34948"></i>公務・教育・医療</li>
+        </ul>
+        <p class="text-xs text-base-content/70">
+          上の帯が大阪府、下の帯が全国。幅は産出額に占める割合で、同じ産業どうしをつないでいます。下へすぼまる産業は、全国より大阪府に集中しています。
+        </p>
+      </figure>
       <section class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">産出額（2020年）</span><b class="text-xl">72.1兆円</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">産出額（2020年）</span><b class="k-num">72.1兆円</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">付加価値率</span><b class="text-xl">55%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">付加価値率</span><b class="k-num">55%</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">移輸出（産出額比）</span><b class="text-xl">33%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">移輸出（産出額比）</span><b class="k-num">33%</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">移輸入（産出額比）</span><b class="text-xl">32%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">移輸入（産出額比）</span><b class="k-num">32%</b>
           </div>
         </div>
       </section>
@@ -149,28 +407,28 @@
                 stroke-dasharray="3 3"
               />
               <text x="162" y="19" text-anchor="end" fill="currentColor">金属製品</text>
-              <rect x="170" y="7" width="420.0" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="7" width="420.0" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="596.0" y="20" fill="currentColor">1.68</text>
               <text x="162" y="45" text-anchor="end" fill="currentColor">情報通信</text>
-              <rect x="170" y="33" width="347.4" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="33" width="347.4" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="523.4" y="46" fill="currentColor">1.39</text>
               <text x="162" y="71" text-anchor="end" fill="currentColor">石油・石炭製品</text>
-              <rect x="170" y="59" width="332.3" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="59" width="332.3" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="508.3" y="72" fill="currentColor">1.33</text>
               <text x="162" y="97" text-anchor="end" fill="currentColor">商業</text>
-              <rect x="170" y="85" width="328.6" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="85" width="328.6" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="504.6" y="98" fill="currentColor">1.32</text>
               <text x="162" y="123" text-anchor="end" fill="currentColor">水道</text>
-              <rect x="170" y="111" width="323.7" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="111" width="323.7" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="499.7" y="124" fill="currentColor">1.30</text>
               <text x="162" y="149" text-anchor="end" fill="currentColor">鉄鋼</text>
-              <rect x="170" y="137" width="319.0" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="137" width="319.0" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="495.0" y="150" fill="currentColor">1.28</text>
               <text x="162" y="175" text-anchor="end" fill="currentColor">対事業所サービス</text>
-              <rect x="170" y="163" width="313.9" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="163" width="313.9" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="489.9" y="176" fill="currentColor">1.26</text>
               <text x="162" y="201" text-anchor="end" fill="currentColor">対個人サービス</text>
-              <rect x="170" y="189" width="287.6" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="189" width="287.6" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="463.6" y="202" fill="currentColor">1.15</text>
             </svg>
           </div>
@@ -639,9 +897,7 @@
       </div>
     </section>
     <script src="/feedback.js" defer></script>
-    <footer
-      class="footer footer-center p-6 bg-base-100 border-t border-base-300 text-sm text-base-content/70 mt-12"
-    >
+    <footer class="footer footer-center p-6 k-foot text-sm text-base-content/70 mt-12">
       <p>
         出典：総務省ほか「産業連関表」、経済産業省「延長産業連関表」（政府統計の総合窓口 e-Stat
         掲載）を筆者が加工して作成。<br />加工・分析・「仮説」は筆者によるもので、政府が作成・保証したものではありません。投資・経営判断の根拠にはしないでください。
