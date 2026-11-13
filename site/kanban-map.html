@@ -1,0 +1,729 @@
+<!doctype html>
+<html lang="ja" data-theme="night">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>都道府県の看板産業マップ｜あなたの県は何で稼いでいる？｜Keizai Atlas</title>
+    <meta
+      name="description"
+      content="43都道府県の「看板産業」を1枚の図に。県の産出額の3%以上を占める産業のうち、全国平均と比べて最も集中している産業を、2020年の産業連関表から筆者が集計。政府が作成したものではありません。"
+    />
+    <link rel="canonical" href="https://keizai-atlas.com/kanban-map" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Keizai Atlas" />
+    <meta
+      property="og:title"
+      content="都道府県の看板産業マップ｜あなたの県は何で稼いでいる？｜Keizai Atlas"
+    />
+    <meta
+      property="og:description"
+      content="43都道府県の「看板産業」を1枚の図に。県の産出額の3%以上を占める産業のうち、全国平均と比べて最も集中している産業を、2020年の産業連関表から筆者が集計。政府が作成したものではありません。"
+    />
+    <meta property="og:url" content="https://keizai-atlas.com/kanban-map" />
+    <meta property="og:image" content="https://keizai-atlas.com/og/kanban-map.png" />
+    <meta property="og:locale" content="ja_JP" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#0d1f2d" />
+    <link
+      rel="alternate"
+      type="application/atom+xml"
+      title="更新情報"
+      href="https://keizai-atlas.com/feed.xml"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600&family=IBM+Plex+Mono:wght@400;500&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets.css" />
+    <script>
+      try{var t=localStorage.getItem("theme");if(t!=="nord"&&t!=="night")t=matchMedia("(prefers-color-scheme: dark)").matches?"night":"nord";document.documentElement.dataset.theme=t}catch(e){}
+    </script>
+  </head>
+  <body class="bg-base-200 text-base-content font-sans min-h-screen flex flex-col">
+    <header class="navbar k-nav sticky top-0 z-50 px-4">
+      <div class="flex-1">
+        <a href="index.html" class="k-logo"
+          >Keizai Atlas
+          <span class="font-sans text-xs font-normal text-base-content/70 hidden sm:inline"
+            >経済の地図帳</span
+          ></a
+        >
+      </div>
+      <nav aria-label="サイト内の主なページ" class="flex-none gap-1 items-center flex">
+        <span class="hidden lg:flex gap-1"
+          ><a class="btn btn-ghost btn-sm" href="guide.html">入門</a
+          ><a class="btn btn-ghost btn-sm" href="explorer.html">産業マップ</a
+          ><a class="btn btn-ghost btn-sm" href="industries.html">産業一覧</a
+          ><a class="btn btn-ghost btn-sm" href="prefectures.html">県別</a
+          ><a class="btn btn-ghost btn-sm" href="similarity.html">近さの地図</a
+          ><a class="btn btn-ghost btn-sm" href="latest.html">最新動向</a
+          ><a class="btn btn-ghost btn-sm" href="international.html">国際比較</a
+          ><a class="btn btn-ghost btn-sm" href="about.html">方法と出典</a></span
+        >
+        <div class="dropdown dropdown-end lg:hidden">
+          <label tabindex="0" class="btn btn-ghost btn-sm" aria-label="メニュー">☰</label>
+          <ul
+            tabindex="0"
+            class="menu dropdown-content z-50 mt-2 p-2 shadow bg-base-100 border border-base-300 rounded-box w-44"
+          >
+            <li><a href="guide.html">入門</a></li>
+            <li><a href="explorer.html">産業マップ</a></li>
+            <li><a href="industries.html">産業一覧</a></li>
+            <li><a href="prefectures.html">県別</a></li>
+            <li><a href="similarity.html">近さの地図</a></li>
+            <li><a href="latest.html">最新動向</a></li>
+            <li><a href="international.html">国際比較</a></li>
+            <li><a href="about.html">方法と出典</a></li>
+          </ul>
+        </div>
+        <label class="swap swap-rotate btn btn-ghost btn-sm btn-circle" aria-label="テーマ切替"
+          ><input type="checkbox" id="thm" /><span class="swap-on">☀</span
+          ><span class="swap-off">☾</span></label
+        >
+      </nav>
+    </header>
+    <main class="flex-1 w-full max-w-6xl mx-auto px-4 py-10 space-y-8">
+      <header class="space-y-3">
+        <h1 class="pf-h1">都道府県の看板産業マップ</h1>
+        <p class="kb-lead">いちばん際立つのは愛媛県の非鉄金属。全国平均の<b class="pf-x">8.9</b>倍です。</p>
+        <p class="text-base-content/80">
+          看板産業は、県の産出額の3%以上を占める産業のうち、全国平均と比べた集中度（<a
+            class="link"
+            href="glossary.html#tokka-keisu"
+            >特化係数</a
+          >）が最も高いもの（筆者の定義）。43都道府県で18種類の産業が並びました。各都道府県が公表した2020年の産業連関表を、筆者が37部門にそろえて集計しています。政府や自治体が作成・保証したものではありません。
+        </p>
+        <p class="pf-act">
+          <a href="share/kanban-map.png" download="kanban-map.png">画像を保存（PNG）</a
+          ><a href="index.html">立体地図で県を選ぶ</a>
+        </p>
+      </header>
+      <section aria-labelledby="kb-map">
+        <h2 id="kb-map" class="sr-only">タイルの地図</h2>
+        <div class="overflow-x-auto">
+          <div class="kb-grid">
+            <a
+              class="kb-tile"
+              href="prefecture/hokkaido.html"
+              style="grid-column:14;grid-row:1;border-top-color:#2a78d6"
+              ><span class="kb-p">北海道</span><b>農林漁業</b><span class="kb-v">4.2倍</span></a
+            >
+            <a
+              class="kb-tile"
+              href="prefecture/aomori.html"
+              style="grid-column:14;grid-row:2;border-top-color:#2a78d6"
+              ><span class="kb-p">青森県</span><b>農林漁業</b><span class="kb-v">4.3倍</span></a
+            >
+            <a
+              class="kb-tile"
+              href="prefecture/akita.html"
+              style="grid-column:13;grid-row:3;border-top-color:#eda100"
+              ><span class="kb-p">秋田県</span><b>電子部品</b><span class="kb-v">4.4倍</span></a
+            >
+            <a
+              class="kb-tile"
+              href="prefecture/iwate.html"
+              style="grid-column:14;grid-row:3;border-top-color:#2a78d6"
+              ><span class="kb-p">岩手県</span><b>農林漁業</b><span class="kb-v">3.6倍</span></a
+            >
+            <a
+              class="kb-tile"
+              href="prefecture/yamagata.html"
+              style="grid-column:13;grid-row:4;border-top-color:#eda100"
+              ><span class="kb-p">山形県</span><b>電子部品</b><span class="kb-v">4.0倍</span></a
+            >
+            <a
+              class="kb-tile"
+              href="prefecture/miyagi.html"
+              style="grid-column:14;grid-row:4;border-top-color:#e34948"
+              ><span class="kb-p">宮城県</span><b>公務</b><span class="kb-v">1.4倍</span></a
+            >
+            <a
+              class="kb-tile"
+              href="prefecture/ishikawa.html"
+              style="grid-column:10;grid-row:5;border-top-color:#eda100"
+              ><span class="kb-p">石川県</span><b>生産用機械</b><span class="kb-v">4.3倍</span></a
+            >
+            <a
+              class="kb-tile"
+              href="prefecture/toyama.html"
+              style="grid-column:11;grid-row:5;border-top-color:#eb6834"
+              ><span class="kb-p">富山県</span><b>非鉄金属</b><span class="kb-v">4.1倍</span></a
+            >
+            <a
+              class="kb-tile"
+              href="prefecture/niigata.html"
+              style="grid-column:12;grid-row:5;border-top-color:#e87ba4"
+              ><span class="kb-p">新潟県</span><b>電気・ガス・熱供給</b><span class="kb-v">2.1倍</span></a
+            >
+            <a
+              class="kb-tile"
+              href="prefecture/fukushima.html"
+              style="grid-column:13;grid-row:5;border-top-color:#e87ba4"
+              ><span class="kb-p">福島県</span><b>電気・ガス・熱供給</b><span class="kb-v">2.9倍</span></a
+            >
+            <a
+              class="kb-tile"
+              href="prefecture/fukui.html"
+              style="grid-column:9;grid-row:6;border-top-color:#eda100"
+              ><span class="kb-p">福井県</span><b>電子部品</b><span class="kb-v">4.5倍</span></a
+            >
+            <a
+              class="kb-tile"
+              href="prefecture/gifu.html"
+              style="grid-column:10;grid-row:6;border-top-color:#eb6834"
+              ><span class="kb-p">岐阜県</span><b>プラスチック・ゴム製品</b><span class="kb-v">2.6倍</span></a
+            >
+            <a
+              class="kb-tile"
+              href="prefecture/nagano.html"
+              style="grid-column:11;grid-row:6;border-top-color:#eda100"
+              ><span class="kb-p">長野県</span><b>電子部品</b><span class="kb-v">3.3倍</span></a
+            >
+            <a
+              class="kb-tile"
+              href="prefecture/gunma.html"
+              style="grid-column:12;grid-row:6;border-top-color:#eda100"
+              ><span class="kb-p">群馬県</span><b>輸送機械</b><span class="kb-v">3.6倍</span></a
+            >
+            <a
+              class="kb-tile"
+              href="prefecture/tochigi.html"
+              style="grid-column:13;grid-row:6;border-top-color:#eda100"
+              ><span class="kb-p">栃木県</span><b>電気機械</b><span class="kb-v">3.2倍</span></a
+            >
+            <a
+              class="kb-tile"
+              href="prefecture/ibaraki.html"
+              style="grid-column:14;grid-row:6;border-top-color:#eda100"
+              ><span class="kb-p">茨城県</span><b>電気機械</b><span class="kb-v">2.2倍</span></a
+            >
+            <a
+              class="kb-tile"
+              href="prefecture/nagasaki.html"
+              style="grid-column:1;grid-row:7;border-top-color:#eda100"
+              ><span class="kb-p">長崎県</span><b>はん用機械</b><span class="kb-v">3.4倍</span></a
+            >
+            <a
+              class="kb-tile"
+              href="prefecture/saga.html"
+              style="grid-column:2;grid-row:7;border-top-color:#e87ba4"
+              ><span class="kb-p">佐賀県</span><b>電気・ガス・熱供給</b><span class="kb-v">2.6倍</span></a
+            >
+            <a
+              class="kb-tile"
+              href="prefecture/fukuoka.html"
+              style="grid-column:3;grid-row:7;border-top-color:#eda100"
+              ><span class="kb-p">福岡県</span><b>輸送機械</b><span class="kb-v">2.1倍</span></a
+            >
+            <a
+              class="kb-tile"
+              href="prefecture/yamaguchi.html"
+              style="grid-column:4;grid-row:7;border-top-color:#eb6834"
+              ><span class="kb-p">山口県</span><b>石油・石炭製品</b><span class="kb-v">5.3倍</span></a
+            >
+            <span class="kb-tile kb-none" style="grid-column:5;grid-row:7"
+              ><span class="kb-p">島根県</span><span class="kb-v">未掲載</span></span
+            >
+            <a
+              class="kb-tile"
+              href="prefecture/tottori.html"
+              style="grid-column:6;grid-row:7;border-top-color:#eb6834"
+              ><span class="kb-p">鳥取県</span><b>パルプ・紙・木製品</b><span class="kb-v">3.2倍</span></a
+            >
+            <a
+              class="kb-tile"
+              href="prefecture/hyogo.html"
+              style="grid-column:7;grid-row:7;border-top-color:#eda100"
+              ><span class="kb-p">兵庫県</span><b>はん用機械</b><span class="kb-v">3.3倍</span></a
+            >
+            <a
+              class="kb-tile"
+              href="prefecture/kyoto.html"
+              style="grid-column:8;grid-row:7;border-top-color:#e34948"
+              ><span class="kb-p">京都府</span><b>教育・研究</b><span class="kb-v">2.1倍</span></a
+            >
+            <a
+              class="kb-tile"
+              href="prefecture/shiga.html"
+              style="grid-column:9;grid-row:7;border-top-color:#eda100"
+              ><span class="kb-p">滋賀県</span><b>はん用機械</b><span class="kb-v">6.2倍</span></a
+            >
+            <a
+              class="kb-tile"
+              href="prefecture/aichi.html"
+              style="grid-column:10;grid-row:7;border-top-color:#eda100"
+              ><span class="kb-p">愛知県</span><b>輸送機械</b><span class="kb-v">4.4倍</span></a
+            >
+            <a
+              class="kb-tile"
+              href="prefecture/yamanashi.html"
+              style="grid-column:11;grid-row:7;border-top-color:#eda100"
+              ><span class="kb-p">山梨県</span><b>生産用機械</b><span class="kb-v">5.2倍</span></a
+            >
+            <a
+              class="kb-tile"
+              href="prefecture/saitama.html"
+              style="grid-column:12;grid-row:7;border-top-color:#009a2e"
+              ><span class="kb-p">埼玉県</span><b>不動産</b><span class="kb-v">1.4倍</span></a
+            >
+            <a
+              class="kb-tile"
+              href="prefecture/tokyo.html"
+              style="grid-column:13;grid-row:7;border-top-color:#009a2e"
+              ><span class="kb-p">東京都</span><b>情報通信</b><span class="kb-v">2.6倍</span></a
+            >
+            <a
+              class="kb-tile"
+              href="prefecture/chiba.html"
+              style="grid-column:14;grid-row:7;border-top-color:#eb6834"
+              ><span class="kb-p">千葉県</span><b>石油・石炭製品</b><span class="kb-v">4.5倍</span></a
+            >
+            <a
+              class="kb-tile"
+              href="prefecture/kumamoto.html"
+              style="grid-column:2;grid-row:8;border-top-color:#2a78d6"
+              ><span class="kb-p">熊本県</span><b>農林水産業</b><span class="kb-v">3.2倍</span></a
+            >
+            <a
+              class="kb-tile"
+              href="prefecture/oita.html"
+              style="grid-column:3;grid-row:8;border-top-color:#eb6834"
+              ><span class="kb-p">大分県</span><b>非鉄金属</b><span class="kb-v">7.5倍</span></a
+            >
+            <a
+              class="kb-tile"
+              href="prefecture/hiroshima.html"
+              style="grid-column:5;grid-row:8;border-top-color:#eb6834"
+              ><span class="kb-p">広島県</span><b>鉄鋼</b><span class="kb-v">4.3倍</span></a
+            >
+            <a
+              class="kb-tile"
+              href="prefecture/okayama.html"
+              style="grid-column:6;grid-row:8;border-top-color:#eb6834"
+              ><span class="kb-p">岡山県</span><b>石油・石炭製品</b><span class="kb-v">5.8倍</span></a
+            >
+            <a
+              class="kb-tile"
+              href="prefecture/osaka.html"
+              style="grid-column:7;grid-row:8;border-top-color:#009a2e"
+              ><span class="kb-p">大阪府</span><b>情報通信</b><span class="kb-v">1.4倍</span></a
+            >
+            <span class="kb-tile kb-none" style="grid-column:8;grid-row:8"
+              ><span class="kb-p">奈良県</span><span class="kb-v">未掲載</span></span
+            >
+            <a
+              class="kb-tile"
+              href="prefecture/mie.html"
+              style="grid-column:9;grid-row:8;border-top-color:#eda100"
+              ><span class="kb-p">三重県</span><b>電子部品</b><span class="kb-v">7.8倍</span></a
+            >
+            <a
+              class="kb-tile"
+              href="prefecture/shizuoka.html"
+              style="grid-column:11;grid-row:8;border-top-color:#eda100"
+              ><span class="kb-p">静岡県</span><b>電気機械</b><span class="kb-v">3.2倍</span></a
+            >
+            <a
+              class="kb-tile"
+              href="prefecture/kanagawa.html"
+              style="grid-column:13;grid-row:8;border-top-color:#e87ba4"
+              ><span class="kb-p">神奈川県</span><b>電気・ガス・熱供給</b><span class="kb-v">1.6倍</span></a
+            >
+            <a
+              class="kb-tile"
+              href="prefecture/kagoshima.html"
+              style="grid-column:2;grid-row:9;border-top-color:#2a78d6"
+              ><span class="kb-p">鹿児島県</span><b>農林漁業</b><span class="kb-v">5.1倍</span></a
+            >
+            <a
+              class="kb-tile"
+              href="prefecture/miyazaki.html"
+              style="grid-column:3;grid-row:9;border-top-color:#2a78d6"
+              ><span class="kb-p">宮崎県</span><b>農林漁業</b><span class="kb-v">5.3倍</span></a
+            >
+            <a
+              class="kb-tile"
+              href="prefecture/ehime.html"
+              style="grid-column:5;grid-row:9;border-top-color:#eb6834"
+              ><span class="kb-p">愛媛県</span><b>非鉄金属</b><span class="kb-v">8.9倍</span></a
+            >
+            <a
+              class="kb-tile"
+              href="prefecture/kagawa.html"
+              style="grid-column:6;grid-row:9;border-top-color:#eb6834"
+              ><span class="kb-p">香川県</span><b>非鉄金属</b><span class="kb-v">7.0倍</span></a
+            >
+            <a
+              class="kb-tile"
+              href="prefecture/wakayama.html"
+              style="grid-column:7;grid-row:9;border-top-color:#eb6834"
+              ><span class="kb-p">和歌山県</span><b>石油・石炭製品</b><span class="kb-v">5.3倍</span></a
+            >
+            <span class="kb-tile kb-none" style="grid-column:5;grid-row:10"
+              ><span class="kb-p">高知県</span><span class="kb-v">未掲載</span></span
+            >
+            <span class="kb-tile kb-none" style="grid-column:6;grid-row:10"
+              ><span class="kb-p">徳島県</span><span class="kb-v">未掲載</span></span
+            >
+            <a
+              class="kb-tile"
+              href="prefecture/okinawa.html"
+              style="grid-column:1;grid-row:11;border-top-color:#e34948"
+              ><span class="kb-p">沖縄県</span><b>医療・福祉</b><span class="kb-v">2.0倍</span></a
+            >
+          </div>
+        </div>
+        <ul class="pf-legend">
+          <li><i style="background:#2a78d6"></i>資源・一次産業</li>
+          <li><i style="background:#eb6834"></i>素材</li>
+          <li><i style="background:#1baf7a"></i>食品・生活関連製造</li>
+          <li><i style="background:#eda100"></i>機械・電機・輸送機械</li>
+          <li><i style="background:#e87ba4"></i>建設・エネルギー・環境</li>
+          <li><i style="background:#009a2e"></i>流通・金融・不動産・運輸通信</li>
+          <li><i style="background:#7a68e8"></i>対事業所・対個人サービス等</li>
+          <li><i style="background:#e34948"></i>公務・教育・医療</li>
+        </ul>
+        <p class="text-xs text-base-content/70">
+          タイルの上の線の色は、産業の8つの大分類。数字は全国平均と比べた集中度。島根県・奈良県・高知県・徳島県は、2020年の表を掲載できていないため空欄です。
+        </p>
+      </section>
+      <section class="space-y-3" aria-labelledby="kb-list">
+        <h2 id="kb-list" class="text-2xl font-bold">一覧（集中度の高い順）</h2>
+        <div class="overflow-x-auto">
+          <table class="table table-sm">
+            <thead>
+              <tr>
+                <th>都道府県</th>
+                <th>看板産業</th>
+                <th class="text-right">全国平均の何倍か</th>
+                <th class="text-right">県の産出額に占める割合</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><a class="link" href="prefecture/ehime.html">愛媛県</a></td>
+                <td>非鉄金属</td>
+                <td class="text-right">8.9倍</td>
+                <td class="text-right">7.1%</td>
+              </tr>
+              <tr>
+                <td><a class="link" href="prefecture/mie.html">三重県</a></td>
+                <td>電子部品</td>
+                <td class="text-right">7.8倍</td>
+                <td class="text-right">9.9%</td>
+              </tr>
+              <tr>
+                <td><a class="link" href="prefecture/oita.html">大分県</a></td>
+                <td>非鉄金属</td>
+                <td class="text-right">7.5倍</td>
+                <td class="text-right">6.0%</td>
+              </tr>
+              <tr>
+                <td><a class="link" href="prefecture/kagawa.html">香川県</a></td>
+                <td>非鉄金属</td>
+                <td class="text-right">7.0倍</td>
+                <td class="text-right">5.6%</td>
+              </tr>
+              <tr>
+                <td><a class="link" href="prefecture/shiga.html">滋賀県</a></td>
+                <td>はん用機械</td>
+                <td class="text-right">6.2倍</td>
+                <td class="text-right">6.3%</td>
+              </tr>
+              <tr>
+                <td><a class="link" href="prefecture/okayama.html">岡山県</a></td>
+                <td>石油・石炭製品</td>
+                <td class="text-right">5.8倍</td>
+                <td class="text-right">7.5%</td>
+              </tr>
+              <tr>
+                <td><a class="link" href="prefecture/yamaguchi.html">山口県</a></td>
+                <td>石油・石炭製品</td>
+                <td class="text-right">5.3倍</td>
+                <td class="text-right">6.9%</td>
+              </tr>
+              <tr>
+                <td><a class="link" href="prefecture/wakayama.html">和歌山県</a></td>
+                <td>石油・石炭製品</td>
+                <td class="text-right">5.3倍</td>
+                <td class="text-right">6.8%</td>
+              </tr>
+              <tr>
+                <td><a class="link" href="prefecture/miyazaki.html">宮崎県</a></td>
+                <td>農林漁業</td>
+                <td class="text-right">5.3倍</td>
+                <td class="text-right">6.3%</td>
+              </tr>
+              <tr>
+                <td><a class="link" href="prefecture/yamanashi.html">山梨県</a></td>
+                <td>生産用機械</td>
+                <td class="text-right">5.2倍</td>
+                <td class="text-right">8.5%</td>
+              </tr>
+              <tr>
+                <td><a class="link" href="prefecture/kagoshima.html">鹿児島県</a></td>
+                <td>農林漁業</td>
+                <td class="text-right">5.1倍</td>
+                <td class="text-right">6.2%</td>
+              </tr>
+              <tr>
+                <td><a class="link" href="prefecture/chiba.html">千葉県</a></td>
+                <td>石油・石炭製品</td>
+                <td class="text-right">4.5倍</td>
+                <td class="text-right">5.8%</td>
+              </tr>
+              <tr>
+                <td><a class="link" href="prefecture/fukui.html">福井県</a></td>
+                <td>電子部品</td>
+                <td class="text-right">4.5倍</td>
+                <td class="text-right">5.7%</td>
+              </tr>
+              <tr>
+                <td><a class="link" href="prefecture/aichi.html">愛知県</a></td>
+                <td>輸送機械</td>
+                <td class="text-right">4.4倍</td>
+                <td class="text-right">20.3%</td>
+              </tr>
+              <tr>
+                <td><a class="link" href="prefecture/akita.html">秋田県</a></td>
+                <td>電子部品</td>
+                <td class="text-right">4.4倍</td>
+                <td class="text-right">5.6%</td>
+              </tr>
+              <tr>
+                <td><a class="link" href="prefecture/aomori.html">青森県</a></td>
+                <td>農林漁業</td>
+                <td class="text-right">4.3倍</td>
+                <td class="text-right">5.2%</td>
+              </tr>
+              <tr>
+                <td><a class="link" href="prefecture/hiroshima.html">広島県</a></td>
+                <td>鉄鋼</td>
+                <td class="text-right">4.3倍</td>
+                <td class="text-right">8.9%</td>
+              </tr>
+              <tr>
+                <td><a class="link" href="prefecture/ishikawa.html">石川県</a></td>
+                <td>生産用機械</td>
+                <td class="text-right">4.3倍</td>
+                <td class="text-right">6.9%</td>
+              </tr>
+              <tr>
+                <td><a class="link" href="prefecture/hokkaido.html">北海道</a></td>
+                <td>農林漁業</td>
+                <td class="text-right">4.2倍</td>
+                <td class="text-right">5.0%</td>
+              </tr>
+              <tr>
+                <td><a class="link" href="prefecture/toyama.html">富山県</a></td>
+                <td>非鉄金属</td>
+                <td class="text-right">4.1倍</td>
+                <td class="text-right">3.3%</td>
+              </tr>
+              <tr>
+                <td><a class="link" href="prefecture/yamagata.html">山形県</a></td>
+                <td>電子部品</td>
+                <td class="text-right">4.0倍</td>
+                <td class="text-right">5.1%</td>
+              </tr>
+              <tr>
+                <td><a class="link" href="prefecture/gunma.html">群馬県</a></td>
+                <td>輸送機械</td>
+                <td class="text-right">3.6倍</td>
+                <td class="text-right">16.7%</td>
+              </tr>
+              <tr>
+                <td><a class="link" href="prefecture/iwate.html">岩手県</a></td>
+                <td>農林漁業</td>
+                <td class="text-right">3.6倍</td>
+                <td class="text-right">4.3%</td>
+              </tr>
+              <tr>
+                <td><a class="link" href="prefecture/nagasaki.html">長崎県</a></td>
+                <td>はん用機械</td>
+                <td class="text-right">3.4倍</td>
+                <td class="text-right">3.4%</td>
+              </tr>
+              <tr>
+                <td><a class="link" href="prefecture/nagano.html">長野県</a></td>
+                <td>電子部品</td>
+                <td class="text-right">3.3倍</td>
+                <td class="text-right">4.2%</td>
+              </tr>
+              <tr>
+                <td><a class="link" href="prefecture/hyogo.html">兵庫県</a></td>
+                <td>はん用機械</td>
+                <td class="text-right">3.3倍</td>
+                <td class="text-right">3.3%</td>
+              </tr>
+              <tr>
+                <td><a class="link" href="prefecture/tochigi.html">栃木県</a></td>
+                <td>電気機械</td>
+                <td class="text-right">3.2倍</td>
+                <td class="text-right">4.9%</td>
+              </tr>
+              <tr>
+                <td><a class="link" href="prefecture/tottori.html">鳥取県</a></td>
+                <td>パルプ・紙・木製品</td>
+                <td class="text-right">3.2倍</td>
+                <td class="text-right">3.6%</td>
+              </tr>
+              <tr>
+                <td><a class="link" href="prefecture/shizuoka.html">静岡県</a></td>
+                <td>電気機械</td>
+                <td class="text-right">3.2倍</td>
+                <td class="text-right">4.9%</td>
+              </tr>
+              <tr>
+                <td><a class="link" href="prefecture/kumamoto.html">熊本県</a></td>
+                <td>農林水産業</td>
+                <td class="text-right">3.2倍</td>
+                <td class="text-right">3.8%</td>
+              </tr>
+              <tr>
+                <td><a class="link" href="prefecture/fukushima.html">福島県</a></td>
+                <td>電気・ガス・熱供給</td>
+                <td class="text-right">2.9倍</td>
+                <td class="text-right">6.5%</td>
+              </tr>
+              <tr>
+                <td><a class="link" href="prefecture/gifu.html">岐阜県</a></td>
+                <td>プラスチック・ゴム製品</td>
+                <td class="text-right">2.6倍</td>
+                <td class="text-right">3.5%</td>
+              </tr>
+              <tr>
+                <td><a class="link" href="prefecture/saga.html">佐賀県</a></td>
+                <td>電気・ガス・熱供給</td>
+                <td class="text-right">2.6倍</td>
+                <td class="text-right">6.0%</td>
+              </tr>
+              <tr>
+                <td><a class="link" href="prefecture/tokyo.html">東京都</a></td>
+                <td>情報通信</td>
+                <td class="text-right">2.6倍</td>
+                <td class="text-right">16.3%</td>
+              </tr>
+              <tr>
+                <td><a class="link" href="prefecture/ibaraki.html">茨城県</a></td>
+                <td>電気機械</td>
+                <td class="text-right">2.2倍</td>
+                <td class="text-right">3.4%</td>
+              </tr>
+              <tr>
+                <td><a class="link" href="prefecture/fukuoka.html">福岡県</a></td>
+                <td>輸送機械</td>
+                <td class="text-right">2.1倍</td>
+                <td class="text-right">9.8%</td>
+              </tr>
+              <tr>
+                <td><a class="link" href="prefecture/kyoto.html">京都府</a></td>
+                <td>教育・研究</td>
+                <td class="text-right">2.1倍</td>
+                <td class="text-right">9.4%</td>
+              </tr>
+              <tr>
+                <td><a class="link" href="prefecture/niigata.html">新潟県</a></td>
+                <td>電気・ガス・熱供給</td>
+                <td class="text-right">2.1倍</td>
+                <td class="text-right">4.7%</td>
+              </tr>
+              <tr>
+                <td><a class="link" href="prefecture/okinawa.html">沖縄県</a></td>
+                <td>医療・福祉</td>
+                <td class="text-right">2.0倍</td>
+                <td class="text-right">14.3%</td>
+              </tr>
+              <tr>
+                <td><a class="link" href="prefecture/kanagawa.html">神奈川県</a></td>
+                <td>電気・ガス・熱供給</td>
+                <td class="text-right">1.6倍</td>
+                <td class="text-right">3.5%</td>
+              </tr>
+              <tr>
+                <td><a class="link" href="prefecture/osaka.html">大阪府</a></td>
+                <td>情報通信</td>
+                <td class="text-right">1.4倍</td>
+                <td class="text-right">8.8%</td>
+              </tr>
+              <tr>
+                <td><a class="link" href="prefecture/saitama.html">埼玉県</a></td>
+                <td>不動産</td>
+                <td class="text-right">1.4倍</td>
+                <td class="text-right">12.1%</td>
+              </tr>
+              <tr>
+                <td><a class="link" href="prefecture/miyagi.html">宮城県</a></td>
+                <td>公務</td>
+                <td class="text-right">1.4倍</td>
+                <td class="text-right">5.6%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-xs text-base-content/70">
+          「集中している」は、その県の産出額に占める割合が全国より高いという意味で、その産業の規模が全国一という意味ではありません。県によって元の表の部門の分け方が違うため、近い部門にまとめて比べています。
+        </p>
+      </section>
+    </main>
+    <section
+      id="fb"
+      aria-label="読者の反応"
+      class="max-w-3xl mx-auto w-full px-4 mt-12"
+      data-sitekey="0x4AAAAAAFUK5Vw22jfpltSW"
+    >
+      <div class="rounded-box border border-base-300 bg-base-100 p-5 space-y-3">
+        <div class="flex flex-wrap items-center gap-3">
+          <p class="font-bold">このページは役に立ちましたか？</p>
+          <button id="fb-like" type="button" class="btn btn-sm btn-outline">👍 役に立った</button
+          ><span id="fb-like-msg" class="text-sm text-base-content/70" aria-live="polite"></span>
+        </div>
+        <details id="fb-req">
+          <summary class="cursor-pointer text-sm link link-primary">「こんな情報が欲しい」を送る</summary>
+          <form id="fb-form" class="mt-3 space-y-2">
+            <p id="fb-about" class="text-sm rounded-box bg-base-200 p-3" hidden></p>
+            <label for="fb-body" class="text-sm block"
+              >知りたいこと、見てみたい統計、気づいた誤りなど（500字まで）</label
+            ><textarea
+              id="fb-body"
+              maxlength="500"
+              rows="3"
+              class="textarea textarea-bordered w-full"
+              required
+            ></textarea>
+            <div id="fb-ts"></div>
+            <div class="flex items-center gap-3">
+              <button class="btn btn-sm btn-primary" type="submit">送信</button
+              ><span id="fb-msg" class="text-sm" aria-live="polite"></span>
+            </div>
+            <p class="text-xs text-base-content/70">
+              名前やメールアドレスは不要です。保存するのは送信内容とページ名だけで、IPアドレスなどは保存しません。個別の返信はできません。
+            </p>
+          </form>
+        </details>
+      </div>
+    </section>
+    <script src="/feedback.js" defer></script>
+    <footer class="footer footer-center p-6 k-foot text-sm text-base-content/70 mt-12">
+      <p>
+        出典：総務省ほか「産業連関表」、経済産業省「延長産業連関表」（政府統計の総合窓口 e-Stat
+        掲載）を筆者が加工して作成。<br />加工・分析・「仮説」は筆者によるもので、政府が作成・保証したものではありません。投資・経営判断の根拠にはしないでください。
+      </p>
+      <p class="flex gap-4 flex-wrap justify-center">
+        <a class="link" href="guide.html">入門ガイド</a><a class="link" href="glossary.html">用語集</a
+        ><a class="link" href="learn.html">就活・転職・探究に使う</a
+        ><a class="link" href="industries.html">産業一覧</a><a class="link" href="prefectures.html">県別</a
+        ><a class="link" href="kanban-map.html">看板産業マップ</a
+        ><a class="link" href="about.html">方法と出典・免責</a
+        ><a class="link" href="changelog.html">更新情報</a>
+      </p>
+    </footer>
+    <script>
+      document.getElementById("thm").checked=document.documentElement.dataset.theme==="nord";
+      document.getElementById("thm").onchange=function(e){var t=e.target.checked?"nord":"night";document.documentElement.dataset.theme=t;try{localStorage.setItem("theme",t)}catch(x){}}
+    </script>
+  </body>
+</html>

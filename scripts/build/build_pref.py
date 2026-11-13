@@ -5,6 +5,7 @@
 import json
 import math
 import pathlib
+import urllib.parse
 
 from _shell import breadcrumb_head
 from _tpl import render
@@ -196,8 +197,8 @@ def _face_sources():
     return _FACE
 
 
-def silhouette(jis, size=200, pad=6):
-    """県の形の SVG パス(viewBox 0 0 size size)。本土から遠い小さな島は省く(東京都の小笠原など)。"""
+def silhouette_rings(jis, size=200, pad=6):
+    """県の形の輪郭(点の並びのリスト。size×size の枠に収める)。本土から遠い小さな島は省く(東京都の小笠原など)。"""
     polys = [poly[0] for poly in _face_sources()["geo"][jis]]
 
     def area(ring):
@@ -220,8 +221,102 @@ def silhouette(jis, size=200, pad=6):
     scale = (size - pad * 2) / max(max(xs) - min(xs), max(ys) - min(ys))
     ox = (size - (max(xs) - min(xs)) * scale) / 2 - min(xs) * scale
     oy = (size - (max(ys) - min(ys)) * scale) / 2 - min(ys) * scale
+    return [[(x * scale + ox, y * scale + oy) for x, y in r] for r in pts]
+
+
+def silhouette(jis, size=200, pad=6):
+    """県の形の SVG パス(viewBox 0 0 size size)。"""
     return "".join(
-        "M" + "L".join(f"{x * scale + ox:.1f} {y * scale + oy:.1f}" for x, y in r) + "Z" for r in pts
+        "M" + "L".join(f"{x:.1f} {y:.1f}" for x, y in r) + "Z" for r in silhouette_rings(jis, size, pad)
+    )
+
+
+# ---------- 看板産業(共有画像・トップ・看板産業マップで共通の決め方)
+
+KANBAN_MIN = 0.03  # 県の産出額に占める割合がこれ以上の産業を対象にする(pages/home.js の MIN と同じ値)
+
+
+def kanban(p):
+    """県の看板産業: 県の産出額の3%以上を占める産業のうち、全国平均と比べた集中度(特化係数)が最も高いもの。
+    本社部門(東京都だけにある部門)は除く。"""
+    cands = [o for o in p["sectors"] if o.get("lq") and o["share"] >= KANBAN_MIN and o["c"] != "HQ"]
+    return max(cands, key=lambda o: o["lq"])
+
+
+def sector_group(o):
+    """部門の大分類(0〜7)。合算した部門は最初の全国部門で決める。分からなければ None。"""
+    return _face_sources()["grp"].get(o.get("nat_codes", [o["c"]])[0])
+
+
+# 看板産業マップのタイルの位置(列, 行)。おおよその地理の並び
+TILE = {
+    "hokkaido": (13, 0), "aomori": (13, 1), "akita": (12, 2), "iwate": (13, 2), "yamagata": (12, 3),
+    "miyagi": (13, 3), "ishikawa": (9, 4), "toyama": (10, 4), "niigata": (11, 4), "fukushima": (12, 4),
+    "fukui": (8, 5), "gifu": (9, 5), "nagano": (10, 5), "gunma": (11, 5), "tochigi": (12, 5),
+    "ibaraki": (13, 5), "nagasaki": (0, 6), "saga": (1, 6), "fukuoka": (2, 6), "yamaguchi": (3, 6),
+    "shimane": (4, 6), "tottori": (5, 6), "hyogo": (6, 6), "kyoto": (7, 6), "shiga": (8, 6),
+    "aichi": (9, 6), "yamanashi": (10, 6), "saitama": (11, 6), "tokyo": (12, 6), "chiba": (13, 6),
+    "kumamoto": (1, 7), "oita": (2, 7), "hiroshima": (4, 7), "okayama": (5, 7), "osaka": (6, 7),
+    "nara": (7, 7), "mie": (8, 7), "shizuoka": (10, 7), "kanagawa": (12, 7), "kagoshima": (1, 8),
+    "miyazaki": (2, 8), "ehime": (4, 8), "kagawa": (5, 8), "wakayama": (6, 8), "kochi": (4, 9),
+    "tokushima": (5, 9), "okinawa": (0, 10),
+}  # fmt: skip
+PREF_NAMES_MISSING = {"nara": "奈良県", "shimane": "島根県", "tokushima": "徳島県", "kochi": "高知県"}
+
+
+def kanban_tiles(D):
+    """看板産業マップのタイル(47都道府県。表が未掲載の県は data=False)。"""
+    F = _face_sources()
+    tiles = []
+    for slug, (col, row) in TILE.items():
+        p = D.get(slug)
+        if not p:
+            tiles.append(dict(slug=slug, col=col, row=row, name=PREF_NAMES_MISSING[slug], data=False))
+            continue
+        k = kanban(p)
+        g = sector_group(k)
+        tiles.append(
+            dict(
+                slug=slug,
+                col=col,
+                row=row,
+                name=p["name"],
+                data=True,
+                ind=k["n"],
+                lq=f"{k['lq']:.1f}",
+                lq_value=k["lq"],
+                share=pct(k["share"], 1),
+                color=F["colors"][g] if g is not None else "#8d99a6",
+                group=F["names"][g] if g is not None else "",
+            )
+        )
+    return tiles
+
+
+def build_kanban_map(D, page):
+    """看板産業マップのページ。"""
+    F = _face_sources()
+    tiles = kanban_tiles(D)
+    have = [t for t in tiles if t["data"]]
+    kinds = len({t["ind"] for t in have})
+    top = max(have, key=lambda t: t["lq_value"])
+    body = render(
+        "kanban_map.html.j2",
+        tiles=tiles,
+        rows=sorted(have, key=lambda t: -t["lq_value"]),
+        missing="・".join(t["name"] for t in tiles if not t["data"]),
+        count=len(have),
+        kinds=kinds,
+        top=top,
+        min_share=pct(KANBAN_MIN),
+        legend=[dict(name=nm, color=c) for nm, c in zip(F["names"], F["colors"])],
+    )
+    page(
+        "kanban-map.html",
+        "都道府県の看板産業マップ｜あなたの県は何で稼いでいる？｜Keizai Atlas",
+        f"{len(have)}都道府県の「看板産業」を1枚の図に。県の産出額の{pct(KANBAN_MIN)}以上を占める産業のうち、"
+        f"全国平均と比べて最も集中している産業を、2020年の産業連関表から筆者が集計。政府が作成したものではありません。",
+        body,
     )
 
 
@@ -295,9 +390,17 @@ def build_prefecture_page(slug, p, page, site_url):
         for o in top[:3]
         if o["c"] != "HQ" and len(o.get("nat_codes", [o["c"]])) == 1
     ]
+    kb = kanban(p)
+    share_text = (
+        f"{name}は、{kb['n']}が全国平均の{kb['lq']:.1f}倍。あなたの県は、何で稼いでいる？ #KeizaiAtlas"
+    )
     body = render(
         "prefecture.html.j2",
         name=name,
+        slug=slug,
+        kanban=dict(name=kb["n"], lq=f"{kb['lq']:.1f}", share=pct(kb["share"], 1), min_share=pct(KANBAN_MIN)),
+        share_href="https://twitter.com/intent/tweet?"
+        + urllib.parse.urlencode({"text": share_text, "url": f"{site_url}/prefecture/{slug}"}),
         industry_links=industry_links,
         face=face_data(slug, p),
         biggest=f"{biggest['n']}（{pct(biggest['share'], 1)}）",
@@ -414,4 +517,6 @@ def build(page, S, SITE_URL):
     build_prefectures_page(D, page)
     build_map(page, D)
     paths.append("prefecture-map")
+    build_kanban_map(D, page)
+    paths.append("kanban-map")
     return paths

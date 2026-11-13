@@ -10,7 +10,8 @@
 - データ生成: `pipeline/*.py`(`scripts/ops/run_all.sh`)。生データは `raw/`(gitignore)、県別の原本は `pref_raw/`(コミット済み、出典は `pref_raw/SOURCES.json`)。
 - デザイン(2026-11 刷新「地図帳」): 面=海(`base-200`)、パネル=紙(`base-100`)、文字と罫線=墨、強調=朱(`accent`)。光・ぼかし・グラデーション・影・飾りの動きは使わない。動かすのはデータを表すものだけ。書体は Zen Kaku Gothic New、見出しと数字の英数字は Barlow Semi Condensed。テーマは保存した選択、なければ端末の設定(明=nord、暗=night)。色を変えるときは `tailwind.config.js` と `pages/palette.json` の theme をそろえる。
 - CSS は Tailwind+daisyUI を `npm run build:css` で `site/assets.css` にビルドし、**コミットする**(CI が最新かを検査)。HTML に新しいクラスを足したら必ず再ビルド。
-- 共有画像(OGP)は `scripts/build/build_ogp.py`(Noto Sans CJK 必要)。CIでは実行しない。データが変わったら `build_site.py` → `build_ogp.py` の順に実行して `site/og*` をコミット。
+- 看板産業: 県の産出額の3%以上を占める産業のうち、特化係数が最も高いもの(筆者の定義。`build_pref.py` の `kanban` / `KANBAN_MIN`、`pages/home.js` の `MIN` と同じ値)。県ページの冒頭、トップ、看板産業マップ(`kanban-map.html`、タイルの位置は `TILE`)、共有画像で同じ決め方を使う。共有は X の投稿画面へのリンク(県ページの URL を付ける)。`index.html?pref=aichi` で県を選んだ状態で開く。
+- 共有画像(OGP)は `scripts/build/build_ogp.py`(Noto Sans CJK 必要)。 産業(`og/<コード>.png`)、県(`og/pref-<slug>.png`)、看板産業マップ(`og/kanban-map.png` と、投稿に付ける大きい画像 `share/kanban-map.png`)を作る。県を足したら必ず実行。CIでは実行しない。データが変わったら `build_site.py` → `build_ogp.py` の順に実行して `site/og*` をコミット。
 - トップ(`pages/index.html` + `pages/home.js` → `site/home.js`): 最初の画面は「あなたの県は、何で稼いでいる？」。県を選ぶと `pref-map-data.js` から文と上位の産業を作り、立体地図に `pm:set` で伝える(地図の県をクリックすると `pm:pick`)。その下に、取引の図(`net-mini.js`、canvas。動くのは実際の取引だけ)、「統計が示していること」(数値は `{{...}}`)、目次。
 - 3D: 県の立体地図は `pages/prefmap.js`(`data-prefmap="hero|page"`、トップは沖縄・奄美をはめ込み表示。色は地図帳の標高の段彩=緑→黄→黄土→茶で、トップの凡例 `.hp-ramp` と `STOPS` をそろえる)。境界 `site/vendor/japan-pref.json` は地球地図日本(国土地理院)を `scripts/build/build_geo.py` で簡略化(非営利・出典明記が条件)。ライブラリは `site/vendor/` に同梱(MapLibre GL JS、3d-force-graph)。CDN は使わない。
 - 産業マップ: `templates/explorer.html`(ひな形。CSS と、データを渡す `window.XP` だけ)と `pages/explorer.js`(ロジック → `site/explorer.js`)を build_site が共通シェルに入れて出力。`explorer.html?sel=66` で産業を選んだ状態で開く。

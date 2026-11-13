@@ -18,7 +18,7 @@
   if (D && root && sel && out) {
     var P = D.prefs,
       INDS = D.inds,
-      MIN = 0.005; // 県の産出額に占める割合がこれ未満の産業は、集中度の比較から除く(県別ページと同じ)
+      MIN = 0.03; // 県の産出額の3%以上を占める産業を対象にする(看板産業。scripts/build/build_pref.py の KANBAN_MIN と同じ値)
     /** @param {string} id */
     var tops = function (id) {
       var p = P[id];
@@ -88,7 +88,18 @@
         k +
         '.html">' +
         esc(INDS[k]) +
-        "とは</a></p>";
+        'とは</a><a target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?text=' +
+        encodeURIComponent(
+          p.n +
+            "は、" +
+            INDS[T[0]] +
+            "が全国平均の" +
+            p.s[T[0]][1].toFixed(1) +
+            "倍。あなたの県は、何で稼いでいる？ #KeizaiAtlas"
+        ) +
+        "&url=" +
+        encodeURIComponent("https://keizai-atlas.com/prefecture/" + p.g) +
+        '">Xで共有</a></p>';
       var lg = document.getElementById("hp-legend-k");
       if (lg) lg.textContent = INDS[k];
       sel.value = id;
@@ -120,11 +131,17 @@
     root.addEventListener("pm:pick", function (ev) {
       show(/** @type {CustomEvent} */ (ev).detail.id, "", true);
     });
-    // 最初に見せる県: 前に選んだ県。なければ、集中度がいちばん高い県と産業
-    var first = "";
-    try {
-      first = localStorage.getItem("hp-pref") || "";
-    } catch (e) {}
+    // 最初に見せる県: リンクの ?pref=aichi で指定された県。次に、前に選んだ県。どちらもなければ、いちばん際立つ県と産業
+    var first = "",
+      want = new URLSearchParams(location.search).get("pref");
+    if (want)
+      Object.keys(P).forEach(function (id) {
+        if (P[id].g === want) first = id;
+      });
+    if (!first)
+      try {
+        first = localStorage.getItem("hp-pref") || "";
+      } catch (e) {}
     var firstK = "";
     if (!P[first]) {
       // 集中度×県内の割合がいちばん大きい組み合わせ(大きな産業が、その県に強く集まっている例)
