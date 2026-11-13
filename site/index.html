@@ -295,6 +295,20 @@
             font-size: 0.72rem;
           }
         }
+        /* 立体地図を描けない端末(WebGL なし): 地図の枠を隠し、問いと答えだけにする */
+        .hp-nomap .hp-map {
+          display: none;
+        }
+        @media (min-width: 1024px) {
+          .hp.hp-nomap {
+            grid-template-columns: minmax(24rem, 44rem);
+            min-height: 0;
+          }
+          .hp-nomap .hp-head,
+          .hp-nomap .hp-res {
+            border-right: 0;
+          }
+        }
         /* 取引の図。色は canvas が読めるよう16進で持つ */
         .fl {
           --fl-ink: #14232e;
