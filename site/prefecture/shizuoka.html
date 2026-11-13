@@ -23,7 +23,7 @@
     <meta property="og:image" content="https://keizai-atlas.com/og.png" />
     <meta property="og:locale" content="ja_JP" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="theme-color" content="#0b1120" />
+    <meta name="theme-color" content="#0d1f2d" />
     <link
       rel="alternate"
       type="application/atom+xml"
@@ -37,20 +37,22 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600&family=IBM+Plex+Mono:wght@400;500&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="assets.css" />
     <script>
-      try{var t=localStorage.getItem("theme");if(t!=="nord")t="night";document.documentElement.dataset.theme=t}catch(e){}
+      try{var t=localStorage.getItem("theme");if(t!=="nord"&&t!=="night")t=matchMedia("(prefers-color-scheme: dark)").matches?"night":"nord";document.documentElement.dataset.theme=t}catch(e){}
     </script>
   </head>
   <body class="bg-base-200 text-base-content font-sans min-h-screen flex flex-col">
-    <header class="navbar bg-base-100/80 backdrop-blur border-b border-base-300 sticky top-0 z-50 px-4">
+    <header class="navbar k-nav sticky top-0 z-50 px-4">
       <div class="flex-1">
-        <a href="index.html" class="text-lg font-bold tracking-tight"
+        <a href="index.html" class="k-logo"
           >Keizai Atlas
-          <span class="text-xs font-normal text-base-content/70 ml-2 hidden sm:inline">経済の地図帳</span></a
+          <span class="font-sans text-xs font-normal text-base-content/70 hidden sm:inline"
+            >経済の地図帳</span
+          ></a
         >
       </div>
       <nav aria-label="サイト内の主なページ" class="flex-none gap-1 items-center flex">
@@ -93,31 +95,286 @@
           <li>静岡県</li>
         </ul>
       </nav>
-      <header class="space-y-3">
-        <h1 class="text-3xl font-bold">静岡県の産業構造</h1>
-        <p class="text-base-content/80">
-          静岡県の2020年の産出額は33.3兆円、粗付加価値は16.9兆円です。産出額に対する移輸出（海外と他の都道府県への販売）は42%、移輸入（海外と他の都道府県からの購入）は38%でした。
-        </p>
+      <header class="pf-head">
+        <svg class="pf-shape" viewBox="0 0 200 200" aria-hidden="true">
+          <path
+            d="M89.0 27.6L94.6 45.3L91.9 53.5L93.3 60.3L90.6 64.6L92.7 66.5L92.4 70.7L96.6 74.4L101.4 71.2L104.9 72.7L109.4 88.9L114.0 91.9L119.9 93.3L124.5 88.6L122.1 73.1L124.7 70.8L124.5 59.8L130.1 54.9L133.2 62.2L139.2 61.6L141.1 67.1L167.8 61.1L177.5 61.4L179.4 70.9L174.6 83.9L180.6 95.7L189.8 97.0L185.1 108.6L188.6 110.1L188.4 115.5L186.7 116.1L188.1 119.8L193.7 122.6L194.0 125.3L193.2 131.5L186.7 136.9L182.7 148.5L176.9 152.0L174.2 159.2L175.8 163.7L172.4 164.3L173.2 161.6L171.4 161.5L166.5 167.7L159.7 171.6L152.2 166.2L153.3 162.1L147.8 159.3L147.8 154.3L152.0 150.7L149.3 141.5L151.9 136.4L149.7 132.5L153.6 129.2L150.5 121.6L152.4 114.2L153.2 112.4L153.4 112.4L164.9 114.2L166.7 109.9L164.5 110.1L157.8 101.7L141.7 96.5L143.2 97.9L127.1 102.6L124.5 108.9L120.1 112.1L121.1 118.4L121.2 114.4L124.5 114.7L122.5 118.8L104.6 128.2L100.9 134.4L102.6 139.6L96.9 146.6L98.3 148.1L89.9 154.2L86.7 162.1L86.2 166.5L89.9 172.4L71.4 163.7L53.2 162.5L41.6 165.5L35.4 162.3L6.0 161.5L6.3 142.6L8.0 139.6L17.6 137.2L23.6 131.4L26.0 124.0L31.2 120.4L32.3 111.7L41.7 102.0L40.8 98.0L44.9 95.2L42.0 91.2L44.9 87.4L49.8 86.3L51.0 82.3L55.1 81.3L56.4 78.4L66.4 74.9L70.7 69.0L74.1 69.8L80.3 65.3L81.5 61.6L77.7 54.6L82.4 51.6L82.9 48.3L80.1 47.5L79.9 44.4L82.3 41.3L80.3 39.9L82.7 36.2L85.8 36.6L89.0 27.6Z"
+          />
+        </svg>
+        <div class="space-y-3">
+          <h1 class="pf-h1">静岡県の産業構造</h1>
+          <p class="text-base-content/80">
+            静岡県の2020年の産出額は33.3兆円、粗付加価値は16.9兆円です。産出額に対する移輸出（海外と他の都道府県への販売）は42%、移輸入（海外と他の都道府県からの購入）は38%でした。
+          </p>
+        </div>
       </header>
+      <figure class="pf-comp">
+        <figcaption class="font-bold">産業の構成を、全国と比べる</figcaption>
+        <div class="pf-labs" aria-hidden="true">
+          <span style="left:33.6%">輸送機械 10.8%</span><span style="left:62.0%">不動産 7.3%</span>
+        </div>
+        <svg
+          viewBox="0 0 1000 130"
+          preserveAspectRatio="none"
+          role="img"
+          aria-label="静岡県の産業の構成（産出額に占める割合）を、全国と比べた帯の図。静岡県で最も大きい産業は輸送機械（10.8%）"
+        >
+          <g fill="#2a78d6">
+            <title>農林漁業：静岡県 0.8%、全国 1.2%</title>
+            <rect x="0.0" y="0" width="7.2" height="34" />
+            <polygon points="0.0,34 8.2,34 12.1,96 0.0,96" opacity="0.38" />
+            <rect x="0.0" y="96" width="11.1" height="34" />
+          </g>
+          <g fill="#2a78d6">
+            <title>鉱業：静岡県 0.0%、全国 0.0%</title>
+            <rect x="8.2" y="0" width="0.2" height="34" />
+            <polygon points="8.2,34 8.4,34 12.5,96 12.1,96" opacity="0.38" />
+            <rect x="12.1" y="96" width="0.2" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>繊維製品：静岡県 0.2%、全国 0.3%</title>
+            <rect x="8.4" y="0" width="1.2" height="34" />
+            <polygon points="8.4,34 10.6,34 15.4,96 12.5,96" opacity="0.38" />
+            <rect x="12.5" y="96" width="1.8" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>パルプ・紙・木製品：静岡県 3.1%、全国 1.1%</title>
+            <rect x="10.6" y="0" width="30.3" height="34" />
+            <polygon points="10.6,34 41.9,34 26.5,96 15.4,96" opacity="0.38" />
+            <rect x="15.4" y="96" width="10.1" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>化学製品：静岡県 4.8%、全国 2.8%</title>
+            <rect x="41.9" y="0" width="47.4" height="34" />
+            <polygon points="41.9,34 90.3,34 54.1,96 26.5,96" opacity="0.38" />
+            <rect x="26.5" y="96" width="26.6" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>石油・石炭製品：静岡県 0.1%、全国 1.3%</title>
+            <rect x="90.3" y="0" width="0.2" height="34" />
+            <polygon points="90.3,34 90.9,34 67.0,96 54.1,96" opacity="0.38" />
+            <rect x="54.1" y="96" width="11.9" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>プラスチック・ゴム製品：静岡県 2.4%、全国 1.3%</title>
+            <rect x="90.9" y="0" width="22.6" height="34" />
+            <polygon points="90.9,34 114.5,34 80.4,96 67.0,96" opacity="0.38" />
+            <rect x="67.0" y="96" width="12.3" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>窯業・土石製品：静岡県 0.5%、全国 0.6%</title>
+            <rect x="114.5" y="0" width="3.7" height="34" />
+            <polygon points="114.5,34 119.2,34 86.8,96 80.4,96" opacity="0.38" />
+            <rect x="80.4" y="96" width="5.4" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>鉄鋼：静岡県 0.4%、全国 2.1%</title>
+            <rect x="119.2" y="0" width="2.7" height="34" />
+            <polygon points="119.2,34 122.9,34 107.3,96 86.8,96" opacity="0.38" />
+            <rect x="86.8" y="96" width="19.5" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>非鉄金属：静岡県 1.2%、全国 0.8%</title>
+            <rect x="122.9" y="0" width="11.4" height="34" />
+            <polygon points="122.9,34 135.3,34 115.3,96 107.3,96" opacity="0.38" />
+            <rect x="107.3" y="96" width="7.0" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>金属製品：静岡県 1.5%、全国 1.2%</title>
+            <rect x="135.3" y="0" width="13.6" height="34" />
+            <polygon points="135.3,34 150.0,34 127.0,96 115.3,96" opacity="0.38" />
+            <rect x="115.3" y="96" width="10.7" height="34" />
+          </g>
+          <g fill="#1baf7a">
+            <title>飲食料品：静岡県 6.6%、全国 3.7%</title>
+            <rect x="150.0" y="0" width="65.1" height="34" />
+            <polygon points="150.0,34 216.1,34 164.1,96 127.0,96" opacity="0.38" />
+            <rect x="127.0" y="96" width="36.1" height="34" />
+          </g>
+          <g fill="#1baf7a">
+            <title>その他の製造工業製品：静岡県 1.1%、全国 0.9%</title>
+            <rect x="216.1" y="0" width="10.0" height="34" />
+            <polygon points="216.1,34 227.1,34 172.7,96 164.1,96" opacity="0.38" />
+            <rect x="164.1" y="96" width="7.5" height="34" />
+          </g>
+          <g fill="#1baf7a">
+            <title>事務用品：静岡県 0.1%、全国 0.1%</title>
+            <rect x="227.1" y="0" width="0.4" height="34" />
+            <polygon points="227.1,34 228.5,34 174.1,96 172.7,96" opacity="0.38" />
+            <rect x="172.7" y="96" width="0.4" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>はん用機械：静岡県 1.6%、全国 1.0%</title>
+            <rect x="228.5" y="0" width="14.8" height="34" />
+            <polygon points="228.5,34 244.2,34 184.3,96 174.1,96" opacity="0.38" />
+            <rect x="174.1" y="96" width="9.1" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>生産用機械：静岡県 2.2%、全国 1.6%</title>
+            <rect x="244.2" y="0" width="20.8" height="34" />
+            <polygon points="244.2,34 266.1,34 200.4,96 184.3,96" opacity="0.38" />
+            <rect x="184.3" y="96" width="15.1" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>業務用機械：静岡県 0.8%、全国 0.6%</title>
+            <rect x="266.1" y="0" width="7.2" height="34" />
+            <polygon points="266.1,34 274.3,34 205.9,96 200.4,96" opacity="0.38" />
+            <rect x="200.4" y="96" width="4.6" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>電子部品：静岡県 0.6%、全国 1.3%</title>
+            <rect x="274.3" y="0" width="4.8" height="34" />
+            <polygon points="274.3,34 280.1,34 218.6,96 205.9,96" opacity="0.38" />
+            <rect x="205.9" y="96" width="11.7" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>電気機械：静岡県 4.9%、全国 1.5%</title>
+            <rect x="280.1" y="0" width="47.7" height="34" />
+            <polygon points="280.1,34 328.8,34 233.8,96 218.6,96" opacity="0.38" />
+            <rect x="218.6" y="96" width="14.2" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>情報通信機器：静岡県 0.7%、全国 0.5%</title>
+            <rect x="328.8" y="0" width="5.8" height="34" />
+            <polygon points="328.8,34 335.7,34 238.5,96 233.8,96" opacity="0.38" />
+            <rect x="233.8" y="96" width="3.7" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>輸送機械：静岡県 10.8%、全国 4.6%</title>
+            <rect x="335.7" y="0" width="107.3" height="34" />
+            <polygon points="335.7,34 444.0,34 284.5,96 238.5,96" opacity="0.38" />
+            <rect x="238.5" y="96" width="45.1" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>建設：静岡県 5.4%、全国 6.7%</title>
+            <rect x="444.0" y="0" width="52.9" height="34" />
+            <polygon points="444.0,34 497.9,34 351.7,96 284.5,96" opacity="0.38" />
+            <rect x="284.5" y="96" width="66.1" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>電気・ガス・熱供給：静岡県 1.5%、全国 2.3%</title>
+            <rect x="497.9" y="0" width="14.5" height="34" />
+            <polygon points="497.9,34 513.4,34 374.3,96 351.7,96" opacity="0.38" />
+            <rect x="351.7" y="96" width="21.7" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>水道：静岡県 0.4%、全国 0.4%</title>
+            <rect x="513.4" y="0" width="3.1" height="34" />
+            <polygon points="513.4,34 517.5,34 378.7,96 374.3,96" opacity="0.38" />
+            <rect x="374.3" y="96" width="3.4" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>廃棄物処理：静岡県 0.6%、全国 0.6%</title>
+            <rect x="517.5" y="0" width="4.7" height="34" />
+            <polygon points="517.5,34 523.1,34 384.6,96 378.7,96" opacity="0.38" />
+            <rect x="378.7" y="96" width="4.8" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>商業：静岡県 6.4%、全国 9.0%</title>
+            <rect x="523.1" y="0" width="62.8" height="34" />
+            <polygon points="523.1,34 587.0,34 474.9,96 384.6,96" opacity="0.38" />
+            <rect x="384.6" y="96" width="89.4" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>金融・保険：静岡県 3.3%、全国 3.5%</title>
+            <rect x="587.0" y="0" width="32.3" height="34" />
+            <polygon points="587.0,34 620.3,34 510.3,96 474.9,96" opacity="0.38" />
+            <rect x="474.9" y="96" width="34.4" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>不動産：静岡県 7.3%、全国 8.8%</title>
+            <rect x="620.3" y="0" width="72.1" height="34" />
+            <polygon points="620.3,34 693.4,34 598.6,96 510.3,96" opacity="0.38" />
+            <rect x="510.3" y="96" width="87.2" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>運輸・郵便：静岡県 4.7%、全国 4.9%</title>
+            <rect x="693.4" y="0" width="45.6" height="34" />
+            <polygon points="693.4,34 740.1,34 647.1,96 598.6,96" opacity="0.38" />
+            <rect x="598.6" y="96" width="47.5" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>情報通信：静岡県 2.5%、全国 6.3%</title>
+            <rect x="740.1" y="0" width="24.2" height="34" />
+            <polygon points="740.1,34 765.2,34 710.4,96 647.1,96" opacity="0.38" />
+            <rect x="647.1" y="96" width="62.3" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>他に分類されない会員制団体：静岡県 0.4%、全国 0.5%</title>
+            <rect x="765.2" y="0" width="3.4" height="34" />
+            <polygon points="765.2,34 769.7,34 715.1,96 710.4,96" opacity="0.38" />
+            <rect x="710.4" y="96" width="3.7" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>対事業所サービス：静岡県 4.5%、全国 8.2%</title>
+            <rect x="769.7" y="0" width="44.3" height="34" />
+            <polygon points="769.7,34 815.0,34 797.5,96 715.1,96" opacity="0.38" />
+            <rect x="715.1" y="96" width="81.4" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>対個人サービス：静岡県 3.5%、全国 3.9%</title>
+            <rect x="815.0" y="0" width="33.7" height="34" />
+            <polygon points="815.0,34 849.7,34 836.1,96 797.5,96" opacity="0.38" />
+            <rect x="797.5" y="96" width="37.6" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>分類不明：静岡県 1.2%、全国 0.8%</title>
+            <rect x="849.7" y="0" width="10.9" height="34" />
+            <polygon points="849.7,34 861.6,34 843.6,96 836.1,96" opacity="0.38" />
+            <rect x="836.1" y="96" width="6.5" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>公務：静岡県 3.1%、全国 4.2%</title>
+            <rect x="861.6" y="0" width="30.0" height="34" />
+            <polygon points="861.6,34 892.6,34 885.2,96 843.6,96" opacity="0.38" />
+            <rect x="843.6" y="96" width="40.5" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>教育・研究：静岡県 4.7%、全国 4.5%</title>
+            <rect x="892.6" y="0" width="45.6" height="34" />
+            <polygon points="892.6,34 939.2,34 929.9,96 885.2,96" opacity="0.38" />
+            <rect x="885.2" y="96" width="43.7" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>医療・福祉：静岡県 6.1%、全国 7.0%</title>
+            <rect x="939.2" y="0" width="59.8" height="34" />
+            <polygon points="939.2,34 1000.0,34 1000.0,96 929.9,96" opacity="0.38" />
+            <rect x="929.9" y="96" width="69.1" height="34" />
+          </g>
+        </svg>
+        <ul class="pf-legend">
+          <li><i style="background:#2a78d6"></i>資源・一次産業</li>
+          <li><i style="background:#eb6834"></i>素材</li>
+          <li><i style="background:#1baf7a"></i>食品・生活関連製造</li>
+          <li><i style="background:#eda100"></i>機械・電機・輸送機械</li>
+          <li><i style="background:#e87ba4"></i>建設・エネルギー・環境</li>
+          <li><i style="background:#009a2e"></i>流通・金融・不動産・運輸通信</li>
+          <li><i style="background:#7a68e8"></i>対事業所・対個人サービス等</li>
+          <li><i style="background:#e34948"></i>公務・教育・医療</li>
+        </ul>
+        <p class="text-xs text-base-content/70">
+          上の帯が静岡県、下の帯が全国。幅は産出額に占める割合で、同じ産業どうしをつないでいます。下へすぼまる産業は、全国より静岡県に集中しています。
+        </p>
+      </figure>
       <section class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">産出額（2020年）</span><b class="text-xl">33.3兆円</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">産出額（2020年）</span><b class="k-num">33.3兆円</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">付加価値率</span><b class="text-xl">51%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">付加価値率</span><b class="k-num">51%</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">移輸出（産出額比）</span><b class="text-xl">42%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">移輸出（産出額比）</span><b class="k-num">42%</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">移輸入（産出額比）</span><b class="text-xl">38%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">移輸入（産出額比）</span><b class="k-num">38%</b>
           </div>
         </div>
       </section>
@@ -149,28 +406,28 @@
                 stroke-dasharray="3 3"
               />
               <text x="162" y="19" text-anchor="end" fill="currentColor">電気機械</text>
-              <rect x="170" y="7" width="420.0" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="7" width="420.0" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="596.0" y="20" fill="currentColor">3.20</text>
               <text x="162" y="45" text-anchor="end" fill="currentColor">パルプ・紙・木製品</text>
-              <rect x="170" y="33" width="368.3" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="33" width="368.3" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="544.3" y="46" fill="currentColor">2.81</text>
               <text x="162" y="71" text-anchor="end" fill="currentColor">輸送機械</text>
-              <rect x="170" y="59" width="308.1" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="59" width="308.1" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="484.1" y="72" fill="currentColor">2.35</text>
               <text x="162" y="97" text-anchor="end" fill="currentColor">飲食料品</text>
-              <rect x="170" y="85" width="233.5" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="85" width="233.5" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="409.5" y="98" fill="currentColor">1.78</text>
               <text x="162" y="123" text-anchor="end" fill="currentColor">プラスチック・ゴム製品</text>
-              <rect x="170" y="111" width="232.1" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="111" width="232.1" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="408.1" y="124" fill="currentColor">1.77</text>
               <text x="162" y="149" text-anchor="end" fill="currentColor">化学製品</text>
-              <rect x="170" y="137" width="229.7" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="137" width="229.7" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="405.7" y="150" fill="currentColor">1.75</text>
               <text x="162" y="175" text-anchor="end" fill="currentColor">分類不明</text>
-              <rect x="170" y="163" width="207.1" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="163" width="207.1" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="383.1" y="176" fill="currentColor">1.58</text>
               <text x="162" y="201" text-anchor="end" fill="currentColor">はん用機械</text>
-              <rect x="170" y="189" width="204.1" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="189" width="204.1" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="380.1" y="202" fill="currentColor">1.56</text>
             </svg>
           </div>
@@ -640,9 +897,7 @@
       </div>
     </section>
     <script src="/feedback.js" defer></script>
-    <footer
-      class="footer footer-center p-6 bg-base-100 border-t border-base-300 text-sm text-base-content/70 mt-12"
-    >
+    <footer class="footer footer-center p-6 k-foot text-sm text-base-content/70 mt-12">
       <p>
         出典：総務省ほか「産業連関表」、経済産業省「延長産業連関表」（政府統計の総合窓口 e-Stat
         掲載）を筆者が加工して作成。<br />加工・分析・「仮説」は筆者によるもので、政府が作成・保証したものではありません。投資・経営判断の根拠にはしないでください。

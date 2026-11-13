@@ -6,10 +6,24 @@
   <li><a href="prefectures.html">県別の産業構造</a></li>
   <li>{{ name|esc }}</li>
 </ul></nav>⏎
-<header class="space-y-3">
-  <h1 class="text-3xl font-bold">{{ name|esc }}の産業構造</h1>
-  <p class="text-base-content/80">{% filter esc %}{% include "prefecture_facts.txt.j2" %}{% endfilter %}</p>
+<header class="pf-head">
+  <svg class="pf-shape" viewBox="0 0 200 200" aria-hidden="true"><path d="{{ face.path }}"/></svg>
+  <div class="space-y-3">
+    <h1 class="pf-h1">{{ name|esc }}の産業構造</h1>
+    <p class="text-base-content/80">{% filter esc %}{% include "prefecture_facts.txt.j2" %}{% endfilter %}</p>
+  </div>
 </header>⏎
+<figure class="pf-comp">
+  <figcaption class="font-bold">産業の構成を、全国と比べる</figcaption>
+  <div class="pf-labs" aria-hidden="true">{% for s in face.segs %}{% if s.label %}<span style="left:{{ s.left }}%">{{ s.label|esc }}</span>{% endif %}{% endfor %}</div>
+  <svg viewBox="0 0 1000 130" preserveAspectRatio="none" role="img" aria-label="{{ name|esc }}の産業の構成（産出額に占める割合）を、全国と比べた帯の図。{{ name|esc }}で最も大きい産業は{{ biggest|esc }}">
+    {% for s in face.segs %}
+    <g fill="{{ s.color }}"><title>{{ s.tip|esc }}</title><rect x="{{ s.x }}" y="0" width="{{ s.w }}" height="34"/><polygon points="{{ s.band }}" opacity="0.38"/><rect x="{{ s.nx }}" y="96" width="{{ s.nw }}" height="34"/></g>
+    {% endfor %}
+  </svg>
+  <ul class="pf-legend">{% for g in face.legend %}<li><i style="background:{{ g.color }}"></i>{{ g.name|esc }}</li>{% endfor %}</ul>
+  <p class="text-xs text-base-content/70">上の帯が{{ name|esc }}、下の帯が全国。幅は産出額に占める割合で、同じ産業どうしをつないでいます。下へすぼまる産業は、全国より{{ name|esc }}に集中しています。</p>
+</figure>⏎
 {{ stat_grid(stats) }}⏎
 <section class="space-y-2">
   <h2 class="text-xl font-bold">全国より集中している産業（特化係数）</h2>

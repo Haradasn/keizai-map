@@ -23,7 +23,7 @@
     <meta property="og:image" content="https://keizai-atlas.com/og.png" />
     <meta property="og:locale" content="ja_JP" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="theme-color" content="#0b1120" />
+    <meta name="theme-color" content="#0d1f2d" />
     <link
       rel="alternate"
       type="application/atom+xml"
@@ -37,20 +37,22 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600&family=IBM+Plex+Mono:wght@400;500&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="assets.css" />
     <script>
-      try{var t=localStorage.getItem("theme");if(t!=="nord")t="night";document.documentElement.dataset.theme=t}catch(e){}
+      try{var t=localStorage.getItem("theme");if(t!=="nord"&&t!=="night")t=matchMedia("(prefers-color-scheme: dark)").matches?"night":"nord";document.documentElement.dataset.theme=t}catch(e){}
     </script>
   </head>
   <body class="bg-base-200 text-base-content font-sans min-h-screen flex flex-col">
-    <header class="navbar bg-base-100/80 backdrop-blur border-b border-base-300 sticky top-0 z-50 px-4">
+    <header class="navbar k-nav sticky top-0 z-50 px-4">
       <div class="flex-1">
-        <a href="index.html" class="text-lg font-bold tracking-tight"
+        <a href="index.html" class="k-logo"
           >Keizai Atlas
-          <span class="text-xs font-normal text-base-content/70 ml-2 hidden sm:inline">経済の地図帳</span></a
+          <span class="font-sans text-xs font-normal text-base-content/70 hidden sm:inline"
+            >経済の地図帳</span
+          ></a
         >
       </div>
       <nav aria-label="サイト内の主なページ" class="flex-none gap-1 items-center flex">
@@ -93,31 +95,268 @@
           <li>大分県</li>
         </ul>
       </nav>
-      <header class="space-y-3">
-        <h1 class="text-3xl font-bold">大分県の産業構造</h1>
-        <p class="text-base-content/80">
-          大分県の2020年の産出額は10.6兆円、粗付加価値は4.9兆円です。産出額に対する移輸出（海外と他の都道府県への販売）は42%、移輸入（海外と他の都道府県からの購入）は46%でした。
-        </p>
+      <header class="pf-head">
+        <svg class="pf-shape" viewBox="0 0 200 200" aria-hidden="true">
+          <path
+            d="M106.4 19.1L117.9 18.2L119.4 15.2L125.2 19.1L126.9 16.9L135.2 24.3L142.5 38.5L142.2 55.6L136.9 66.0L130.0 63.1L125.8 63.6L128.9 70.1L121.0 72.4L120.4 76.7L114.3 76.1L112.4 72.9L106.6 74.2L108.4 90.6L119.8 94.7L126.3 90.0L132.2 92.2L131.5 89.5L135.2 88.8L135.1 90.7L137.2 89.7L138.3 92.2L139.2 91.1L141.0 93.9L143.0 93.4L143.6 95.2L145.2 95.7L144.6 93.6L162.2 94.1L166.7 90.7L162.1 96.4L161.6 102.5L156.5 106.1L155.7 111.8L151.2 115.9L158.0 118.0L166.4 114.6L168.6 116.2L159.2 122.6L160.9 125.1L167.9 123.9L168.2 126.7L172.5 121.4L172.7 126.0L177.3 127.4L181.5 121.4L183.6 128.2L170.7 129.2L164.8 139.9L175.1 148.1L175.2 145.6L177.4 144.9L178.5 149.4L181.8 145.8L181.8 150.6L186.2 149.4L186.1 146.7L194.0 150.4L185.3 149.9L182.5 155.2L177.9 152.2L179.2 158.5L180.4 156.5L183.6 158.1L172.7 167.7L175.8 170.8L175.8 167.4L178.3 169.7L178.9 165.9L182.5 169.1L177.0 175.6L174.5 172.9L171.8 176.8L169.2 174.1L166.7 176.8L164.8 173.2L165.7 180.4L162.5 175.7L164.2 183.8L162.2 184.8L158.0 183.6L160.1 170.4L146.6 167.4L142.1 168.3L137.7 179.1L120.4 178.6L116.6 182.3L108.7 179.7L109.3 174.1L102.8 167.5L85.7 173.4L71.4 160.1L68.7 145.8L71.4 142.8L66.0 136.5L64.0 128.7L58.1 123.7L56.0 113.4L46.9 105.0L30.9 105.9L28.8 113.4L35.5 123.0L30.3 134.2L8.1 120.5L15.3 105.2L7.6 100.9L10.9 97.5L6.0 96.3L6.6 92.5L12.3 90.9L10.0 89.0L12.0 86.3L10.6 80.2L7.5 77.4L15.0 70.8L16.4 59.0L20.9 57.0L20.9 53.3L36.4 46.2L58.4 48.0L56.9 44.4L60.0 41.2L57.8 33.9L59.7 28.7L68.7 29.6L75.1 35.5L96.3 36.2L95.2 33.0L102.1 29.4L106.4 19.1Z"
+          />
+        </svg>
+        <div class="space-y-3">
+          <h1 class="pf-h1">大分県の産業構造</h1>
+          <p class="text-base-content/80">
+            大分県の2020年の産出額は10.6兆円、粗付加価値は4.9兆円です。産出額に対する移輸出（海外と他の都道府県への販売）は42%、移輸入（海外と他の都道府県からの購入）は46%でした。
+          </p>
+        </div>
       </header>
+      <figure class="pf-comp">
+        <figcaption class="font-bold">産業の構成を、全国と比べる</figcaption>
+        <div class="pf-labs" aria-hidden="true">
+          <span style="left:12.5%">鉄鋼 11.1%</span><span style="left:92.9%">医療・福祉 7.1%</span>
+        </div>
+        <svg
+          viewBox="0 0 1000 130"
+          preserveAspectRatio="none"
+          role="img"
+          aria-label="大分県の産業の構成（産出額に占める割合）を、全国と比べた帯の図。大分県で最も大きい産業は鉄鋼（11.1%）"
+        >
+          <g fill="#2a78d6">
+            <title>農林漁業：大分県 1.8%、全国 1.2%</title>
+            <rect x="0.0" y="0" width="17.1" height="34" />
+            <polygon points="0.0,34 18.1,34 12.1,96 0.0,96" opacity="0.38" />
+            <rect x="0.0" y="96" width="11.1" height="34" />
+          </g>
+          <g fill="#2a78d6">
+            <title>鉱業：大分県 0.2%、全国 0.0%</title>
+            <rect x="18.1" y="0" width="1.0" height="34" />
+            <polygon points="18.1,34 20.1,34 12.5,96 12.1,96" opacity="0.38" />
+            <rect x="12.1" y="96" width="0.2" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>繊維製品：大分県 0.2%、全国 0.3%</title>
+            <rect x="20.1" y="0" width="0.8" height="34" />
+            <polygon points="20.1,34 21.8,34 15.4,96 12.5,96" opacity="0.38" />
+            <rect x="12.5" y="96" width="1.8" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>パルプ・紙・木製品：大分県 0.7%、全国 1.1%</title>
+            <rect x="21.8" y="0" width="5.6" height="34" />
+            <polygon points="21.8,34 28.4,34 26.5,96 15.4,96" opacity="0.38" />
+            <rect x="15.4" y="96" width="10.1" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>化学製品：大分県 5.1%、全国 2.8%</title>
+            <rect x="28.4" y="0" width="50.2" height="34" />
+            <polygon points="28.4,34 79.6,34 54.1,96 26.5,96" opacity="0.38" />
+            <rect x="26.5" y="96" width="26.6" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>石油・石炭製品：大分県 2.6%、全国 1.3%</title>
+            <rect x="79.6" y="0" width="24.9" height="34" />
+            <polygon points="79.6,34 105.5,34 67.0,96 54.1,96" opacity="0.38" />
+            <rect x="54.1" y="96" width="11.9" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>プラスチック・ゴム製品とその他の製造工業製品：大分県 1.1%、全国 2.2%</title>
+            <rect x="105.5" y="0" width="9.9" height="34" />
+            <polygon points="105.5,34 116.4,34 88.9,96 67.0,96" opacity="0.38" />
+            <rect x="67.0" y="96" width="20.9" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>窯業・土石製品：大分県 0.8%、全国 0.6%</title>
+            <rect x="116.4" y="0" width="7.4" height="34" />
+            <polygon points="116.4,34 124.8,34 95.3,96 88.9,96" opacity="0.38" />
+            <rect x="88.9" y="96" width="5.4" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>鉄鋼：大分県 11.1%、全国 2.1%</title>
+            <rect x="124.8" y="0" width="110.0" height="34" />
+            <polygon points="124.8,34 235.9,34 115.8,96 95.3,96" opacity="0.38" />
+            <rect x="95.3" y="96" width="19.5" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>非鉄金属：大分県 6.0%、全国 0.8%</title>
+            <rect x="235.9" y="0" width="58.7" height="34" />
+            <polygon points="235.9,34 295.6,34 123.9,96 115.8,96" opacity="0.38" />
+            <rect x="115.8" y="96" width="7.0" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>金属製品：大分県 0.5%、全国 1.2%</title>
+            <rect x="295.6" y="0" width="4.0" height="34" />
+            <polygon points="295.6,34 300.6,34 135.6,96 123.9,96" opacity="0.38" />
+            <rect x="123.9" y="96" width="10.7" height="34" />
+          </g>
+          <g fill="#1baf7a">
+            <title>飲食料品：大分県 2.8%、全国 3.7%</title>
+            <rect x="300.6" y="0" width="26.9" height="34" />
+            <polygon points="300.6,34 328.5,34 172.7,96 135.6,96" opacity="0.38" />
+            <rect x="135.6" y="96" width="36.1" height="34" />
+          </g>
+          <g fill="#1baf7a">
+            <title>事務用品：大分県 0.1%、全国 0.1%</title>
+            <rect x="328.5" y="0" width="0.2" height="34" />
+            <polygon points="328.5,34 329.6,34 174.1,96 172.7,96" opacity="0.38" />
+            <rect x="172.7" y="96" width="0.4" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>はん用・生産用・業務用機械：大分県 2.1%、全国 3.2%</title>
+            <rect x="329.6" y="0" width="19.9" height="34" />
+            <polygon points="329.6,34 350.5,34 205.9,96 174.1,96" opacity="0.38" />
+            <rect x="174.1" y="96" width="30.8" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>電子部品：大分県 2.3%、全国 1.3%</title>
+            <rect x="350.5" y="0" width="21.7" height="34" />
+            <polygon points="350.5,34 373.2,34 218.6,96 205.9,96" opacity="0.38" />
+            <rect x="205.9" y="96" width="11.7" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>電気機械：大分県 0.4%、全国 1.5%</title>
+            <rect x="373.2" y="0" width="3.2" height="34" />
+            <polygon points="373.2,34 377.4,34 233.8,96 218.6,96" opacity="0.38" />
+            <rect x="218.6" y="96" width="14.2" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>情報通信機器：大分県 1.3%、全国 0.5%</title>
+            <rect x="377.4" y="0" width="12.1" height="34" />
+            <polygon points="377.4,34 390.5,34 238.5,96 233.8,96" opacity="0.38" />
+            <rect x="233.8" y="96" width="3.7" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>輸送機械：大分県 5.7%、全国 4.6%</title>
+            <rect x="390.5" y="0" width="55.7" height="34" />
+            <polygon points="390.5,34 447.3,34 284.5,96 238.5,96" opacity="0.38" />
+            <rect x="238.5" y="96" width="45.1" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>建設：大分県 5.2%、全国 6.7%</title>
+            <rect x="447.3" y="0" width="50.8" height="34" />
+            <polygon points="447.3,34 499.1,34 351.7,96 284.5,96" opacity="0.38" />
+            <rect x="284.5" y="96" width="66.1" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>電気・ガス・熱供給：大分県 4.6%、全国 2.3%</title>
+            <rect x="499.1" y="0" width="45.5" height="34" />
+            <polygon points="499.1,34 545.6,34 374.3,96 351.7,96" opacity="0.38" />
+            <rect x="351.7" y="96" width="21.7" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>水道：大分県 0.3%、全国 0.4%</title>
+            <rect x="545.6" y="0" width="1.9" height="34" />
+            <polygon points="545.6,34 548.5,34 378.7,96 374.3,96" opacity="0.38" />
+            <rect x="374.3" y="96" width="3.4" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>廃棄物処理：大分県 0.5%、全国 0.6%</title>
+            <rect x="548.5" y="0" width="3.6" height="34" />
+            <polygon points="548.5,34 553.1,34 384.6,96 378.7,96" opacity="0.38" />
+            <rect x="378.7" y="96" width="4.8" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>商業：大分県 6.5%、全国 9.0%</title>
+            <rect x="553.1" y="0" width="64.4" height="34" />
+            <polygon points="553.1,34 618.5,34 474.9,96 384.6,96" opacity="0.38" />
+            <rect x="384.6" y="96" width="89.4" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>金融・保険：大分県 2.2%、全国 3.5%</title>
+            <rect x="618.5" y="0" width="21.2" height="34" />
+            <polygon points="618.5,34 640.7,34 510.3,96 474.9,96" opacity="0.38" />
+            <rect x="474.9" y="96" width="34.4" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>不動産：大分県 5.7%、全国 8.8%</title>
+            <rect x="640.7" y="0" width="56.3" height="34" />
+            <polygon points="640.7,34 698.0,34 598.6,96 510.3,96" opacity="0.38" />
+            <rect x="510.3" y="96" width="87.2" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>運輸・郵便：大分県 5.1%、全国 4.9%</title>
+            <rect x="698.0" y="0" width="49.5" height="34" />
+            <polygon points="698.0,34 748.6,34 647.1,96 598.6,96" opacity="0.38" />
+            <rect x="598.6" y="96" width="47.5" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>情報通信：大分県 2.6%、全国 6.3%</title>
+            <rect x="748.6" y="0" width="25.4" height="34" />
+            <polygon points="748.6,34 775.0,34 710.4,96 647.1,96" opacity="0.38" />
+            <rect x="647.1" y="96" width="62.3" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>他に分類されない会員制団体：大分県 0.5%、全国 0.5%</title>
+            <rect x="775.0" y="0" width="3.6" height="34" />
+            <polygon points="775.0,34 779.6,34 715.1,96 710.4,96" opacity="0.38" />
+            <rect x="710.4" y="96" width="3.7" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>対事業所サービス：大分県 3.9%、全国 8.2%</title>
+            <rect x="779.6" y="0" width="37.6" height="34" />
+            <polygon points="779.6,34 818.2,34 797.5,96 715.1,96" opacity="0.38" />
+            <rect x="715.1" y="96" width="81.4" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>対個人サービス：大分県 2.9%、全国 3.9%</title>
+            <rect x="818.2" y="0" width="27.8" height="34" />
+            <polygon points="818.2,34 847.0,34 836.1,96 797.5,96" opacity="0.38" />
+            <rect x="797.5" y="96" width="37.6" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>分類不明：大分県 0.4%、全国 0.8%</title>
+            <rect x="847.0" y="0" width="3.2" height="34" />
+            <polygon points="847.0,34 851.2,34 843.6,96 836.1,96" opacity="0.38" />
+            <rect x="836.1" y="96" width="6.5" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>公務：大分県 4.8%、全国 4.2%</title>
+            <rect x="851.2" y="0" width="47.1" height="34" />
+            <polygon points="851.2,34 899.3,34 885.2,96 843.6,96" opacity="0.38" />
+            <rect x="843.6" y="96" width="40.5" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>教育・研究：大分県 2.9%、全国 4.5%</title>
+            <rect x="899.3" y="0" width="28.5" height="34" />
+            <polygon points="899.3,34 928.8,34 929.9,96 885.2,96" opacity="0.38" />
+            <rect x="885.2" y="96" width="43.7" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>医療・福祉：大分県 7.1%、全国 7.0%</title>
+            <rect x="928.8" y="0" width="70.2" height="34" />
+            <polygon points="928.8,34 1000.0,34 1000.0,96 929.9,96" opacity="0.38" />
+            <rect x="929.9" y="96" width="69.1" height="34" />
+          </g>
+        </svg>
+        <ul class="pf-legend">
+          <li><i style="background:#2a78d6"></i>資源・一次産業</li>
+          <li><i style="background:#eb6834"></i>素材</li>
+          <li><i style="background:#1baf7a"></i>食品・生活関連製造</li>
+          <li><i style="background:#eda100"></i>機械・電機・輸送機械</li>
+          <li><i style="background:#e87ba4"></i>建設・エネルギー・環境</li>
+          <li><i style="background:#009a2e"></i>流通・金融・不動産・運輸通信</li>
+          <li><i style="background:#7a68e8"></i>対事業所・対個人サービス等</li>
+          <li><i style="background:#e34948"></i>公務・教育・医療</li>
+        </ul>
+        <p class="text-xs text-base-content/70">
+          上の帯が大分県、下の帯が全国。幅は産出額に占める割合で、同じ産業どうしをつないでいます。下へすぼまる産業は、全国より大分県に集中しています。
+        </p>
+      </figure>
       <section class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">産出額（2020年）</span><b class="text-xl">10.6兆円</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">産出額（2020年）</span><b class="k-num">10.6兆円</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">付加価値率</span><b class="text-xl">46%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">付加価値率</span><b class="k-num">46%</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">移輸出（産出額比）</span><b class="text-xl">42%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">移輸出（産出額比）</span><b class="k-num">42%</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">移輸入（産出額比）</span><b class="text-xl">46%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">移輸入（産出額比）</span><b class="k-num">46%</b>
           </div>
         </div>
       </section>
@@ -149,28 +388,28 @@
                 stroke-dasharray="3 3"
               />
               <text x="162" y="19" text-anchor="end" fill="currentColor">非鉄金属</text>
-              <rect x="170" y="7" width="420.0" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="7" width="420.0" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="596.0" y="20" fill="currentColor">7.46</text>
               <text x="162" y="45" text-anchor="end" fill="currentColor">鉄鋼</text>
-              <rect x="170" y="33" width="304.8" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="33" width="304.8" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="480.8" y="46" fill="currentColor">5.41</text>
               <text x="162" y="71" text-anchor="end" fill="currentColor">情報通信機器</text>
-              <rect x="170" y="59" width="158.1" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="59" width="158.1" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="334.1" y="72" fill="currentColor">2.81</text>
               <text x="162" y="97" text-anchor="end" fill="currentColor">電気・ガス・熱供給</text>
-              <rect x="170" y="85" width="115.5" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="85" width="115.5" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="291.5" y="98" fill="currentColor">2.05</text>
               <text x="162" y="123" text-anchor="end" fill="currentColor">石油・石炭製品</text>
-              <rect x="170" y="111" width="112.8" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="111" width="112.8" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="288.8" y="124" fill="currentColor">2.00</text>
               <text x="162" y="149" text-anchor="end" fill="currentColor">化学製品</text>
-              <rect x="170" y="137" width="104.5" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="137" width="104.5" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="280.5" y="150" fill="currentColor">1.86</text>
               <text x="162" y="175" text-anchor="end" fill="currentColor">電子部品</text>
-              <rect x="170" y="163" width="101.1" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="163" width="101.1" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="277.1" y="176" fill="currentColor">1.80</text>
               <text x="162" y="201" text-anchor="end" fill="currentColor">農林漁業</text>
-              <rect x="170" y="189" width="84.5" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="189" width="84.5" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="260.5" y="202" fill="currentColor">1.50</text>
             </svg>
           </div>
@@ -612,9 +851,7 @@
       </div>
     </section>
     <script src="/feedback.js" defer></script>
-    <footer
-      class="footer footer-center p-6 bg-base-100 border-t border-base-300 text-sm text-base-content/70 mt-12"
-    >
+    <footer class="footer footer-center p-6 k-foot text-sm text-base-content/70 mt-12">
       <p>
         出典：総務省ほか「産業連関表」、経済産業省「延長産業連関表」（政府統計の総合窓口 e-Stat
         掲載）を筆者が加工して作成。<br />加工・分析・「仮説」は筆者によるもので、政府が作成・保証したものではありません。投資・経営判断の根拠にはしないでください。

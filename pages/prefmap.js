@@ -1,5 +1,7 @@
 /* 県別の立体地図(MapLibre GL JS)。/prefecture-map とトップページで共通。データは pref-map-data.js の window.PREF_MAP。
-   使い方: <div id="pm-map" data-prefmap="page|hero"> と <select id="pm-ind">。hero はトップ用(ゆっくり回転・押し出しアニメ・操作は協調ジェスチャー)。 */
+   使い方: <div id="pm-map" data-prefmap="page|hero"> と <select id="pm-ind">。hero はトップ用(ゆっくり回転・押し出しアニメ・操作は協調ジェスチャー)。
+   hero では、外から root に CustomEvent "pm:set"({k: 産業コード, id: 県のJISコード})を送ると表示を切り替え、県をクリックすると "pm:pick"({id})を出す(pages/home.js)。
+   色は地図帳の標高の段彩(緑→黄→黄土→茶)。選んだ県だけ墨(暗いテーマでは白)。 */
 (function () {
   var root = document.querySelector("[data-prefmap]");
   if (!root || !window.PREF_MAP) return;
@@ -43,16 +45,21 @@
       bg: m,
       dark: dark,
       off: css(dark ? mix(m, [255, 255, 255], 0.07) : mix(m, [0, 0, 0], 0.07)),
-      lo: dark ? [28, 72, 104] : [190, 222, 242],
-      hi: dark ? [125, 211, 252] : [3, 105, 161],
-      mid: dark ? [56, 189, 248] : [14, 135, 200],
+      pick: dark ? [245, 248, 249] : [20, 35, 46],
     };
     return TH;
   }
+  // 段彩。トップの凡例(pages/index.html の .hp-ramp)と同じ色・同じ等間隔
+  var STOPS = [
+    [79, 154, 106],
+    [207, 214, 107],
+    [230, 176, 79],
+    [181, 83, 47],
+  ];
   function ramp(t) {
-    var T = theme();
-    t = Math.max(0, Math.min(1, t));
-    return css(t < 0.6 ? mix(T.lo, T.mid, t / 0.6) : mix(T.mid, T.hi, (t - 0.6) / 0.4));
+    t = Math.max(0, Math.min(1, t)) * (STOPS.length - 1);
+    var i = Math.min(STOPS.length - 2, Math.floor(t));
+    return css(mix(STOPS[i], STOPS[i + 1], t - i));
   }
   function col(lq) {
     return ramp((lq - 0.5) / 3.5);
@@ -79,7 +86,9 @@
   var map = null,
     geo = null,
     grow = HERO && !reduce ? 0 : 1,
-    pending = false;
+    picked = /** @type {string | null} */ (null), // hero で選んだ県(朱で塗る)
+    stop = false, // hero のゆっくりした回転を止める
+    CEN = /** @type {Record<string, number[]>} */ ({});
   function render() {
     if (!geo) return;
     var k = sel.value,
@@ -102,6 +111,7 @@
           ? ramp((d.va - vmin) / (vmax - vmin || 1))
           : col(d.lq == null ? 0.5 : d.lq)
         : theme().off;
+      if (picked !== null && String(f.properties.id) === picked) f.properties.c = css(theme().pick);
       if (d && has) rows.push(d);
     });
     if (map && map.getSource && map.getSource("pref")) map.getSource("pref").setData(geo);
@@ -136,8 +146,8 @@
     if (note)
       note.textContent =
         k === "all"
-          ? "高さ＝総産出額、色＝付加価値率（濃いほど高い）。"
-          : "高さ＝その産業の産出額、色＝特化係数（濃いほど全国平均より集中）。灰色はデータなし、または部門を合算していて比べられない県です。";
+          ? "高さ＝総産出額、色＝付加価値率（緑から茶へ、茶に近いほど高い）。"
+          : "高さ＝その産業の産出額、色＝特化係数（緑から茶へ、茶に近いほど全国平均より集中）。灰色はデータなし、または部門を合算していて比べられない県です。";
     var lt = document.getElementById("pm-legend-t");
     if (lt)
       lt.textContent =
@@ -217,7 +227,7 @@
   function heroZoom() {
     var w = box.clientWidth || 360,
       h = box.clientHeight || 270,
-      ppd = Math.min(w / 22, h / 14);
+      ppd = Math.min(w / (w < 520 ? 20.5 : 23), h / 14); // 狭い画面では少し寄る
     return Math.max(3, Math.min(5, Math.log((ppd * 360) / 512) / Math.LN2));
   } // 枠に日本(はめ込み含む)が収まるズーム
   function init() {
@@ -230,7 +240,7 @@
         layers: [{ id: "bg", type: "background", paint: { "background-color": rgb() } }],
         light: { anchor: "viewport", color: "#ffffff", intensity: 0.35, position: [1.5, 200, 35] },
       },
-      center: HERO ? [137.3, 35.4] : [137.5, 37.2],
+      center: HERO ? [136.9, 36.7] : [137.5, 37.2],
       zoom: HERO ? heroZoom() : small ? 3.6 : 4.6,
       pitch: HERO ? 52 : 45,
       bearing: -12,
@@ -296,8 +306,11 @@
         pop.remove();
       });
       map.on("click", "ext", function (e) {
-        var V = values(sel.value)[e.features[0].properties.id];
-        if (V) location.href = "prefecture/" + V.slug + ".html";
+        var id = e.features[0].properties.id,
+          V = values(sel.value)[id];
+        if (!V) return;
+        if (HERO) root.dispatchEvent(new CustomEvent("pm:pick", { detail: { id: String(id) } }));
+        else location.href = "prefecture/" + V.slug + ".html";
       });
       render();
       if (HERO && !reduce) {
@@ -313,8 +326,7 @@
           else spin = true;
         })(performance.now());
         var b0 = -12,
-          last = /** @type {number | null} */ (null),
-          stop = false;
+          last = /** @type {number | null} */ (null);
         ["mousedown", "touchstart", "wheel", "keydown"].forEach(function (ev) {
           box.addEventListener(
             ev,
@@ -402,6 +414,20 @@
       })
       .then(function (g) {
         if (HERO) inset(g);
+        g.features.forEach(function (f) {
+          // 県のおおよその中心(いちばん点の多い多角形の外周の平均)
+          var best = /** @type {number[][]} */ ([]);
+          f.geometry.coordinates.forEach(function (poly) {
+            if (poly[0].length > best.length) best = poly[0];
+          });
+          var x = 0,
+            y = 0;
+          best.forEach(function (c) {
+            x += c[0];
+            y += c[1];
+          });
+          CEN[String(f.properties.id)] = [x / best.length, y / best.length];
+        });
         geo = g;
         render();
         if (!ok()) {
@@ -414,6 +440,19 @@
       });
   }
   sel.addEventListener("change", render);
+  root.addEventListener("pm:set", function (ev) {
+    var d = /** @type {CustomEvent} */ (ev).detail || {};
+    if (d.k) sel.value = d.k;
+    if ("id" in d) picked = d.id;
+    render();
+    if (d.user) {
+      // 人が選んだときだけ、回転を止めて、選んだ県のほうへ少し寄る
+      stop = true;
+      var c = picked !== null ? CEN[picked] : null;
+      if (map && c && !reduce)
+        map.easeTo({ center: [136.9 + (c[0] - 136.9) * 0.3, 36.7 + (c[1] - 36.7) * 0.3], duration: 700 });
+    }
+  });
   document.querySelectorAll(".pm-chip").forEach(function (b) {
     b.addEventListener("click", function () {
       sel.value = b.getAttribute("data-k");

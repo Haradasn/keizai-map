@@ -23,7 +23,7 @@
     <meta property="og:image" content="https://keizai-atlas.com/og.png" />
     <meta property="og:locale" content="ja_JP" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="theme-color" content="#0b1120" />
+    <meta name="theme-color" content="#0d1f2d" />
     <link
       rel="alternate"
       type="application/atom+xml"
@@ -37,20 +37,22 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600&family=IBM+Plex+Mono:wght@400;500&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="assets.css" />
     <script>
-      try{var t=localStorage.getItem("theme");if(t!=="nord")t="night";document.documentElement.dataset.theme=t}catch(e){}
+      try{var t=localStorage.getItem("theme");if(t!=="nord"&&t!=="night")t=matchMedia("(prefers-color-scheme: dark)").matches?"night":"nord";document.documentElement.dataset.theme=t}catch(e){}
     </script>
   </head>
   <body class="bg-base-200 text-base-content font-sans min-h-screen flex flex-col">
-    <header class="navbar bg-base-100/80 backdrop-blur border-b border-base-300 sticky top-0 z-50 px-4">
+    <header class="navbar k-nav sticky top-0 z-50 px-4">
       <div class="flex-1">
-        <a href="index.html" class="text-lg font-bold tracking-tight"
+        <a href="index.html" class="k-logo"
           >Keizai Atlas
-          <span class="text-xs font-normal text-base-content/70 ml-2 hidden sm:inline">経済の地図帳</span></a
+          <span class="font-sans text-xs font-normal text-base-content/70 hidden sm:inline"
+            >経済の地図帳</span
+          ></a
         >
       </div>
       <nav aria-label="サイト内の主なページ" class="flex-none gap-1 items-center flex">
@@ -93,31 +95,287 @@
           <li>新潟県</li>
         </ul>
       </nav>
-      <header class="space-y-3">
-        <h1 class="text-3xl font-bold">新潟県の産業構造</h1>
-        <p class="text-base-content/80">
-          新潟県の2020年の産出額は16.2兆円、粗付加価値は9.2兆円です。産出額に対する移輸出（海外と他の都道府県への販売）は33%、移輸入（海外と他の都道府県からの購入）は36%でした。
-        </p>
+      <header class="pf-head">
+        <svg class="pf-shape" viewBox="0 0 200 200" aria-hidden="true">
+          <path
+            d="M164.2 6.0L168.4 9.1L178.5 11.8L177.2 22.7L181.1 26.0L189.0 27.7L193.2 34.7L190.0 39.2L183.9 43.3L177.8 41.8L175.3 45.6L176.1 51.3L174.4 55.3L176.1 57.3L173.1 59.7L170.6 71.6L173.2 77.3L175.2 79.1L177.6 78.3L180.2 82.1L173.3 88.6L170.7 95.4L164.3 99.6L167.3 113.7L154.3 113.6L151.9 119.2L148.9 118.1L137.5 120.3L135.3 124.2L138.2 126.6L138.4 131.2L136.6 137.2L132.7 142.1L135.3 146.7L137.3 145.1L139.9 149.7L138.5 154.8L140.5 161.9L139.0 172.9L137.9 170.8L133.9 170.4L133.3 166.8L127.1 160.7L126.5 164.7L123.0 168.1L116.3 168.9L117.4 178.1L112.8 178.9L113.2 184.1L104.5 185.7L104.4 191.2L101.8 193.2L96.6 191.2L94.7 194.0L91.9 190.0L94.1 186.6L92.8 185.2L93.7 181.6L85.3 175.7L85.1 168.1L83.4 164.6L79.1 163.7L69.4 167.1L65.1 175.0L61.4 175.8L60.6 182.6L54.5 180.2L50.5 182.8L46.3 182.3L41.2 187.5L37.1 184.7L39.4 179.4L38.0 176.7L26.1 175.5L26.6 180.5L22.9 186.5L17.3 191.0L14.6 184.7L13.1 172.5L9.5 171.9L6.8 168.8L29.4 160.6L41.0 153.3L45.2 148.8L54.6 149.2L57.2 147.9L57.2 147.2L57.6 145.6L57.8 145.2L57.2 147.2L57.3 147.9L72.7 133.2L82.4 127.6L87.6 116.7L98.3 104.2L101.7 91.6L106.0 82.5L124.9 68.2L138.1 63.8L149.7 52.3L156.2 38.5L156.7 22.3L164.2 6.0ZM57.0 83.6L53.8 81.1L59.2 78.6L60.3 71.5L65.1 67.0L61.6 62.5L59.4 62.9L57.8 66.9L55.7 65.3L55.0 61.0L56.6 60.1L56.8 54.2L63.6 42.6L73.0 35.7L74.6 30.0L79.2 28.9L77.4 42.1L74.0 47.9L72.6 54.2L76.5 56.8L83.1 54.1L84.1 56.7L81.8 62.4L75.5 73.9L66.1 80.8L57.0 83.6Z"
+          />
+        </svg>
+        <div class="space-y-3">
+          <h1 class="pf-h1">新潟県の産業構造</h1>
+          <p class="text-base-content/80">
+            新潟県の2020年の産出額は16.2兆円、粗付加価値は9.2兆円です。産出額に対する移輸出（海外と他の都道府県への販売）は33%、移輸入（海外と他の都道府県からの購入）は36%でした。
+          </p>
+        </div>
       </header>
+      <figure class="pf-comp">
+        <figcaption class="font-bold">産業の構成を、全国と比べる</figcaption>
+        <div class="pf-labs" aria-hidden="true">
+          <span style="left:29.1%">建設 8.1%</span><span style="left:43.0%">商業 8.2%</span
+          ><span style="left:91.7%">医療・福祉 8.3%</span>
+        </div>
+        <svg
+          viewBox="0 0 1000 130"
+          preserveAspectRatio="none"
+          role="img"
+          aria-label="新潟県の産業の構成（産出額に占める割合）を、全国と比べた帯の図。新潟県で最も大きい産業は不動産（8.9%）"
+        >
+          <g fill="#2a78d6">
+            <title>農林漁業：新潟県 2.1%、全国 1.2%</title>
+            <rect x="0.0" y="0" width="20.4" height="34" />
+            <polygon points="0.0,34 21.4,34 12.1,96 0.0,96" opacity="0.38" />
+            <rect x="0.0" y="96" width="11.1" height="34" />
+          </g>
+          <g fill="#2a78d6">
+            <title>鉱業：新潟県 0.6%、全国 0.0%</title>
+            <rect x="21.4" y="0" width="5.4" height="34" />
+            <polygon points="21.4,34 27.8,34 12.5,96 12.1,96" opacity="0.38" />
+            <rect x="12.1" y="96" width="0.2" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>繊維製品：新潟県 0.5%、全国 0.3%</title>
+            <rect x="27.8" y="0" width="3.5" height="34" />
+            <polygon points="27.8,34 32.3,34 15.4,96 12.5,96" opacity="0.38" />
+            <rect x="12.5" y="96" width="1.8" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>パルプ・紙・木製品：新潟県 1.7%、全国 1.1%</title>
+            <rect x="32.3" y="0" width="16.3" height="34" />
+            <polygon points="32.3,34 49.6,34 26.5,96 15.4,96" opacity="0.38" />
+            <rect x="15.4" y="96" width="10.1" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>化学製品：新潟県 3.2%、全国 2.8%</title>
+            <rect x="49.6" y="0" width="31.4" height="34" />
+            <polygon points="49.6,34 82.0,34 54.1,96 26.5,96" opacity="0.38" />
+            <rect x="26.5" y="96" width="26.6" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>石油・石炭製品：新潟県 0.1%、全国 1.3%</title>
+            <rect x="82.0" y="0" width="0.2" height="34" />
+            <polygon points="82.0,34 83.2,34 67.0,96 54.1,96" opacity="0.38" />
+            <rect x="54.1" y="96" width="11.9" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>プラスチック・ゴム製品：新潟県 0.9%、全国 1.3%</title>
+            <rect x="83.2" y="0" width="8.0" height="34" />
+            <polygon points="83.2,34 92.1,34 80.4,96 67.0,96" opacity="0.38" />
+            <rect x="67.0" y="96" width="12.3" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>窯業・土石製品：新潟県 0.7%、全国 0.6%</title>
+            <rect x="92.1" y="0" width="5.7" height="34" />
+            <polygon points="92.1,34 98.9,34 86.8,96 80.4,96" opacity="0.38" />
+            <rect x="80.4" y="96" width="5.4" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>鉄鋼：新潟県 1.3%、全国 2.1%</title>
+            <rect x="98.9" y="0" width="12.3" height="34" />
+            <polygon points="98.9,34 112.2,34 107.3,96 86.8,96" opacity="0.38" />
+            <rect x="86.8" y="96" width="19.5" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>非鉄金属：新潟県 0.4%、全国 0.8%</title>
+            <rect x="112.2" y="0" width="3.2" height="34" />
+            <polygon points="112.2,34 116.4,34 115.3,96 107.3,96" opacity="0.38" />
+            <rect x="107.3" y="96" width="7.0" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>金属製品：新潟県 2.8%、全国 1.2%</title>
+            <rect x="116.4" y="0" width="27.2" height="34" />
+            <polygon points="116.4,34 144.6,34 127.0,96 115.3,96" opacity="0.38" />
+            <rect x="115.3" y="96" width="10.7" height="34" />
+          </g>
+          <g fill="#1baf7a">
+            <title>飲食料品：新潟県 4.9%、全国 3.7%</title>
+            <rect x="144.6" y="0" width="48.1" height="34" />
+            <polygon points="144.6,34 193.7,34 164.1,96 127.0,96" opacity="0.38" />
+            <rect x="127.0" y="96" width="36.1" height="34" />
+          </g>
+          <g fill="#1baf7a">
+            <title>その他の製造工業製品：新潟県 0.7%、全国 0.9%</title>
+            <rect x="193.7" y="0" width="5.8" height="34" />
+            <polygon points="193.7,34 200.5,34 172.7,96 164.1,96" opacity="0.38" />
+            <rect x="164.1" y="96" width="7.5" height="34" />
+          </g>
+          <g fill="#1baf7a">
+            <title>事務用品：新潟県 0.1%、全国 0.1%</title>
+            <rect x="200.5" y="0" width="0.5" height="34" />
+            <polygon points="200.5,34 202.0,34 174.1,96 172.7,96" opacity="0.38" />
+            <rect x="172.7" y="96" width="0.4" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>はん用機械：新潟県 1.0%、全国 1.0%</title>
+            <rect x="202.0" y="0" width="8.9" height="34" />
+            <polygon points="202.0,34 211.9,34 184.3,96 174.1,96" opacity="0.38" />
+            <rect x="174.1" y="96" width="9.1" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>生産用機械：新潟県 2.1%、全国 1.6%</title>
+            <rect x="211.9" y="0" width="20.1" height="34" />
+            <polygon points="211.9,34 233.0,34 200.4,96 184.3,96" opacity="0.38" />
+            <rect x="184.3" y="96" width="15.1" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>業務用機械：新潟県 0.9%、全国 0.6%</title>
+            <rect x="233.0" y="0" width="7.6" height="34" />
+            <polygon points="233.0,34 241.7,34 205.9,96 200.4,96" opacity="0.38" />
+            <rect x="200.4" y="96" width="4.6" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>電子部品：新潟県 1.8%、全国 1.3%</title>
+            <rect x="241.7" y="0" width="17.4" height="34" />
+            <polygon points="241.7,34 260.0,34 218.6,96 205.9,96" opacity="0.38" />
+            <rect x="205.9" y="96" width="11.7" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>電気機械：新潟県 1.5%、全国 1.5%</title>
+            <rect x="260.0" y="0" width="14.4" height="34" />
+            <polygon points="260.0,34 275.4,34 233.8,96 218.6,96" opacity="0.38" />
+            <rect x="218.6" y="96" width="14.2" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>情報通信機器：新潟県 0.5%、全国 0.5%</title>
+            <rect x="275.4" y="0" width="3.7" height="34" />
+            <polygon points="275.4,34 280.1,34 238.5,96 233.8,96" opacity="0.38" />
+            <rect x="233.8" y="96" width="3.7" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>輸送機械：新潟県 1.1%、全国 4.6%</title>
+            <rect x="280.1" y="0" width="10.2" height="34" />
+            <polygon points="280.1,34 291.3,34 284.5,96 238.5,96" opacity="0.38" />
+            <rect x="238.5" y="96" width="45.1" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>建設：新潟県 8.1%、全国 6.7%</title>
+            <rect x="291.3" y="0" width="79.6" height="34" />
+            <polygon points="291.3,34 372.0,34 351.7,96 284.5,96" opacity="0.38" />
+            <rect x="284.5" y="96" width="66.1" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>電気・ガス・熱供給：新潟県 4.7%、全国 2.3%</title>
+            <rect x="372.0" y="0" width="45.9" height="34" />
+            <polygon points="372.0,34 418.9,34 374.3,96 351.7,96" opacity="0.38" />
+            <rect x="351.7" y="96" width="21.7" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>水道：新潟県 0.4%、全国 0.4%</title>
+            <rect x="418.9" y="0" width="3.4" height="34" />
+            <polygon points="418.9,34 423.3,34 378.7,96 374.3,96" opacity="0.38" />
+            <rect x="374.3" y="96" width="3.4" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>廃棄物処理：新潟県 0.7%、全国 0.6%</title>
+            <rect x="423.3" y="0" width="5.8" height="34" />
+            <polygon points="423.3,34 430.1,34 384.6,96 378.7,96" opacity="0.38" />
+            <rect x="378.7" y="96" width="4.8" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>商業：新潟県 8.2%、全国 9.0%</title>
+            <rect x="430.1" y="0" width="81.0" height="34" />
+            <polygon points="430.1,34 512.1,34 474.9,96 384.6,96" opacity="0.38" />
+            <rect x="384.6" y="96" width="89.4" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>金融・保険：新潟県 3.1%、全国 3.5%</title>
+            <rect x="512.1" y="0" width="30.0" height="34" />
+            <polygon points="512.1,34 543.1,34 510.3,96 474.9,96" opacity="0.38" />
+            <rect x="474.9" y="96" width="34.4" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>不動産：新潟県 8.9%、全国 8.8%</title>
+            <rect x="543.1" y="0" width="87.9" height="34" />
+            <polygon points="543.1,34 631.9,34 598.6,96 510.3,96" opacity="0.38" />
+            <rect x="510.3" y="96" width="87.2" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>運輸・郵便：新潟県 4.9%、全国 4.9%</title>
+            <rect x="631.9" y="0" width="47.7" height="34" />
+            <polygon points="631.9,34 680.7,34 647.1,96 598.6,96" opacity="0.38" />
+            <rect x="598.6" y="96" width="47.5" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>情報通信：新潟県 3.0%、全国 6.3%</title>
+            <rect x="680.7" y="0" width="29.2" height="34" />
+            <polygon points="680.7,34 710.9,34 710.4,96 647.1,96" opacity="0.38" />
+            <rect x="647.1" y="96" width="62.3" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>他に分類されない会員制団体：新潟県 0.6%、全国 0.5%</title>
+            <rect x="710.9" y="0" width="4.6" height="34" />
+            <polygon points="710.9,34 716.5,34 715.1,96 710.4,96" opacity="0.38" />
+            <rect x="710.4" y="96" width="3.7" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>対事業所サービス：新潟県 5.7%、全国 8.2%</title>
+            <rect x="716.5" y="0" width="56.1" height="34" />
+            <polygon points="716.5,34 773.7,34 797.5,96 715.1,96" opacity="0.38" />
+            <rect x="715.1" y="96" width="81.4" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>対個人サービス：新潟県 3.8%、全国 3.9%</title>
+            <rect x="773.7" y="0" width="37.5" height="34" />
+            <polygon points="773.7,34 812.1,34 836.1,96 797.5,96" opacity="0.38" />
+            <rect x="797.5" y="96" width="37.6" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>分類不明：新潟県 0.5%、全国 0.8%</title>
+            <rect x="812.1" y="0" width="3.6" height="34" />
+            <polygon points="812.1,34 816.7,34 843.6,96 836.1,96" opacity="0.38" />
+            <rect x="836.1" y="96" width="6.5" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>公務：新潟県 5.6%、全国 4.2%</title>
+            <rect x="816.7" y="0" width="54.6" height="34" />
+            <polygon points="816.7,34 872.3,34 885.2,96 843.6,96" opacity="0.38" />
+            <rect x="843.6" y="96" width="40.5" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>教育・研究：新潟県 4.5%、全国 4.5%</title>
+            <rect x="872.3" y="0" width="44.1" height="34" />
+            <polygon points="872.3,34 917.4,34 929.9,96 885.2,96" opacity="0.38" />
+            <rect x="885.2" y="96" width="43.7" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>医療・福祉：新潟県 8.3%、全国 7.0%</title>
+            <rect x="917.4" y="0" width="81.6" height="34" />
+            <polygon points="917.4,34 1000.0,34 1000.0,96 929.9,96" opacity="0.38" />
+            <rect x="929.9" y="96" width="69.1" height="34" />
+          </g>
+        </svg>
+        <ul class="pf-legend">
+          <li><i style="background:#2a78d6"></i>資源・一次産業</li>
+          <li><i style="background:#eb6834"></i>素材</li>
+          <li><i style="background:#1baf7a"></i>食品・生活関連製造</li>
+          <li><i style="background:#eda100"></i>機械・電機・輸送機械</li>
+          <li><i style="background:#e87ba4"></i>建設・エネルギー・環境</li>
+          <li><i style="background:#009a2e"></i>流通・金融・不動産・運輸通信</li>
+          <li><i style="background:#7a68e8"></i>対事業所・対個人サービス等</li>
+          <li><i style="background:#e34948"></i>公務・教育・医療</li>
+        </ul>
+        <p class="text-xs text-base-content/70">
+          上の帯が新潟県、下の帯が全国。幅は産出額に占める割合で、同じ産業どうしをつないでいます。下へすぼまる産業は、全国より新潟県に集中しています。
+        </p>
+      </figure>
       <section class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">産出額（2020年）</span><b class="text-xl">16.2兆円</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">産出額（2020年）</span><b class="k-num">16.2兆円</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">付加価値率</span><b class="text-xl">57%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">付加価値率</span><b class="k-num">57%</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">移輸出（産出額比）</span><b class="text-xl">33%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">移輸出（産出額比）</span><b class="k-num">33%</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">移輸入（産出額比）</span><b class="text-xl">36%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">移輸入（産出額比）</span><b class="k-num">36%</b>
           </div>
         </div>
       </section>
@@ -149,28 +407,28 @@
                 stroke-dasharray="3 3"
               />
               <text x="162" y="19" text-anchor="end" fill="currentColor">鉱業</text>
-              <rect x="170" y="7" width="420.0" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="7" width="420.0" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="596.0" y="20" fill="currentColor">12.96</text>
               <text x="162" y="45" text-anchor="end" fill="currentColor">金属製品</text>
-              <rect x="170" y="33" width="77.8" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="33" width="77.8" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="253.8" y="46" fill="currentColor">2.40</text>
               <text x="162" y="71" text-anchor="end" fill="currentColor">電気・ガス・熱供給</text>
-              <rect x="170" y="59" width="67.1" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="59" width="67.1" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="243.1" y="72" fill="currentColor">2.07</text>
               <text x="162" y="97" text-anchor="end" fill="currentColor">農林漁業</text>
-              <rect x="170" y="85" width="57.5" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="85" width="57.5" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="233.5" y="98" fill="currentColor">1.78</text>
               <text x="162" y="123" text-anchor="end" fill="currentColor">業務用機械</text>
-              <rect x="170" y="111" width="50.3" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="111" width="50.3" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="226.3" y="124" fill="currentColor">1.55</text>
               <text x="162" y="149" text-anchor="end" fill="currentColor">パルプ・紙・木製品</text>
-              <rect x="170" y="137" width="50.2" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="137" width="50.2" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="226.2" y="150" fill="currentColor">1.55</text>
               <text x="162" y="175" text-anchor="end" fill="currentColor">電子部品</text>
-              <rect x="170" y="163" width="47.1" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="163" width="47.1" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="223.1" y="176" fill="currentColor">1.45</text>
               <text x="162" y="201" text-anchor="end" fill="currentColor">公務</text>
-              <rect x="170" y="189" width="43.4" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="189" width="43.4" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="219.4" y="202" fill="currentColor">1.34</text>
             </svg>
           </div>
@@ -639,9 +897,7 @@
       </div>
     </section>
     <script src="/feedback.js" defer></script>
-    <footer
-      class="footer footer-center p-6 bg-base-100 border-t border-base-300 text-sm text-base-content/70 mt-12"
-    >
+    <footer class="footer footer-center p-6 k-foot text-sm text-base-content/70 mt-12">
       <p>
         出典：総務省ほか「産業連関表」、経済産業省「延長産業連関表」（政府統計の総合窓口 e-Stat
         掲載）を筆者が加工して作成。<br />加工・分析・「仮説」は筆者によるもので、政府が作成・保証したものではありません。投資・経営判断の根拠にはしないでください。

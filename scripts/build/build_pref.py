@@ -3,6 +3,7 @@
 マークアップは templates/ にあり、ここでは表示する値(整形済みの文字列・座標)を用意して描画を呼ぶ。"""
 
 import json
+import math
 import pathlib
 
 from _shell import breadcrumb_head
@@ -148,9 +149,7 @@ def build_map(page, D):
         encoding="utf-8",
     )
     (S / "prefmap.js").write_text((R / "pages" / "prefmap.js").read_text(encoding="utf-8"), encoding="utf-8")
-    (S / "insights.js").write_text(
-        (R / "pages" / "insights.js").read_text(encoding="utf-8"), encoding="utf-8"
-    )
+    (S / "home.js").write_text((R / "pages" / "home.js").read_text(encoding="utf-8"), encoding="utf-8")
     body = render("prefecture_map.html.j2", industries=list(inds.items()), count=len(D))
     page(
         "prefecture-map.html",
@@ -175,6 +174,102 @@ def sector_row(o):
         pct(o["exp_ratio"]),
         pct_or_dash(o["imp_ratio"]),
     ]
+
+
+# ---------- 県ページの冒頭の図(県の形と、産業の構成の帯)
+
+_FACE = {}
+
+
+def _face_sources():
+    """県の境界(簡略化済み)、37部門→8つの大分類、大分類の色と名前。初回だけ読む。"""
+    if not _FACE:
+        geo = json.loads((R / "site" / "vendor" / "japan-pref.json").read_text(encoding="utf-8"))
+        nat = json.loads((R / "data" / "explorer_data.json").read_text(encoding="utf-8"))
+        pal = json.loads((R / "pages" / "palette.json").read_text(encoding="utf-8"))
+        _FACE.update(
+            geo={f["properties"]["id"]: f["geometry"]["coordinates"] for f in geo["features"]},
+            grp={n["id"]: n["grp"] for n in nat["nodes"]},
+            names=nat["groups"],
+            colors=pal["groups"],
+        )
+    return _FACE
+
+
+def silhouette(jis, size=200, pad=6):
+    """県の形の SVG パス(viewBox 0 0 size size)。本土から遠い小さな島は省く(東京都の小笠原など)。"""
+    polys = [poly[0] for poly in _face_sources()["geo"][jis]]
+
+    def area(ring):
+        return abs(sum(a[0] * b[1] - b[0] * a[1] for a, b in zip(ring, ring[1:] + ring[:1]))) / 2
+
+    main = max(polys, key=area)
+    x0, x1 = min(c[0] for c in main) - 0.4, max(c[0] for c in main) + 0.4
+    y0, y1 = min(c[1] for c in main) - 0.4, max(c[1] for c in main) + 0.4
+    keep = [
+        r
+        for r in polys
+        if r is main
+        or (area(r) >= area(main) * 0.004 and all(x0 <= c[0] <= x1 and y0 <= c[1] <= y1 for c in r))
+    ]
+    lat = sum(c[1] for c in main) / len(main)
+    kx = math.cos(math.radians(lat))
+    pts = [[(c[0] * kx, -c[1]) for c in r] for r in keep]
+    xs = [x for r in pts for x, _ in r]
+    ys = [y for r in pts for _, y in r]
+    scale = (size - pad * 2) / max(max(xs) - min(xs), max(ys) - min(ys))
+    ox = (size - (max(xs) - min(xs)) * scale) / 2 - min(xs) * scale
+    oy = (size - (max(ys) - min(ys)) * scale) / 2 - min(ys) * scale
+    return "".join(
+        "M" + "L".join(f"{x * scale + ox:.1f} {y * scale + oy:.1f}" for x, y in r) + "Z" for r in pts
+    )
+
+
+def face_data(slug, p):
+    """冒頭の図の値。産業の構成を、県(上の帯)と全国(下の帯)で比べる。幅=産出額に占める割合、色=8つの大分類。
+    同じ産業どうしを帯でつなぐので、全国より広い産業は下へすぼまり、狭い産業は下へ広がる。"""
+    F = _face_sources()
+    width = 1000
+    items = []
+    for o in p["sectors"]:
+        codes = o.get("nat_codes", [o["c"]])
+        grp = F["grp"].get(codes[0])
+        items.append(dict(o=o, grp=grp if grp is not None else 99, code=codes[0]))
+    items.sort(key=lambda it: (it["grp"], it["code"]))
+    top_total = sum(it["o"]["share"] for it in items)
+    nat_total = sum(it["o"]["nat_share"] or 0 for it in items)
+    segs, x, n = [], 0.0, 0.0
+    label_end = -1.0
+    for it in items:
+        o = it["o"]
+        w = o["share"] / top_total * width
+        nw = (o["nat_share"] or 0) / nat_total * width
+        label = None
+        # 県の産出額の7%以上の産業は、帯の上に名前を出す(前の名前と重なる場合は出さない)
+        if o["share"] >= 0.07 and x >= label_end:
+            label = f"{o['n']} {pct(o['share'], 1)}"
+            label_end = x + len(label) * 15 + 16
+        segs.append(
+            dict(
+                x=f"{x:.1f}",
+                w=f"{max(w - 1, 0.2):.1f}",
+                nx=f"{n:.1f}",
+                nw=f"{max(nw - 1, 0.2):.1f}",
+                band=f"{x:.1f},34 {x + w:.1f},34 {n + nw:.1f},96 {n:.1f},96",
+                color=F["colors"][it["grp"]] if it["grp"] != 99 else "#8d99a6",
+                tip=f"{o['n']}：{p['name']} {pct(o['share'], 1)}、全国 "
+                + (pct(o["nat_share"], 1) if o["nat_share"] else "−"),
+                label=label,
+                left=f"{x / width * 100:.1f}",
+            )
+        )
+        x += w
+        n += nw
+    return dict(
+        path=silhouette(JIS[slug]),
+        segs=segs,
+        legend=[dict(name=nm, color=c) for nm, c in zip(F["names"], F["colors"])],
+    )
 
 
 def build_prefecture_page(slug, p, page, site_url):
@@ -204,6 +299,8 @@ def build_prefecture_page(slug, p, page, site_url):
         "prefecture.html.j2",
         name=name,
         industry_links=industry_links,
+        face=face_data(slug, p),
+        biggest=f"{biggest['n']}（{pct(biggest['share'], 1)}）",
         year=p["year"],
         output=tril(total),
         value_added=tril(p["total_va"]),

@@ -139,38 +139,38 @@ def test_prefecture_3d_map(browser, base):
     pg.close()
 
 
-def test_index_insight_hero(browser, base):
+def test_index_prefecture_picker(browser, base):
+    """トップ: 県を選ぶと、県別データから計算した文と上位の産業が出る。"""
     pg = browser.new_page(viewport={"width": 390, "height": 900})
     errs = []
     pg.on("pageerror", lambda e: errs.append(str(e)))
     pg.goto(f"{base}/index.html", wait_until="load")
     pg.wait_for_timeout(2500)
     assert pg.evaluate("document.documentElement.scrollWidth") <= 392 and not errs, errs
-    assert "日本経済" in pg.inner_text("h1")
-    assert pg.locator(".ins-slide").count() >= 4
-    assert "倍" in pg.locator(".ins-slide").first.inner_text()  # 県別データから計算した集中度
-    on = lambda: pg.evaluate(
-        "[...document.querySelectorAll('.ins-slide')].findIndex(s=>s.classList.contains('is-on'))"
-    )
-    a = on()
-    pg.click("#ins-next")
-    pg.wait_for_timeout(300)
-    assert on() != a and on() >= 0
+    assert "何で稼いでいる" in pg.inner_text("h1")
+    assert pg.locator("#hp-pref option").count() >= 40
+    assert "倍" in pg.inner_text("#hp-out .hp-fact")  # 最初の例も県別データから計算
+    pg.select_option("#hp-pref", "13")
+    assert "東京都" in pg.inner_text("#hp-out .hp-fact")
+    assert "prefecture/tokyo.html" in pg.get_attribute("#hp-out .hp-go a", "href")
+    second = pg.locator(".hp-tops button").nth(1)
+    name = second.locator(".hp-tn").inner_text()
+    second.click()
+    assert name in pg.inner_text("#hp-out .hp-fact") and not errs, errs
+    assert pg.locator(".hp-tops button[aria-pressed=true] .hp-tn").inner_text() == name
     pg.close()
 
 
-def test_index_connect_slide(browser, base):
+def test_index_flow_figure(browser, base):
+    """トップ: 取引の図の文(本数と産業名)はデータから計算し、産業マップのその産業へつなぐ。"""
     pg = browser.new_page(viewport={"width": 390, "height": 800})
     errs = []
     pg.on("pageerror", lambda e: errs.append(str(e)))
     pg.goto(f"{base}/index.html", wait_until="load")
     pg.wait_for_timeout(1500)
-    for _ in range(4):
-        pg.click("#ins-next")
-        pg.wait_for_timeout(200)
-    txt = pg.inner_text(".ins-slide.is-on")
-    assert "本" in txt and "対事業所サービス" in txt and not errs, (txt, errs)  # 件数と産業名はデータから計算
-    assert "explorer.html?sel=" in pg.get_attribute(".ins-slide.is-on .ins-more", "href")
+    txt = pg.inner_text("#fl-say")
+    assert "本" in txt and "対事業所サービス" in txt and not errs, (txt, errs)
+    assert "explorer.html?sel=" in pg.get_attribute("#fl-more", "href")
     pg.close()
 
 

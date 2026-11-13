@@ -23,7 +23,7 @@
     <meta property="og:image" content="https://keizai-atlas.com/og.png" />
     <meta property="og:locale" content="ja_JP" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="theme-color" content="#0b1120" />
+    <meta name="theme-color" content="#0d1f2d" />
     <link
       rel="alternate"
       type="application/atom+xml"
@@ -37,20 +37,22 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600&family=IBM+Plex+Mono:wght@400;500&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="assets.css" />
     <script>
-      try{var t=localStorage.getItem("theme");if(t!=="nord")t="night";document.documentElement.dataset.theme=t}catch(e){}
+      try{var t=localStorage.getItem("theme");if(t!=="nord"&&t!=="night")t=matchMedia("(prefers-color-scheme: dark)").matches?"night":"nord";document.documentElement.dataset.theme=t}catch(e){}
     </script>
   </head>
   <body class="bg-base-200 text-base-content font-sans min-h-screen flex flex-col">
-    <header class="navbar bg-base-100/80 backdrop-blur border-b border-base-300 sticky top-0 z-50 px-4">
+    <header class="navbar k-nav sticky top-0 z-50 px-4">
       <div class="flex-1">
-        <a href="index.html" class="text-lg font-bold tracking-tight"
+        <a href="index.html" class="k-logo"
           >Keizai Atlas
-          <span class="text-xs font-normal text-base-content/70 ml-2 hidden sm:inline">経済の地図帳</span></a
+          <span class="font-sans text-xs font-normal text-base-content/70 hidden sm:inline"
+            >経済の地図帳</span
+          ></a
         >
       </div>
       <nav aria-label="サイト内の主なページ" class="flex-none gap-1 items-center flex">
@@ -93,31 +95,287 @@
           <li>岐阜県</li>
         </ul>
       </nav>
-      <header class="space-y-3">
-        <h1 class="text-3xl font-bold">岐阜県の産業構造</h1>
-        <p class="text-base-content/80">
-          岐阜県の2020年の産出額は15.1兆円、粗付加価値は8.2兆円です。産出額に対する移輸出（海外と他の都道府県への販売）は32%、移輸入（海外と他の都道府県からの購入）は34%でした。
-        </p>
+      <header class="pf-head">
+        <svg class="pf-shape" viewBox="0 0 200 200" aria-hidden="true">
+          <path
+            d="M111.1 19.0L115.3 17.3L122.9 7.0L126.3 7.3L128.0 11.1L132.7 6.3L139.8 6.0L140.3 11.5L149.1 6.6L151.0 11.4L157.3 13.4L163.1 11.8L178.4 23.4L178.6 30.7L170.2 40.5L172.6 47.3L168.0 51.8L167.6 56.0L174.8 60.8L172.6 69.8L166.7 74.0L159.0 86.6L153.9 85.0L148.0 86.9L141.8 97.6L157.0 105.4L161.5 115.8L166.9 121.1L163.3 127.1L166.1 130.4L169.9 130.5L170.2 136.0L176.9 141.0L176.7 146.5L172.4 149.8L177.0 156.5L170.3 156.4L173.0 159.5L173.7 165.6L168.3 169.1L168.7 172.8L164.0 172.9L153.7 181.4L139.7 171.8L125.7 177.2L123.3 172.9L113.8 171.7L112.2 165.6L109.8 165.3L109.8 161.3L101.9 155.8L103.4 152.9L95.4 159.4L85.4 162.6L78.0 160.8L67.5 178.9L66.5 194.0L63.8 189.5L63.7 192.4L60.4 191.7L51.0 176.6L37.0 182.1L33.1 178.6L35.2 176.6L37.1 160.5L40.7 158.0L36.9 153.7L37.9 146.9L34.1 144.0L36.2 140.3L32.4 133.8L29.4 137.2L26.2 135.6L26.8 125.9L22.9 125.3L21.4 120.6L26.9 111.6L26.7 104.7L33.1 100.6L45.4 103.3L47.8 106.9L49.7 101.6L55.2 103.0L63.7 98.9L65.4 102.3L72.7 98.7L80.2 100.0L81.8 93.6L85.2 91.7L84.0 86.3L79.7 82.3L80.6 79.1L75.6 77.1L75.9 73.0L73.0 72.2L73.8 64.7L77.4 62.0L76.2 59.4L79.2 51.5L77.6 48.8L81.3 47.1L87.4 36.5L80.6 29.3L85.0 28.2L85.7 22.5L88.9 22.1L89.6 19.6L90.1 23.1L93.8 20.6L98.3 22.7L101.1 27.1L99.6 32.2L101.5 32.9L110.4 24.9L111.1 19.0Z"
+          />
+        </svg>
+        <div class="space-y-3">
+          <h1 class="pf-h1">岐阜県の産業構造</h1>
+          <p class="text-base-content/80">
+            岐阜県の2020年の産出額は15.1兆円、粗付加価値は8.2兆円です。産出額に対する移輸出（海外と他の都道府県への販売）は32%、移輸入（海外と他の都道府県からの購入）は34%でした。
+          </p>
+        </div>
       </header>
+      <figure class="pf-comp">
+        <figcaption class="font-bold">産業の構成を、全国と比べる</figcaption>
+        <div class="pf-labs" aria-hidden="true">
+          <span style="left:30.1%">輸送機械 7.3%</span><span style="left:48.5%">商業 8.6%</span
+          ><span style="left:60.7%">不動産 7.5%</span><span style="left:92.7%">医療・福祉 7.3%</span>
+        </div>
+        <svg
+          viewBox="0 0 1000 130"
+          preserveAspectRatio="none"
+          role="img"
+          aria-label="岐阜県の産業の構成（産出額に占める割合）を、全国と比べた帯の図。岐阜県で最も大きい産業は商業（8.6%）"
+        >
+          <g fill="#2a78d6">
+            <title>農林漁業：岐阜県 1.0%、全国 1.2%</title>
+            <rect x="0.0" y="0" width="8.6" height="34" />
+            <polygon points="0.0,34 9.6,34 12.1,96 0.0,96" opacity="0.38" />
+            <rect x="0.0" y="96" width="11.1" height="34" />
+          </g>
+          <g fill="#2a78d6">
+            <title>鉱業：岐阜県 0.1%、全国 0.0%</title>
+            <rect x="9.6" y="0" width="0.2" height="34" />
+            <polygon points="9.6,34 10.4,34 12.5,96 12.1,96" opacity="0.38" />
+            <rect x="12.1" y="96" width="0.2" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>繊維製品：岐阜県 0.8%、全国 0.3%</title>
+            <rect x="10.4" y="0" width="7.2" height="34" />
+            <polygon points="10.4,34 18.6,34 15.4,96 12.5,96" opacity="0.38" />
+            <rect x="12.5" y="96" width="1.8" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>パルプ・紙・木製品：岐阜県 2.6%、全国 1.1%</title>
+            <rect x="18.6" y="0" width="24.7" height="34" />
+            <polygon points="18.6,34 44.4,34 26.5,96 15.4,96" opacity="0.38" />
+            <rect x="15.4" y="96" width="10.1" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>化学製品：岐阜県 2.1%、全国 2.8%</title>
+            <rect x="44.4" y="0" width="20.4" height="34" />
+            <polygon points="44.4,34 65.8,34 54.1,96 26.5,96" opacity="0.38" />
+            <rect x="26.5" y="96" width="26.6" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>石油・石炭製品：岐阜県 0.1%、全国 1.3%</title>
+            <rect x="65.8" y="0" width="0.2" height="34" />
+            <polygon points="65.8,34 66.7,34 67.0,96 54.1,96" opacity="0.38" />
+            <rect x="54.1" y="96" width="11.9" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>プラスチック・ゴム製品：岐阜県 3.5%、全国 1.3%</title>
+            <rect x="66.7" y="0" width="34.3" height="34" />
+            <polygon points="66.7,34 102.0,34 80.4,96 67.0,96" opacity="0.38" />
+            <rect x="67.0" y="96" width="12.3" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>窯業・土石製品：岐阜県 2.4%、全国 0.6%</title>
+            <rect x="102.0" y="0" width="22.6" height="34" />
+            <polygon points="102.0,34 125.6,34 86.8,96 80.4,96" opacity="0.38" />
+            <rect x="80.4" y="96" width="5.4" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>鉄鋼：岐阜県 1.4%、全国 2.1%</title>
+            <rect x="125.6" y="0" width="13.4" height="34" />
+            <polygon points="125.6,34 140.1,34 107.3,96 86.8,96" opacity="0.38" />
+            <rect x="86.8" y="96" width="19.5" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>非鉄金属：岐阜県 0.6%、全国 0.8%</title>
+            <rect x="140.1" y="0" width="5.0" height="34" />
+            <polygon points="140.1,34 146.0,34 115.3,96 107.3,96" opacity="0.38" />
+            <rect x="107.3" y="96" width="7.0" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>金属製品：岐阜県 2.9%、全国 1.2%</title>
+            <rect x="146.0" y="0" width="27.6" height="34" />
+            <polygon points="146.0,34 174.6,34 127.0,96 115.3,96" opacity="0.38" />
+            <rect x="115.3" y="96" width="10.7" height="34" />
+          </g>
+          <g fill="#1baf7a">
+            <title>飲食料品：岐阜県 3.2%、全国 3.7%</title>
+            <rect x="174.6" y="0" width="31.3" height="34" />
+            <polygon points="174.6,34 206.9,34 164.1,96 127.0,96" opacity="0.38" />
+            <rect x="127.0" y="96" width="36.1" height="34" />
+          </g>
+          <g fill="#1baf7a">
+            <title>その他の製造工業製品：岐阜県 0.9%、全国 0.9%</title>
+            <rect x="206.9" y="0" width="7.9" height="34" />
+            <polygon points="206.9,34 215.8,34 172.7,96 164.1,96" opacity="0.38" />
+            <rect x="164.1" y="96" width="7.5" height="34" />
+          </g>
+          <g fill="#1baf7a">
+            <title>事務用品：岐阜県 0.2%、全国 0.1%</title>
+            <rect x="215.8" y="0" width="0.6" height="34" />
+            <polygon points="215.8,34 217.4,34 174.1,96 172.7,96" opacity="0.38" />
+            <rect x="172.7" y="96" width="0.4" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>はん用機械：岐阜県 1.8%、全国 1.0%</title>
+            <rect x="217.4" y="0" width="17.2" height="34" />
+            <polygon points="217.4,34 235.6,34 184.3,96 174.1,96" opacity="0.38" />
+            <rect x="174.1" y="96" width="9.1" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>生産用機械：岐阜県 2.6%、全国 1.6%</title>
+            <rect x="235.6" y="0" width="25.3" height="34" />
+            <polygon points="235.6,34 261.9,34 200.4,96 184.3,96" opacity="0.38" />
+            <rect x="184.3" y="96" width="15.1" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>業務用機械：岐阜県 0.3%、全国 0.6%</title>
+            <rect x="261.9" y="0" width="1.9" height="34" />
+            <polygon points="261.9,34 264.8,34 205.9,96 200.4,96" opacity="0.38" />
+            <rect x="200.4" y="96" width="4.6" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>電子部品：岐阜県 1.2%、全国 1.3%</title>
+            <rect x="264.8" y="0" width="10.6" height="34" />
+            <polygon points="264.8,34 276.4,34 218.6,96 205.9,96" opacity="0.38" />
+            <rect x="205.9" y="96" width="11.7" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>電気機械：岐阜県 2.0%、全国 1.5%</title>
+            <rect x="276.4" y="0" width="19.3" height="34" />
+            <polygon points="276.4,34 296.7,34 233.8,96 218.6,96" opacity="0.38" />
+            <rect x="218.6" y="96" width="14.2" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>情報通信機器：岐阜県 0.4%、全国 0.5%</title>
+            <rect x="296.7" y="0" width="3.1" height="34" />
+            <polygon points="296.7,34 300.8,34 238.5,96 233.8,96" opacity="0.38" />
+            <rect x="233.8" y="96" width="3.7" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>輸送機械：岐阜県 7.3%、全国 4.6%</title>
+            <rect x="300.8" y="0" width="72.0" height="34" />
+            <polygon points="300.8,34 373.8,34 284.5,96 238.5,96" opacity="0.38" />
+            <rect x="238.5" y="96" width="45.1" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>建設：岐阜県 8.3%、全国 6.7%</title>
+            <rect x="373.8" y="0" width="82.5" height="34" />
+            <polygon points="373.8,34 457.2,34 351.7,96 284.5,96" opacity="0.38" />
+            <rect x="284.5" y="96" width="66.1" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>電気・ガス・熱供給：岐阜県 1.7%、全国 2.3%</title>
+            <rect x="457.2" y="0" width="16.4" height="34" />
+            <polygon points="457.2,34 474.7,34 374.3,96 351.7,96" opacity="0.38" />
+            <rect x="351.7" y="96" width="21.7" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>水道：岐阜県 0.4%、全国 0.4%</title>
+            <rect x="474.7" y="0" width="3.0" height="34" />
+            <polygon points="474.7,34 478.7,34 378.7,96 374.3,96" opacity="0.38" />
+            <rect x="374.3" y="96" width="3.4" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>廃棄物処理：岐阜県 0.6%、全国 0.6%</title>
+            <rect x="478.7" y="0" width="5.4" height="34" />
+            <polygon points="478.7,34 485.1,34 384.6,96 378.7,96" opacity="0.38" />
+            <rect x="378.7" y="96" width="4.8" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>商業：岐阜県 8.6%、全国 9.0%</title>
+            <rect x="485.1" y="0" width="85.2" height="34" />
+            <polygon points="485.1,34 571.3,34 474.9,96 384.6,96" opacity="0.38" />
+            <rect x="384.6" y="96" width="89.4" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>金融・保険：岐阜県 3.5%、全国 3.5%</title>
+            <rect x="571.3" y="0" width="34.4" height="34" />
+            <polygon points="571.3,34 606.7,34 510.3,96 474.9,96" opacity="0.38" />
+            <rect x="474.9" y="96" width="34.4" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>不動産：岐阜県 7.5%、全国 8.8%</title>
+            <rect x="606.7" y="0" width="73.9" height="34" />
+            <polygon points="606.7,34 681.5,34 598.6,96 510.3,96" opacity="0.38" />
+            <rect x="510.3" y="96" width="87.2" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>運輸・郵便：岐阜県 4.4%、全国 4.9%</title>
+            <rect x="681.5" y="0" width="43.0" height="34" />
+            <polygon points="681.5,34 725.5,34 647.1,96 598.6,96" opacity="0.38" />
+            <rect x="598.6" y="96" width="47.5" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>情報通信：岐阜県 2.7%、全国 6.3%</title>
+            <rect x="725.5" y="0" width="25.6" height="34" />
+            <polygon points="725.5,34 752.1,34 710.4,96 647.1,96" opacity="0.38" />
+            <rect x="647.1" y="96" width="62.3" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>他に分類されない会員制団体：岐阜県 0.5%、全国 0.5%</title>
+            <rect x="752.1" y="0" width="4.1" height="34" />
+            <polygon points="752.1,34 757.2,34 715.1,96 710.4,96" opacity="0.38" />
+            <rect x="710.4" y="96" width="3.7" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>対事業所サービス：岐阜県 5.1%、全国 8.2%</title>
+            <rect x="757.2" y="0" width="50.1" height="34" />
+            <polygon points="757.2,34 808.2,34 797.5,96 715.1,96" opacity="0.38" />
+            <rect x="715.1" y="96" width="81.4" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>対個人サービス：岐阜県 3.8%、全国 3.9%</title>
+            <rect x="808.2" y="0" width="37.0" height="34" />
+            <polygon points="808.2,34 846.3,34 836.1,96 797.5,96" opacity="0.38" />
+            <rect x="797.5" y="96" width="37.6" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>分類不明：岐阜県 0.5%、全国 0.8%</title>
+            <rect x="846.3" y="0" width="4.2" height="34" />
+            <polygon points="846.3,34 851.5,34 843.6,96 836.1,96" opacity="0.38" />
+            <rect x="836.1" y="96" width="6.5" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>公務：岐阜県 3.3%、全国 4.2%</title>
+            <rect x="851.5" y="0" width="31.7" height="34" />
+            <polygon points="851.5,34 884.2,34 885.2,96 843.6,96" opacity="0.38" />
+            <rect x="843.6" y="96" width="40.5" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>教育・研究：岐阜県 4.3%、全国 4.5%</title>
+            <rect x="884.2" y="0" width="41.7" height="34" />
+            <polygon points="884.2,34 926.9,34 929.9,96 885.2,96" opacity="0.38" />
+            <rect x="885.2" y="96" width="43.7" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>医療・福祉：岐阜県 7.3%、全国 7.0%</title>
+            <rect x="926.9" y="0" width="72.1" height="34" />
+            <polygon points="926.9,34 1000.0,34 1000.0,96 929.9,96" opacity="0.38" />
+            <rect x="929.9" y="96" width="69.1" height="34" />
+          </g>
+        </svg>
+        <ul class="pf-legend">
+          <li><i style="background:#2a78d6"></i>資源・一次産業</li>
+          <li><i style="background:#eb6834"></i>素材</li>
+          <li><i style="background:#1baf7a"></i>食品・生活関連製造</li>
+          <li><i style="background:#eda100"></i>機械・電機・輸送機械</li>
+          <li><i style="background:#e87ba4"></i>建設・エネルギー・環境</li>
+          <li><i style="background:#009a2e"></i>流通・金融・不動産・運輸通信</li>
+          <li><i style="background:#7a68e8"></i>対事業所・対個人サービス等</li>
+          <li><i style="background:#e34948"></i>公務・教育・医療</li>
+        </ul>
+        <p class="text-xs text-base-content/70">
+          上の帯が岐阜県、下の帯が全国。幅は産出額に占める割合で、同じ産業どうしをつないでいます。下へすぼまる産業は、全国より岐阜県に集中しています。
+        </p>
+      </figure>
       <section class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">産出額（2020年）</span><b class="text-xl">15.1兆円</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">産出額（2020年）</span><b class="k-num">15.1兆円</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">付加価値率</span><b class="text-xl">55%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">付加価値率</span><b class="k-num">55%</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">移輸出（産出額比）</span><b class="text-xl">32%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">移輸出（産出額比）</span><b class="k-num">32%</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">移輸入（産出額比）</span><b class="text-xl">34%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">移輸入（産出額比）</span><b class="k-num">34%</b>
           </div>
         </div>
       </section>
@@ -149,28 +407,28 @@
                 stroke-dasharray="3 3"
               />
               <text x="162" y="19" text-anchor="end" fill="currentColor">窯業・土石製品</text>
-              <rect x="170" y="7" width="420.0" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="7" width="420.0" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="596.0" y="20" fill="currentColor">3.69</text>
               <text x="162" y="45" text-anchor="end" fill="currentColor">繊維製品</text>
-              <rect x="170" y="33" width="331.2" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="33" width="331.2" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="507.2" y="46" fill="currentColor">2.91</text>
               <text x="162" y="71" text-anchor="end" fill="currentColor">プラスチック・ゴム製品</text>
-              <rect x="170" y="59" width="301.8" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="59" width="301.8" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="477.8" y="72" fill="currentColor">2.65</text>
               <text x="162" y="97" text-anchor="end" fill="currentColor">金属製品</text>
-              <rect x="170" y="85" width="277.6" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="85" width="277.6" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="453.6" y="98" fill="currentColor">2.44</text>
               <text x="162" y="123" text-anchor="end" fill="currentColor">パルプ・紙・木製品</text>
-              <rect x="170" y="111" width="263.0" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="111" width="263.0" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="439.0" y="124" fill="currentColor">2.31</text>
               <text x="162" y="149" text-anchor="end" fill="currentColor">はん用機械</text>
-              <rect x="170" y="137" width="204.6" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="137" width="204.6" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="380.6" y="150" fill="currentColor">1.80</text>
               <text x="162" y="175" text-anchor="end" fill="currentColor">生産用機械</text>
-              <rect x="170" y="163" width="185.9" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="163" width="185.9" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="361.9" y="176" fill="currentColor">1.63</text>
               <text x="162" y="201" text-anchor="end" fill="currentColor">輸送機械</text>
-              <rect x="170" y="189" width="180.4" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="189" width="180.4" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="356.4" y="202" fill="currentColor">1.58</text>
             </svg>
           </div>
@@ -639,9 +897,7 @@
       </div>
     </section>
     <script src="/feedback.js" defer></script>
-    <footer
-      class="footer footer-center p-6 bg-base-100 border-t border-base-300 text-sm text-base-content/70 mt-12"
-    >
+    <footer class="footer footer-center p-6 k-foot text-sm text-base-content/70 mt-12">
       <p>
         出典：総務省ほか「産業連関表」、経済産業省「延長産業連関表」（政府統計の総合窓口 e-Stat
         掲載）を筆者が加工して作成。<br />加工・分析・「仮説」は筆者によるもので、政府が作成・保証したものではありません。投資・経営判断の根拠にはしないでください。

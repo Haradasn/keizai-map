@@ -1,810 +1,810 @@
 {
  "/": {
-  "hash": "44e74faaa6a3905f",
-  "date": "2026-11-09"
+  "hash": "524cab0c1e71d0ec",
+  "date": "2026-11-13"
  },
  "/explorer": {
-  "hash": "4fe0f56b1cc11ae0",
-  "date": "2026-10-12"
+  "hash": "d2f7665d0ee867c7",
+  "date": "2026-11-13"
  },
  "/similarity": {
-  "hash": "fff9a01282d25db2",
-  "date": "2026-10-12"
+  "hash": "c4f4c0df9fa90a2d",
+  "date": "2026-11-13"
  },
  "/latest": {
-  "hash": "06e4ea9ca38b5070",
-  "date": "2026-11-09"
+  "hash": "6abe5406230f4f45",
+  "date": "2026-11-13"
  },
  "/international": {
-  "hash": "234b370709129862",
-  "date": "2026-10-12"
+  "hash": "3cc810e3c41d3bd7",
+  "date": "2026-11-13"
  },
  "/about": {
-  "hash": "c080c76e0fcc8e7b",
-  "date": "2026-10-12"
+  "hash": "5d357ffcd328e214",
+  "date": "2026-11-13"
  },
  "/industries": {
-  "hash": "6836ad039fe36a6b",
-  "date": "2026-10-12"
+  "hash": "c22e55af096d313e",
+  "date": "2026-11-13"
  },
  "/industry/011": {
-  "hash": "f0beea03113af340",
-  "date": "2026-10-12"
+  "hash": "ae9a640c207533fc",
+  "date": "2026-11-13"
  },
  "/industry/012": {
-  "hash": "31d599ec9dfff32b",
-  "date": "2026-10-12"
+  "hash": "c1dd163fafc8e67c",
+  "date": "2026-11-13"
  },
  "/industry/013": {
-  "hash": "c5d2cb8331672d44",
-  "date": "2026-10-12"
+  "hash": "01aee42123bbcdc6",
+  "date": "2026-11-13"
  },
  "/industry/015": {
-  "hash": "2ec350a73325d22a",
-  "date": "2026-10-12"
+  "hash": "ac376a12a18ed907",
+  "date": "2026-11-13"
  },
  "/industry/017": {
-  "hash": "014c7bcbdd54b3d2",
-  "date": "2026-10-12"
+  "hash": "723292408612498c",
+  "date": "2026-11-13"
  },
  "/industry/061": {
-  "hash": "f6944a2be1298e41",
-  "date": "2026-10-12"
+  "hash": "dc68c60048a1db4b",
+  "date": "2026-11-13"
  },
  "/industry/062": {
-  "hash": "4e7b3b974e87df5c",
-  "date": "2026-10-12"
+  "hash": "a938ebb8ef139c07",
+  "date": "2026-11-13"
  },
  "/industry/111": {
-  "hash": "60b26c5b2e71451d",
-  "date": "2026-10-12"
+  "hash": "6b0890be30f2bcea",
+  "date": "2026-11-13"
  },
  "/industry/112": {
-  "hash": "77e4bb417594797e",
-  "date": "2026-10-12"
+  "hash": "3f935e83cceff666",
+  "date": "2026-11-13"
  },
  "/industry/113": {
-  "hash": "964f6fb0ba863418",
-  "date": "2026-10-12"
+  "hash": "9fff8965ba5cecb7",
+  "date": "2026-11-13"
  },
  "/industry/114": {
-  "hash": "16b84fcd51ea9607",
-  "date": "2026-10-12"
+  "hash": "4d067d84b29b9ce7",
+  "date": "2026-11-13"
  },
  "/industry/151": {
-  "hash": "e74ed2828b6a2c9c",
-  "date": "2026-10-12"
+  "hash": "46316508c05097a1",
+  "date": "2026-11-13"
  },
  "/industry/152": {
-  "hash": "e0f5d315d918f771",
-  "date": "2026-10-12"
+  "hash": "28715b6e8727bb75",
+  "date": "2026-11-13"
  },
  "/industry/161": {
-  "hash": "10b2247831a4c285",
-  "date": "2026-10-12"
+  "hash": "56d27316691654d7",
+  "date": "2026-11-13"
  },
  "/industry/162": {
-  "hash": "30f49750960c301e",
-  "date": "2026-10-12"
+  "hash": "fc2acf203c3d2ec5",
+  "date": "2026-11-13"
  },
  "/industry/163": {
-  "hash": "29b43a0a71f5442d",
-  "date": "2026-10-12"
+  "hash": "8bba24560b0dea56",
+  "date": "2026-11-13"
  },
  "/industry/164": {
-  "hash": "b27ad1e48fe00840",
-  "date": "2026-10-12"
+  "hash": "fdb39590b215aead",
+  "date": "2026-11-13"
  },
  "/industry/191": {
-  "hash": "7cf078acfd350e29",
-  "date": "2026-10-12"
+  "hash": "3f72388d276b53ee",
+  "date": "2026-11-13"
  },
  "/industry/201": {
-  "hash": "42b04bbdfdf4ab0c",
-  "date": "2026-10-12"
+  "hash": "61d599fe8727e5ee",
+  "date": "2026-11-13"
  },
  "/industry/202": {
-  "hash": "16e706882367f7ce",
-  "date": "2026-10-12"
+  "hash": "5703dd636eab0b6c",
+  "date": "2026-11-13"
  },
  "/industry/203": {
-  "hash": "af72ebf1e8de9977",
-  "date": "2026-10-12"
+  "hash": "7c693408dd5152ac",
+  "date": "2026-11-13"
  },
  "/industry/204": {
-  "hash": "6b9bc59337b594e3",
-  "date": "2026-10-12"
+  "hash": "cd5b9738cd6db97c",
+  "date": "2026-11-13"
  },
  "/industry/205": {
-  "hash": "d0c023de6f74020b",
-  "date": "2026-10-12"
+  "hash": "f827f5db66d55401",
+  "date": "2026-11-13"
  },
  "/industry/206": {
-  "hash": "3f71a8fce859c639",
-  "date": "2026-10-12"
+  "hash": "8669108321bcafa6",
+  "date": "2026-11-13"
  },
  "/industry/207": {
-  "hash": "bb5b79cbe8e08735",
-  "date": "2026-10-12"
+  "hash": "80cb5a0da5bf6b57",
+  "date": "2026-11-13"
  },
  "/industry/208": {
-  "hash": "b91114bdb031b47e",
-  "date": "2026-10-12"
+  "hash": "e85744271fb1e515",
+  "date": "2026-11-13"
  },
  "/industry/211": {
-  "hash": "fcae189c816175a5",
-  "date": "2026-10-12"
+  "hash": "917d563b06c80e70",
+  "date": "2026-11-13"
  },
  "/industry/212": {
-  "hash": "b386653aab43c563",
-  "date": "2026-10-12"
+  "hash": "41846528fc8ea839",
+  "date": "2026-11-13"
  },
  "/industry/221": {
-  "hash": "331923b249f1ba1e",
-  "date": "2026-10-12"
+  "hash": "b24abc1d493fdb30",
+  "date": "2026-11-13"
  },
  "/industry/222": {
-  "hash": "19ca5f707dd3a0fe",
-  "date": "2026-10-12"
+  "hash": "23482a7018a3e359",
+  "date": "2026-11-13"
  },
  "/industry/231": {
-  "hash": "3b6bf16dd0cf2f66",
-  "date": "2026-10-12"
+  "hash": "23307852928ca60f",
+  "date": "2026-11-13"
  },
  "/industry/251": {
-  "hash": "280972aaf0ad9bbc",
-  "date": "2026-10-12"
+  "hash": "0c614db4bd7becd8",
+  "date": "2026-11-13"
  },
  "/industry/252": {
-  "hash": "712c66643d6b30c8",
-  "date": "2026-10-12"
+  "hash": "d8c370f66488bb47",
+  "date": "2026-11-13"
  },
  "/industry/253": {
-  "hash": "52c0a46bf49ff177",
-  "date": "2026-10-12"
+  "hash": "f53f56dde962c3c2",
+  "date": "2026-11-13"
  },
  "/industry/259": {
-  "hash": "9d47ae6a6bfa74dc",
-  "date": "2026-10-12"
+  "hash": "4e28bc72f7dd90c5",
+  "date": "2026-11-13"
  },
  "/industry/261": {
-  "hash": "b872464800a866a6",
-  "date": "2026-10-12"
+  "hash": "8dd1e0fd8d80208b",
+  "date": "2026-11-13"
  },
  "/industry/262": {
-  "hash": "b119684736a33e72",
-  "date": "2026-10-12"
+  "hash": "663d5564cff42505",
+  "date": "2026-11-13"
  },
  "/industry/263": {
-  "hash": "97376900fceca3a7",
-  "date": "2026-10-12"
+  "hash": "b87557c8b78edfec",
+  "date": "2026-11-13"
  },
  "/industry/269": {
-  "hash": "bc59c675036fdfbf",
-  "date": "2026-10-12"
+  "hash": "16e84ddd2674af49",
+  "date": "2026-11-13"
  },
  "/industry/271": {
-  "hash": "4acb96ab2719f0e9",
-  "date": "2026-10-12"
+  "hash": "187a2e0c4111d27c",
+  "date": "2026-11-13"
  },
  "/industry/272": {
-  "hash": "901a2eb12dbb86de",
-  "date": "2026-10-12"
+  "hash": "6a244c3c30542e37",
+  "date": "2026-11-13"
  },
  "/industry/281": {
-  "hash": "295758a813857b86",
-  "date": "2026-10-12"
+  "hash": "bfffe3bc2d78d6ba",
+  "date": "2026-11-13"
  },
  "/industry/289": {
-  "hash": "883b9aa75d86cdd2",
-  "date": "2026-10-12"
+  "hash": "c37efa566c62916b",
+  "date": "2026-11-13"
  },
  "/industry/291": {
-  "hash": "842b343c1827a1ec",
-  "date": "2026-10-12"
+  "hash": "f69bb92033c43b7b",
+  "date": "2026-11-13"
  },
  "/industry/301": {
-  "hash": "bf7272c5c0682702",
-  "date": "2026-10-12"
+  "hash": "c279b13d28ba8125",
+  "date": "2026-11-13"
  },
  "/industry/311": {
-  "hash": "f2aba6b8dd8e8b98",
-  "date": "2026-10-12"
+  "hash": "e9b463a129ddcbde",
+  "date": "2026-11-13"
  },
  "/industry/321": {
-  "hash": "ffb6e849739d59de",
-  "date": "2026-10-12"
+  "hash": "df8ddd5f253c51f3",
+  "date": "2026-11-13"
  },
  "/industry/329": {
-  "hash": "bc07c497403676c8",
-  "date": "2026-10-12"
+  "hash": "616185f4a9d0d1af",
+  "date": "2026-11-13"
  },
  "/industry/331": {
-  "hash": "2b6f89d18e37004d",
-  "date": "2026-10-12"
+  "hash": "ed147abc96b643fc",
+  "date": "2026-11-13"
  },
  "/industry/332": {
-  "hash": "9f215c6b28cbe5bd",
-  "date": "2026-10-12"
+  "hash": "35c14d378bad931a",
+  "date": "2026-11-13"
  },
  "/industry/333": {
-  "hash": "af8ecdc3cabb34cd",
-  "date": "2026-10-12"
+  "hash": "8932134d300bf805",
+  "date": "2026-11-13"
  },
  "/industry/339": {
-  "hash": "ef3ed593af0f8c0e",
-  "date": "2026-10-12"
+  "hash": "69de463f608fd0b5",
+  "date": "2026-11-13"
  },
  "/industry/341": {
-  "hash": "dfa37b519b66a374",
-  "date": "2026-10-12"
+  "hash": "6f0b5959549d59d5",
+  "date": "2026-11-13"
  },
  "/industry/342": {
-  "hash": "548c6d3fcf710f22",
-  "date": "2026-10-12"
+  "hash": "ad93731829878349",
+  "date": "2026-11-13"
  },
  "/industry/351": {
-  "hash": "389638960befcde4",
-  "date": "2026-10-12"
+  "hash": "0afffa14c629e80b",
+  "date": "2026-11-13"
  },
  "/industry/352": {
-  "hash": "a30f859a8eadd8b0",
-  "date": "2026-10-12"
+  "hash": "a3e4fd71a0de9459",
+  "date": "2026-11-13"
  },
  "/industry/353": {
-  "hash": "d662be381e925b8f",
-  "date": "2026-10-12"
+  "hash": "e643cd7f626d5617",
+  "date": "2026-11-13"
  },
  "/industry/354": {
-  "hash": "9b9d79b7c7cb8496",
-  "date": "2026-10-12"
+  "hash": "5b799a379e17a67b",
+  "date": "2026-11-13"
  },
  "/industry/359": {
-  "hash": "71c33345fa668acb",
-  "date": "2026-10-12"
+  "hash": "db5c4c894b6caae1",
+  "date": "2026-11-13"
  },
  "/industry/391": {
-  "hash": "859094f3d351932b",
-  "date": "2026-10-12"
+  "hash": "103a9e4537ff5fd8",
+  "date": "2026-11-13"
  },
  "/industry/392": {
-  "hash": "f53508393ca082e4",
-  "date": "2026-10-12"
+  "hash": "1c2a007873091361",
+  "date": "2026-11-13"
  },
  "/industry/411": {
-  "hash": "b84b133f49dec4ba",
-  "date": "2026-10-12"
+  "hash": "3b25d9e8c1bc07c0",
+  "date": "2026-11-13"
  },
  "/industry/412": {
-  "hash": "f206333bd67721e2",
-  "date": "2026-10-12"
+  "hash": "9ea6d441cccec9f1",
+  "date": "2026-11-13"
  },
  "/industry/413": {
-  "hash": "0a50094837e25701",
-  "date": "2026-10-12"
+  "hash": "14eaf0ce5fa33d88",
+  "date": "2026-11-13"
  },
  "/industry/419": {
-  "hash": "f9ecd5ddb01e60ee",
-  "date": "2026-10-12"
+  "hash": "8191f75a3e61f594",
+  "date": "2026-11-13"
  },
  "/industry/461": {
-  "hash": "12fa64a77d7571b0",
-  "date": "2026-10-12"
+  "hash": "aac3d800458c9bb4",
+  "date": "2026-11-13"
  },
  "/industry/462": {
-  "hash": "915f429b8ab38fe1",
-  "date": "2026-10-12"
+  "hash": "e6aa1225b7b2026b",
+  "date": "2026-11-13"
  },
  "/industry/471": {
-  "hash": "0520a85ac3e8a9b9",
-  "date": "2026-10-12"
+  "hash": "c4e019301494c250",
+  "date": "2026-11-13"
  },
  "/industry/481": {
-  "hash": "e051528b67fe8a26",
-  "date": "2026-10-12"
+  "hash": "1cadef0875bdd5dc",
+  "date": "2026-11-13"
  },
  "/industry/511": {
-  "hash": "dd8e9a3deabf9880",
-  "date": "2026-10-12"
+  "hash": "4611bec5d7d505de",
+  "date": "2026-11-13"
  },
  "/industry/531": {
-  "hash": "12304cccbad2f25d",
-  "date": "2026-10-12"
+  "hash": "ef76ba47dd11ffea",
+  "date": "2026-11-13"
  },
  "/industry/551": {
-  "hash": "f2f0a2baa87c10a2",
-  "date": "2026-10-12"
+  "hash": "126c3d2fa67d4bab",
+  "date": "2026-11-13"
  },
  "/industry/552": {
-  "hash": "8a793a246d6eb191",
-  "date": "2026-10-12"
+  "hash": "da48ae0a64cae02f",
+  "date": "2026-11-13"
  },
  "/industry/553": {
-  "hash": "91702f4281015ae9",
-  "date": "2026-10-12"
+  "hash": "9f0f413092da03a4",
+  "date": "2026-11-13"
  },
  "/industry/571": {
-  "hash": "15cddef2c22817f9",
-  "date": "2026-10-12"
+  "hash": "60a0e0e5f30aff6a",
+  "date": "2026-11-13"
  },
  "/industry/572": {
-  "hash": "7cddc7307594bd06",
-  "date": "2026-10-12"
+  "hash": "0d107669f5b2ef68",
+  "date": "2026-11-13"
  },
  "/industry/573": {
-  "hash": "9468ce5851871c1c",
-  "date": "2026-10-12"
+  "hash": "eddf173c9c2fe373",
+  "date": "2026-11-13"
  },
  "/industry/574": {
-  "hash": "984f4ebcc1ed6f96",
-  "date": "2026-10-12"
+  "hash": "24fc30bb2d81d916",
+  "date": "2026-11-13"
  },
  "/industry/575": {
-  "hash": "31c29f7c4b9d83db",
-  "date": "2026-10-12"
+  "hash": "a96bb2613e49e471",
+  "date": "2026-11-13"
  },
  "/industry/576": {
-  "hash": "5fde5133f95b2a7f",
-  "date": "2026-10-12"
+  "hash": "a085c3044a076bee",
+  "date": "2026-11-13"
  },
  "/industry/577": {
-  "hash": "1f782166e7b9d514",
-  "date": "2026-10-12"
+  "hash": "c2bdc7dd22e9dd43",
+  "date": "2026-11-13"
  },
  "/industry/578": {
-  "hash": "7894c05e09f5fc45",
-  "date": "2026-10-12"
+  "hash": "4a2c9cf5bd72cbe8",
+  "date": "2026-11-13"
  },
  "/industry/579": {
-  "hash": "32b815b5743a4ad5",
-  "date": "2026-10-12"
+  "hash": "710fbf3a33e689dd",
+  "date": "2026-11-13"
  },
  "/industry/591": {
-  "hash": "544ffc1d3008d3f0",
-  "date": "2026-10-12"
+  "hash": "1723c1673028b92f",
+  "date": "2026-11-13"
  },
  "/industry/592": {
-  "hash": "3ac982f965096fec",
-  "date": "2026-10-12"
+  "hash": "0914b1565b7c2b54",
+  "date": "2026-11-13"
  },
  "/industry/593": {
-  "hash": "1f517280bee81775",
-  "date": "2026-10-12"
+  "hash": "b02d44849bb44e50",
+  "date": "2026-11-13"
  },
  "/industry/594": {
-  "hash": "c172ee2eb165081b",
-  "date": "2026-10-12"
+  "hash": "f67104dee14b8926",
+  "date": "2026-11-13"
  },
  "/industry/595": {
-  "hash": "079e984ca4a412c4",
-  "date": "2026-10-12"
+  "hash": "adb3662f7234a9a6",
+  "date": "2026-11-13"
  },
  "/industry/611": {
-  "hash": "1766023dc118fbcf",
-  "date": "2026-10-12"
+  "hash": "ed49a42421b69514",
+  "date": "2026-11-13"
  },
  "/industry/631": {
-  "hash": "727f904baab0d74b",
-  "date": "2026-10-12"
+  "hash": "d37562f71fc32e18",
+  "date": "2026-11-13"
  },
  "/industry/632": {
-  "hash": "238b191ee60cc4ad",
-  "date": "2026-10-12"
+  "hash": "391d960a8a4bf693",
+  "date": "2026-11-13"
  },
  "/industry/641": {
-  "hash": "0337d7738a3b2311",
-  "date": "2026-10-12"
+  "hash": "2fbe8d37bce28280",
+  "date": "2026-11-13"
  },
  "/industry/642": {
-  "hash": "c2d29f8bafe71754",
-  "date": "2026-10-12"
+  "hash": "020a0bb80d217476",
+  "date": "2026-11-13"
  },
  "/industry/643": {
-  "hash": "abb1e11e03f4f103",
-  "date": "2026-10-12"
+  "hash": "99fa7bd2d205356a",
+  "date": "2026-11-13"
  },
  "/industry/644": {
-  "hash": "ed54abdfb89f927a",
-  "date": "2026-10-12"
+  "hash": "22abc882f3430129",
+  "date": "2026-11-13"
  },
  "/industry/659": {
-  "hash": "34eee02a912c58c3",
-  "date": "2026-10-12"
+  "hash": "5bd28fc98acc3ff5",
+  "date": "2026-11-13"
  },
  "/industry/661": {
-  "hash": "fae57a28b3aa0571",
-  "date": "2026-10-12"
+  "hash": "9dc90fe8c02e29d3",
+  "date": "2026-11-13"
  },
  "/industry/662": {
-  "hash": "878833543b6e1158",
-  "date": "2026-10-12"
+  "hash": "78ae50d73697af7e",
+  "date": "2026-11-13"
  },
  "/industry/663": {
-  "hash": "e49bf9d64d5f9493",
-  "date": "2026-10-12"
+  "hash": "1558c66554ed66de",
+  "date": "2026-11-13"
  },
  "/industry/669": {
-  "hash": "11907319c23b4d05",
-  "date": "2026-10-12"
+  "hash": "7f15eb8f5ba2f6e8",
+  "date": "2026-11-13"
  },
  "/industry/671": {
-  "hash": "ff6350fd85207a3e",
-  "date": "2026-10-12"
+  "hash": "8487aad4b4f4e47c",
+  "date": "2026-11-13"
  },
  "/industry/672": {
-  "hash": "9fba1a777a1fd047",
-  "date": "2026-10-12"
+  "hash": "43ae618d3e3084a1",
+  "date": "2026-11-13"
  },
  "/industry/673": {
-  "hash": "0bda63cf45e429de",
-  "date": "2026-10-12"
+  "hash": "866d799b0a166719",
+  "date": "2026-11-13"
  },
  "/industry/674": {
-  "hash": "f286443543416b36",
-  "date": "2026-10-12"
+  "hash": "1c5e6eb01289ee0f",
+  "date": "2026-11-13"
  },
  "/industry/675": {
-  "hash": "279611be8f280f52",
-  "date": "2026-10-12"
+  "hash": "fea210aaac5b7165",
+  "date": "2026-11-13"
  },
  "/industry/679": {
-  "hash": "54f39021876906c4",
-  "date": "2026-10-12"
+  "hash": "c357ff2e53f37096",
+  "date": "2026-11-13"
  },
  "/industry/681": {
-  "hash": "7dcec1b0f53a0064",
-  "date": "2026-10-12"
+  "hash": "ee6f072dede78dbb",
+  "date": "2026-11-13"
  },
  "/industry/691": {
-  "hash": "cf0133f6333d5ef8",
-  "date": "2026-10-12"
+  "hash": "14811db39e0ebd44",
+  "date": "2026-11-13"
  },
  "/industry/01": {
-  "hash": "8c8e89fbf84711c9",
-  "date": "2026-10-12"
+  "hash": "79e73adf80eaa83e",
+  "date": "2026-11-13"
  },
  "/industry/06": {
-  "hash": "4b1d5107f3525d44",
-  "date": "2026-10-12"
+  "hash": "c30ab5fcf293be10",
+  "date": "2026-11-13"
  },
  "/industry/11": {
-  "hash": "7e56689ccbd37aeb",
-  "date": "2026-10-12"
+  "hash": "4d88969775847bbd",
+  "date": "2026-11-13"
  },
  "/industry/15": {
-  "hash": "f5c39bcf4ac3c109",
-  "date": "2026-10-12"
+  "hash": "af89f8bf7c37b748",
+  "date": "2026-11-13"
  },
  "/industry/16": {
-  "hash": "6a5eb2c51e6fb2cf",
-  "date": "2026-10-12"
+  "hash": "00ff52b099be6bdf",
+  "date": "2026-11-13"
  },
  "/industry/20": {
-  "hash": "0b34f277579c74f4",
-  "date": "2026-10-12"
+  "hash": "8ff15d9513f28493",
+  "date": "2026-11-13"
  },
  "/industry/21": {
-  "hash": "1a47728eb198f5a9",
-  "date": "2026-10-12"
+  "hash": "bd895a457a4f60f7",
+  "date": "2026-11-13"
  },
  "/industry/22": {
-  "hash": "ece5b8cc73a86067",
-  "date": "2026-10-12"
+  "hash": "e8a299b159b1ab79",
+  "date": "2026-11-13"
  },
  "/industry/25": {
-  "hash": "f49f601d6844a9ef",
-  "date": "2026-10-12"
+  "hash": "858b958ddc76b0fb",
+  "date": "2026-11-13"
  },
  "/industry/26": {
-  "hash": "07adc768ff9eda0b",
-  "date": "2026-10-12"
+  "hash": "7fef410f2b445e32",
+  "date": "2026-11-13"
  },
  "/industry/27": {
-  "hash": "9b22e8e45a3fdc03",
-  "date": "2026-10-12"
+  "hash": "5b1df1d8a265a9d6",
+  "date": "2026-11-13"
  },
  "/industry/28": {
-  "hash": "60ff4d878e2e1083",
-  "date": "2026-10-12"
+  "hash": "9df919b9f7bee8c1",
+  "date": "2026-11-13"
  },
  "/industry/29": {
-  "hash": "24f1cc2a0ca71619",
-  "date": "2026-10-12"
+  "hash": "888340ea9284da85",
+  "date": "2026-11-13"
  },
  "/industry/30": {
-  "hash": "2b9961eb156f2cda",
-  "date": "2026-10-12"
+  "hash": "6a9e121e3330072c",
+  "date": "2026-11-13"
  },
  "/industry/31": {
-  "hash": "88721420bb901149",
-  "date": "2026-10-12"
+  "hash": "4ceaf76f2e3bd39f",
+  "date": "2026-11-13"
  },
  "/industry/32": {
-  "hash": "c33aa2b25fae6c59",
-  "date": "2026-10-12"
+  "hash": "dd183a66306d57da",
+  "date": "2026-11-13"
  },
  "/industry/33": {
-  "hash": "946f49a131463631",
-  "date": "2026-10-12"
+  "hash": "60a469d3a99f8b5a",
+  "date": "2026-11-13"
  },
  "/industry/34": {
-  "hash": "fc3e88adb8267560",
-  "date": "2026-10-12"
+  "hash": "b23d377f791952d6",
+  "date": "2026-11-13"
  },
  "/industry/35": {
-  "hash": "75e73ce9587af024",
-  "date": "2026-10-12"
+  "hash": "8894dbf0a65f29eb",
+  "date": "2026-11-13"
  },
  "/industry/39": {
-  "hash": "b93d1aac609e058d",
-  "date": "2026-10-12"
+  "hash": "87f7d0650d25421c",
+  "date": "2026-11-13"
  },
  "/industry/41": {
-  "hash": "d6f8146f0393d4e4",
-  "date": "2026-10-12"
+  "hash": "95381e477c5f9d04",
+  "date": "2026-11-13"
  },
  "/industry/46": {
-  "hash": "b34e55d34b31e25d",
-  "date": "2026-10-12"
+  "hash": "f50c1fab1e836601",
+  "date": "2026-11-13"
  },
  "/industry/47": {
-  "hash": "ee9b53e079849bd4",
-  "date": "2026-10-12"
+  "hash": "0b7a58de4be4c474",
+  "date": "2026-11-13"
  },
  "/industry/48": {
-  "hash": "636e5a9b69d56f79",
-  "date": "2026-10-12"
+  "hash": "6f5ffa8303413d6e",
+  "date": "2026-11-13"
  },
  "/industry/51": {
-  "hash": "ce7216f2500b2525",
-  "date": "2026-10-12"
+  "hash": "70a85b90a640110b",
+  "date": "2026-11-13"
  },
  "/industry/53": {
-  "hash": "f913b2cdfe91b465",
-  "date": "2026-10-12"
+  "hash": "d1b3beccd7378769",
+  "date": "2026-11-13"
  },
  "/industry/55": {
-  "hash": "ca573319ae6e6853",
-  "date": "2026-10-12"
+  "hash": "b664c55b32416f71",
+  "date": "2026-11-13"
  },
  "/industry/57": {
-  "hash": "8ae80102b28bcbd7",
-  "date": "2026-10-12"
+  "hash": "34fdafe8ab546e06",
+  "date": "2026-11-13"
  },
  "/industry/59": {
-  "hash": "8b06f3e06663ef1c",
-  "date": "2026-10-12"
+  "hash": "98c36b5cf2fe8156",
+  "date": "2026-11-13"
  },
  "/industry/61": {
-  "hash": "3a9d786a333fbd5b",
-  "date": "2026-10-12"
+  "hash": "5f8630368d6ff271",
+  "date": "2026-11-13"
  },
  "/industry/63": {
-  "hash": "1b118d3b9df6b741",
-  "date": "2026-10-12"
+  "hash": "c136b69f22e5c5ef",
+  "date": "2026-11-13"
  },
  "/industry/64": {
-  "hash": "f8341b22ea72a97e",
-  "date": "2026-10-12"
+  "hash": "5483a9760d372c4c",
+  "date": "2026-11-13"
  },
  "/industry/65": {
-  "hash": "1b0468eb0d5f0a47",
-  "date": "2026-10-12"
+  "hash": "ee831dbf9e2c9b9b",
+  "date": "2026-11-13"
  },
  "/industry/66": {
-  "hash": "32799de0d66c5875",
-  "date": "2026-10-12"
+  "hash": "3a4247da1369cdbd",
+  "date": "2026-11-13"
  },
  "/industry/67": {
-  "hash": "d12ee3df21be7123",
-  "date": "2026-10-12"
+  "hash": "1fa9932e3dfed43b",
+  "date": "2026-11-13"
  },
  "/industry/68": {
-  "hash": "9d060efba12bbce3",
-  "date": "2026-10-12"
+  "hash": "28f2d9d01a365d58",
+  "date": "2026-11-13"
  },
  "/industry/69": {
-  "hash": "7c64678a5e719266",
-  "date": "2026-10-12"
+  "hash": "5ad7736e22a2b296",
+  "date": "2026-11-13"
  },
  "/guide": {
-  "hash": "71f8676649716104",
-  "date": "2026-10-12"
+  "hash": "77c6c7fa32aaea14",
+  "date": "2026-11-13"
  },
  "/glossary": {
-  "hash": "fb6e0cba76142209",
-  "date": "2026-10-12"
+  "hash": "4c513d6d37bb7235",
+  "date": "2026-11-13"
  },
  "/prefectures": {
-  "hash": "553f5937befc0d6d",
-  "date": "2026-11-11"
+  "hash": "796d37d5c19df6a7",
+  "date": "2026-11-13"
  },
  "/prefecture/tokyo": {
-  "hash": "3f71203a28b7d888",
-  "date": "2026-11-11"
+  "hash": "263fc34e3823022a",
+  "date": "2026-11-13"
  },
  "/prefecture/aichi": {
-  "hash": "bd26731e5601bea6",
-  "date": "2026-11-11"
+  "hash": "e879c63fd56fbbdc",
+  "date": "2026-11-13"
  },
  "/prefecture/osaka": {
-  "hash": "7a52cbe2bf47574f",
-  "date": "2026-11-11"
+  "hash": "a83bd1305be73070",
+  "date": "2026-11-13"
  },
  "/prefecture/kanagawa": {
-  "hash": "c906ff3ae9d71c67",
-  "date": "2026-11-11"
+  "hash": "ee7bcb8c3b4cf33d",
+  "date": "2026-11-13"
  },
  "/prefecture/saitama": {
-  "hash": "8e2c586b0897a43e",
-  "date": "2026-11-11"
+  "hash": "b3f53de83be3d994",
+  "date": "2026-11-13"
  },
  "/prefecture/chiba": {
-  "hash": "45e59448a5c2538a",
-  "date": "2026-11-11"
+  "hash": "1022500429a7cd82",
+  "date": "2026-11-13"
  },
  "/prefecture/hyogo": {
-  "hash": "26cb8336da5ba7c2",
-  "date": "2026-11-11"
+  "hash": "c04810c4531bc0b1",
+  "date": "2026-11-13"
  },
  "/prefecture/okinawa": {
-  "hash": "f6c8caedc033479c",
-  "date": "2026-11-11"
+  "hash": "a075702d9c816d7c",
+  "date": "2026-11-13"
  },
  "/prefecture/fukuoka": {
-  "hash": "d03cb6b3b11a57ef",
-  "date": "2026-11-11"
+  "hash": "4db3f4c888af247e",
+  "date": "2026-11-13"
  },
  "/prefecture/hokkaido": {
-  "hash": "4aff5a34266e2335",
-  "date": "2026-11-11"
+  "hash": "b536b29a2eea8232",
+  "date": "2026-11-13"
  },
  "/prefecture/tochigi": {
-  "hash": "db4258edbe279651",
-  "date": "2026-11-11"
+  "hash": "ed7e2a4def9f95f0",
+  "date": "2026-11-13"
  },
  "/prefecture/yamanashi": {
-  "hash": "0876b88f19ba111c",
-  "date": "2026-11-11"
+  "hash": "fdd47e7bfa47d483",
+  "date": "2026-11-13"
  },
  "/prefecture/kyoto": {
-  "hash": "60c12ca056d368c9",
-  "date": "2026-11-11"
+  "hash": "e776df13d715bfa9",
+  "date": "2026-11-13"
  },
  "/prefecture/wakayama": {
-  "hash": "6e34470606967b6f",
-  "date": "2026-11-11"
+  "hash": "b76d8ff4e700a2f2",
+  "date": "2026-11-13"
  },
  "/prefecture/shiga": {
-  "hash": "d6c4f966216979d7",
-  "date": "2026-11-11"
+  "hash": "18401a570164132b",
+  "date": "2026-11-13"
  },
  "/prefecture/kumamoto": {
-  "hash": "c68bfb7f14ecfef5",
-  "date": "2026-11-11"
+  "hash": "6c6637d67696a4f7",
+  "date": "2026-11-13"
  },
  "/prefecture/niigata": {
-  "hash": "46091a948e0be6ce",
-  "date": "2026-11-11"
+  "hash": "e3af90f604b69971",
+  "date": "2026-11-13"
  },
  "/prefecture/toyama": {
-  "hash": "fc6016770b9fe8f5",
-  "date": "2026-11-11"
+  "hash": "1be465d1677c7ae5",
+  "date": "2026-11-13"
  },
  "/prefecture/okayama": {
-  "hash": "624b235dd42bbf3f",
-  "date": "2026-11-11"
+  "hash": "37bce4e9e5fd6157",
+  "date": "2026-11-13"
  },
  "/prefecture/mie": {
-  "hash": "e3c935a7ec46f856",
-  "date": "2026-11-11"
+  "hash": "bb0e55a8afbd0b67",
+  "date": "2026-11-13"
  },
  "/prefecture/kagoshima": {
-  "hash": "bae14307553b5c98",
-  "date": "2026-11-11"
+  "hash": "6808bfabd8bae6db",
+  "date": "2026-11-13"
  },
  "/prefecture/gunma": {
-  "hash": "4326c6e0122301bf",
-  "date": "2026-11-11"
+  "hash": "c3c58219a2cb0bb4",
+  "date": "2026-11-13"
  },
  "/prefecture/tottori": {
-  "hash": "d15e4e53e7a552d5",
-  "date": "2026-11-11"
+  "hash": "6444fefbe26a8d7b",
+  "date": "2026-11-13"
  },
  "/prefecture/fukui": {
-  "hash": "85faf2e43d516806",
-  "date": "2026-11-11"
+  "hash": "a43501d5cadb4bf8",
+  "date": "2026-11-13"
  },
  "/prefecture-map": {
-  "hash": "5f8a96db3802aba7",
-  "date": "2026-11-11"
+  "hash": "f9d57426c7a5dacd",
+  "date": "2026-11-13"
  },
  "/fx": {
-  "hash": "7c3778179706ac0b",
-  "date": "2026-10-19"
+  "hash": "f912c9e5f66b5925",
+  "date": "2026-11-13"
  },
  "/changelog": {
-  "hash": "21156d882a0f0078",
-  "date": "2026-11-11"
+  "hash": "692c3500ef2a8b62",
+  "date": "2026-11-13"
  },
  "/learn": {
-  "hash": "5558377c6d1e50b8",
-  "date": "2026-10-12"
+  "hash": "8b7632b9afab2c0e",
+  "date": "2026-11-13"
  },
  "/prefecture/miyagi": {
-  "hash": "1e77ee36a49444d6",
-  "date": "2026-11-11"
+  "hash": "7f9f3f4deb136a3c",
+  "date": "2026-11-13"
  },
  "/prefecture/akita": {
-  "hash": "4839752c3f9f44ae",
-  "date": "2026-11-11"
+  "hash": "3c0ba16eee46179f",
+  "date": "2026-11-13"
  },
  "/prefecture/ishikawa": {
-  "hash": "054c94bb12f4ea72",
-  "date": "2026-11-11"
+  "hash": "42b1f9617406962c",
+  "date": "2026-11-13"
  },
  "/prefecture/nagano": {
-  "hash": "cce1654725f79ce8",
-  "date": "2026-11-11"
+  "hash": "2808424ca2d8d480",
+  "date": "2026-11-13"
  },
  "/prefecture/gifu": {
-  "hash": "4032ecfcecb72b1a",
-  "date": "2026-11-11"
+  "hash": "23c1f4ad47dcda2c",
+  "date": "2026-11-13"
  },
  "/prefecture/hiroshima": {
-  "hash": "76831a17d77016e2",
-  "date": "2026-11-11"
+  "hash": "876efb8c80711335",
+  "date": "2026-11-13"
  },
  "/prefecture/kagawa": {
-  "hash": "0a5a5f76d63c1e7f",
-  "date": "2026-11-11"
+  "hash": "0db98b026526d3ea",
+  "date": "2026-11-13"
  },
  "/prefecture/saga": {
-  "hash": "cae28e6b77dd1eb8",
-  "date": "2026-11-11"
+  "hash": "c70170e3c40e8ec8",
+  "date": "2026-11-13"
  },
  "/prefecture/oita": {
-  "hash": "047f65522b269807",
-  "date": "2026-11-11"
+  "hash": "e0f0512c01bd9a7f",
+  "date": "2026-11-13"
  },
  "/prefecture/yamagata": {
-  "hash": "68c13ba969fa7e60",
-  "date": "2026-11-11"
+  "hash": "d2517abd01d8e625",
+  "date": "2026-11-13"
  },
  "/prefecture/yamaguchi": {
-  "hash": "8bd8bfef8f443d6b",
-  "date": "2026-11-11"
+  "hash": "ce7e46efe98ff802",
+  "date": "2026-11-13"
  },
  "/prefecture/iwate": {
-  "hash": "b75c9cf9e1a4160c",
-  "date": "2026-11-11"
+  "hash": "9c46590a2258017e",
+  "date": "2026-11-13"
  },
  "/prefecture/aomori": {
-  "hash": "ed622e55b25d7ec0",
-  "date": "2026-11-11"
+  "hash": "b04701b66887e985",
+  "date": "2026-11-13"
  },
  "/prefecture/shizuoka": {
-  "hash": "4b39a3c852195f58",
-  "date": "2026-11-11"
+  "hash": "0ee9f74984010d64",
+  "date": "2026-11-13"
  },
  "/prefecture/ehime": {
-  "hash": "daead1975227af49",
-  "date": "2026-11-11"
+  "hash": "49b7222f6f3cd2fe",
+  "date": "2026-11-13"
  },
  "/prefecture/miyazaki": {
-  "hash": "ccf94aa0e2226a23",
-  "date": "2026-11-11"
+  "hash": "8341657c9494e4fc",
+  "date": "2026-11-13"
  },
  "/prefecture/fukushima": {
-  "hash": "0ea8f30a0d9f0f55",
-  "date": "2026-11-11"
+  "hash": "6251d957ee7298cc",
+  "date": "2026-11-13"
  },
  "/prefecture/ibaraki": {
-  "hash": "f7309c5ce81fc3c4",
-  "date": "2026-11-11"
+  "hash": "043e26cad7907ca6",
+  "date": "2026-11-13"
  },
  "/prefecture/nagasaki": {
-  "hash": "0f8596e1c976b82a",
-  "date": "2026-11-11"
+  "hash": "161689a571c69d41",
+  "date": "2026-11-13"
  }
 }

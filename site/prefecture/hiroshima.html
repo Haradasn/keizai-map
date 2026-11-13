@@ -23,7 +23,7 @@
     <meta property="og:image" content="https://keizai-atlas.com/og.png" />
     <meta property="og:locale" content="ja_JP" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="theme-color" content="#0b1120" />
+    <meta name="theme-color" content="#0d1f2d" />
     <link
       rel="alternate"
       type="application/atom+xml"
@@ -37,20 +37,22 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600&family=IBM+Plex+Mono:wght@400;500&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="assets.css" />
     <script>
-      try{var t=localStorage.getItem("theme");if(t!=="nord")t="night";document.documentElement.dataset.theme=t}catch(e){}
+      try{var t=localStorage.getItem("theme");if(t!=="nord"&&t!=="night")t=matchMedia("(prefers-color-scheme: dark)").matches?"night":"nord";document.documentElement.dataset.theme=t}catch(e){}
     </script>
   </head>
   <body class="bg-base-200 text-base-content font-sans min-h-screen flex flex-col">
-    <header class="navbar bg-base-100/80 backdrop-blur border-b border-base-300 sticky top-0 z-50 px-4">
+    <header class="navbar k-nav sticky top-0 z-50 px-4">
       <div class="flex-1">
-        <a href="index.html" class="text-lg font-bold tracking-tight"
+        <a href="index.html" class="k-logo"
           >Keizai Atlas
-          <span class="text-xs font-normal text-base-content/70 ml-2 hidden sm:inline">経済の地図帳</span></a
+          <span class="font-sans text-xs font-normal text-base-content/70 hidden sm:inline"
+            >経済の地図帳</span
+          ></a
         >
       </div>
       <nav aria-label="サイト内の主なページ" class="flex-none gap-1 items-center flex">
@@ -93,31 +95,287 @@
           <li>広島県</li>
         </ul>
       </nav>
-      <header class="space-y-3">
-        <h1 class="text-3xl font-bold">広島県の産業構造</h1>
-        <p class="text-base-content/80">
-          広島県の2020年の産出額は23.9兆円、粗付加価値は12.4兆円です。産出額に対する移輸出（海外と他の都道府県への販売）は31%、移輸入（海外と他の都道府県からの購入）は31%でした。
-        </p>
+      <header class="pf-head">
+        <svg class="pf-shape" viewBox="0 0 200 200" aria-hidden="true">
+          <path
+            d="M110.9 33.7L119.6 26.6L127.3 31.5L132.6 27.3L138.3 32.6L148.8 29.7L152.7 33.1L167.2 31.0L176.5 42.6L172.9 59.2L177.9 69.3L184.0 75.0L181.4 86.6L187.4 96.4L184.7 104.4L194.0 118.4L192.9 132.6L188.0 127.6L187.9 130.7L192.1 134.4L191.1 136.3L187.5 134.4L184.8 137.1L184.7 143.2L179.8 145.8L178.3 143.2L171.7 142.4L171.2 140.0L166.3 141.6L170.0 138.1L168.0 133.4L164.9 138.3L161.9 138.4L150.1 142.9L145.0 140.8L143.5 149.4L122.4 150.3L113.6 157.6L111.9 153.7L107.0 154.5L105.8 159.8L101.3 159.2L101.1 162.6L103.6 163.9L102.1 165.8L94.4 166.4L92.0 170.6L88.8 169.5L86.3 172.1L80.3 167.4L76.6 172.7L72.6 173.4L73.4 170.9L71.7 169.0L75.1 165.6L69.4 163.2L66.8 154.0L68.1 150.3L66.4 150.3L71.4 147.3L69.8 145.8L63.6 147.9L62.0 146.0L60.8 148.6L54.0 145.8L46.3 147.8L47.3 149.7L44.5 149.2L32.0 163.2L30.4 167.1L33.7 170.6L27.2 171.8L28.3 167.7L20.5 166.6L18.1 151.0L10.4 147.3L11.8 133.4L8.9 125.2L6.0 123.8L17.8 110.7L16.6 105.9L22.6 94.6L18.5 90.6L30.5 83.8L33.2 74.8L40.8 79.5L43.1 75.6L50.6 75.6L53.8 79.1L58.9 72.4L61.5 75.6L72.5 76.6L82.8 68.8L93.7 68.8L95.4 67.7L94.1 62.6L85.2 58.8L92.0 51.4L100.3 50.2L100.1 47.3L112.1 36.0L110.9 33.7Z"
+          />
+        </svg>
+        <div class="space-y-3">
+          <h1 class="pf-h1">広島県の産業構造</h1>
+          <p class="text-base-content/80">
+            広島県の2020年の産出額は23.9兆円、粗付加価値は12.4兆円です。産出額に対する移輸出（海外と他の都道府県への販売）は31%、移輸入（海外と他の都道府県からの購入）は31%でした。
+          </p>
+        </div>
       </header>
+      <figure class="pf-comp">
+        <figcaption class="font-bold">産業の構成を、全国と比べる</figcaption>
+        <div class="pf-labs" aria-hidden="true">
+          <span style="left:7.1%">鉄鋼 8.9%</span><span style="left:27.9%">輸送機械 10.3%</span
+          ><span style="left:46.4%">商業 9.8%</span><span style="left:59.1%">不動産 7.4%</span>
+        </div>
+        <svg
+          viewBox="0 0 1000 130"
+          preserveAspectRatio="none"
+          role="img"
+          aria-label="広島県の産業の構成（産出額に占める割合）を、全国と比べた帯の図。広島県で最も大きい産業は輸送機械（10.3%）"
+        >
+          <g fill="#2a78d6">
+            <title>農林漁業：広島県 0.7%、全国 1.2%</title>
+            <rect x="0.0" y="0" width="5.8" height="34" />
+            <polygon points="0.0,34 6.8,34 12.1,96 0.0,96" opacity="0.38" />
+            <rect x="0.0" y="96" width="11.1" height="34" />
+          </g>
+          <g fill="#2a78d6">
+            <title>鉱業：広島県 0.0%、全国 0.0%</title>
+            <rect x="6.8" y="0" width="0.2" height="34" />
+            <polygon points="6.8,34 6.9,34 12.5,96 12.1,96" opacity="0.38" />
+            <rect x="12.1" y="96" width="0.2" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>繊維製品：広島県 0.5%、全国 0.3%</title>
+            <rect x="6.9" y="0" width="3.6" height="34" />
+            <polygon points="6.9,34 11.5,34 15.4,96 12.5,96" opacity="0.38" />
+            <rect x="12.5" y="96" width="1.8" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>パルプ・紙・木製品：広島県 1.1%、全国 1.1%</title>
+            <rect x="11.5" y="0" width="10.2" height="34" />
+            <polygon points="11.5,34 22.7,34 26.5,96 15.4,96" opacity="0.38" />
+            <rect x="15.4" y="96" width="10.1" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>化学製品：広島県 1.2%、全国 2.8%</title>
+            <rect x="22.7" y="0" width="11.3" height="34" />
+            <polygon points="22.7,34 35.1,34 54.1,96 26.5,96" opacity="0.38" />
+            <rect x="26.5" y="96" width="26.6" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>石油・石炭製品：広島県 0.4%、全国 1.3%</title>
+            <rect x="35.1" y="0" width="3.1" height="34" />
+            <polygon points="35.1,34 39.2,34 67.0,96 54.1,96" opacity="0.38" />
+            <rect x="54.1" y="96" width="11.9" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>プラスチック・ゴム製品：広島県 2.5%、全国 1.3%</title>
+            <rect x="39.2" y="0" width="23.9" height="34" />
+            <polygon points="39.2,34 64.0,34 80.4,96 67.0,96" opacity="0.38" />
+            <rect x="67.0" y="96" width="12.3" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>窯業・土石製品：広島県 0.6%、全国 0.6%</title>
+            <rect x="64.0" y="0" width="5.5" height="34" />
+            <polygon points="64.0,34 70.5,34 86.8,96 80.4,96" opacity="0.38" />
+            <rect x="80.4" y="96" width="5.4" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>鉄鋼：広島県 8.9%、全国 2.1%</title>
+            <rect x="70.5" y="0" width="87.6" height="34" />
+            <polygon points="70.5,34 159.2,34 107.3,96 86.8,96" opacity="0.38" />
+            <rect x="86.8" y="96" width="19.5" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>非鉄金属：広島県 0.7%、全国 0.8%</title>
+            <rect x="159.2" y="0" width="5.7" height="34" />
+            <polygon points="159.2,34 165.9,34 115.3,96 107.3,96" opacity="0.38" />
+            <rect x="107.3" y="96" width="7.0" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>金属製品：広島県 1.1%、全国 1.2%</title>
+            <rect x="165.9" y="0" width="10.4" height="34" />
+            <polygon points="165.9,34 177.3,34 127.0,96 115.3,96" opacity="0.38" />
+            <rect x="115.3" y="96" width="10.7" height="34" />
+          </g>
+          <g fill="#1baf7a">
+            <title>飲食料品：広島県 2.4%、全国 3.7%</title>
+            <rect x="177.3" y="0" width="22.6" height="34" />
+            <polygon points="177.3,34 200.9,34 164.1,96 127.0,96" opacity="0.38" />
+            <rect x="127.0" y="96" width="36.1" height="34" />
+          </g>
+          <g fill="#1baf7a">
+            <title>その他の製造工業製品：広島県 0.8%、全国 0.9%</title>
+            <rect x="200.9" y="0" width="6.6" height="34" />
+            <polygon points="200.9,34 208.5,34 172.7,96 164.1,96" opacity="0.38" />
+            <rect x="164.1" y="96" width="7.5" height="34" />
+          </g>
+          <g fill="#1baf7a">
+            <title>事務用品：広島県 0.1%、全国 0.1%</title>
+            <rect x="208.5" y="0" width="0.3" height="34" />
+            <polygon points="208.5,34 209.8,34 174.1,96 172.7,96" opacity="0.38" />
+            <rect x="172.7" y="96" width="0.4" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>はん用機械：広島県 1.5%、全国 1.0%</title>
+            <rect x="209.8" y="0" width="13.8" height="34" />
+            <polygon points="209.8,34 224.6,34 184.3,96 174.1,96" opacity="0.38" />
+            <rect x="174.1" y="96" width="9.1" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>生産用機械：広島県 3.3%、全国 1.6%</title>
+            <rect x="224.6" y="0" width="32.0" height="34" />
+            <polygon points="224.6,34 257.7,34 200.4,96 184.3,96" opacity="0.38" />
+            <rect x="184.3" y="96" width="15.1" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>業務用機械：広島県 0.3%、全国 0.6%</title>
+            <rect x="257.7" y="0" width="2.1" height="34" />
+            <polygon points="257.7,34 260.8,34 205.9,96 200.4,96" opacity="0.38" />
+            <rect x="200.4" y="96" width="4.6" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>電子部品：広島県 0.9%、全国 1.3%</title>
+            <rect x="260.8" y="0" width="7.6" height="34" />
+            <polygon points="260.8,34 269.4,34 218.6,96 205.9,96" opacity="0.38" />
+            <rect x="205.9" y="96" width="11.7" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>電気機械：広島県 0.9%、全国 1.5%</title>
+            <rect x="269.4" y="0" width="7.8" height="34" />
+            <polygon points="269.4,34 278.2,34 233.8,96 218.6,96" opacity="0.38" />
+            <rect x="218.6" y="96" width="14.2" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>情報通信機器：広島県 0.0%、全国 0.5%</title>
+            <rect x="278.2" y="0" width="0.2" height="34" />
+            <polygon points="278.2,34 278.6,34 238.5,96 233.8,96" opacity="0.38" />
+            <rect x="233.8" y="96" width="3.7" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>輸送機械：広島県 10.3%、全国 4.6%</title>
+            <rect x="278.6" y="0" width="101.5" height="34" />
+            <polygon points="278.6,34 381.1,34 284.5,96 238.5,96" opacity="0.38" />
+            <rect x="238.5" y="96" width="45.1" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>建設：広島県 5.7%、全国 6.7%</title>
+            <rect x="381.1" y="0" width="55.8" height="34" />
+            <polygon points="381.1,34 437.9,34 351.7,96 284.5,96" opacity="0.38" />
+            <rect x="284.5" y="96" width="66.1" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>電気・ガス・熱供給：広島県 1.5%、全国 2.3%</title>
+            <rect x="437.9" y="0" width="14.5" height="34" />
+            <polygon points="437.9,34 453.4,34 374.3,96 351.7,96" opacity="0.38" />
+            <rect x="351.7" y="96" width="21.7" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>水道：広島県 0.5%、全国 0.4%</title>
+            <rect x="453.4" y="0" width="3.7" height="34" />
+            <polygon points="453.4,34 458.1,34 378.7,96 374.3,96" opacity="0.38" />
+            <rect x="374.3" y="96" width="3.4" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>廃棄物処理：広島県 0.6%、全国 0.6%</title>
+            <rect x="458.1" y="0" width="5.3" height="34" />
+            <polygon points="458.1,34 464.4,34 384.6,96 378.7,96" opacity="0.38" />
+            <rect x="378.7" y="96" width="4.8" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>商業：広島県 9.8%、全国 9.0%</title>
+            <rect x="464.4" y="0" width="96.6" height="34" />
+            <polygon points="464.4,34 562.1,34 474.9,96 384.6,96" opacity="0.38" />
+            <rect x="384.6" y="96" width="89.4" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>金融・保険：広島県 2.9%、全国 3.5%</title>
+            <rect x="562.1" y="0" width="27.9" height="34" />
+            <polygon points="562.1,34 591.0,34 510.3,96 474.9,96" opacity="0.38" />
+            <rect x="474.9" y="96" width="34.4" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>不動産：広島県 7.4%、全国 8.8%</title>
+            <rect x="591.0" y="0" width="73.0" height="34" />
+            <polygon points="591.0,34 665.0,34 598.6,96 510.3,96" opacity="0.38" />
+            <rect x="510.3" y="96" width="87.2" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>運輸・郵便：広島県 4.5%、全国 4.9%</title>
+            <rect x="665.0" y="0" width="43.8" height="34" />
+            <polygon points="665.0,34 709.8,34 647.1,96 598.6,96" opacity="0.38" />
+            <rect x="598.6" y="96" width="47.5" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>情報通信：広島県 3.0%、全国 6.3%</title>
+            <rect x="709.8" y="0" width="28.8" height="34" />
+            <polygon points="709.8,34 739.5,34 710.4,96 647.1,96" opacity="0.38" />
+            <rect x="647.1" y="96" width="62.3" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>他に分類されない会員制団体：広島県 0.4%、全国 0.5%</title>
+            <rect x="739.5" y="0" width="3.2" height="34" />
+            <polygon points="739.5,34 743.7,34 715.1,96 710.4,96" opacity="0.38" />
+            <rect x="710.4" y="96" width="3.7" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>対事業所サービス：広島県 6.2%、全国 8.2%</title>
+            <rect x="743.7" y="0" width="61.0" height="34" />
+            <polygon points="743.7,34 805.8,34 797.5,96 715.1,96" opacity="0.38" />
+            <rect x="715.1" y="96" width="81.4" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>対個人サービス：広島県 3.6%、全国 3.9%</title>
+            <rect x="805.8" y="0" width="35.1" height="34" />
+            <polygon points="805.8,34 841.8,34 836.1,96 797.5,96" opacity="0.38" />
+            <rect x="797.5" y="96" width="37.6" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>分類不明：広島県 0.4%、全国 0.8%</title>
+            <rect x="841.8" y="0" width="3.4" height="34" />
+            <polygon points="841.8,34 846.2,34 843.6,96 836.1,96" opacity="0.38" />
+            <rect x="836.1" y="96" width="6.5" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>公務：広島県 4.2%、全国 4.2%</title>
+            <rect x="846.2" y="0" width="40.5" height="34" />
+            <polygon points="846.2,34 887.8,34 885.2,96 843.6,96" opacity="0.38" />
+            <rect x="843.6" y="96" width="40.5" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>教育・研究：広島県 4.2%、全国 4.5%</title>
+            <rect x="887.8" y="0" width="41.4" height="34" />
+            <polygon points="887.8,34 930.2,34 929.9,96 885.2,96" opacity="0.38" />
+            <rect x="885.2" y="96" width="43.7" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>医療・福祉：広島県 7.0%、全国 7.0%</title>
+            <rect x="930.2" y="0" width="68.8" height="34" />
+            <polygon points="930.2,34 1000.0,34 1000.0,96 929.9,96" opacity="0.38" />
+            <rect x="929.9" y="96" width="69.1" height="34" />
+          </g>
+        </svg>
+        <ul class="pf-legend">
+          <li><i style="background:#2a78d6"></i>資源・一次産業</li>
+          <li><i style="background:#eb6834"></i>素材</li>
+          <li><i style="background:#1baf7a"></i>食品・生活関連製造</li>
+          <li><i style="background:#eda100"></i>機械・電機・輸送機械</li>
+          <li><i style="background:#e87ba4"></i>建設・エネルギー・環境</li>
+          <li><i style="background:#009a2e"></i>流通・金融・不動産・運輸通信</li>
+          <li><i style="background:#7a68e8"></i>対事業所・対個人サービス等</li>
+          <li><i style="background:#e34948"></i>公務・教育・医療</li>
+        </ul>
+        <p class="text-xs text-base-content/70">
+          上の帯が広島県、下の帯が全国。幅は産出額に占める割合で、同じ産業どうしをつないでいます。下へすぼまる産業は、全国より広島県に集中しています。
+        </p>
+      </figure>
       <section class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">産出額（2020年）</span><b class="text-xl">23.9兆円</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">産出額（2020年）</span><b class="k-num">23.9兆円</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">付加価値率</span><b class="text-xl">52%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">付加価値率</span><b class="k-num">52%</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">移輸出（産出額比）</span><b class="text-xl">31%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">移輸出（産出額比）</span><b class="k-num">31%</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">移輸入（産出額比）</span><b class="text-xl">31%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">移輸入（産出額比）</span><b class="k-num">31%</b>
           </div>
         </div>
       </section>
@@ -149,28 +407,28 @@
                 stroke-dasharray="3 3"
               />
               <text x="162" y="19" text-anchor="end" fill="currentColor">鉄鋼</text>
-              <rect x="170" y="7" width="420.0" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="7" width="420.0" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="596.0" y="20" fill="currentColor">4.32</text>
               <text x="162" y="45" text-anchor="end" fill="currentColor">輸送機械</text>
-              <rect x="170" y="33" width="216.2" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="33" width="216.2" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="392.2" y="46" fill="currentColor">2.23</text>
               <text x="162" y="71" text-anchor="end" fill="currentColor">生産用機械</text>
-              <rect x="170" y="59" width="199.2" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="59" width="199.2" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="375.2" y="72" fill="currentColor">2.05</text>
               <text x="162" y="97" text-anchor="end" fill="currentColor">プラスチック・ゴム製品</text>
-              <rect x="170" y="85" width="181.1" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="85" width="181.1" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="357.1" y="98" fill="currentColor">1.86</text>
               <text x="162" y="123" text-anchor="end" fill="currentColor">はん用機械</text>
-              <rect x="170" y="111" width="142.2" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="111" width="142.2" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="318.2" y="124" fill="currentColor">1.46</text>
               <text x="162" y="149" text-anchor="end" fill="currentColor">商業</text>
-              <rect x="170" y="137" width="105.0" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="137" width="105.0" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="281.0" y="150" fill="currentColor">1.08</text>
               <text x="162" y="175" text-anchor="end" fill="currentColor">廃棄物処理</text>
-              <rect x="170" y="163" width="104.8" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="163" width="104.8" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="280.8" y="176" fill="currentColor">1.08</text>
               <text x="162" y="201" text-anchor="end" fill="currentColor">窯業・土石製品</text>
-              <rect x="170" y="189" width="98.2" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="189" width="98.2" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="274.2" y="202" fill="currentColor">1.01</text>
             </svg>
           </div>
@@ -642,9 +900,7 @@
       </div>
     </section>
     <script src="/feedback.js" defer></script>
-    <footer
-      class="footer footer-center p-6 bg-base-100 border-t border-base-300 text-sm text-base-content/70 mt-12"
-    >
+    <footer class="footer footer-center p-6 k-foot text-sm text-base-content/70 mt-12">
       <p>
         出典：総務省ほか「産業連関表」、経済産業省「延長産業連関表」（政府統計の総合窓口 e-Stat
         掲載）を筆者が加工して作成。<br />加工・分析・「仮説」は筆者によるもので、政府が作成・保証したものではありません。投資・経営判断の根拠にはしないでください。

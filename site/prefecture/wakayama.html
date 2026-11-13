@@ -23,7 +23,7 @@
     <meta property="og:image" content="https://keizai-atlas.com/og.png" />
     <meta property="og:locale" content="ja_JP" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="theme-color" content="#0b1120" />
+    <meta name="theme-color" content="#0d1f2d" />
     <link
       rel="alternate"
       type="application/atom+xml"
@@ -37,20 +37,22 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600&family=IBM+Plex+Mono:wght@400;500&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="assets.css" />
     <script>
-      try{var t=localStorage.getItem("theme");if(t!=="nord")t="night";document.documentElement.dataset.theme=t}catch(e){}
+      try{var t=localStorage.getItem("theme");if(t!=="nord"&&t!=="night")t=matchMedia("(prefers-color-scheme: dark)").matches?"night":"nord";document.documentElement.dataset.theme=t}catch(e){}
     </script>
   </head>
   <body class="bg-base-200 text-base-content font-sans min-h-screen flex flex-col">
-    <header class="navbar bg-base-100/80 backdrop-blur border-b border-base-300 sticky top-0 z-50 px-4">
+    <header class="navbar k-nav sticky top-0 z-50 px-4">
       <div class="flex-1">
-        <a href="index.html" class="text-lg font-bold tracking-tight"
+        <a href="index.html" class="k-logo"
           >Keizai Atlas
-          <span class="text-xs font-normal text-base-content/70 ml-2 hidden sm:inline">経済の地図帳</span></a
+          <span class="font-sans text-xs font-normal text-base-content/70 hidden sm:inline"
+            >経済の地図帳</span
+          ></a
         >
       </div>
       <nav aria-label="サイト内の主なページ" class="flex-none gap-1 items-center flex">
@@ -93,31 +95,287 @@
           <li>和歌山県</li>
         </ul>
       </nav>
-      <header class="space-y-3">
-        <h1 class="text-3xl font-bold">和歌山県の産業構造</h1>
-        <p class="text-base-content/80">
-          和歌山県の2020年の産出額は6.7兆円、粗付加価値は3.6兆円です。産出額に対する移輸出（海外と他の都道府県への販売）は36%、移輸入（海外と他の都道府県からの購入）は36%でした。
-        </p>
+      <header class="pf-head">
+        <svg class="pf-shape" viewBox="0 0 200 200" aria-hidden="true">
+          <path
+            d="M94.9 15.2L119.3 6.0L122.9 26.3L128.7 28.3L132.2 35.6L128.6 40.8L118.8 38.6L114.5 50.4L102.0 62.7L101.0 67.3L107.6 70.9L110.2 79.8L116.8 84.0L116.8 92.1L113.7 91.3L110.9 100.5L114.5 102.5L113.9 107.7L125.3 101.3L136.6 105.1L145.2 100.9L151.8 102.9L153.1 118.4L166.5 130.3L167.2 134.9L178.7 137.1L172.6 146.1L175.1 149.6L173.4 152.0L166.4 153.8L169.0 155.2L169.0 158.0L167.8 156.2L164.7 160.8L170.5 162.8L170.0 165.6L143.6 181.9L141.8 194.0L136.0 194.0L139.9 188.6L137.1 184.8L128.7 186.0L115.8 179.9L109.6 182.1L92.4 171.7L85.5 171.9L85.6 168.9L76.6 163.6L76.7 154.0L66.3 147.8L67.2 142.9L71.3 146.5L74.1 145.3L77.9 137.9L70.3 136.7L70.3 133.1L66.0 133.7L63.2 128.2L50.5 125.8L35.6 105.5L21.3 106.1L21.4 101.5L25.6 99.9L23.1 95.9L30.8 90.2L25.2 90.9L23.1 87.0L40.4 75.8L34.3 69.5L24.9 67.7L30.8 58.3L35.8 60.1L32.3 55.1L39.8 55.7L46.4 52.0L42.2 52.8L43.7 50.8L41.6 45.0L35.3 45.0L34.6 37.4L29.5 36.8L28.4 35.2L33.6 36.4L31.7 33.9L21.9 29.7L24.1 21.7L28.9 20.5L30.2 28.1L37.1 27.7L45.7 24.7L46.2 20.9L58.4 18.9L60.2 22.7L67.6 15.5L77.4 16.3L91.9 10.0L94.9 15.2Z"
+          />
+        </svg>
+        <div class="space-y-3">
+          <h1 class="pf-h1">和歌山県の産業構造</h1>
+          <p class="text-base-content/80">
+            和歌山県の2020年の産出額は6.7兆円、粗付加価値は3.6兆円です。産出額に対する移輸出（海外と他の都道府県への販売）は36%、移輸入（海外と他の都道府県からの購入）は36%でした。
+          </p>
+        </div>
       </header>
+      <figure class="pf-comp">
+        <figcaption class="font-bold">産業の構成を、全国と比べる</figcaption>
+        <div class="pf-labs" aria-hidden="true">
+          <span style="left:19.3%">鉄鋼 9.7%</span><span style="left:50.0%">商業 7.4%</span
+          ><span style="left:91.1%">医療・福祉 8.9%</span>
+        </div>
+        <svg
+          viewBox="0 0 1000 130"
+          preserveAspectRatio="none"
+          role="img"
+          aria-label="和歌山県の産業の構成（産出額に占める割合）を、全国と比べた帯の図。和歌山県で最も大きい産業は鉄鋼（9.7%）"
+        >
+          <g fill="#2a78d6">
+            <title>農林漁業：和歌山県 2.0%、全国 1.2%</title>
+            <rect x="0.0" y="0" width="19.4" height="34" />
+            <polygon points="0.0,34 20.4,34 12.1,96 0.0,96" opacity="0.38" />
+            <rect x="0.0" y="96" width="11.1" height="34" />
+          </g>
+          <g fill="#2a78d6">
+            <title>鉱業：和歌山県 0.0%、全国 0.0%</title>
+            <rect x="20.4" y="0" width="0.2" height="34" />
+            <polygon points="20.4,34 20.5,34 12.5,96 12.1,96" opacity="0.38" />
+            <rect x="12.1" y="96" width="0.2" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>繊維製品：和歌山県 0.8%、全国 0.3%</title>
+            <rect x="20.5" y="0" width="6.9" height="34" />
+            <polygon points="20.5,34 28.4,34 15.4,96 12.5,96" opacity="0.38" />
+            <rect x="12.5" y="96" width="1.8" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>パルプ・紙・木製品：和歌山県 1.2%、全国 1.1%</title>
+            <rect x="28.4" y="0" width="11.4" height="34" />
+            <polygon points="28.4,34 40.8,34 26.5,96 15.4,96" opacity="0.38" />
+            <rect x="15.4" y="96" width="10.1" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>化学製品：和歌山県 6.9%、全国 2.8%</title>
+            <rect x="40.8" y="0" width="68.0" height="34" />
+            <polygon points="40.8,34 109.8,34 54.1,96 26.5,96" opacity="0.38" />
+            <rect x="26.5" y="96" width="26.6" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>石油・石炭製品：和歌山県 6.8%、全国 1.3%</title>
+            <rect x="109.8" y="0" width="67.4" height="34" />
+            <polygon points="109.8,34 178.3,34 67.0,96 54.1,96" opacity="0.38" />
+            <rect x="54.1" y="96" width="11.9" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>プラスチック・ゴム製品：和歌山県 1.0%、全国 1.3%</title>
+            <rect x="178.3" y="0" width="8.7" height="34" />
+            <polygon points="178.3,34 188.0,34 80.4,96 67.0,96" opacity="0.38" />
+            <rect x="67.0" y="96" width="12.3" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>窯業・土石製品：和歌山県 0.5%、全国 0.6%</title>
+            <rect x="188.0" y="0" width="4.1" height="34" />
+            <polygon points="188.0,34 193.1,34 86.8,96 80.4,96" opacity="0.38" />
+            <rect x="80.4" y="96" width="5.4" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>鉄鋼：和歌山県 9.7%、全国 2.1%</title>
+            <rect x="193.1" y="0" width="95.7" height="34" />
+            <polygon points="193.1,34 289.8,34 107.3,96 86.8,96" opacity="0.38" />
+            <rect x="86.8" y="96" width="19.5" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>非鉄金属：和歌山県 0.2%、全国 0.8%</title>
+            <rect x="289.8" y="0" width="1.3" height="34" />
+            <polygon points="289.8,34 292.1,34 115.3,96 107.3,96" opacity="0.38" />
+            <rect x="107.3" y="96" width="7.0" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>金属製品：和歌山県 1.0%、全国 1.2%</title>
+            <rect x="292.1" y="0" width="8.9" height="34" />
+            <polygon points="292.1,34 302.0,34 127.0,96 115.3,96" opacity="0.38" />
+            <rect x="115.3" y="96" width="10.7" height="34" />
+          </g>
+          <g fill="#1baf7a">
+            <title>飲食料品：和歌山県 2.9%、全国 3.7%</title>
+            <rect x="302.0" y="0" width="27.6" height="34" />
+            <polygon points="302.0,34 330.6,34 164.1,96 127.0,96" opacity="0.38" />
+            <rect x="127.0" y="96" width="36.1" height="34" />
+          </g>
+          <g fill="#1baf7a">
+            <title>その他の製造工業製品：和歌山県 0.5%、全国 0.9%</title>
+            <rect x="330.6" y="0" width="4.3" height="34" />
+            <polygon points="330.6,34 335.9,34 172.7,96 164.1,96" opacity="0.38" />
+            <rect x="164.1" y="96" width="7.5" height="34" />
+          </g>
+          <g fill="#1baf7a">
+            <title>事務用品：和歌山県 0.1%、全国 0.1%</title>
+            <rect x="335.9" y="0" width="0.4" height="34" />
+            <polygon points="335.9,34 337.3,34 174.1,96 172.7,96" opacity="0.38" />
+            <rect x="172.7" y="96" width="0.4" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>はん用機械：和歌山県 4.4%、全国 1.0%</title>
+            <rect x="337.3" y="0" width="42.8" height="34" />
+            <polygon points="337.3,34 381.1,34 184.3,96 174.1,96" opacity="0.38" />
+            <rect x="174.1" y="96" width="9.1" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>生産用機械：和歌山県 1.0%、全国 1.6%</title>
+            <rect x="381.1" y="0" width="8.8" height="34" />
+            <polygon points="381.1,34 391.0,34 200.4,96 184.3,96" opacity="0.38" />
+            <rect x="184.3" y="96" width="15.1" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>業務用機械：和歌山県 0.2%、全国 0.6%</title>
+            <rect x="391.0" y="0" width="0.6" height="34" />
+            <polygon points="391.0,34 392.5,34 205.9,96 200.4,96" opacity="0.38" />
+            <rect x="200.4" y="96" width="4.6" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>電子部品：和歌山県 0.3%、全国 1.3%</title>
+            <rect x="392.5" y="0" width="1.9" height="34" />
+            <polygon points="392.5,34 395.4,34 218.6,96 205.9,96" opacity="0.38" />
+            <rect x="205.9" y="96" width="11.7" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>電気機械：和歌山県 0.3%、全国 1.5%</title>
+            <rect x="395.4" y="0" width="1.5" height="34" />
+            <polygon points="395.4,34 397.9,34 233.8,96 218.6,96" opacity="0.38" />
+            <rect x="218.6" y="96" width="14.2" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>情報通信機器：和歌山県 0.0%、全国 0.5%</title>
+            <rect x="397.9" y="0" width="0.2" height="34" />
+            <polygon points="397.9,34 398.0,34 238.5,96 233.8,96" opacity="0.38" />
+            <rect x="233.8" y="96" width="3.7" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>輸送機械：和歌山県 0.3%、全国 4.6%</title>
+            <rect x="398.0" y="0" width="1.7" height="34" />
+            <polygon points="398.0,34 400.7,34 284.5,96 238.5,96" opacity="0.38" />
+            <rect x="238.5" y="96" width="45.1" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>建設：和歌山県 7.0%、全国 6.7%</title>
+            <rect x="400.7" y="0" width="68.7" height="34" />
+            <polygon points="400.7,34 470.4,34 351.7,96 284.5,96" opacity="0.38" />
+            <rect x="284.5" y="96" width="66.1" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>電気・ガス・熱供給：和歌山県 1.4%、全国 2.3%</title>
+            <rect x="470.4" y="0" width="13.4" height="34" />
+            <polygon points="470.4,34 484.9,34 374.3,96 351.7,96" opacity="0.38" />
+            <rect x="351.7" y="96" width="21.7" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>水道：和歌山県 0.6%、全国 0.4%</title>
+            <rect x="484.9" y="0" width="4.5" height="34" />
+            <polygon points="484.9,34 490.4,34 378.7,96 374.3,96" opacity="0.38" />
+            <rect x="374.3" y="96" width="3.4" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>廃棄物処理：和歌山県 0.9%、全国 0.6%</title>
+            <rect x="490.4" y="0" width="8.2" height="34" />
+            <polygon points="490.4,34 499.6,34 384.6,96 378.7,96" opacity="0.38" />
+            <rect x="378.7" y="96" width="4.8" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>商業：和歌山県 7.4%、全国 9.0%</title>
+            <rect x="499.6" y="0" width="73.5" height="34" />
+            <polygon points="499.6,34 574.0,34 474.9,96 384.6,96" opacity="0.38" />
+            <rect x="384.6" y="96" width="89.4" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>金融・保険：和歌山県 2.9%、全国 3.5%</title>
+            <rect x="574.0" y="0" width="28.5" height="34" />
+            <polygon points="574.0,34 603.5,34 510.3,96 474.9,96" opacity="0.38" />
+            <rect x="474.9" y="96" width="34.4" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>不動産：和歌山県 7.4%、全国 8.8%</title>
+            <rect x="603.5" y="0" width="73.4" height="34" />
+            <polygon points="603.5,34 678.0,34 598.6,96 510.3,96" opacity="0.38" />
+            <rect x="510.3" y="96" width="87.2" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>運輸・郵便：和歌山県 4.4%、全国 4.9%</title>
+            <rect x="678.0" y="0" width="43.2" height="34" />
+            <polygon points="678.0,34 722.1,34 647.1,96 598.6,96" opacity="0.38" />
+            <rect x="598.6" y="96" width="47.5" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>情報通信：和歌山県 2.5%、全国 6.3%</title>
+            <rect x="722.1" y="0" width="23.9" height="34" />
+            <polygon points="722.1,34 747.0,34 710.4,96 647.1,96" opacity="0.38" />
+            <rect x="647.1" y="96" width="62.3" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>他に分類されない会員制団体：和歌山県 0.5%、全国 0.5%</title>
+            <rect x="747.0" y="0" width="4.4" height="34" />
+            <polygon points="747.0,34 752.4,34 715.1,96 710.4,96" opacity="0.38" />
+            <rect x="710.4" y="96" width="3.7" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>対事業所サービス：和歌山県 3.4%、全国 8.2%</title>
+            <rect x="752.4" y="0" width="32.9" height="34" />
+            <polygon points="752.4,34 786.4,34 797.5,96 715.1,96" opacity="0.38" />
+            <rect x="715.1" y="96" width="81.4" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>対個人サービス：和歌山県 3.3%、全国 3.9%</title>
+            <rect x="786.4" y="0" width="31.8" height="34" />
+            <polygon points="786.4,34 819.2,34 836.1,96 797.5,96" opacity="0.38" />
+            <rect x="797.5" y="96" width="37.6" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>分類不明：和歌山県 0.5%、全国 0.8%</title>
+            <rect x="819.2" y="0" width="3.8" height="34" />
+            <polygon points="819.2,34 823.9,34 843.6,96 836.1,96" opacity="0.38" />
+            <rect x="836.1" y="96" width="6.5" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>公務：和歌山県 3.9%、全国 4.2%</title>
+            <rect x="823.9" y="0" width="38.3" height="34" />
+            <polygon points="823.9,34 863.3,34 885.2,96 843.6,96" opacity="0.38" />
+            <rect x="843.6" y="96" width="40.5" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>教育・研究：和歌山県 4.8%、全国 4.5%</title>
+            <rect x="863.3" y="0" width="46.8" height="34" />
+            <polygon points="863.3,34 911.1,34 929.9,96 885.2,96" opacity="0.38" />
+            <rect x="885.2" y="96" width="43.7" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>医療・福祉：和歌山県 8.9%、全国 7.0%</title>
+            <rect x="911.1" y="0" width="87.9" height="34" />
+            <polygon points="911.1,34 1000.0,34 1000.0,96 929.9,96" opacity="0.38" />
+            <rect x="929.9" y="96" width="69.1" height="34" />
+          </g>
+        </svg>
+        <ul class="pf-legend">
+          <li><i style="background:#2a78d6"></i>資源・一次産業</li>
+          <li><i style="background:#eb6834"></i>素材</li>
+          <li><i style="background:#1baf7a"></i>食品・生活関連製造</li>
+          <li><i style="background:#eda100"></i>機械・電機・輸送機械</li>
+          <li><i style="background:#e87ba4"></i>建設・エネルギー・環境</li>
+          <li><i style="background:#009a2e"></i>流通・金融・不動産・運輸通信</li>
+          <li><i style="background:#7a68e8"></i>対事業所・対個人サービス等</li>
+          <li><i style="background:#e34948"></i>公務・教育・医療</li>
+        </ul>
+        <p class="text-xs text-base-content/70">
+          上の帯が和歌山県、下の帯が全国。幅は産出額に占める割合で、同じ産業どうしをつないでいます。下へすぼまる産業は、全国より和歌山県に集中しています。
+        </p>
+      </figure>
       <section class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">産出額（2020年）</span><b class="text-xl">6.7兆円</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">産出額（2020年）</span><b class="k-num">6.7兆円</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">付加価値率</span><b class="text-xl">53%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">付加価値率</span><b class="k-num">53%</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">移輸出（産出額比）</span><b class="text-xl">36%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">移輸出（産出額比）</span><b class="k-num">36%</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">移輸入（産出額比）</span><b class="text-xl">36%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">移輸入（産出額比）</span><b class="k-num">36%</b>
           </div>
         </div>
       </section>
@@ -149,28 +407,28 @@
                 stroke-dasharray="3 3"
               />
               <text x="162" y="19" text-anchor="end" fill="currentColor">石油・石炭製品</text>
-              <rect x="170" y="7" width="420.0" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="7" width="420.0" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="596.0" y="20" fill="currentColor">5.30</text>
               <text x="162" y="45" text-anchor="end" fill="currentColor">鉄鋼</text>
-              <rect x="170" y="33" width="373.8" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="33" width="373.8" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="549.8" y="46" fill="currentColor">4.72</text>
               <text x="162" y="71" text-anchor="end" fill="currentColor">はん用機械</text>
-              <rect x="170" y="59" width="342.9" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="59" width="342.9" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="518.9" y="72" fill="currentColor">4.33</text>
               <text x="162" y="97" text-anchor="end" fill="currentColor">繊維製品</text>
-              <rect x="170" y="85" width="220.8" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="85" width="220.8" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="396.8" y="98" fill="currentColor">2.79</text>
               <text x="162" y="123" text-anchor="end" fill="currentColor">化学製品</text>
-              <rect x="170" y="111" width="198.2" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="111" width="198.2" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="374.2" y="124" fill="currentColor">2.50</text>
               <text x="162" y="149" text-anchor="end" fill="currentColor">農林漁業</text>
-              <rect x="170" y="137" width="134.1" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="137" width="134.1" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="310.1" y="150" fill="currentColor">1.69</text>
               <text x="162" y="175" text-anchor="end" fill="currentColor">廃棄物処理</text>
-              <rect x="170" y="163" width="124.4" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="163" width="124.4" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="300.4" y="176" fill="currentColor">1.57</text>
               <text x="162" y="201" text-anchor="end" fill="currentColor">医療・福祉</text>
-              <rect x="170" y="189" width="100.5" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="189" width="100.5" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="276.5" y="202" fill="currentColor">1.27</text>
             </svg>
           </div>
@@ -639,9 +897,7 @@
       </div>
     </section>
     <script src="/feedback.js" defer></script>
-    <footer
-      class="footer footer-center p-6 bg-base-100 border-t border-base-300 text-sm text-base-content/70 mt-12"
-    >
+    <footer class="footer footer-center p-6 k-foot text-sm text-base-content/70 mt-12">
       <p>
         出典：総務省ほか「産業連関表」、経済産業省「延長産業連関表」（政府統計の総合窓口 e-Stat
         掲載）を筆者が加工して作成。<br />加工・分析・「仮説」は筆者によるもので、政府が作成・保証したものではありません。投資・経営判断の根拠にはしないでください。

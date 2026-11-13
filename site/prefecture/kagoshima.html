@@ -23,7 +23,7 @@
     <meta property="og:image" content="https://keizai-atlas.com/og.png" />
     <meta property="og:locale" content="ja_JP" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="theme-color" content="#0b1120" />
+    <meta name="theme-color" content="#0d1f2d" />
     <link
       rel="alternate"
       type="application/atom+xml"
@@ -37,20 +37,22 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600&family=IBM+Plex+Mono:wght@400;500&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="assets.css" />
     <script>
-      try{var t=localStorage.getItem("theme");if(t!=="nord")t="night";document.documentElement.dataset.theme=t}catch(e){}
+      try{var t=localStorage.getItem("theme");if(t!=="nord"&&t!=="night")t=matchMedia("(prefers-color-scheme: dark)").matches?"night":"nord";document.documentElement.dataset.theme=t}catch(e){}
     </script>
   </head>
   <body class="bg-base-200 text-base-content font-sans min-h-screen flex flex-col">
-    <header class="navbar bg-base-100/80 backdrop-blur border-b border-base-300 sticky top-0 z-50 px-4">
+    <header class="navbar k-nav sticky top-0 z-50 px-4">
       <div class="flex-1">
-        <a href="index.html" class="text-lg font-bold tracking-tight"
+        <a href="index.html" class="k-logo"
           >Keizai Atlas
-          <span class="text-xs font-normal text-base-content/70 ml-2 hidden sm:inline">経済の地図帳</span></a
+          <span class="font-sans text-xs font-normal text-base-content/70 hidden sm:inline"
+            >経済の地図帳</span
+          ></a
         >
       </div>
       <nav aria-label="サイト内の主なページ" class="flex-none gap-1 items-center flex">
@@ -93,31 +95,287 @@
           <li>鹿児島県</li>
         </ul>
       </nav>
-      <header class="space-y-3">
-        <h1 class="text-3xl font-bold">鹿児島県の産業構造</h1>
-        <p class="text-base-content/80">
-          鹿児島県の2020年の産出額は10.0兆円、粗付加価値は5.6兆円です。産出額に対する移輸出（海外と他の都道府県への販売）は25%、移輸入（海外と他の都道府県からの購入）は37%でした。
-        </p>
+      <header class="pf-head">
+        <svg class="pf-shape" viewBox="0 0 200 200" aria-hidden="true">
+          <path
+            d="M91.4 6.0L108.7 19.4L106.3 26.2L116.4 33.1L119.4 43.4L128.4 45.9L134.7 53.3L129.6 60.1L129.7 64.5L144.6 70.2L143.3 74.3L148.2 74.9L149.7 88.0L153.5 93.1L156.8 89.0L163.6 94.3L168.4 92.3L173.8 101.7L171.6 105.2L173.1 112.0L169.1 114.2L167.9 120.2L161.0 118.0L148.8 131.4L148.7 136.9L160.7 140.8L156.2 147.2L156.8 150.2L163.4 149.7L155.2 157.1L148.5 157.1L144.2 164.7L145.6 166.4L142.7 166.7L141.0 171.4L112.4 183.4L100.8 194.0L103.1 184.7L99.7 182.2L112.4 171.0L114.9 164.7L113.2 159.9L118.0 153.2L119.8 139.9L113.7 126.7L105.8 120.0L105.6 105.5L97.4 106.9L91.3 100.5L96.2 95.1L103.0 93.8L108.2 97.9L106.9 105.2L114.6 104.4L122.4 89.6L118.7 82.3L111.0 81.5L104.3 77.1L96.2 80.6L93.8 85.3L95.0 89.4L87.4 99.1L87.0 106.9L81.6 113.7L83.2 116.7L81.1 115.1L83.5 118.9L80.8 120.0L82.5 127.8L86.8 132.2L84.7 132.2L88.6 143.5L101.6 150.9L100.0 158.7L96.6 159.8L97.8 162.9L91.8 164.8L90.7 168.4L86.4 165.0L81.9 167.0L80.2 159.5L74.1 153.6L51.1 150.6L49.2 154.1L40.7 153.8L42.7 148.9L39.0 148.6L38.7 146.2L41.9 144.2L35.2 142.1L40.1 138.3L29.6 128.2L26.2 128.1L30.1 127.9L33.2 123.7L42.2 130.1L48.5 125.9L56.6 105.5L54.3 89.3L46.0 81.2L45.8 77.8L40.5 74.0L37.0 74.9L34.3 67.8L41.9 49.4L38.8 37.5L35.2 36.6L39.7 26.2L37.8 22.1L35.1 23.0L35.5 18.8L41.9 15.1L53.4 18.3L59.1 13.9L60.4 8.8L66.3 16.4L72.9 17.5L75.9 13.4L90.1 10.9L91.4 6.0Z"
+          />
+        </svg>
+        <div class="space-y-3">
+          <h1 class="pf-h1">鹿児島県の産業構造</h1>
+          <p class="text-base-content/80">
+            鹿児島県の2020年の産出額は10.0兆円、粗付加価値は5.6兆円です。産出額に対する移輸出（海外と他の都道府県への販売）は25%、移輸入（海外と他の都道府県からの購入）は37%でした。
+          </p>
+        </div>
       </header>
+      <figure class="pf-comp">
+        <figcaption class="font-bold">産業の構成を、全国と比べる</figcaption>
+        <div class="pf-labs" aria-hidden="true">
+          <span style="left:10.3%">飲食料品 10.8%</span><span style="left:37.4%">商業 8.1%</span
+          ><span style="left:55.0%">運輸・郵便 7.3%</span><span style="left:88.3%">医療・福祉 11.7%</span>
+        </div>
+        <svg
+          viewBox="0 0 1000 130"
+          preserveAspectRatio="none"
+          role="img"
+          aria-label="鹿児島県の産業の構成（産出額に占める割合）を、全国と比べた帯の図。鹿児島県で最も大きい産業は医療・福祉（11.7%）"
+        >
+          <g fill="#2a78d6">
+            <title>農林漁業：鹿児島県 6.2%、全国 1.2%</title>
+            <rect x="0.0" y="0" width="60.6" height="34" />
+            <polygon points="0.0,34 61.6,34 12.1,96 0.0,96" opacity="0.38" />
+            <rect x="0.0" y="96" width="11.1" height="34" />
+          </g>
+          <g fill="#2a78d6">
+            <title>鉱業：鹿児島県 0.5%、全国 0.0%</title>
+            <rect x="61.6" y="0" width="4.0" height="34" />
+            <polygon points="61.6,34 66.5,34 12.5,96 12.1,96" opacity="0.38" />
+            <rect x="12.1" y="96" width="0.2" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>繊維製品：鹿児島県 0.1%、全国 0.3%</title>
+            <rect x="66.5" y="0" width="0.3" height="34" />
+            <polygon points="66.5,34 67.8,34 15.4,96 12.5,96" opacity="0.38" />
+            <rect x="12.5" y="96" width="1.8" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>パルプ・紙・木製品：鹿児島県 0.8%、全国 1.1%</title>
+            <rect x="67.8" y="0" width="7.0" height="34" />
+            <polygon points="67.8,34 75.8,34 26.5,96 15.4,96" opacity="0.38" />
+            <rect x="15.4" y="96" width="10.1" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>化学製品：鹿児島県 0.3%、全国 2.8%</title>
+            <rect x="75.8" y="0" width="1.5" height="34" />
+            <polygon points="75.8,34 78.3,34 54.1,96 26.5,96" opacity="0.38" />
+            <rect x="26.5" y="96" width="26.6" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>石油・石炭製品：鹿児島県 0.1%、全国 1.3%</title>
+            <rect x="78.3" y="0" width="0.2" height="34" />
+            <polygon points="78.3,34 78.9,34 67.0,96 54.1,96" opacity="0.38" />
+            <rect x="54.1" y="96" width="11.9" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>プラスチック・ゴム製品：鹿児島県 0.2%、全国 1.3%</title>
+            <rect x="78.9" y="0" width="0.6" height="34" />
+            <polygon points="78.9,34 80.5,34 80.4,96 67.0,96" opacity="0.38" />
+            <rect x="67.0" y="96" width="12.3" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>窯業・土石製品：鹿児島県 1.5%、全国 0.6%</title>
+            <rect x="80.5" y="0" width="13.9" height="34" />
+            <polygon points="80.5,34 95.4,34 86.8,96 80.4,96" opacity="0.38" />
+            <rect x="80.4" y="96" width="5.4" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>鉄鋼：鹿児島県 0.0%、全国 2.1%</title>
+            <rect x="95.4" y="0" width="0.2" height="34" />
+            <polygon points="95.4,34 95.7,34 107.3,96 86.8,96" opacity="0.38" />
+            <rect x="86.8" y="96" width="19.5" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>非鉄金属：鹿児島県 0.3%、全国 0.8%</title>
+            <rect x="95.7" y="0" width="2.2" height="34" />
+            <polygon points="95.7,34 98.9,34 115.3,96 107.3,96" opacity="0.38" />
+            <rect x="107.3" y="96" width="7.0" height="34" />
+          </g>
+          <g fill="#eb6834">
+            <title>金属製品：鹿児島県 0.4%、全国 1.2%</title>
+            <rect x="98.9" y="0" width="3.0" height="34" />
+            <polygon points="98.9,34 102.9,34 127.0,96 115.3,96" opacity="0.38" />
+            <rect x="115.3" y="96" width="10.7" height="34" />
+          </g>
+          <g fill="#1baf7a">
+            <title>飲食料品：鹿児島県 10.8%、全国 3.7%</title>
+            <rect x="102.9" y="0" width="106.8" height="34" />
+            <polygon points="102.9,34 210.7,34 164.1,96 127.0,96" opacity="0.38" />
+            <rect x="127.0" y="96" width="36.1" height="34" />
+          </g>
+          <g fill="#1baf7a">
+            <title>その他の製造工業製品：鹿児島県 0.4%、全国 0.9%</title>
+            <rect x="210.7" y="0" width="3.3" height="34" />
+            <polygon points="210.7,34 215.0,34 172.7,96 164.1,96" opacity="0.38" />
+            <rect x="164.1" y="96" width="7.5" height="34" />
+          </g>
+          <g fill="#1baf7a">
+            <title>事務用品：鹿児島県 0.2%、全国 0.1%</title>
+            <rect x="215.0" y="0" width="0.6" height="34" />
+            <polygon points="215.0,34 216.6,34 174.1,96 172.7,96" opacity="0.38" />
+            <rect x="172.7" y="96" width="0.4" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>はん用機械：鹿児島県 0.0%、全国 1.0%</title>
+            <rect x="216.6" y="0" width="0.2" height="34" />
+            <polygon points="216.6,34 217.1,34 184.3,96 174.1,96" opacity="0.38" />
+            <rect x="174.1" y="96" width="9.1" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>生産用機械：鹿児島県 0.8%、全国 1.6%</title>
+            <rect x="217.1" y="0" width="7.0" height="34" />
+            <polygon points="217.1,34 225.1,34 200.4,96 184.3,96" opacity="0.38" />
+            <rect x="184.3" y="96" width="15.1" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>業務用機械：鹿児島県 0.1%、全国 0.6%</title>
+            <rect x="225.1" y="0" width="0.2" height="34" />
+            <polygon points="225.1,34 225.6,34 205.9,96 200.4,96" opacity="0.38" />
+            <rect x="200.4" y="96" width="4.6" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>電子部品：鹿児島県 2.1%、全国 1.3%</title>
+            <rect x="225.6" y="0" width="20.3" height="34" />
+            <polygon points="225.6,34 246.9,34 218.6,96 205.9,96" opacity="0.38" />
+            <rect x="205.9" y="96" width="11.7" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>電気機械：鹿児島県 0.4%、全国 1.5%</title>
+            <rect x="246.9" y="0" width="3.3" height="34" />
+            <polygon points="246.9,34 251.2,34 233.8,96 218.6,96" opacity="0.38" />
+            <rect x="218.6" y="96" width="14.2" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>情報通信機器：鹿児島県 0.2%、全国 0.5%</title>
+            <rect x="251.2" y="0" width="0.7" height="34" />
+            <polygon points="251.2,34 252.9,34 238.5,96 233.8,96" opacity="0.38" />
+            <rect x="233.8" y="96" width="3.7" height="34" />
+          </g>
+          <g fill="#eda100">
+            <title>輸送機械：鹿児島県 0.5%、全国 4.6%</title>
+            <rect x="252.9" y="0" width="4.2" height="34" />
+            <polygon points="252.9,34 258.1,34 284.5,96 238.5,96" opacity="0.38" />
+            <rect x="238.5" y="96" width="45.1" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>建設：鹿児島県 8.5%、全国 6.7%</title>
+            <rect x="258.1" y="0" width="84.2" height="34" />
+            <polygon points="258.1,34 343.3,34 351.7,96 284.5,96" opacity="0.38" />
+            <rect x="284.5" y="96" width="66.1" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>電気・ガス・熱供給：鹿児島県 2.1%、全国 2.3%</title>
+            <rect x="343.3" y="0" width="20.1" height="34" />
+            <polygon points="343.3,34 364.4,34 374.3,96 351.7,96" opacity="0.38" />
+            <rect x="351.7" y="96" width="21.7" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>水道：鹿児島県 0.4%、全国 0.4%</title>
+            <rect x="364.4" y="0" width="2.7" height="34" />
+            <polygon points="364.4,34 368.1,34 378.7,96 374.3,96" opacity="0.38" />
+            <rect x="374.3" y="96" width="3.4" height="34" />
+          </g>
+          <g fill="#e87ba4">
+            <title>廃棄物処理：鹿児島県 0.6%、全国 0.6%</title>
+            <rect x="368.1" y="0" width="5.0" height="34" />
+            <polygon points="368.1,34 374.1,34 384.6,96 378.7,96" opacity="0.38" />
+            <rect x="378.7" y="96" width="4.8" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>商業：鹿児島県 8.1%、全国 9.0%</title>
+            <rect x="374.1" y="0" width="80.2" height="34" />
+            <polygon points="374.1,34 455.3,34 474.9,96 384.6,96" opacity="0.38" />
+            <rect x="384.6" y="96" width="89.4" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>金融・保険：鹿児島県 3.3%、全国 3.5%</title>
+            <rect x="455.3" y="0" width="31.7" height="34" />
+            <polygon points="455.3,34 488.0,34 510.3,96 474.9,96" opacity="0.38" />
+            <rect x="474.9" y="96" width="34.4" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>不動産：鹿児島県 6.2%、全国 8.8%</title>
+            <rect x="488.0" y="0" width="61.2" height="34" />
+            <polygon points="488.0,34 550.3,34 598.6,96 510.3,96" opacity="0.38" />
+            <rect x="510.3" y="96" width="87.2" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>運輸・郵便：鹿児島県 7.3%、全国 4.9%</title>
+            <rect x="550.3" y="0" width="72.1" height="34" />
+            <polygon points="550.3,34 623.4,34 647.1,96 598.6,96" opacity="0.38" />
+            <rect x="598.6" y="96" width="47.5" height="34" />
+          </g>
+          <g fill="#009a2e">
+            <title>情報通信：鹿児島県 3.7%、全国 6.3%</title>
+            <rect x="623.4" y="0" width="35.7" height="34" />
+            <polygon points="623.4,34 660.1,34 710.4,96 647.1,96" opacity="0.38" />
+            <rect x="647.1" y="96" width="62.3" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>他に分類されない会員制団体：鹿児島県 0.6%、全国 0.5%</title>
+            <rect x="660.1" y="0" width="5.2" height="34" />
+            <polygon points="660.1,34 666.2,34 715.1,96 710.4,96" opacity="0.38" />
+            <rect x="710.4" y="96" width="3.7" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>対事業所サービス：鹿児島県 5.1%、全国 8.2%</title>
+            <rect x="666.2" y="0" width="50.0" height="34" />
+            <polygon points="666.2,34 717.3,34 797.5,96 715.1,96" opacity="0.38" />
+            <rect x="715.1" y="96" width="81.4" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>対個人サービス：鹿児島県 4.4%、全国 3.9%</title>
+            <rect x="717.3" y="0" width="43.2" height="34" />
+            <polygon points="717.3,34 761.4,34 836.1,96 797.5,96" opacity="0.38" />
+            <rect x="797.5" y="96" width="37.6" height="34" />
+          </g>
+          <g fill="#7a68e8">
+            <title>分類不明：鹿児島県 0.6%、全国 0.8%</title>
+            <rect x="761.4" y="0" width="4.5" height="34" />
+            <polygon points="761.4,34 767.0,34 843.6,96 836.1,96" opacity="0.38" />
+            <rect x="836.1" y="96" width="6.5" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>公務：鹿児島県 6.3%、全国 4.2%</title>
+            <rect x="767.0" y="0" width="62.1" height="34" />
+            <polygon points="767.0,34 830.1,34 885.2,96 843.6,96" opacity="0.38" />
+            <rect x="843.6" y="96" width="40.5" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>教育・研究：鹿児島県 5.3%、全国 4.5%</title>
+            <rect x="830.1" y="0" width="51.5" height="34" />
+            <polygon points="830.1,34 882.6,34 929.9,96 885.2,96" opacity="0.38" />
+            <rect x="885.2" y="96" width="43.7" height="34" />
+          </g>
+          <g fill="#e34948">
+            <title>医療・福祉：鹿児島県 11.7%、全国 7.0%</title>
+            <rect x="882.6" y="0" width="116.4" height="34" />
+            <polygon points="882.6,34 1000.0,34 1000.0,96 929.9,96" opacity="0.38" />
+            <rect x="929.9" y="96" width="69.1" height="34" />
+          </g>
+        </svg>
+        <ul class="pf-legend">
+          <li><i style="background:#2a78d6"></i>資源・一次産業</li>
+          <li><i style="background:#eb6834"></i>素材</li>
+          <li><i style="background:#1baf7a"></i>食品・生活関連製造</li>
+          <li><i style="background:#eda100"></i>機械・電機・輸送機械</li>
+          <li><i style="background:#e87ba4"></i>建設・エネルギー・環境</li>
+          <li><i style="background:#009a2e"></i>流通・金融・不動産・運輸通信</li>
+          <li><i style="background:#7a68e8"></i>対事業所・対個人サービス等</li>
+          <li><i style="background:#e34948"></i>公務・教育・医療</li>
+        </ul>
+        <p class="text-xs text-base-content/70">
+          上の帯が鹿児島県、下の帯が全国。幅は産出額に占める割合で、同じ産業どうしをつないでいます。下へすぼまる産業は、全国より鹿児島県に集中しています。
+        </p>
+      </figure>
       <section class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">産出額（2020年）</span><b class="text-xl">10.0兆円</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">産出額（2020年）</span><b class="k-num">10.0兆円</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">付加価値率</span><b class="text-xl">56%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">付加価値率</span><b class="k-num">56%</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">移輸出（産出額比）</span><b class="text-xl">25%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">移輸出（産出額比）</span><b class="k-num">25%</b>
           </div>
         </div>
-        <div class="card bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-0">
-            <span class="text-xs text-base-content/70">移輸入（産出額比）</span><b class="text-xl">37%</b>
+        <div class="card k-stat bg-base-100 border border-base-300">
+          <div class="card-body p-4 gap-1">
+            <span class="text-xs text-base-content/70">移輸入（産出額比）</span><b class="k-num">37%</b>
           </div>
         </div>
       </section>
@@ -149,28 +407,28 @@
                 stroke-dasharray="3 3"
               />
               <text x="162" y="19" text-anchor="end" fill="currentColor">農林漁業</text>
-              <rect x="170" y="7" width="420.0" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="7" width="420.0" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="596.0" y="20" fill="currentColor">5.11</text>
               <text x="162" y="45" text-anchor="end" fill="currentColor">飲食料品</text>
-              <rect x="170" y="33" width="239.0" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="33" width="239.0" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="415.0" y="46" fill="currentColor">2.91</text>
               <text x="162" y="71" text-anchor="end" fill="currentColor">窯業・土石製品</text>
-              <rect x="170" y="59" width="191.3" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="59" width="191.3" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="367.3" y="72" fill="currentColor">2.33</text>
               <text x="162" y="97" text-anchor="end" fill="currentColor">電子部品</text>
-              <rect x="170" y="85" width="138.2" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="85" width="138.2" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="314.2" y="98" fill="currentColor">1.68</text>
               <text x="162" y="123" text-anchor="end" fill="currentColor">医療・福祉</text>
-              <rect x="170" y="111" width="137.7" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="111" width="137.7" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="313.7" y="124" fill="currentColor">1.67</text>
               <text x="162" y="149" text-anchor="end" fill="currentColor">公務</text>
-              <rect x="170" y="137" width="124.9" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="137" width="124.9" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="300.9" y="150" fill="currentColor">1.52</text>
               <text x="162" y="175" text-anchor="end" fill="currentColor">運輸・郵便</text>
-              <rect x="170" y="163" width="123.9" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="163" width="123.9" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="299.9" y="176" fill="currentColor">1.51</text>
               <text x="162" y="201" text-anchor="end" fill="currentColor">他に分類されない会員制団体</text>
-              <rect x="170" y="189" width="109.0" height="16" rx="2" fill="#38bdf8" />
+              <rect x="170" y="189" width="109.0" height="16" class="k-bar" fill="#0b5f8f" />
               <text x="285.0" y="202" fill="currentColor">1.33</text>
             </svg>
           </div>
@@ -639,9 +897,7 @@
       </div>
     </section>
     <script src="/feedback.js" defer></script>
-    <footer
-      class="footer footer-center p-6 bg-base-100 border-t border-base-300 text-sm text-base-content/70 mt-12"
-    >
+    <footer class="footer footer-center p-6 k-foot text-sm text-base-content/70 mt-12">
       <p>
         出典：総務省ほか「産業連関表」、経済産業省「延長産業連関表」（政府統計の総合窓口 e-Stat
         掲載）を筆者が加工して作成。<br />加工・分析・「仮説」は筆者によるもので、政府が作成・保証したものではありません。投資・経営判断の根拠にはしないでください。

@@ -7,3 +7,46 @@
 .lq-heat th.lq-col { writing-mode: vertical-rl; font-weight: 400; padding: 2px 0; vertical-align: bottom; height: 4.2em; }
 .lq-heat td { width: 16px; min-width: 16px; height: 16px; border-radius: 3px; background: oklch(var(--bc) / 0.06); text-align: center; padding: 0; }
 .lq-heat .lq-dot { display: inline-block; width: 4px; height: 4px; border-radius: 9999px; background: oklch(var(--bc) / 0.45); vertical-align: middle; }
+
+/* ===== 見た目の土台(2026-11 刷新:「地図帳」)。色は daisyUI の変数(--p 青, --a 朱, --b1 紙, --b2 海, --b3 線, --bc 墨)。光・ぼかし・グラデーションは使わない ===== */
+:root { --k-display: "Barlow Semi Condensed", "Zen Kaku Gothic New", "Noto Sans JP", system-ui, sans-serif; }
+::selection { background: oklch(var(--a) / 0.3); }
+:focus-visible { outline: 2px solid oklch(var(--a)); outline-offset: 2px; }
+h1, h2, h3, .k-display { font-family: var(--k-display); font-feature-settings: "palt"; }
+h1 { font-weight: 900; text-wrap: balance; }
+.k-num { font-family: var(--k-display); font-variant-numeric: tabular-nums; }
+/* ヘッダー・フッター: 紙の帯と、墨の罫線 */
+.k-nav { background: oklch(var(--b1)); border-bottom: 1px solid oklch(var(--bc)); min-height: 3.25rem; }
+.k-logo { display: inline-flex; align-items: baseline; gap: 0.6rem; font-family: var(--k-display); font-weight: 600; font-size: 1.25rem; letter-spacing: 0.01em; }
+.k-nav .btn-ghost { font-weight: 500; }
+.k-nav .btn-ghost:hover { background: transparent; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; text-decoration-color: oklch(var(--a)); }
+.k-foot { background: oklch(var(--b1)); border-top: 1px solid oklch(var(--bc)); }
+/* 面(カード): 紙に細い罫線。影は付けない。リンクのカードは、触れると罫線が墨になる */
+.card { box-shadow: none; }
+a.card:hover, a.card:focus-visible { border-color: oklch(var(--bc)); }
+/* 数字カード: 凡例の箱のように、上の辺だけ太い墨の線 */
+.k-stat { border-top: 3px solid oklch(var(--bc)); }
+.k-stat .k-num { font-size: 1.75rem; line-height: 1.2; font-weight: 600; }
+.k-bar { fill: oklch(var(--p)); }
+.table :where(thead th) { font-weight: 700; color: oklch(var(--bc)); border-bottom: 1px solid oklch(var(--bc)); }
+.table :where(td) { font-variant-numeric: tabular-nums; }
+.table tbody tr:hover { background: oklch(var(--a) / 0.08); }
+[data-theme="night"] .alert-warning { background: transparent; border: 1px solid oklch(var(--wa)); color: oklch(var(--bc)); }
+[data-theme="nord"] .alert-warning { background: transparent; border: 1px solid #8a5a0b; color: oklch(var(--bc)); }
+
+/* 県ページの冒頭: 県の形(海の上の紙の切り抜き)と、産業の構成の帯(上=県、下=全国) */
+.pf-head { display: grid; gap: 1rem; align-items: center; }
+.pf-shape { width: 7.5rem; height: 7.5rem; }
+.pf-shape path { fill: oklch(var(--b1)); stroke: oklch(var(--bc)); stroke-width: 1.5; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.pf-h1 { font-size: clamp(2rem, 5vw, 3.25rem); line-height: 1.15; }
+.pf-comp { position: relative; padding-top: 0.25rem; }
+.pf-comp svg { display: block; width: 100%; height: 8.5rem; margin-top: 0.25rem; }
+.pf-labs { position: relative; height: 1.4rem; margin-top: 0.75rem; font-size: 0.75rem; display: none; }
+.pf-labs span { position: absolute; bottom: 0; padding-left: 0.3rem; border-left: 1px solid oklch(var(--bc)); white-space: nowrap; line-height: 1.5; }
+.pf-legend { display: flex; flex-wrap: wrap; gap: 0.2rem 1rem; margin: 0.6rem 0 0.4rem; font-size: 0.75rem; }
+.pf-legend i { display: inline-block; width: 0.7rem; height: 0.7rem; margin-right: 0.35rem; vertical-align: -0.05rem; }
+@media (min-width: 768px) {
+  .pf-head { grid-template-columns: 11rem 1fr; gap: 2rem; }
+  .pf-shape { width: 11rem; height: 11rem; }
+  .pf-labs { display: block; }
+}
