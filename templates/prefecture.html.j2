@@ -10,7 +10,10 @@
   <svg class="pf-shape" viewBox="0 0 200 200" aria-hidden="true"><path d="{{ face.path }}"/></svg>
   <div class="space-y-3">
     <h1 class="pf-h1">{{ name|esc }}の産業構造</h1>
+    <p class="pf-kanban">看板産業は<b>{{ kanban.name|esc }}</b>。全国平均の<b class="pf-x">{{ kanban.lq }}</b>倍、{{ name|esc }}の産出額の{{ kanban.share }}を占めます。</p>
     <p class="text-base-content/80">{% filter esc %}{% include "prefecture_facts.txt.j2" %}{% endfilter %}</p>
+    <p class="pf-act"><a href="index.html?pref={{ slug }}">地図でほかの県と比べる</a><a href="kanban-map.html">全国の看板産業マップ</a><a href="{{ share_href|esc }}" target="_blank" rel="noopener">Xで共有</a></p>
+    <p class="text-xs text-base-content/70">看板産業は、県の産出額の{{ kanban.min_share }}以上を占める産業のうち、全国平均と比べた集中度（特化係数）が最も高いもの（筆者の定義）。</p>
   </div>
 </header>⏎
 <figure class="pf-comp">

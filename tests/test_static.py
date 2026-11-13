@@ -159,3 +159,17 @@ def test_feed_valid():
     assert len(set(ids)) == len(ids)
     for f in S.rglob("*.html"):
         assert 'type="application/atom+xml"' in f.read_text(encoding="utf-8"), f
+
+
+def test_kanban_map_and_share_images():
+    """看板産業マップ: 47都道府県のタイルがあり、掲載県はデータの県と一致。県ページは県ごとの共有画像を指す。"""
+    D = json.loads((R / "data" / "pref_37.json").read_text(encoding="utf-8"))
+    h = (S / "kanban-map.html").read_text(encoding="utf-8")
+    linked = set(re.findall(r'class="kb-tile"\s+href="prefecture/([a-z]+)\.html"', h))
+    assert linked == set(D), linked ^ set(D)
+    assert len(linked) + h.count("kb-tile kb-none") == 47
+    assert (S / "share" / "kanban-map.png").exists() and "/og/kanban-map.png" in h
+    for slug in D:
+        page = (S / "prefecture" / f"{slug}.html").read_text(encoding="utf-8")
+        assert f"/og/pref-{slug}.png" in page and (S / "og" / f"pref-{slug}.png").exists(), slug
+        assert "看板産業は" in page and "twitter.com/intent/tweet" in page, slug

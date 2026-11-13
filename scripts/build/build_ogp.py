@@ -116,6 +116,129 @@ def top():
     return im
 
 
+# ---------- 県ごとの共有画像と、看板産業マップ(昼の地図帳の色: 海・紙・墨・朱)
+SEA = (220, 235, 241)
+PAPER = (251, 252, 250)
+INK = (20, 35, 46)
+SHU = (200, 54, 31)
+SOFT = (74, 92, 104)
+FK = "/usr/share/fonts/opentype/noto/NotoSansCJK-Black.ttc"
+NOTE = "2020年の産業連関表を筆者が集計。政府・自治体が作成したものではありません｜keizai-atlas.com"
+
+
+def blend(c, bg, a):
+    return tuple(round(c[i] * a + bg[i] * (1 - a)) for i in range(3))
+
+
+def pref_card(bp, slug, p):
+    """県の共有画像: 県の形、看板産業の一文、産業の構成の帯(上=県、下=全国)。"""
+    im = Image.new("RGB", (W, H), SEA)
+    d = ImageDraw.Draw(im)
+    for ring in bp.silhouette_rings(bp.JIS[slug], 320, 8):
+        d.polygon([(x + 56, y + 52) for x, y in ring], fill=PAPER, outline=INK, width=3)
+    k = bp.kanban(p)
+    x = 430
+    d.text((x, 62), f"{p['name']}は、", font=font(FK, 62), fill=INK)
+    d.text((x, 150), f"{k['n']}が", font=fit(d, f"{k['n']}が", FK, 710, [62, 54, 46, 40]), fill=INK)
+    base = 372
+    d.text((x, base), "全国平均の", font=font(FK, 50), fill=INK, anchor="ls")
+    x += d.textlength("全国平均の", font=font(FK, 50)) + 14
+    num = f"{k['lq']:.1f}"
+    d.text((x, base + 6), num, font=font(FK, 150), fill=SHU, anchor="ls")
+    x += d.textlength(num, font=font(FK, 150)) + 12
+    d.text((x, base), "倍。", font=font(FK, 50), fill=INK, anchor="ls")
+    # 産業の構成の帯(build_pref.face_data と同じ値。1000 の幅を 1088px に)
+    sc, x0, y0 = 1.088, 56, 426
+    for s in bp.face_data(slug, p)["segs"]:
+        col = hexrgb(s["color"])
+        tx, tw, nx, nw = (
+            float(s[key]) * sc + (x0 if key in ("x", "nx") else 0) for key in ("x", "w", "nx", "nw")
+        )
+        pts = [float(v) for pair in s["band"].split() for v in pair.split(",")]
+        d.polygon(
+            [(pts[i] * sc + x0, y0 + (26 if pts[i + 1] < 50 else 70)) for i in range(0, 8, 2)],
+            fill=blend(col, SEA, 0.38),
+        )
+        d.rectangle([tx, y0, tx + tw, y0 + 26], fill=col)
+        d.rectangle([nx, y0 + 70, nx + nw, y0 + 96], fill=col)
+    d.text(
+        (56, 534),
+        f"産業の構成（産出額に占める割合）。上の帯が{p['name']}、下の帯が全国",
+        font=font(FR, 20),
+        fill=SOFT,
+    )
+    d.text((56, 578), "Keizai Atlas", font=font(FB, 26), fill=INK)
+    d.text((238, 584), NOTE, font=font(FR, 18), fill=SOFT)
+    return im
+
+
+def kanban_grid(d, tiles, ox, oy, tw, th, gap, detail):
+    """看板産業マップのタイルを描く。detail=True は県名・産業名・倍率、False は県名だけ(小さい画像用)。"""
+    for t in tiles:
+        x, y = ox + t["col"] * (tw + gap), oy + t["row"] * (th + gap)
+        short = t["name"] if t["name"] == "北海道" else t["name"][:-1]
+        if not t["data"]:
+            d.rectangle([x, y, x + tw, y + th], outline=blend(INK, SEA, 0.35), width=1)
+            d.text((x + 8, y + 8), short, font=font(FR, 18 if detail else 15), fill=SOFT)
+            if detail:
+                d.text((x + 8, y + th - 30), "未掲載", font=font(FR, 16), fill=SOFT)
+            continue
+        band = 9 if detail else 12
+        d.rectangle([x, y, x + tw, y + th], fill=PAPER)
+        d.rectangle([x, y, x + tw, y + band], fill=hexrgb(t["color"]))
+        if not detail:
+            d.text((x + tw / 2, y + band + (th - band) / 2), short, font=font(FB, 17), fill=INK, anchor="mm")
+            continue
+        d.text((x + 7, y + 13), short, font=font(FR, 17), fill=SOFT)
+        f = font(FB, 17)
+        for i, ln in enumerate(wrap(d, t["ind"], f, tw - 12)[: (3 if th > 110 else 2)]):
+            d.text((x + 7, y + 36 + i * 21), ln, font=f, fill=INK)
+        d.text((x + 7, y + th - 8), f"{t['lq']}倍", font=font(FB, 22), fill=SHU, anchor="ls")
+
+
+def kanban_images(bp, D):
+    """看板産業マップの画像2枚: 投稿に付ける大きい画像(share/)と、リンクを貼ったときに出る画像(og/)。"""
+    tiles = bp.kanban_tiles(D)
+    n = sum(1 for t in tiles if t["data"])
+    rule = f"県の産出額の{bp.pct(bp.KANBAN_MIN)}以上を占める産業のうち、"
+    # 大きい画像。題名は、タイルの無い左上(日本海のあたり)に置く
+    big = Image.new("RGB", (1600, 1720), SEA)
+    d = ImageDraw.Draw(big)
+    d.text((56, 60), "都道府県の", font=font(FK, 76), fill=INK)
+    d.text((56, 156), "看板産業マップ", font=font(FK, 76), fill=INK)
+    d.text((60, 270), rule, font=font(FR, 26), fill=INK)
+    d.text((60, 308), "全国平均と比べて最も集中している産業（2020年）", font=font(FR, 26), fill=INK)
+    d.text((60, 366), "数字は、全国平均の何倍か", font=font(FR, 22), fill=SOFT)
+    kanban_grid(d, tiles, 46, 56, 104, 122, 4, True)
+    F = bp._face_sources()
+    x, y = 56, 1470
+    for g, c in zip(F["names"], F["colors"]):
+        w = int(d.textlength(g, font=font(FR, 20))) + 58
+        if x + w > 1540:
+            x, y = 56, y + 34
+        d.rectangle([x, y + 4, x + 18, y + 22], fill=hexrgb(c))
+        d.text((x + 26, y), g, font=font(FR, 20), fill=INK)
+        x += w
+    d.text(
+        (56, 1560),
+        f"タイルの上の線の色は産業の大分類。{n}都道府県を掲載（未掲載の県は、2020年の表を載せられていません）",
+        font=font(FR, 20),
+        fill=SOFT,
+    )
+    d.text((56, 1636), "Keizai Atlas", font=font(FB, 30), fill=INK)
+    d.text((262, 1644), NOTE, font=font(FR, 20), fill=SOFT)
+    # リンクを貼ったときに出る画像
+    og = Image.new("RGB", (W, H), SEA)
+    d = ImageDraw.Draw(og)
+    d.text((50, 50), "都道府県の", font=font(FK, 54), fill=INK)
+    d.text((50, 118), "看板産業マップ", font=font(FK, 54), fill=INK)
+    d.text((52, 212), "あなたの県は、", font=font(FB, 30), fill=INK)
+    d.text((52, 254), "何で稼いでいる？", font=font(FB, 30), fill=SHU)
+    kanban_grid(d, tiles, 290, 36, 60, 44, 4, False)
+    d.text((50, 584), "Keizai Atlas｜筆者が集計。政府の作成ではありません", font=font(FR, 17), fill=SOFT)
+    return big, og
+
+
 if __name__ == "__main__":
     cards = json.loads((R / "data/ogp_cards.json").read_text(encoding="utf-8"))
     (S / "og").mkdir(exist_ok=True)
@@ -123,4 +246,16 @@ if __name__ == "__main__":
     q(top()).save(S / "og.png", optimize=True)
     for c in cards:
         q(card(c)).save(S / "og" / f"{c['id']}.png", optimize=True)
+    import build_pref as bp  # 県の形・看板産業・帯の値は、ページと同じ関数で作る
+
+    D = json.loads((R / "data/pref_37.json").read_text(encoding="utf-8"))
+    for slug, p in D.items():
+        q(pref_card(bp, slug, p)).save(S / "og" / f"pref-{slug}.png", optimize=True)
+    big, og = kanban_images(bp, D)
+    (S / "share").mkdir(exist_ok=True)
+    big.quantize(200, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE).save(
+        S / "share" / "kanban-map.png", optimize=True
+    )
+    q(og).save(S / "og" / "kanban-map.png", optimize=True)
+    print(len(D), "pref cards + kanban map")
     print(len(cards), "cards")

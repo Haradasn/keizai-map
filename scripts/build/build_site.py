@@ -31,6 +31,10 @@ def page(name, title, desc, body, extra=""):
     og_image = None
     if path.startswith("industry/") and (S / "og" / (path[9:] + ".png")).exists():
         og_image = SITE_URL + "/og/" + path[9:] + ".png"  # 産業ごとの共有画像があれば差し替える
+    if path.startswith("prefecture/") and (S / "og" / ("pref-" + path[11:] + ".png")).exists():
+        og_image = SITE_URL + "/og/pref-" + path[11:] + ".png"  # 県ごとの共有画像
+    if path == "kanban-map" and (S / "og" / "kanban-map.png").exists():
+        og_image = SITE_URL + "/og/kanban-map.png"
     html_text = render_page(path, title, desc, body, SITE_URL, SITE_NAME, head_extra + extra, og_image)
     (S / name).write_text(html_text, encoding="utf-8")
 

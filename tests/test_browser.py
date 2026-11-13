@@ -161,6 +161,19 @@ def test_index_prefecture_picker(browser, base):
     pg.close()
 
 
+def test_index_pref_link(browser, base):
+    """トップ: ?pref=tokyo のリンクで、その県を選んだ状態で開く。共有のリンクは県のページを指す。"""
+    pg = browser.new_page(viewport={"width": 1280, "height": 800})
+    errs = []
+    pg.on("pageerror", lambda e: errs.append(str(e)))
+    pg.goto(f"{base}/index.html?pref=tokyo", wait_until="load")
+    pg.wait_for_timeout(1500)
+    assert "東京都" in pg.inner_text("#hp-out .hp-fact") and not errs, errs
+    share = pg.get_attribute("#hp-out .hp-go a[target=_blank]", "href")
+    assert "twitter.com/intent/tweet" in share and "prefecture%2Ftokyo" in share, share
+    pg.close()
+
+
 def test_index_flow_figure(browser, base):
     """トップ: 取引の図の文(本数と産業名)はデータから計算し、産業マップのその産業へつなぐ。"""
     pg = browser.new_page(viewport={"width": 390, "height": 800})
