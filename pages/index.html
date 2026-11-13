@@ -166,6 +166,13 @@
     .hp-ramp .hi {
       right: 0;
     }
+    /* すべての産業の合計を出しているとき(色=付加価値率)は、集中度の目盛りを出さない */
+    .hp-legend.is-all .hp-ramp {
+      margin-bottom: 0.45rem;
+    }
+    .hp-legend.is-all .hp-ramp span {
+      display: none;
+    }
     .hp-key {
       display: inline-block;
       width: 0.7rem;
@@ -342,11 +349,11 @@
         role="region"
         aria-label="都道府県を、選んだ産業の産出額の高さで表した日本の立体地図"
       ></div>
-      <dl class="hp-legend">
+      <dl class="hp-legend" id="hp-legend">
         <dt>高さ</dt>
-        <dd><span id="hp-legend-k">選んだ産業</span>の産出額</dd>
+        <dd id="hp-legend-h">選んだ産業の産出額</dd>
         <dt>色</dt>
-        <dd>全国平均と比べた集中度</dd>
+        <dd id="hp-legend-c">全国平均と比べた集中度</dd>
         <dd class="hp-ramp" aria-hidden="true">
           <span class="avg">全国平均</span><span class="hi">4倍〜</span>
         </dd>
@@ -356,7 +363,7 @@
     <div class="hp-res">
       <div id="hp-out" aria-live="polite">
         <p class="hp-sub">
-          県を選ぶと、全国平均と比べてその県に集中している産業が分かります。<a
+          県を選ぶと、その県が県外・海外にいちばん売っている産業が分かります。<a
             class="link"
             href="prefectures.html"
             >県別の一覧</a
@@ -364,7 +371,7 @@
         </p>
       </div>
       <p class="hp-note">
-        県の産出額の3%以上を占める産業を、全国平均と比べた集中度の高い順に並べています。各都道府県が公表した2020年の産業連関表を、筆者が同じ37部門にそろえて集計したものです（<span
+        県外・海外への販売額（移輸出額）が大きい産業を、上から並べています。各都道府県が公表した2020年の産業連関表を、筆者が同じ37部門にそろえて集計したものです（<span
           id="hp-count"
         ></span
         >都道府県）。政府や自治体が作成・保証したものではありません。
@@ -465,7 +472,7 @@
         <dt>あなたの県は、何で稼いでいる？</dt>
         <dd>産業を選ぶと、その産業が強い県が立ち上がる立体地図。県ごとの産業構造も読めます。</dd>
         <dd class="lk">
-          <a href="kanban-map.html">看板産業マップ</a><a href="prefecture-map.html">立体地図</a
+          <a href="kasegi-map.html">稼ぎ頭マップ</a><a href="prefecture-map.html">立体地図</a
           ><a href="prefectures.html">県別</a>
         </dd>
       </div>

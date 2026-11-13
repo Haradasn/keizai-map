@@ -52,7 +52,7 @@ def _axe_source():
 
 
 A11Y_PAGES = [
-    "kanban-map",
+    "kasegi-map",
     "index",
     "explorer",
     "prefecture-map",

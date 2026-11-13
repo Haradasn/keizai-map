@@ -140,7 +140,7 @@ def test_prefecture_3d_map(browser, base):
 
 
 def test_index_prefecture_picker(browser, base):
-    """トップ: 県を選ぶと、県別データから計算した文と上位の産業が出る。"""
+    """トップ: 県を選ぶと、県外・海外にいちばん売っている産業の文と、上位の産業が出る。"""
     pg = browser.new_page(viewport={"width": 390, "height": 900})
     errs = []
     pg.on("pageerror", lambda e: errs.append(str(e)))
@@ -149,7 +149,7 @@ def test_index_prefecture_picker(browser, base):
     assert pg.evaluate("document.documentElement.scrollWidth") <= 392 and not errs, errs
     assert "何で稼いでいる" in pg.inner_text("h1")
     assert pg.locator("#hp-pref option").count() >= 40
-    assert "倍" in pg.inner_text("#hp-out .hp-fact")  # 最初の例も県別データから計算
+    assert "%" in pg.inner_text("#hp-out .hp-fact")  # 最初の例も県別データから計算
     pg.select_option("#hp-pref", "13")
     assert "東京都" in pg.inner_text("#hp-out .hp-fact")
     assert "prefecture/tokyo.html" in pg.get_attribute("#hp-out .hp-go a", "href")

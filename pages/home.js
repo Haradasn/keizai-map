@@ -1,4 +1,4 @@
-/* トップページ。(1) 県を選ぶと、その県が何で稼いでいるかを県別データ(pref-map-data.js の PREF_MAP)から文章にし、
+/* トップページ。(1) 県を選ぶと、その県が県外・海外に何を売って稼いでいるかを県別データ(pref-map-data.js の PREF_MAP)から文章にし、
    立体地図(prefmap.js)に "pm:set" で伝える。地図で県をクリックすると "pm:pick" が届く。
    (2) 産業どうしの取引の図(net-mini.js の NET_MINI)。線の太さ=取引額、点は売り手の産業から買い手の産業へ動く。
        画面で動くのは、実際の取引を表すものだけにする。 */
@@ -11,75 +11,58 @@
   }
 
   // ---------- (1) 県を選ぶ
+  // 答えは「県外・海外への販売額(移輸出額)が大きい産業」。県ごとの上位は、ビルド時に計算したもの(PREF_MAP.prefs[id].x)を
+  // そのまま使う: [名前, 全国の部門コード(無ければ null), 県の移輸出額に占める割合, 特化係数(無ければ null), 補足(無ければ null)]。
+  // 県ページ・稼ぎ頭マップ・共有画像と同じ関数(scripts/build/build_pref.py の kasegi_ranking)から作っているので、数字が食い違わない。
   var D = window.PREF_MAP,
     root = document.getElementById("pm-map"),
     sel = /** @type {HTMLSelectElement | null} */ (document.getElementById("hp-pref")),
     out = document.getElementById("hp-out");
   if (D && root && sel && out) {
-    var P = D.prefs,
-      INDS = D.inds,
-      MIN = 0.03; // 県の産出額の3%以上を占める産業を対象にする(看板産業。scripts/build/build_pref.py の KANBAN_MIN と同じ値)
-    /** @param {string} id */
-    var tops = function (id) {
-      var p = P[id];
-      return Object.keys(p.s)
-        .filter(function (k) {
-          return p.s[k][1] != null && p.s[k][0] / p.t >= MIN && INDS[k];
-        })
-        .sort(function (a, b) {
-          return p.s[b][1] - p.s[a][1];
-        })
-        .slice(0, 4)
-        .filter(function (k, i) {
-          return i === 0 || p.s[k][1] >= 1.1; // 全国平均と同じ程度(1.1倍未満)のものは「集中している」に並べない
-        });
-    };
-    /** 割合を%の数字に。0.1%未満は小数2桁 @param {number} v */
+    var P = D.prefs;
+    /** 割合を%の数字に(整数) @param {number} v */
     var pc = function (v) {
-      return (v * 100).toFixed(v < 0.001 ? 2 : 1);
+      return (v * 100).toFixed(0);
     };
-    var cur = { id: "", k: "" };
-    /** @param {string} id @param {string} [k] @param {boolean} [user] */
-    var show = function (id, k, user) {
+    var cur = { id: "", i: 0 };
+    /** @param {string} id 県のJISコード @param {number} [i] 上位の何番目を選ぶか(0が稼ぎ頭) @param {boolean} [user] 人の操作か */
+    var show = function (id, i, user) {
       var p = P[id];
-      if (!p) return;
-      var T = tops(id);
-      if (!T.length) return;
-      if (!k || T.indexOf(k) < 0) k = T[0];
-      cur = { id: id, k: k };
-      var s = p.s[k],
-        share = s[0] / p.t,
-        mx = p.s[T[0]][1];
+      if (!p || !p.x || !p.x.length) return;
+      var T = p.x;
+      i = Math.max(0, Math.min(T.length - 1, i || 0));
+      cur = { id: id, i: i };
+      var r = T[i],
+        code = r[1],
+        sub = [];
+      if (r[3] != null) sub.push("全国平均と比べた集中度は" + r[3].toFixed(1) + "倍です。");
+      if (r[4]) sub.push(r[4]);
+      if (!code) sub.push("全国の分布を出せない部門のため、地図はすべての産業の合計です。");
       out.innerHTML =
         '<p class="hp-fact"><span class="hp-pn">' +
         esc(p.n) +
-        "</span>は、" +
-        esc(INDS[k]) +
-        'が<br>全国平均の<b class="hp-x">' +
-        s[1].toFixed(1) +
-        "</b>倍。</p>" +
-        '<p class="hp-sub">県の産出額の' +
-        pc(share) +
-        "%を占めます（全国では" +
-        pc(share / s[1]) +
-        "%）。</p>" +
+        '</span>が県外・海外に売る額の<br><b class="hp-x">' +
+        pc(r[2]) +
+        "</b>%は、" +
+        esc(r[0]) +
+        "。</p>" +
+        (sub.length ? '<p class="hp-sub">' + esc(sub.join("")) + "</p>" : "") +
         '<ul class="hp-tops" aria-label="' +
         esc(p.n) +
-        'で全国より集中している産業">' +
-        T.map(function (t) {
-          var lq = p.s[t][1];
+        'が県外・海外に多く売っている産業">' +
+        T.map(function (t, n) {
           return (
-            '<li><button type="button" data-k="' +
-            t +
+            '<li><button type="button" data-i="' +
+            n +
             '" aria-pressed="' +
-            (t === k) +
+            (n === i) +
             '"><span class="hp-tn">' +
-            esc(INDS[t]) +
+            esc(t[0]) +
             '</span><span class="hp-tb"><i style="width:' +
-            ((lq / mx) * 100).toFixed(1) +
+            ((t[2] / T[0][2]) * 100).toFixed(1) +
             '%"></i></span><span class="hp-tv">' +
-            lq.toFixed(1) +
-            "倍</span></button></li>"
+            pc(t[2]) +
+            "%</span></button></li>"
           );
         }).join("") +
         "</ul>" +
@@ -87,26 +70,29 @@
         p.g +
         '.html">' +
         esc(p.n) +
-        'の産業構造を読む</a><a href="industry/' +
-        k +
-        '.html">' +
-        esc(INDS[k]) +
-        'とは</a><a target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?text=' +
+        "の産業構造を読む</a>" +
+        (code ? '<a href="industry/' + code + '.html">' + esc(r[0]) + "とは</a>" : "") +
+        '<a href="kasegi-map.html">全国の稼ぎ頭マップ</a><a target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?text=' +
         encodeURIComponent(
           p.n +
-            "は、" +
-            INDS[T[0]] +
-            "が全国平均の" +
-            p.s[T[0]][1].toFixed(1) +
-            "倍。あなたの県は、何で稼いでいる？ #KeizaiAtlas"
+            "の稼ぎ頭は、" +
+            T[0][0] +
+            "。県外・海外に売る額の" +
+            pc(T[0][2]) +
+            "%を占めます。あなたの県は、何で稼いでいる？ #KeizaiAtlas"
         ) +
         "&url=" +
         encodeURIComponent("https://keizai-atlas.com/prefecture/" + p.g) +
         '">Xで共有</a></p>';
-      var lg = document.getElementById("hp-legend-k");
-      if (lg) lg.textContent = INDS[k];
+      // 凡例: 全国の部門に対応する産業なら、その産業の分布(高さ=産出額、色=集中度)。対応しない部門なら、すべての産業の合計
+      var lg = document.getElementById("hp-legend"),
+        lh = document.getElementById("hp-legend-h"),
+        lc = document.getElementById("hp-legend-c");
+      if (lg) lg.classList.toggle("is-all", !code);
+      if (lh) lh.textContent = code ? r[0] + "の産出額" : "すべての産業の産出額";
+      if (lc) lc.textContent = code ? "全国平均と比べた集中度" : "付加価値率（茶に近いほど高い）";
       sel.value = id;
-      root.dispatchEvent(new CustomEvent("pm:set", { detail: { k: k, id: id, user: !!user } }));
+      root.dispatchEvent(new CustomEvent("pm:set", { detail: { k: code || "all", id: id, user: !!user } }));
       if (user)
         try {
           localStorage.setItem("hp-pref", id);
@@ -125,16 +111,16 @@
     var cnt = document.getElementById("hp-count");
     if (cnt) cnt.textContent = String(Object.keys(P).length);
     sel.addEventListener("change", function () {
-      show(sel.value, "", true);
+      show(sel.value, 0, true);
     });
     out.addEventListener("click", function (ev) {
-      var b = /** @type {HTMLElement} */ (ev.target).closest("button[data-k]");
-      if (b) show(cur.id, b.getAttribute("data-k") || "", true);
+      var b = /** @type {HTMLElement} */ (ev.target).closest("button[data-i]");
+      if (b) show(cur.id, Number(b.getAttribute("data-i")), true);
     });
     root.addEventListener("pm:pick", function (ev) {
-      show(/** @type {CustomEvent} */ (ev).detail.id, "", true);
+      show(/** @type {CustomEvent} */ (ev).detail.id, 0, true);
     });
-    // 最初に見せる県: リンクの ?pref=aichi で指定された県。次に、前に選んだ県。どちらもなければ、いちばん際立つ県と産業
+    // 最初に見せる県: リンクの ?pref=aichi で指定された県。次に、前に選んだ県。どちらもなければ、稼ぎ頭の割合がいちばん高い県
     var first = "",
       want = new URLSearchParams(location.search).get("pref");
     if (want)
@@ -145,24 +131,17 @@
       try {
         first = localStorage.getItem("hp-pref") || "";
       } catch (e) {}
-    var firstK = "";
     if (!P[first]) {
-      // 集中度×県内の割合がいちばん大きい組み合わせ(大きな産業が、その県に強く集まっている例)
       var best = 0;
       Object.keys(P).forEach(function (id) {
-        tops(id).forEach(function (t) {
-          var s = P[id].s[t],
-            w = (s[1] * s[0]) / P[id].t;
-          if (w > best) {
-            best = w;
-            first = id;
-            firstK = t;
-          }
-        });
+        var x = P[id].x;
+        if (x && x.length && x[0][2] > best) {
+          best = x[0][2];
+          first = id;
+        }
       });
     }
-    if (!P[first]) first = Object.keys(P)[0];
-    show(first, firstK);
+    show(first, 0);
   }
 
   // ---------- (2) 取引の図
