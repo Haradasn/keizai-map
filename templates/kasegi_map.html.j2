@@ -1,0 +1,36 @@
+{# 稼ぎ頭マップ: 47都道府県をタイルに並べ、県ごとの稼ぎ頭(県外・海外への販売額が最も大きい産業)を示す。build_pref.build_kasegi_map が値を用意する #}
+<main class="flex-1 w-full max-w-6xl mx-auto px-4 py-10 space-y-8">
+<section aria-labelledby="ks-h" class="space-y-3">
+  {# 広い画面: 題名は、タイルの無い左上(日本海のあたり)のマスに置く。狭い画面: タイルの代わりに同じ内容の画像を出す(タイルは横に長く、最初の画面が空白になるため) #}
+  <div class="ks-grid">⏎
+    <header class="ks-head">
+      <h1 id="ks-h" class="ks-h1"><span>都道府県の</span><span>稼ぎ頭マップ</span></h1>
+      <p class="ks-lead">{{ top.name|esc }}が県外・海外に売る額の<b class="pf-x">{{ top.share }}</b>は、{{ top.ind|esc }}。{{ count }}都道府県でいちばん高い割合です。</p>
+      <p class="pf-act"><a href="share/kasegi-map.png" download="kasegi-map.png">画像を保存（PNG）</a><a href="index.html">立体地図で県を選ぶ</a></p>
+    </header>⏎
+    {% for t in tiles %}
+    {% if t.data %}
+    <a class="ks-tile" href="prefecture/{{ t.slug }}.html" style="grid-column:{{ t.col + 1 }};grid-row:{{ t.row + 1 }};border-top-color:{{ t.color }}"><span class="ks-p">{{ t.name|esc }}</span><b>{{ t.ind|esc }}</b><span class="ks-v">{{ t.share }}</span></a>⏎
+    {% else %}
+    <span class="ks-tile ks-none" style="grid-column:{{ t.col + 1 }};grid-row:{{ t.row + 1 }}"><span class="ks-p">{{ t.name|esc }}</span><span class="ks-v">未掲載</span></span>⏎
+    {% endif %}
+    {% endfor %}
+  </div>
+  <a class="ks-img" href="share/kasegi-map.png"><img src="share/kasegi-map.png" width="1600" height="1720" loading="lazy" alt="47都道府県をタイルに並べ、県ごとの稼ぎ頭と、県外・海外に売る額に占める割合を示した図。内容は下の一覧と同じです。"></a>
+  <ul class="pf-legend">{% for g in legend %}<li><i style="background:{{ g.color }}"></i>{{ g.name|esc }}</li>{% endfor %}</ul>
+  <p class="text-sm text-base-content/80">稼ぎ頭は、県外・海外への販売額（<a class="link" href="glossary.html#yuishutsunyu">移輸出額</a>）が最も大きい産業（筆者の定義）。数字は、その県の移輸出額に占める割合です。{{ count }}都道府県で{{ kinds }}種類の産業が並び、多いのは{{ common|esc }}でした。各都道府県が公表した2020年の産業連関表を、筆者が37部門にそろえて集計しています。政府や自治体が作成・保証したものではありません。</p>
+  <p class="text-xs text-base-content/70">タイルの上の線の色は、産業の8つの大分類（灰色は分類なし）。{% for n in notes %}{{ n|esc }}{% endfor %}{{ missing|esc }}は、2020年の表を掲載できていないため空欄です。</p>
+</section>⏎
+<section class="space-y-3" aria-labelledby="ks-list">
+  <h2 id="ks-list" class="text-2xl font-bold">一覧（割合の高い順）</h2>
+  <div class="overflow-x-auto"><table class="table table-sm">
+    <thead><tr><th>都道府県</th><th>稼ぎ頭</th><th class="text-right">県外・海外に売る額に占める割合</th><th>2番目</th><th class="text-right">稼ぎ頭の集中度（全国平均＝1）</th></tr></thead>
+    <tbody>
+      {% for t in rows %}
+      <tr><td><a class="link" href="prefecture/{{ t.slug }}.html">{{ t.name|esc }}</a></td><td>{{ t.ind|esc }}</td><td class="text-right">{{ t.share }}</td><td>{{ t.second|esc }}</td><td class="text-right">{{ t.lq }}</td></tr>⏎
+      {% endfor %}
+    </tbody>
+  </table></div>
+  <p class="text-xs text-base-content/70">1番目と2番目の差が小さい県もあります。県によって元の表の部門の分け方が違うため、近い部門にまとめて比べています。「稼ぎ頭」は移輸出額の大きさで決めたもので、もうけ（利益）の大きさではありません。</p>
+</section>
+</main>

@@ -66,9 +66,14 @@ async function verifyTurnstile(env, token, host) {
   return j.success === true && (!j.hostname || j.hostname === host);
 }
 
+// 名前を変えたページ(古い URL → 新しい URL)。静的ファイルが無いパスはこの Worker に届くので、ここで転送する
+/** @type {Record<string, string>} */
+const MOVED = { "/kanban-map": "/kasegi-map", "/kanban-map.html": "/kasegi-map" };
+
 export default {
   async fetch(req, env) {
     const url = new URL(req.url);
+    if (MOVED[url.pathname]) return Response.redirect(url.origin + MOVED[url.pathname], 301);
     if (!url.pathname.startsWith("/api/")) return env.ASSETS.fetch(req);
     if (!env.DB) return json({ ok: false, error: "not configured" }, 503);
     // 同じサイトのページからの送信だけ受け付ける

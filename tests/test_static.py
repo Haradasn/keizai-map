@@ -161,15 +161,38 @@ def test_feed_valid():
         assert 'type="application/atom+xml"' in f.read_text(encoding="utf-8"), f
 
 
-def test_kanban_map_and_share_images():
-    """看板産業マップ: 47都道府県のタイルがあり、掲載県はデータの県と一致。県ページは県ごとの共有画像を指す。"""
+def test_kasegi_map_and_share_images():
+    """稼ぎ頭マップ: 47都道府県のタイルがあり、掲載県はデータの県と一致。県ページは県ごとの共有画像を指す。"""
     D = json.loads((R / "data" / "pref_37.json").read_text(encoding="utf-8"))
-    h = (S / "kanban-map.html").read_text(encoding="utf-8")
-    linked = set(re.findall(r'class="kb-tile"\s+href="prefecture/([a-z]+)\.html"', h))
+    h = (S / "kasegi-map.html").read_text(encoding="utf-8")
+    linked = set(re.findall(r'class="ks-tile"\s+href="prefecture/([a-z]+)\.html"', h))
     assert linked == set(D), linked ^ set(D)
-    assert len(linked) + h.count("kb-tile kb-none") == 47
-    assert (S / "share" / "kanban-map.png").exists() and "/og/kanban-map.png" in h
+    assert len(linked) + h.count("ks-tile ks-none") == 47
+    assert (S / "share" / "kasegi-map.png").exists() and "/og/kasegi-map.png" in h
+    assert not (S / "kanban-map.html").exists()  # 古い名前のページは残さない(Worker が新しい URL へ転送する)
     for slug in D:
         page = (S / "prefecture" / f"{slug}.html").read_text(encoding="utf-8")
         assert f"/og/pref-{slug}.png" in page and (S / "og" / f"pref-{slug}.png").exists(), slug
-        assert "看板産業は" in page and "twitter.com/intent/tweet" in page, slug
+        assert "稼ぎ頭は" in page and "twitter.com/intent/tweet" in page, slug
+
+
+def test_kasegi_is_top_exporter():
+    """稼ぎ頭は「県外・海外への販売額(移輸出額)が最も大きい部門」。県ページ・トップのデータ・稼ぎ頭マップで同じ答えになる。"""
+    D = json.loads((R / "data" / "pref_37.json").read_text(encoding="utf-8"))
+    js = (S / "pref-map-data.js").read_text(encoding="utf-8")
+    M = json.loads(js[js.index("{") : js.rindex("}") + 1])["prefs"]
+    by_slug = {p["g"]: p for p in M.values()}
+    tiles = (S / "kasegi-map.html").read_text(encoding="utf-8")
+    for slug, p in D.items():
+        # 部門の移輸出額の合計は、県の移輸出額と一致する(割合の分母が正しい)
+        assert abs(sum(o["exp"] for o in p["sectors"]) - p["exp_total"]) / p["exp_total"] < 0.005, slug
+        top = max(p["sectors"], key=lambda o: o["exp"])
+        share = top["exp"] / p["exp_total"]
+        assert 0.05 < share < 0.6, (slug, top["n"], share)
+        x = by_slug[slug]["x"]
+        assert x[0][0] == top["n"] and abs(x[0][2] - share) < 0.001, (slug, x[0])
+        assert [r[2] for r in x] == sorted((r[2] for r in x), reverse=True), slug
+        page = (S / "prefecture" / f"{slug}.html").read_text(encoding="utf-8")
+        assert f"稼ぎ頭は<b>{top['n']}</b>" in page, slug
+        m = re.search(r'href="prefecture/%s\.html"[^>]*>(?:<[^>]+>[^<]*</[^>]+>)*' % slug, tiles)
+        assert m and f"<b>{top['n']}</b>" in m.group(0), (slug, m and m.group(0)[:200])

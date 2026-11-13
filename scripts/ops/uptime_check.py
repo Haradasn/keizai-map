@@ -18,6 +18,8 @@ PAGES = [
     ("/prefecture-map", "pm-map"),
     ("/industries", "産業一覧"),
     ("/latest", "最新動向"),
+    ("/kasegi-map", "稼ぎ頭マップ"),
+    ("/kanban-map", "稼ぎ頭マップ"),  # 古い URL。worker/index.js の MOVED で /kasegi-map へ転送される
     ("/changelog", "更新情報"),
     ("/feed.xml", "<feed"),
     ("/sitemap.xml", "<urlset"),

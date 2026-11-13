@@ -10,8 +10,8 @@
 - データ生成: `pipeline/*.py`(`scripts/ops/run_all.sh`)。生データは `raw/`(gitignore)、県別の原本は `pref_raw/`(コミット済み、出典は `pref_raw/SOURCES.json`)。
 - デザイン(2026-11 刷新「地図帳」): 面=海(`base-200`)、パネル=紙(`base-100`)、文字と罫線=墨、強調=朱(`accent`)。光・ぼかし・グラデーション・影・飾りの動きは使わない。動かすのはデータを表すものだけ。書体は Zen Kaku Gothic New、見出しと数字の英数字は Barlow Semi Condensed。テーマは保存した選択、なければ端末の設定(明=nord、暗=night)。色を変えるときは `tailwind.config.js` と `pages/palette.json` の theme をそろえる。
 - CSS は Tailwind+daisyUI を `npm run build:css` で `site/assets.css` にビルドし、**コミットする**(CI が最新かを検査)。HTML に新しいクラスを足したら必ず再ビルド。
-- 看板産業: 県の産出額の3%以上を占める産業のうち、特化係数が最も高いもの(筆者の定義。`build_pref.py` の `kanban` / `KANBAN_MIN`、`pages/home.js` の `MIN` と同じ値)。県ページの冒頭、トップ、看板産業マップ(`kanban-map.html`、タイルの位置は `TILE`)、共有画像で同じ決め方を使う。共有は X の投稿画面へのリンク(県ページの URL を付ける)。`index.html?pref=aichi` で県を選んだ状態で開く。
-- 共有画像(OGP)は `scripts/build/build_ogp.py`(Noto Sans CJK 必要)。 産業(`og/<コード>.png`)、県(`og/pref-<slug>.png`)、看板産業マップ(`og/kanban-map.png` と、投稿に付ける大きい画像 `share/kanban-map.png`)を作る。県を足したら必ず実行。CIでは実行しない。データが変わったら `build_site.py` → `build_ogp.py` の順に実行して `site/og*` をコミット。
+- 稼ぎ頭: 県外・海外への販売額(移輸出額)が最も大きい部門(筆者の定義。`build_pref.py` の `kasegi_ranking` / `kasegi`)。「何で稼いでいるか」は、全国平均との比較(特化係数)ではなく、県の外に売っている額で答える(以前は「産出額の3%以上で特化係数が最大の産業」としていたが、43県中31県で移輸出額が最大の産業と食い違った)。東京都の「本社」や県独自にまとめた部門も、その県の表のとおりに数える。県ページの冒頭、トップ(`pref-map-data.js` の `x` に上位4つを入れ、`home.js` はそれを表示するだけ)、稼ぎ頭マップ(`kasegi-map.html`、タイルの位置は `TILE`)、共有画像は、すべて同じ関数から作る。共有は X の投稿画面へのリンク(県ページの URL を付ける)。`index.html?pref=aichi` で県を選んだ状態で開く。ページの名前を変えたら、古い URL を `worker/index.js` の `MOVED` に足す(`/kanban-map` → `/kasegi-map`)。
+- 共有画像(OGP)は `scripts/build/build_ogp.py`(Noto Sans CJK 必要)。 産業(`og/<コード>.png`)、県(`og/pref-<slug>.png`)、稼ぎ頭マップ(`og/kasegi-map.png` と、投稿に付ける大きい画像 `share/kasegi-map.png`)を作る。県を足したら必ず実行。CIでは実行しない。データが変わったら `build_site.py` → `build_ogp.py` の順に実行して `site/og*` をコミット。
 - トップ(`pages/index.html` + `pages/home.js` → `site/home.js`): 最初の画面は「あなたの県は、何で稼いでいる？」。県を選ぶと `pref-map-data.js` から文と上位の産業を作り、立体地図に `pm:set` で伝える(地図の県をクリックすると `pm:pick`)。その下に、取引の図(`net-mini.js`、canvas。動くのは実際の取引だけ)、「統計が示していること」(数値は `{{...}}`)、目次。
 - 3D: 県の立体地図は `pages/prefmap.js`(`data-prefmap="hero|page"`、トップは沖縄・奄美をはめ込み表示。色は地図帳の標高の段彩=緑→黄→黄土→茶で、トップの凡例 `.hp-ramp` と `STOPS` をそろえる)。境界 `site/vendor/japan-pref.json` は地球地図日本(国土地理院)を `scripts/build/build_geo.py` で簡略化(非営利・出典明記が条件)。ライブラリは `site/vendor/` に同梱(MapLibre GL JS、3d-force-graph)。CDN は使わない。
 - 産業マップ: `templates/explorer.html`(ひな形。CSS と、データを渡す `window.XP` だけ)と `pages/explorer.js`(ロジック → `site/explorer.js`)を build_site が共通シェルに入れて出力。`explorer.html?sel=66` で産業を選んだ状態で開く。
@@ -30,7 +30,7 @@
 - 数値は手書きしない。生成物の文章中の数値は `{{...}}` かデータから生成。県別は需給バランス・費用側の検証(assert)を通すこと。
 - ユーザーは日本語。報告は簡潔に、結論から。
 
-- 確認: 画面の変更は Playwright で 1280px と 390px のスクリーンショットを撮って目で確認(WebGL は `--use-gl=swiftshader` で描ける)。サーバーは PID を控えて kill する(`pkill -f` は自分のシェルも止める)。
+- 確認: 画面の変更は Playwright で 1280px と 390px のスクリーンショットを撮って目で確認(WebGL は `--use-gl=swiftshader` で描ける)。サーバーは PID を控えて kill する(`pkill -f` は自分のシェルも止める)。 新しいページも必ず両方の幅で見る。公開されたかは、main のコミットの check-runs にある「Workers Builds: keizai-map」で分かる。公開サイトそのものはサンドボックスから開けないので、`uptime.yml` を手動で動かして確かめる(`scripts/ops/uptime_check.py` の `PAGES` に確かめたいページを足す)。
 - 実装の分担: 仕様が決まったコード実装はサブエージェント(Sonnet)に任せ、見た目の確認・手直し・マージ判断はこちらで行うと安い。
 
 ## 落とし穴

@@ -141,6 +141,17 @@ def build_map(page, D):
             t=round(p["total_out"] / 1e6, 3),
             va=round(p["total_va"] / p["total_out"], 3),
             s=sectors,
+            # トップの「何で稼いでいる？」の答え: [名前, 全国の部門コード(無ければ None), 県の移輸出額に占める割合, 特化係数, 補足]
+            x=[
+                [
+                    o["n"],
+                    national_code(o),
+                    round(share, 4),
+                    (round(o["lq"], 2) if o.get("lq") else None),
+                    sector_note(o, p["name"]),
+                ]
+                for o, share in kasegi_ranking(p)
+            ],
         )
     S = R / "site"
     (S / "pref-map-data.js").write_text(
@@ -231,16 +242,46 @@ def silhouette(jis, size=200, pad=6):
     )
 
 
-# ---------- 看板産業(共有画像・トップ・看板産業マップで共通の決め方)
-
-KANBAN_MIN = 0.03  # 県の産出額に占める割合がこれ以上の産業を対象にする(pages/home.js の MIN と同じ値)
+# ---------- 稼ぎ頭(トップ・県ページ・稼ぎ頭マップ・共有画像で共通の決め方)
 
 
-def kanban(p):
-    """県の看板産業: 県の産出額の3%以上を占める産業のうち、全国平均と比べた集中度(特化係数)が最も高いもの。
-    本社部門(東京都だけにある部門)は除く。"""
-    cands = [o for o in p["sectors"] if o.get("lq") and o["share"] >= KANBAN_MIN and o["c"] != "HQ"]
-    return max(cands, key=lambda o: o["lq"])
+def kasegi_ranking(p, n=4):
+    """県外・海外への販売額(移輸出額)が大きい順の部門。[(部門, 県の移輸出額に占める割合)] を n 件。
+    「何で稼いでいるか」を、全国平均との比較(特化係数)ではなく、県の外に売っている額で数える。
+    東京都の本社部門や、県独自にまとめた部門も、その県の表のとおりに数える。"""
+    ranked = sorted((o for o in p["sectors"] if (o.get("exp") or 0) > 0), key=lambda o: -o["exp"])
+    return [(o, o["exp"] / p["exp_total"]) for o in ranked[:n]]
+
+
+def kasegi(p):
+    """県の稼ぎ頭: 県外・海外への販売額(移輸出額)が最も大きい部門と、その割合。"""
+    return kasegi_ranking(p, 1)[0]
+
+
+def national_code(o):
+    """全国の37部門と1対1に対応する部門ならそのコード。本社部門や、県独自にまとめた部門は None。"""
+    codes = o.get("nat_codes", [o["c"]])
+    return codes[0] if o["c"] != "HQ" and len(codes) == 1 else None
+
+
+def sector_gloss(o):
+    """部門の名前のひとこと説明(共有画像用の短い形)。無ければ None。"""
+    if o["c"] == "HQ":
+        return "「本社」は東京都の表だけにある部門"
+    if o["n"] == "商業":
+        return "「商業」は卸売・小売のこと"
+    return None
+
+
+def sector_note(o, pref_name):
+    """部門の名前だけでは意味が伝わりにくいものの補足。無ければ None。"""
+    if o["c"] == "HQ":
+        return "「本社」は、東京都の表だけにある部門です。ほかの表では各産業に含まれる本社の活動を、独立させて数えています。"
+    if national_code(o) is None:
+        return f"「{o['n']}」は、{pref_name}の表での部門の分け方です。"
+    if o["n"] == "商業":
+        return "「商業」は卸売・小売のことです。県外へ売られる品物にかかる取り分（マージン）を含みます。"
+    return None
 
 
 def sector_group(o):
@@ -248,7 +289,7 @@ def sector_group(o):
     return _face_sources()["grp"].get(o.get("nat_codes", [o["c"]])[0])
 
 
-# 看板産業マップのタイルの位置(列, 行)。おおよその地理の並び
+# 稼ぎ頭マップのタイルの位置(列, 行)。おおよその地理の並び
 TILE = {
     "hokkaido": (13, 0), "aomori": (13, 1), "akita": (12, 2), "iwate": (13, 2), "yamagata": (12, 3),
     "miyagi": (13, 3), "ishikawa": (9, 4), "toyama": (10, 4), "niigata": (11, 4), "fukushima": (12, 4),
@@ -264,8 +305,8 @@ TILE = {
 PREF_NAMES_MISSING = {"nara": "奈良県", "shimane": "島根県", "tokushima": "徳島県", "kochi": "高知県"}
 
 
-def kanban_tiles(D):
-    """看板産業マップのタイル(47都道府県。表が未掲載の県は data=False)。"""
+def kasegi_tiles(D):
+    """稼ぎ頭マップのタイル(47都道府県。表が未掲載の県は data=False)。"""
     F = _face_sources()
     tiles = []
     for slug, (col, row) in TILE.items():
@@ -273,8 +314,8 @@ def kanban_tiles(D):
         if not p:
             tiles.append(dict(slug=slug, col=col, row=row, name=PREF_NAMES_MISSING[slug], data=False))
             continue
-        k = kanban(p)
-        g = sector_group(k)
+        (k, share), (k2, share2) = kasegi_ranking(p, 2)
+        g = sector_group(k) if k["c"] != "HQ" else None
         tiles.append(
             dict(
                 slug=slug,
@@ -283,39 +324,48 @@ def kanban_tiles(D):
                 name=p["name"],
                 data=True,
                 ind=k["n"],
-                lq=f"{k['lq']:.1f}",
-                lq_value=k["lq"],
-                share=pct(k["share"], 1),
+                share=pct(share),
+                share_value=share,
+                second=f"{k2['n']}（{pct(share2)}）",
+                lq=f"{k['lq']:.1f}倍" if k.get("lq") else "−",
                 color=F["colors"][g] if g is not None else "#8d99a6",
-                group=F["names"][g] if g is not None else "",
             )
         )
     return tiles
 
 
-def build_kanban_map(D, page):
-    """看板産業マップのページ。"""
+def build_kasegi_map(D, page):
+    """稼ぎ頭マップのページ。"""
     F = _face_sources()
-    tiles = kanban_tiles(D)
+    tiles = kasegi_tiles(D)
     have = [t for t in tiles if t["data"]]
-    kinds = len({t["ind"] for t in have})
-    top = max(have, key=lambda t: t["lq_value"])
+    counts = {}
+    for t in have:
+        counts[t["ind"]] = counts.get(t["ind"], 0) + 1
+    common = sorted(counts.items(), key=lambda kv: -kv[1])[:3]
+    top = max(have, key=lambda t: t["share_value"])
+    notes = []
+    for slug, p in D.items():
+        note = sector_note(kasegi(p)[0], p["name"])
+        if note and note not in notes:
+            notes.append(note)
     body = render(
-        "kanban_map.html.j2",
+        "kasegi_map.html.j2",
         tiles=tiles,
-        rows=sorted(have, key=lambda t: -t["lq_value"]),
+        rows=sorted(have, key=lambda t: -t["share_value"]),
         missing="・".join(t["name"] for t in tiles if not t["data"]),
         count=len(have),
-        kinds=kinds,
+        kinds=len(counts),
+        common="、".join(f"{name}（{n}県）" for name, n in common),
         top=top,
-        min_share=pct(KANBAN_MIN),
+        notes=notes,
         legend=[dict(name=nm, color=c) for nm, c in zip(F["names"], F["colors"])],
     )
     page(
-        "kanban-map.html",
-        "都道府県の看板産業マップ｜あなたの県は何で稼いでいる？｜Keizai Atlas",
-        f"{len(have)}都道府県の「看板産業」を1枚の図に。県の産出額の{pct(KANBAN_MIN)}以上を占める産業のうち、"
-        f"全国平均と比べて最も集中している産業を、2020年の産業連関表から筆者が集計。政府が作成したものではありません。",
+        "kasegi-map.html",
+        "都道府県の稼ぎ頭マップ｜あなたの県は何で稼いでいる？｜Keizai Atlas",
+        f"{len(have)}都道府県の「稼ぎ頭」を1枚の図に。県外・海外への販売額（移輸出額）が最も大きい産業を、"
+        f"2020年の産業連関表から筆者が集計。政府が作成したものではありません。",
         body,
     )
 
@@ -380,8 +430,10 @@ def build_prefecture_page(slug, p, page, site_url):
     import_share = pct(p["imp_total"] / total)
     top_text = "、".join(f"{o['n']}（{o['lq']:.1f}）" for o in top[:3])
     biggest = max(sectors, key=lambda o: o["out"])
+    kg0, kg0_share = kasegi(p)
     description = (
-        f"{name}の産業（{p['year']}年産業連関表）。産出額は{tril(total)}兆円で、最大の産業は"
+        f"{name}の産業（{p['year']}年産業連関表）。県外・海外にいちばん売っているのは{kg0['n']}"
+        f"（移輸出額の{pct(kg0_share)}）。産出額は{tril(total)}兆円で、最大の産業は"
         f"{biggest['n']}（{pct(biggest['share'], 1)}）。全国より集中している産業は{top_text}。"
     )
     # 特化係数の高い上位3産業の解説ページ(全国の部門と1対1に対応するものだけ)
@@ -390,15 +442,20 @@ def build_prefecture_page(slug, p, page, site_url):
         for o in top[:3]
         if o["c"] != "HQ" and len(o.get("nat_codes", [o["c"]])) == 1
     ]
-    kb = kanban(p)
-    share_text = (
-        f"{name}は、{kb['n']}が全国平均の{kb['lq']:.1f}倍。あなたの県は、何で稼いでいる？ #KeizaiAtlas"
-    )
+    ranking = kasegi_ranking(p)
+    kg, kg_share = ranking[0]
+    share_text = f"{name}の稼ぎ頭は、{kg['n']}。県外・海外に売る額の{pct(kg_share)}を占めます。あなたの県は、何で稼いでいる？ #KeizaiAtlas"
     body = render(
         "prefecture.html.j2",
         name=name,
         slug=slug,
-        kanban=dict(name=kb["n"], lq=f"{kb['lq']:.1f}", share=pct(kb["share"], 1), min_share=pct(KANBAN_MIN)),
+        kasegi=dict(
+            name=kg["n"],
+            share=pct(kg_share),
+            lq=f"{kg['lq']:.1f}" if kg.get("lq") else None,
+            others="、".join(f"{o['n']}（{pct(sh)}）" for o, sh in ranking[1:]),
+            note=sector_note(kg, name),
+        ),
         share_href="https://twitter.com/intent/tweet?"
         + urllib.parse.urlencode({"text": share_text, "url": f"{site_url}/prefecture/{slug}"}),
         industry_links=industry_links,
@@ -517,6 +574,6 @@ def build(page, S, SITE_URL):
     build_prefectures_page(D, page)
     build_map(page, D)
     paths.append("prefecture-map")
-    build_kanban_map(D, page)
-    paths.append("kanban-map")
+    build_kasegi_map(D, page)
+    paths.append("kasegi-map")
     return paths
