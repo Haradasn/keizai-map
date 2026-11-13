@@ -130,7 +130,7 @@
           return n.name;
         })
         .linkColor(function (l) {
-          return l.hub ? "#38bdf8" : dark ? "rgba(148,163,184,0.25)" : "rgba(71,85,105,0.25)";
+          return l.hub ? "#56e0ff" : dark ? "rgba(148,163,184,0.25)" : "rgba(71,85,105,0.25)";
         })
         .linkWidth(function (l) {
           return l.hub ? 1.6 : 0.4;
@@ -141,7 +141,7 @@
         })
         .linkDirectionalParticleWidth(2)
         .linkDirectionalParticleColor(function () {
-          return "#7dd3fc";
+          return "#c9f6ff";
         })
         .onNodeClick(function (n) {
           location.href = "explorer.html?sel=" + n.id;

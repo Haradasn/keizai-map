@@ -89,7 +89,7 @@ def card(c):
             t = lab
             d.text((lx + 22, 520), t, font=font(FR, 20), fill=MUT)
             lx += int(d.textlength(t, font=font(FR, 20))) + 52
-    d.text((70, 568), "Keizai Atlas", font=font(FB, 30), fill=(56, 189, 248))
+    d.text((70, 568), "Keizai Atlas", font=font(FB, 30), fill=(86, 224, 255))
     d.text((290, 574), "産業連関表で見る日本経済の地図帳｜keizai-atlas.com", font=font(FR, 22), fill=MUT)
     return im
 
@@ -97,10 +97,10 @@ def card(c):
 def top():
     im = Image.new("RGB", (W, H), BG)
     d = ImageDraw.Draw(im)
-    d.rectangle([0, 0, 18, H], fill=(56, 189, 248))
+    d.rectangle([0, 0, 18, H], fill=(86, 224, 255))
     d.text((74, 96), "Keizai Atlas｜公的統計で読む日本経済", font=font(FR, 30), fill=MUT)
     d.text((70, 170), "統計から、", font=font(FB, 92), fill=FG)
-    d.text((70, 290), "日本経済の“なるほど”を。", font=font(FB, 92), fill=(56, 189, 248))
+    d.text((70, 290), "日本経済の“なるほど”を。", font=font(FB, 92), fill=(86, 224, 255))
     x = 74
     for lab in ("つながり", "産業", "地域", "変化と世界"):
         w = d.textlength(lab, font=font(FR, 28)) + 44

@@ -31,7 +31,7 @@
 <line x1="{{ chart.base_x }}" y1="0" x2="{{ chart.base_x }}" y2="{{ chart.height }}" stroke="currentColor" stroke-opacity=".4" stroke-dasharray="3 3"/>
 {% for item in chart.bars %}
 <text x="{{ chart.label_x }}" y="{{ item.text_y }}" text-anchor="end" fill="currentColor">{{ item.name|esc }}</text>
-<rect x="{{ chart.left }}" y="{{ item.rect_y }}" width="{{ item.bar_width }}" height="16" rx="2" fill="#38bdf8"/>
+<rect x="{{ chart.left }}" y="{{ item.rect_y }}" width="{{ item.bar_width }}" height="16" rx="2" class="k-bar" fill="#56e0ff"/>
 <text x="{{ item.value_x }}" y="{{ item.value_y }}" fill="currentColor">{{ item.value }}</text>
 {% endfor %}
 </svg>

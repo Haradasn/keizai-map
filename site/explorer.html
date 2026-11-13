@@ -20,7 +20,7 @@
     <meta property="og:image" content="https://keizai-atlas.com/og.png" />
     <meta property="og:locale" content="ja_JP" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="theme-color" content="#0b1120" />
+    <meta name="theme-color" content="#050816" />
     <link
       rel="alternate"
       type="application/atom+xml"
@@ -30,7 +30,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=M+PLUS+1:wght@700;800&family=Noto+Sans+JP:wght@400;500;700;800&family=Oxanium:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="assets.css" />
@@ -39,11 +39,27 @@
     </script>
   </head>
   <body class="bg-base-200 text-base-content font-sans min-h-screen flex flex-col">
-    <header class="navbar bg-base-100/80 backdrop-blur border-b border-base-300 sticky top-0 z-50 px-4">
+    <header class="navbar k-nav sticky top-0 z-50 px-4">
       <div class="flex-1">
-        <a href="index.html" class="text-lg font-bold tracking-tight"
+        <a href="index.html" class="k-logo"
+          ><svg
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="12" r="9.2" />
+            <ellipse cx="12" cy="12" rx="4" ry="9.2" />
+            <path d="M3.2 9.2h17.6M3.2 14.8h17.6" />
+            <circle cx="18.6" cy="5.6" r="1.9" fill="currentColor" stroke="none" /></svg
           >Keizai Atlas
-          <span class="text-xs font-normal text-base-content/70 ml-2 hidden sm:inline">経済の地図帳</span></a
+          <span
+            class="font-sans text-xs font-normal tracking-normal text-base-content/70 ml-1 hidden sm:inline"
+            >経済の地図帳</span
+          ></a
         >
       </div>
       <nav aria-label="サイト内の主なページ" class="flex-none gap-1 items-center flex">
@@ -80,8 +96,8 @@
       </nav>
     </header>
     <style>
-      [data-theme="night"] #xp{--bg:#0b1120;--panel:#0f172a;--panel2:#16213a;--fg:#e2e8f0;--muted:#94a3b8;--line:#1e293b;--accent:#38bdf8;--accentfg:#0b1120;--up:#38bdf8;--flat:#64748b;--down:#fb923c;--graph:#070c18;--label:#e2e8f0;--chip:#1e293b;--link:#8aa0c0;--lin:#67e8f9;--lout:#4f8dfd;color-scheme:dark}
-      [data-theme="nord"] #xp{--bg:#e5e9f0;--panel:#ffffff;--panel2:#eceff4;--fg:#2e3440;--muted:#5b6578;--line:#d8dee9;--accent:#3f6390;--accentfg:#ffffff;--up:#3b6fb0;--flat:#8d94a3;--down:#c8501f;--graph:#eceff4;--label:#2e3440;--chip:#d8dee9;--link:#6b7a90;--lin:#0e9fbd;--lout:#1d4ed8;color-scheme:light}
+      [data-theme="night"] #xp{--bg:#050816;--panel:#0b1026;--panel2:#111a3a;--fg:#e7ecff;--muted:#94a3b8;--line:#1f2a4d;--accent:#56e0ff;--accentfg:#04121c;--up:#56e0ff;--flat:#64748b;--down:#fb923c;--graph:#030512;--label:#e7ecff;--chip:#1f2a4d;--link:#8aa0c0;--lin:#67e8f9;--lout:#4f8dfd;color-scheme:dark}
+      [data-theme="nord"] #xp{--bg:#eef1f8;--panel:#ffffff;--panel2:#f4f6fb;--fg:#151b33;--muted:#5b6578;--line:#d5dcec;--accent:#2747c7;--accentfg:#ffffff;--up:#3b6fb0;--flat:#8d94a3;--down:#c8501f;--graph:#f4f6fb;--label:#151b33;--chip:#d5dcec;--link:#6b7a90;--lin:#0e9fbd;--lout:#1d4ed8;color-scheme:light}
     </style>
     <style>
       #xp {
@@ -712,9 +728,7 @@
       </div>
     </section>
     <script src="/feedback.js" defer></script>
-    <footer
-      class="footer footer-center p-6 bg-base-100 border-t border-base-300 text-sm text-base-content/70 mt-12"
-    >
+    <footer class="footer footer-center p-6 k-foot text-sm text-base-content/70 mt-12">
       <p>
         出典：総務省ほか「産業連関表」、経済産業省「延長産業連関表」（政府統計の総合窓口 e-Stat
         掲載）を筆者が加工して作成。<br />加工・分析・「仮説」は筆者によるもので、政府が作成・保証したものではありません。投資・経営判断の根拠にはしないでください。

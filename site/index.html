@@ -20,7 +20,7 @@
     <meta property="og:image" content="https://keizai-atlas.com/og.png" />
     <meta property="og:locale" content="ja_JP" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="theme-color" content="#0b1120" />
+    <meta name="theme-color" content="#050816" />
     <link
       rel="alternate"
       type="application/atom+xml"
@@ -33,7 +33,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=M+PLUS+1:wght@700;800&family=Noto+Sans+JP:wght@400;500;700;800&family=Oxanium:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="assets.css" />
@@ -42,11 +42,27 @@
     </script>
   </head>
   <body class="bg-base-200 text-base-content font-sans min-h-screen flex flex-col">
-    <header class="navbar bg-base-100/80 backdrop-blur border-b border-base-300 sticky top-0 z-50 px-4">
+    <header class="navbar k-nav sticky top-0 z-50 px-4">
       <div class="flex-1">
-        <a href="index.html" class="text-lg font-bold tracking-tight"
+        <a href="index.html" class="k-logo"
+          ><svg
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="12" r="9.2" />
+            <ellipse cx="12" cy="12" rx="4" ry="9.2" />
+            <path d="M3.2 9.2h17.6M3.2 14.8h17.6" />
+            <circle cx="18.6" cy="5.6" r="1.9" fill="currentColor" stroke="none" /></svg
           >Keizai Atlas
-          <span class="text-xs font-normal text-base-content/70 ml-2 hidden sm:inline">経済の地図帳</span></a
+          <span
+            class="font-sans text-xs font-normal tracking-normal text-base-content/70 ml-1 hidden sm:inline"
+            >経済の地図帳</span
+          ></a
         >
       </div>
       <nav aria-label="サイト内の主なページ" class="flex-none gap-1 items-center flex">
@@ -85,11 +101,11 @@
     <main class="flex-1">
       <style>
         .ins {
-          --ins-a: #38bdf8;
+          --ins-a: oklch(var(--p));
           --ins-c: oklch(var(--bc)/0.3);
         }
         [data-theme="nord"] .ins {
-          --ins-a: #0369a1;
+          --ins-a: oklch(var(--p));
         }
         .ins-stack {
           display: grid;
@@ -273,10 +289,10 @@
           width: 5rem;
           height: 6px;
           border-radius: 9999px;
-          background: linear-gradient(to right, #1c4868, #38bdf8, #7dd3fc);
+          background: linear-gradient(to right, #263076, #56e0ff, #defaff);
         }
         [data-theme="nord"] .ins-legend i {
-          background: linear-gradient(to right, #bedef2, #0e87c8, #0369a1);
+          background: linear-gradient(to right, #c8d4f6, #4668de, #1e3096);
         }
         [data-prefmap="hero"] .maplibregl-ctrl-attrib {
           background: oklch(var(--b1) / 0.6);
@@ -399,252 +415,427 @@
             font-size: clamp(2rem, 3.4vw, 2.75rem);
           }
         }
+        /* 冒頭: 流れの線(お金の流れのイメージ)を背景に、発見のパネルを光る枠で見せる */
+        .hero {
+          position: relative;
+          overflow: hidden;
+        }
+        #flow {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          pointer-events: none;
+          -webkit-mask-image: linear-gradient(#000 50%, transparent 96%);
+          mask-image: linear-gradient(#000 50%, transparent 96%);
+        }
+        .hero > section {
+          position: relative;
+        }
+        .hero h1 {
+          font-size: clamp(1.7rem, 6.6vw, 3.75rem);
+          line-height: 1.18;
+          font-weight: 800;
+        }
+        .ins {
+          position: relative;
+          border: 1px solid transparent;
+          background:
+            linear-gradient(oklch(var(--b1) / 0.88), oklch(var(--b1) / 0.88)) padding-box,
+            linear-gradient(
+                135deg,
+                oklch(var(--p) / 0.95),
+                oklch(var(--s) / 0.7) 32%,
+                oklch(var(--bc) / 0.14) 68%
+              )
+              border-box;
+          box-shadow:
+            0 0 90px -34px oklch(var(--p) / 0.75),
+            0 40px 70px -50px rgb(0 0 0 / 0.9);
+        }
+        .ins::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          background: linear-gradient(
+            180deg,
+            transparent 40%,
+            oklch(var(--p) / 0.1) 49%,
+            oklch(var(--p) / 0.55) 50%,
+            transparent 51%
+          );
+          transform: translateY(-60%);
+          opacity: 0;
+          animation: insscan 1.5s 0.25s cubic-bezier(0.3, 0, 0.2, 1) 1;
+        }
+        @keyframes insscan {
+          0% {
+            transform: translateY(-60%);
+            opacity: 1;
+          }
+          100% {
+            transform: translateY(60%);
+            opacity: 0;
+          }
+        }
+        .ins-big,
+        .ins-tv {
+          font-family: var(--k-display);
+        }
+        [data-theme="night"] .ins-big {
+          background: linear-gradient(95deg, oklch(var(--p)) 10%, oklch(var(--s)) 95%);
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+          filter: drop-shadow(0 0 22px oklch(var(--p) / 0.45));
+        }
+        [data-theme="night"] .ins-bar:not(.m) {
+          filter: drop-shadow(0 0 10px oklch(var(--p) / 0.6));
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .ins::after {
+            display: none;
+          }
+        }
       </style>
-      <section class="max-w-5xl mx-auto px-4 pt-8 sm:pt-10 pb-4">
-        <p class="text-xs tracking-wide text-base-content/70">Keizai Atlas｜公的統計で読む日本経済</p>
-        <h1 class="mt-2 text-2xl sm:text-4xl font-bold tracking-tight leading-snug">
-          統計から、<br class="sm:hidden" />日本経済の“なるほど”を。
-        </h1>
-        <p class="mt-2 text-xs sm:text-sm text-base-content/70 max-w-2xl">
-          産業連関表など公的統計を、趣味で集計して眺めています。政府が作成・保証したものではありません。
-        </p>
-        <div
-          id="ins"
-          class="ins mt-5 rounded-2xl border border-base-300 bg-base-100 overflow-hidden shadow-sm"
-          role="region"
-          aria-roledescription="カルーセル"
-          aria-label="統計からわかる発見"
-        >
-          <div class="ins-grid">
-            <div class="ins-stack" id="ins-stack">
-              <div class="ins-slide" role="group" aria-roledescription="スライド" aria-label="1 / 5 地域">
-                <p class="ins-lens">地域</p>
-                <h2 class="m-0">
-                  <span class="ins-lead">輸送機械は、特定の県に</span
-                  ><span class="ins-big" data-f="big">大きく集中</span
-                  ><span class="ins-tail" data-f="tail">している</span>
-                </h2>
-                <p class="ins-mean">
-                  つまり、全国の平均よりも、その県に産業がぐっと偏って集まっています。特化係数は「その県の産業構成比
-                  ÷ 全国の産業構成比」です。
-                </p>
-                <p class="ins-src" data-f="src">
-                  出典：県別の産業連関表（筆者集計）。県の総<a
-                    class="underline decoration-dotted underline-offset-4 hover:text-primary"
-                    href="glossary.html#sanshutsu"
-                    >産出額</a
-                  >の0.5%以上を占める県のうち、集中度が最も高い県。
-                </p>
-                <a class="ins-more" href="prefecture-map.html">詳しく見る →</a>
-              </div>
-              <div class="ins-slide" role="group" aria-roledescription="スライド" aria-label="2 / 5 変化">
-                <p class="ins-lens">変化</p>
-                <h2 class="m-0">
-                  <span class="ins-lead">海外へのデジタル支払いが、約1.9倍に</span
-                  ><span class="ins-big">2.4<small>兆円</small>→4.6<small>兆円</small></span
-                  ><span class="ins-tail">2019年→2025年</span>
-                </h2>
-                <p class="ins-mean">
-                  つまり、通信・コンピュータ・情報サービスの海外への支払い（<a
-                    class="underline decoration-dotted underline-offset-4 hover:text-primary"
-                    href="glossary.html#bop"
-                    >国際収支</a
-                  >）が、この間に大きく膨らみました。
-                </p>
-                <p class="ins-src">出典：国際収支（通信・コンピュータ・情報サービス、支払い）</p>
-                <a class="ins-more" href="latest.html#digital-pay">詳しく見る →</a>
-              </div>
-              <div class="ins-slide" role="group" aria-roledescription="スライド" aria-label="3 / 5 変化">
-                <p class="ins-lens">変化</p>
-                <h2 class="m-0">
-                  <span class="ins-lead">原油の輸入は、量は減り、単価は上がった</span
-                  ><span class="ins-big">量 −21<small>%</small><br />単価 約1.5<small>倍</small></span
-                  ><span class="ins-tail">2019年比（2025年）／単価は円建て</span>
-                </h2>
-                <p class="ins-mean">つまり、輸入額の増減の大半は、量ではなく単価の動きです。</p>
-                <p class="ins-src">出典：貿易統計</p>
-                <a class="ins-more" href="latest.html#energy-import">詳しく見る →</a>
-              </div>
-              <div class="ins-slide" role="group" aria-roledescription="スライド" aria-label="4 / 5 世界">
-                <p class="ins-lens">世界</p>
-                <h2 class="m-0">
-                  <span class="ins-lead">外注に使う割合は、日本は米国の半分以下</span
-                  ><span class="ins-big t">米20% / 日8%</span
-                  ><span class="ins-tail">仕入れに占める専門・事業支援サービスの割合（2022年）</span>
-                </h2>
-                <p class="ins-mean">
-                  つまり、産業が仕入れに使うお金のうち、法務・会計・コンサル・広告・人材などの専門サービスに回る割合が、日本は米国より小さいということです。ドイツは16%、韓国は8%です。
-                </p>
-                <p class="ins-src">
-                  出典：OECD
-                  <a
-                    class="underline decoration-dotted underline-offset-4 hover:text-primary"
-                    href="glossary.html#icio"
-                    >ICIO</a
-                  >（国際産業連関表）
-                </p>
-                <a class="ins-more" href="international.html#outsourcing">詳しく見る →</a>
-              </div>
-              <div class="ins-slide" role="group" aria-roledescription="スライド" aria-label="5 / 5 つながり">
-                <p class="ins-lens">つながり</p>
-                <h2 class="m-0">
-                  <span class="ins-lead" data-f="lead5">金額の大きい産業間の取引の多くは、</span
-                  ><span class="ins-big" data-f="big5">ひとつの産業</span
-                  ><span class="ins-tail" data-f="tail5">から出ている</span>
-                </h2>
-                <p class="ins-mean" data-f="mean5">
-                  対事業所サービスは、人材派遣・リース・警備・広告など、企業から仕事を請け負うサービスです。多くの産業が、ここから仕入れています。
-                </p>
-                <p class="ins-src" data-f="src5">
-                  出典：産業連関表（2020年、37部門）を筆者が集計。同じ産業の中での取引は除く。
-                </p>
-                <a class="ins-more" data-f="more5" href="explorer.html">詳しく見る →</a>
-              </div>
-            </div>
-            <div class="ins-vis" aria-label="スライドの図">
-              <div class="ins-v map" data-v="0">
-                <div style="position: absolute; inset: 0">
-                  <div
-                    id="pm-map"
-                    data-prefmap="hero"
-                    data-k="35"
-                    style="width: 100%; height: 100%"
-                    role="region"
-                    aria-label="都道府県を輸送機械の産出額の高さで表した、ゆっくり回る日本の立体地図"
-                  ></div>
+      <div class="hero">
+        <canvas id="flow" aria-hidden="true"></canvas>
+        <section class="max-w-5xl mx-auto px-4 pt-10 sm:pt-16 pb-6">
+          <p class="text-xs tracking-wide text-base-content/70">Keizai Atlas｜公的統計で読む日本経済</p>
+          <h1 class="mt-3">統計から、<br />日本経済の“なるほど”を。</h1>
+          <p class="mt-3 text-xs sm:text-sm text-base-content/70 max-w-2xl">
+            産業連関表など公的統計を、趣味で集計して眺めています。政府が作成・保証したものではありません。
+          </p>
+          <div
+            id="ins"
+            class="ins mt-7 rounded-2xl overflow-hidden"
+            role="region"
+            aria-roledescription="カルーセル"
+            aria-label="統計からわかる発見"
+          >
+            <div class="ins-grid">
+              <div class="ins-stack" id="ins-stack">
+                <div class="ins-slide" role="group" aria-roledescription="スライド" aria-label="1 / 5 地域">
+                  <p class="ins-lens">地域</p>
+                  <h2 class="m-0">
+                    <span class="ins-lead">輸送機械は、特定の県に</span
+                    ><span class="ins-big" data-f="big">大きく集中</span
+                    ><span class="ins-tail" data-f="tail">している</span>
+                  </h2>
+                  <p class="ins-mean">
+                    つまり、全国の平均よりも、その県に産業がぐっと偏って集まっています。特化係数は「その県の産業構成比
+                    ÷ 全国の産業構成比」です。
+                  </p>
+                  <p class="ins-src" data-f="src">
+                    出典：県別の産業連関表（筆者集計）。県の総<a
+                      class="underline decoration-dotted underline-offset-4 hover:text-primary"
+                      href="glossary.html#sanshutsu"
+                      >産出額</a
+                    >の0.5%以上を占める県のうち、集中度が最も高い県。
+                  </p>
+                  <a class="ins-more" href="prefecture-map.html">詳しく見る →</a>
                 </div>
-                <div class="ins-legend">
-                  <span>高さ＝産出額</span><span>色＝集中度</span><i aria-hidden="true"></i>
+                <div class="ins-slide" role="group" aria-roledescription="スライド" aria-label="2 / 5 変化">
+                  <p class="ins-lens">変化</p>
+                  <h2 class="m-0">
+                    <span class="ins-lead">海外へのデジタル支払いが、約1.9倍に</span
+                    ><span class="ins-big">2.4<small>兆円</small>→4.6<small>兆円</small></span
+                    ><span class="ins-tail">2019年→2025年</span>
+                  </h2>
+                  <p class="ins-mean">
+                    つまり、通信・コンピュータ・情報サービスの海外への支払い（<a
+                      class="underline decoration-dotted underline-offset-4 hover:text-primary"
+                      href="glossary.html#bop"
+                      >国際収支</a
+                    >）が、この間に大きく膨らみました。
+                  </p>
+                  <p class="ins-src">出典：国際収支（通信・コンピュータ・情報サービス、支払い）</p>
+                  <a class="ins-more" href="latest.html#digital-pay">詳しく見る →</a>
                 </div>
-              </div>
-              <div class="ins-v" data-v="1">
-                <svg
-                  viewBox="0 0 400 300"
-                  role="img"
-                  aria-label="海外へのデジタル支払いの棒グラフ。2019年は2.4兆円、2025年は4.6兆円"
-                  data-vals="2.4,4.6"
-                  data-base="250"
-                  data-maxh="170"
-                >
-                  <text class="ins-cap" x="40" y="28">海外へのデジタル支払い（兆円）</text>
-                  <line class="ins-ax" x1="40" y1="250" x2="360" y2="250" />
-                  <rect class="ins-bar m b" x="85" y="250" width="90" height="0" rx="4" />
-                  <rect class="ins-bar b" x="225" y="250" width="90" height="0" rx="4" />
-                  <text class="ins-tv bl" x="130" y="240" text-anchor="middle">2.4</text>
-                  <text class="ins-tv bl" x="270" y="240" text-anchor="middle">4.6</text>
-                  <text class="ins-tx" x="130" y="272" text-anchor="middle">2019年</text>
-                  <text class="ins-tx" x="270" y="272" text-anchor="middle">2025年</text>
-                </svg>
-              </div>
-              <div class="ins-v" data-v="2">
-                <svg
-                  viewBox="0 0 400 300"
-                  role="img"
-                  aria-label="原油の輸入の棒グラフ。2019年を100として、2025年の量は−21%、円建て単価は約1.5倍"
-                  data-q="−21"
-                  data-p="1.5"
-                  data-ref="100"
-                  data-base="250"
-                  data-maxh="170"
-                >
-                  <text class="ins-cap" x="40" y="28">原油の輸入（2019年＝100）</text>
-                  <line class="ins-ax" x1="40" y1="250" x2="360" y2="250" />
-                  <line class="ins-ref rf" x1="40" x2="360" y1="250" y2="250" />
-                  <text class="ins-cap rt" x="360" y="240" text-anchor="end">2019年</text>
-                  <rect class="ins-bar m b" x="85" y="250" width="90" height="0" rx="4" />
-                  <rect class="ins-bar b" x="225" y="250" width="90" height="0" rx="4" />
-                  <text class="ins-tv bl" x="130" y="240" text-anchor="middle">−21%</text>
-                  <text class="ins-tv bl" x="270" y="240" text-anchor="middle">約1.5倍</text>
-                  <text class="ins-tx" x="130" y="272" text-anchor="middle">輸入量</text>
-                  <text class="ins-tx" x="270" y="272" text-anchor="middle">円建ての単価</text>
-                </svg>
-              </div>
-              <div class="ins-v" data-v="3">
-                <svg
-                  viewBox="0 0 400 300"
-                  role="img"
-                  aria-label="仕入れに占める専門・事業支援サービスの割合（2022年）。米国20%、日本8%"
-                  data-vals="20.4,8.2"
-                  data-dir="h"
-                >
-                  <text class="ins-cap" x="30" y="40">専門・事業支援サービスの割合（2022年）</text>
-                  <line class="ins-ax" x1="90" y1="70" x2="90" y2="230" />
-                  <text class="ins-tx" x="76" y="123" text-anchor="end">米国</text>
-                  <text class="ins-tx" x="76" y="193" text-anchor="end">日本</text>
-                  <rect class="ins-bar m b" x="90" y="100" width="0" height="40" rx="4" />
-                  <rect class="ins-bar b" x="90" y="170" width="0" height="40" rx="4" />
-                  <text class="ins-tv bl" x="100" y="128">20%</text>
-                  <text class="ins-tv bl" x="100" y="198">8%</text>
-                </svg>
-              </div>
-              <div class="ins-v net" data-v="4">
+                <div class="ins-slide" role="group" aria-roledescription="スライド" aria-label="3 / 5 変化">
+                  <p class="ins-lens">変化</p>
+                  <h2 class="m-0">
+                    <span class="ins-lead">原油の輸入は、量は減り、単価は上がった</span
+                    ><span class="ins-big">量 −21<small>%</small><br />単価 約1.5<small>倍</small></span
+                    ><span class="ins-tail">2019年比（2025年）／単価は円建て</span>
+                  </h2>
+                  <p class="ins-mean">つまり、輸入額の増減の大半は、量ではなく単価の動きです。</p>
+                  <p class="ins-src">出典：貿易統計</p>
+                  <a class="ins-more" href="latest.html#energy-import">詳しく見る →</a>
+                </div>
+                <div class="ins-slide" role="group" aria-roledescription="スライド" aria-label="4 / 5 世界">
+                  <p class="ins-lens">世界</p>
+                  <h2 class="m-0">
+                    <span class="ins-lead">外注に使う割合は、日本は米国の半分以下</span
+                    ><span class="ins-big t">米20% / 日8%</span
+                    ><span class="ins-tail">仕入れに占める専門・事業支援サービスの割合（2022年）</span>
+                  </h2>
+                  <p class="ins-mean">
+                    つまり、産業が仕入れに使うお金のうち、法務・会計・コンサル・広告・人材などの専門サービスに回る割合が、日本は米国より小さいということです。ドイツは16%、韓国は8%です。
+                  </p>
+                  <p class="ins-src">
+                    出典：OECD
+                    <a
+                      class="underline decoration-dotted underline-offset-4 hover:text-primary"
+                      href="glossary.html#icio"
+                      >ICIO</a
+                    >（国際産業連関表）
+                  </p>
+                  <a class="ins-more" href="international.html#outsourcing">詳しく見る →</a>
+                </div>
                 <div
-                  id="ins-net"
-                  style="position: absolute; inset: 0"
-                  role="img"
-                  aria-label="37の産業を円、取引を線で表したネットワーク。光っている円が、取引の中心にある産業"
-                ></div>
-                <div class="ins-legend">
-                  <span>円＝産業（大きさ＝生産額）</span><span>光る線＝その産業から出る取引</span>
+                  class="ins-slide"
+                  role="group"
+                  aria-roledescription="スライド"
+                  aria-label="5 / 5 つながり"
+                >
+                  <p class="ins-lens">つながり</p>
+                  <h2 class="m-0">
+                    <span class="ins-lead" data-f="lead5">金額の大きい産業間の取引の多くは、</span
+                    ><span class="ins-big" data-f="big5">ひとつの産業</span
+                    ><span class="ins-tail" data-f="tail5">から出ている</span>
+                  </h2>
+                  <p class="ins-mean" data-f="mean5">
+                    対事業所サービスは、人材派遣・リース・警備・広告など、企業から仕事を請け負うサービスです。多くの産業が、ここから仕入れています。
+                  </p>
+                  <p class="ins-src" data-f="src5">
+                    出典：産業連関表（2020年、37部門）を筆者が集計。同じ産業の中での取引は除く。
+                  </p>
+                  <a class="ins-more" data-f="more5" href="explorer.html">詳しく見る →</a>
+                </div>
+              </div>
+              <div class="ins-vis" aria-label="スライドの図">
+                <div class="ins-v map" data-v="0">
+                  <div style="position: absolute; inset: 0">
+                    <div
+                      id="pm-map"
+                      data-prefmap="hero"
+                      data-k="35"
+                      style="width: 100%; height: 100%"
+                      role="region"
+                      aria-label="都道府県を輸送機械の産出額の高さで表した、ゆっくり回る日本の立体地図"
+                    ></div>
+                  </div>
+                  <div class="ins-legend">
+                    <span>高さ＝産出額</span><span>色＝集中度</span><i aria-hidden="true"></i>
+                  </div>
+                </div>
+                <div class="ins-v" data-v="1">
+                  <svg
+                    viewBox="0 0 400 300"
+                    role="img"
+                    aria-label="海外へのデジタル支払いの棒グラフ。2019年は2.4兆円、2025年は4.6兆円"
+                    data-vals="2.4,4.6"
+                    data-base="250"
+                    data-maxh="170"
+                  >
+                    <text class="ins-cap" x="40" y="28">海外へのデジタル支払い（兆円）</text>
+                    <line class="ins-ax" x1="40" y1="250" x2="360" y2="250" />
+                    <rect class="ins-bar m b" x="85" y="250" width="90" height="0" rx="4" />
+                    <rect class="ins-bar b" x="225" y="250" width="90" height="0" rx="4" />
+                    <text class="ins-tv bl" x="130" y="240" text-anchor="middle">2.4</text>
+                    <text class="ins-tv bl" x="270" y="240" text-anchor="middle">4.6</text>
+                    <text class="ins-tx" x="130" y="272" text-anchor="middle">2019年</text>
+                    <text class="ins-tx" x="270" y="272" text-anchor="middle">2025年</text>
+                  </svg>
+                </div>
+                <div class="ins-v" data-v="2">
+                  <svg
+                    viewBox="0 0 400 300"
+                    role="img"
+                    aria-label="原油の輸入の棒グラフ。2019年を100として、2025年の量は−21%、円建て単価は約1.5倍"
+                    data-q="−21"
+                    data-p="1.5"
+                    data-ref="100"
+                    data-base="250"
+                    data-maxh="170"
+                  >
+                    <text class="ins-cap" x="40" y="28">原油の輸入（2019年＝100）</text>
+                    <line class="ins-ax" x1="40" y1="250" x2="360" y2="250" />
+                    <line class="ins-ref rf" x1="40" x2="360" y1="250" y2="250" />
+                    <text class="ins-cap rt" x="360" y="240" text-anchor="end">2019年</text>
+                    <rect class="ins-bar m b" x="85" y="250" width="90" height="0" rx="4" />
+                    <rect class="ins-bar b" x="225" y="250" width="90" height="0" rx="4" />
+                    <text class="ins-tv bl" x="130" y="240" text-anchor="middle">−21%</text>
+                    <text class="ins-tv bl" x="270" y="240" text-anchor="middle">約1.5倍</text>
+                    <text class="ins-tx" x="130" y="272" text-anchor="middle">輸入量</text>
+                    <text class="ins-tx" x="270" y="272" text-anchor="middle">円建ての単価</text>
+                  </svg>
+                </div>
+                <div class="ins-v" data-v="3">
+                  <svg
+                    viewBox="0 0 400 300"
+                    role="img"
+                    aria-label="仕入れに占める専門・事業支援サービスの割合（2022年）。米国20%、日本8%"
+                    data-vals="20.4,8.2"
+                    data-dir="h"
+                  >
+                    <text class="ins-cap" x="30" y="40">専門・事業支援サービスの割合（2022年）</text>
+                    <line class="ins-ax" x1="90" y1="70" x2="90" y2="230" />
+                    <text class="ins-tx" x="76" y="123" text-anchor="end">米国</text>
+                    <text class="ins-tx" x="76" y="193" text-anchor="end">日本</text>
+                    <rect class="ins-bar m b" x="90" y="100" width="0" height="40" rx="4" />
+                    <rect class="ins-bar b" x="90" y="170" width="0" height="40" rx="4" />
+                    <text class="ins-tv bl" x="100" y="128">20%</text>
+                    <text class="ins-tv bl" x="100" y="198">8%</text>
+                  </svg>
+                </div>
+                <div class="ins-v net" data-v="4">
+                  <div
+                    id="ins-net"
+                    style="position: absolute; inset: 0"
+                    role="img"
+                    aria-label="37の産業を円、取引を線で表したネットワーク。光っている円が、取引の中心にある産業"
+                  ></div>
+                  <div class="ins-legend">
+                    <span>円＝産業（大きさ＝生産額）</span><span>光る線＝その産業から出る取引</span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="ins-ctl" id="ins-ctl">
-            <div class="ins-prog" aria-hidden="true"><span></span></div>
-            <button type="button" id="ins-prev" aria-label="前の発見">
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
+            <div class="ins-ctl" id="ins-ctl">
+              <div class="ins-prog" aria-hidden="true"><span></span></div>
+              <button type="button" id="ins-prev" aria-label="前の発見">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M15 5l-7 7 7 7" />
+                </svg>
+              </button>
+              <span class="inline-flex items-center" id="ins-dots"
+                ><button type="button" class="ins-dot" aria-label="地域の発見を見る"><span></span></button
+                ><button type="button" class="ins-dot" aria-label="デジタル支払いの発見を見る">
+                  <span></span></button
+                ><button type="button" class="ins-dot" aria-label="エネルギー輸入の発見を見る">
+                  <span></span></button
+                ><button type="button" class="ins-dot" aria-label="国際比較の発見を見る"><span></span></button
+                ><button type="button" class="ins-dot" aria-label="産業のつながりの発見を見る">
+                  <span></span></button
+              ></span>
+              <button type="button" id="ins-next" aria-label="次の発見">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+              <span class="flex-1"></span>
+              <span class="text-xs text-base-content/70 tabular-nums" id="ins-count" aria-hidden="true"
+                >1 / 5</span
               >
-                <path d="M15 5l-7 7 7 7" />
-              </svg>
-            </button>
-            <span class="inline-flex items-center" id="ins-dots"
-              ><button type="button" class="ins-dot" aria-label="地域の発見を見る"><span></span></button
-              ><button type="button" class="ins-dot" aria-label="デジタル支払いの発見を見る">
-                <span></span></button
-              ><button type="button" class="ins-dot" aria-label="エネルギー輸入の発見を見る">
-                <span></span></button
-              ><button type="button" class="ins-dot" aria-label="国際比較の発見を見る"><span></span></button
-              ><button type="button" class="ins-dot" aria-label="産業のつながりの発見を見る">
-                <span></span></button
-            ></span>
-            <button type="button" id="ins-next" aria-label="次の発見">
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
-            <span class="flex-1"></span>
-            <span class="text-xs text-base-content/70 tabular-nums" id="ins-count" aria-hidden="true"
-              >1 / 5</span
-            >
-            <button type="button" id="ins-pause" aria-label="自動切り替えを止める" aria-pressed="false">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path class="pp" d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" />
-              </svg>
-            </button>
+              <button type="button" id="ins-pause" aria-label="自動切り替えを止める" aria-pressed="false">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path class="pp" d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" />
+                </svg>
+              </button>
+            </div>
+            <p class="sr-only" id="ins-live" aria-live="polite"></p>
           </div>
-          <p class="sr-only" id="ins-live" aria-live="polite"></p>
-        </div>
-      </section>
+        </section>
+      </div>
+      <script>
+        /* 冒頭の背景: 流れの線。画面外・タブが裏のときは止める。動きを減らす設定では静止画にする */
+        (function () {
+          var c = document.getElementById("flow");
+          if (!c || !c.getContext) return;
+          var x = c.getContext("2d"),
+            W = 0,
+            H = 0,
+            P = [],
+            raf = 0,
+            t = 0,
+            seen = true;
+          var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+          function dark() {
+            return document.documentElement.dataset.theme !== "nord";
+          }
+          function seed(p) {
+            p.x = Math.random() * W;
+            p.y = Math.random() * H;
+            p.l = 50 + Math.random() * 140;
+            p.h = Math.random();
+            return p;
+          }
+          function size() {
+            var r = c.getBoundingClientRect(),
+              d = Math.min(window.devicePixelRatio || 1, 1.5);
+            W = r.width;
+            H = r.height;
+            c.width = W * d;
+            c.height = H * d;
+            x.setTransform(d, 0, 0, d, 0, 0);
+            P = [];
+            for (var i = 0, n = Math.round(Math.min(150, W / 8)); i < n; i++) P.push(seed({}));
+          }
+          function step() {
+            var dk = dark();
+            x.globalCompositeOperation = "destination-out";
+            x.fillStyle = "rgba(0,0,0,0.04)";
+            x.fillRect(0, 0, W, H);
+            x.globalCompositeOperation = dk ? "lighter" : "source-over";
+            x.lineWidth = 1.4;
+            for (var i = 0; i < P.length; i++) {
+              var p = P[i],
+                a = Math.sin(p.x * 0.0042 + t) * 0.75 + Math.cos(p.y * 0.0061 - t * 0.7) * 0.75 + 0.15,
+                nx = p.x + Math.cos(a) * 1.7,
+                ny = p.y + Math.sin(a) * 1.7;
+              x.strokeStyle = dk
+                ? "hsla(" + (188 + p.h * 70) + ",100%,68%,0.75)"
+                : "hsla(" + (222 + p.h * 40) + ",70%,46%,0.4)";
+              x.beginPath();
+              x.moveTo(p.x, p.y);
+              x.lineTo(nx, ny);
+              x.stroke();
+              p.x = nx;
+              p.y = ny;
+              if (--p.l < 0 || nx < 0 || nx > W || ny < 0 || ny > H) seed(p);
+            }
+            t += 0.0016;
+          }
+          function loop() {
+            step();
+            raf = requestAnimationFrame(loop);
+          }
+          function sync() {
+            cancelAnimationFrame(raf);
+            if (!reduce && seen && !document.hidden) loop();
+          }
+          size();
+          if (reduce) for (var i = 0; i < 240; i++) step();
+          if ("IntersectionObserver" in window)
+            new IntersectionObserver(function (e) {
+              seen = e[0].isIntersecting;
+              sync();
+            }).observe(c);
+          document.addEventListener("visibilitychange", sync);
+          var rt = 0;
+          addEventListener("resize", function () {
+            clearTimeout(rt);
+            rt = setTimeout(function () {
+              size();
+              if (reduce) for (var i = 0; i < 240; i++) step();
+            }, 200);
+          });
+          sync();
+        })();
+      </script>
       <script src="pref-map-data.js" defer></script>
       <script src="prefmap.js" defer></script>
       <script src="net-mini.js" defer></script>
@@ -660,11 +851,7 @@
               <span class="text-xs font-bold tracking-wider text-primary">つながり</span>
               <h3 class="font-bold leading-snug">どの産業が、誰と取引している？</h3>
               <p class="text-sm text-base-content/80">
-                37部門の取引をネットワークで俯瞰し、取引の相手が似た産業を近くに並べて<a
-                  class="underline decoration-dotted underline-offset-4 hover:text-primary"
-                  href="glossary.html#kasetsu"
-                  >仮説</a
-                >を探します。
+                37部門の取引をネットワークで俯瞰し、取引の相手が似た産業を近くに並べて仮説を探します。
               </p>
               <p class="mt-auto pt-2 flex flex-wrap gap-x-4 gap-y-1 text-sm">
                 <a class="link link-primary" href="explorer.html">産業マップ →</a
@@ -800,15 +987,7 @@
         <div role="alert" class="alert alert-warning">
           <span
             ><b>ご注意：</b
-            >ストーリー・グループは筆者の<b>仮説</b>で、統計から確定できる事実ではありません。2022年値は<a
-              class="underline decoration-dotted underline-offset-4 hover:text-primary"
-              href="glossary.html#encho-hyo"
-              >延長産業連関表</a
-            >（推計表）で、<a
-              class="underline decoration-dotted underline-offset-4 hover:text-primary"
-              href="glossary.html#kihon-hyo"
-              >基本表</a
-            >とは定義が異なります。</span
+            >ストーリー・グループは筆者の<b>仮説</b>で、統計から確定できる事実ではありません。2022年値は延長産業連関表（推計表）で、基本表とは定義が異なります。</span
           >
         </div>
       </section>
@@ -851,9 +1030,7 @@
       </div>
     </section>
     <script src="/feedback.js" defer></script>
-    <footer
-      class="footer footer-center p-6 bg-base-100 border-t border-base-300 text-sm text-base-content/70 mt-12"
-    >
+    <footer class="footer footer-center p-6 k-foot text-sm text-base-content/70 mt-12">
       <p>
         出典：総務省ほか「産業連関表」、経済産業省「延長産業連関表」（政府統計の総合窓口 e-Stat
         掲載）を筆者が加工して作成。<br />加工・分析・「仮説」は筆者によるもので、政府が作成・保証したものではありません。投資・経営判断の根拠にはしないでください。
