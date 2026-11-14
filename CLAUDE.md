@@ -39,7 +39,7 @@
 - `GITHUB_TOKEN` で作った PR は workflow を起動しないため、`monthly-update` は `test.yml` を `workflow_dispatch` で起動している。
 - SVG には `hidden` プロパティがない(`toggleAttribute`)。flex 列で `mx-auto` を使うと幅が min-content になる(`w-full` を併用)。
 - 産業ページは `<base href="/">`。Cloudflare は `.html` を外した URL が正。
-- 県の表は形式がバラバラ。37部門ベースなら `SOURCES.json` に列位置を書けば追加できる。合算が必要なもの(沖縄=397部門、北海道=独自38部門、兵庫・福岡=39部門)は個別処理がある。
+- 県の表は形式がバラバラ。37部門ベースなら `SOURCES.json` に列位置を書けば追加できる。合算が必要なもの(沖縄=397部門、兵庫・福岡=39部門)は個別処理がある。部門名で全国の37部門に寄せるもの(`special: by_name`。長崎=108部門、北海道=106部門、宮城・岩手・大分など)は、`SOURCES.json` の `by_name` に名前ごとの行き先を書く。見出しが数行に分かれた表は `name_rows`。細かい表に切り替えたら、古い粗い表の合計と一致することを確かめる(北海道は38部門表の全グループと差0)。
 
 ## 未対応・候補
 薄い文字は `text-base-content/70` 以上(それ未満はコントラスト不足でテストが落ちる)。アクセス解析は Cloudflare Web Analytics を導入済み(2026-10、ユーザーが設定)。週次レポート: `.github/workflows/weekly-report.yml` が毎週月曜8時に `scripts/ops/weekly_report.py` を実行し、非公開リポジトリ `keizai-atlas-reports` に保存 → そちらの `post-issue` が Issue にして通知。Secrets: CF_API_TOKEN, CF_ACCOUNT_ID, GSC_SA_JSON, REPORT_TOKEN(1年で期限切れ)。公開リポジトリなのでレポートの数値はログに出さない。Ruleset の「PR 必須」の再設定、残り4県(奈良・島根・徳島・高知。2020年表が見つからない)、用語集への内部リンクの拡充、スマホ実機での表示速度の確認。

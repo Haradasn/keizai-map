@@ -130,7 +130,7 @@ def build_map(page, D):
         sectors = {}
         for o in p["sectors"]:
             if o["c"] == "HQ" or len(o.get("nat_codes", [o["c"]])) != 1:
-                continue  # 本社(東京のみ)と、北海道の合算部門は除く
+                continue  # 本社(東京のみ)と、県独自にまとめた部門(宮城・岩手・大分の一部)は除く
             sectors[o.get("nat_codes", [o["c"]])[0]] = [
                 round(o["out"] / 1e6, 4),
                 (round(o["lq"], 3) if o["lq"] else None),
@@ -390,9 +390,10 @@ def face_data(slug, p):
         w = o["share"] / top_total * width
         nw = (o["nat_share"] or 0) / nat_total * width
         label = None
-        # 県の産出額の7%以上の産業は、帯の上に名前を出す(前の名前と重なる場合は出さない)
-        if o["share"] >= 0.07 and x >= label_end:
-            label = f"{o['n']} {pct(o['share'], 1)}"
+        # 県の産出額の7%以上の産業は、帯の上に名前を出す(前の名前と重なる場合と、右端からはみ出す場合は出さない)
+        text = f"{o['n']} {pct(o['share'], 1)}"
+        if o["share"] >= 0.07 and x >= label_end and x + len(text) * 15 + 16 <= width:
+            label = text
             label_end = x + len(label) * 15 + 16
         segs.append(
             dict(
@@ -530,8 +531,8 @@ def build_prefectures_page(D, page):
         for slug, p in D.items()
     ]
     compare.sort(key=lambda row: -float(row[1]))  # 産出額の大きい順(同額は元の順)
-    # ヒートマップの列は産出額の大きい順。北海道は部門の分け方が違うので入れない
-    order = sorted([k for k in D if not D[k].get("coarse")], key=lambda k: -D[k]["total_out"])
+    # ヒートマップの列は産出額の大きい順
+    order = sorted(D, key=lambda k: -D[k]["total_out"])
     heat_columns = [dict(slug=k, label=D[k]["name"].rstrip("都府県")) for k in order]
     heat_rows = [
         dict(
