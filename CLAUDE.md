@@ -20,6 +20,7 @@
 - 堅牢化(すべて無料の範囲): `site/_headers` で CSP などを付与(テストのサーバーも同じヘッダーで動き、CSP 違反を検出。外部から読むものを足したら CSP も更新)。Worker は本文 4KB 上限・連投制限(`ratelimits`)・👍の1日上限。`scripts/ops/check_data.py`(data/ の形の検査と前回比較。CI と月次更新)。テストに axe-core のアクセシビリティ検査(両テーマ)とページの重さの上限。`npm run typecheck`(checkJs、グローバルは `types/globals.d.ts`)。PR の見た目の差分は `visual-diff.yml`。死活監視は `uptime.yml`(3時間ごと、問題があれば Issue)。Dependabot・CodeQL。障害時の手順と秘密値の一覧は `docs/RUNBOOK.md`。
 - 検索エンジン: `seo-check.yml`(月1回・手動。`scripts/ops/index_status.py` が Search Console の URL 検査とサイトマップを調べ、非公開リポジトリの `seo/index-status.md` に保存)。`indexnow.yml`(main で `pages/lastmod.json` が変わるとデプロイ後に IndexNow へ送信。手動で all も可。キーは `site/<32桁>.txt`)。リポジトリの topics・homepage は API で変えられない(ユーザーが設定)。
 - 更新履歴/RSS: `pages/changelog.json`(`scripts/ops/add_changelog.py`)。ページや機能を足したら1件追記。
+- Qiita の記事: 1本目は `docs/qiita/article.md` + `meta.json`(投稿済み。`qiita-post.yml` はこの1本だけを扱う)。2本目(稼ぎ頭の指標を直した話)の下書きは `docs/qiita/article2.md` + `meta2.json`(未投稿。投稿するかどうかはユーザーが決める)。記事の画像は `site/img/qiita/`。
 
 ## 作業ルール
 - `main` へ直接 push しない。ブランチ → PR → CI の `smoke` が成功 → マージ(マージはこちらで進めてよい、と許可済み)。**マージはスカッシュ**: `gh api -X PUT repos/Haradasn/keizai-map/pulls/N/merge -f merge_method=squash -f commit_title="..." -f commit_message="...Co-Authored-By/Claude-Session の行"`(GitHubが署名するので Verified になる。マージコミットは Unverified 表示になるため使わない)。
