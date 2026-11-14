@@ -17,7 +17,7 @@
 </section>⏎
 {% call section("都道府県の比較") %}{{ data_table(["都道府県", "産出額（兆円）", "付加価値率", "移輸出（産出額比）", "移輸入（産出額比）"], compare_rows) }}{% endcall %}⏎
 {% call section("産業×都道府県の特化係数") %}
-  <p class="text-sm text-base-content/70">全国の割合を1としたときの、各都道府県の産業の集中度です（<a class="link" href="glossary.html#tokka-keisu">特化係数</a>）。青が濃いほど、その産業が全国平均より集中しています。マスにカーソルを合わせると値が出ます（スマホは各県のページで確認できます）。灰色の点は産出額の割合が0.5%未満で値が不安定なもの、空欄は部門を合算して公表している県です。列は産出額の大きい順です。北海道は部門の分け方が異なるため、この表には入れていません（<a class="link" href="prefecture/hokkaido.html">北海道のページ</a>を見てください）。</p>
+  <p class="text-sm text-base-content/70">全国の割合を1としたときの、各都道府県の産業の集中度です（<a class="link" href="glossary.html#tokka-keisu">特化係数</a>）。茶色が濃いほど、その産業が全国平均より集中しています。マスにカーソルを合わせると値が出ます（スマホは各県のページで確認できます）。灰色の点は産出額の割合が0.5%未満で値が不安定なもの、空欄は部門を合算して公表している県です。列は産出額の大きい順です。</p>
   <div class="flex items-center gap-2 text-xs text-base-content/70" aria-hidden="true">
     <span>全国並み</span>
     {% for a in legend %}<span class="inline-block w-4 h-4 rounded-sm border border-base-300" style="background:rgba(181,83,47,{{ a.alpha }})" title="{{ a.label }}"></span>{% endfor %}
