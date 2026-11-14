@@ -20,6 +20,11 @@
     cap = document.getElementById("pm-cap"),
     ins = document.getElementById("pm-insight");
   var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // 地図ページ: ?k=35 のリンクで、その産業を選んだ状態で開く(産業ページの「県別の分布を立体地図で見る」から来たとき)
+  if (!HERO) {
+    var want = new URLSearchParams(location.search).get("k");
+    if (want && (want === "all" || INDS[want])) sel.value = want;
+  }
   function ok() {
     try {
       var c = document.createElement("canvas");

@@ -46,54 +46,6 @@ def wrap(d, text, f, maxw):
     return lines + [cur]
 
 
-def card(c):
-    im = Image.new("RGB", (W, H), BG)
-    d = ImageDraw.Draw(im)
-    col = hexrgb(PAL["groups"][c["grp"] % len(PAL["groups"])])
-    d.rectangle([0, 0, 18, H], fill=col)
-    d.text((70, 52), c["kind"], font=font(FR, 28), fill=MUT)
-    ft = font(FB, 76)
-    lines = wrap(d, c["title"], ft, 1060)[:2]
-    if len(lines) > 1:
-        ft = font(FB, 64)
-        lines = wrap(d, c["title"], ft, 1060)[:2]
-    y = 104
-    for ln in lines:
-        d.text((70, y), ln, font=ft, fill=FG)
-        y += ft.size + 14
-    # 指標4つ
-    y0 = 300
-    x = 70
-    for lab, val in c["stats"]:
-        d.text((x, y0), lab, font=font(FR, 22), fill=MUT)
-        d.text((x, y0 + 34), val, font=fit(d, val, FB, 250, [44, 38, 32, 28]), fill=FG)
-        x += 275
-    # 行き先の構成
-    if c["parts"]:
-        d.text((70, 430), "この産業の製品・サービスの行き先", font=font(FR, 22), fill=MUT)
-        xx = 70
-        bw = 1060
-        for lab, sh, colr in c["parts"]:
-            w = bw * sh
-            if w < 1:
-                continue
-            d.rectangle([xx, 466, xx + w, 506], fill=hexrgb(colr))
-            if w > 60:
-                d.text((xx + w / 2, 486), f"{sh * 100:.0f}%", font=font(FB, 22), fill=BG, anchor="mm")
-            xx += w
-        lx = 70
-        for lab, sh, colr in c["parts"]:
-            if sh < 0.02:
-                continue
-            d.rectangle([lx, 524, lx + 14, 538], fill=hexrgb(colr))
-            t = lab
-            d.text((lx + 22, 520), t, font=font(FR, 20), fill=MUT)
-            lx += int(d.textlength(t, font=font(FR, 20))) + 52
-    d.text((70, 568), "Keizai Atlas", font=font(FB, 30), fill=(255, 115, 85))
-    d.text((290, 574), "産業連関表で見る日本経済の地図帳｜keizai-atlas.com", font=font(FR, 22), fill=MUT)
-    return im
-
-
 def top():
     im = Image.new("RGB", (W, H), BG)
     d = ImageDraw.Draw(im)
@@ -180,6 +132,119 @@ def pref_card(bp, slug, p):
     return im
 
 
+# 出どころと行き先の図の帯の色(ページの .ioflow と同じ: 産業どうし=墨、付加価値と家計・投資・政府=黄土、海外=青)
+OCHRE = (138, 90, 11)
+BLUE = (11, 95, 143)
+BAND = {
+    "ind": blend(INK, PAPER, 0.3),
+    "fin": blend(OCHRE, PAPER, 0.55),
+    "sea": blend(BLUE, PAPER, 0.55),
+    "etc": blend(INK, PAPER, 0.14),
+}
+
+
+def ribbon(x0, x1, a0, a1, c0, c1, steps=24):
+    """帯の輪郭の点。外側の端(x0)の上下 a0〜a1 から、中央(x1)の上下 c0〜c1 へ、なめらかにつなぐ(ページの svg と同じ3次曲線)。"""
+
+    def curve(ya, yc):
+        pts = []
+        for i in range(steps + 1):
+            t = i / steps
+            u = 1 - t
+            xm = (x0 + x1) / 2
+            x = u**3 * x0 + 3 * u * u * t * xm + 3 * u * t * t * xm + t**3 * x1
+            y = u**3 * ya + 3 * u * u * t * ya + 3 * u * t * t * yc + t**3 * yc
+            pts.append((x, y))
+        return pts
+
+    return curve(a0, c0) + curve(a1, c1)[::-1]
+
+
+def industry_card(bi, c):
+    """産業・部門の共有画像: 名前、いちばん大きい行き先の一文、出どころと行き先の図。
+
+    図の値と並べ方は、ページと同じ関数(build_industry.flow_layout)で作る。文字の大きさは、項目が多いほど小さくする。"""
+    im = Image.new("RGB", (W, H), SEA)
+    d = ImageDraw.Draw(im)
+    x = 56
+    d.text((x, 38), c["kind"], font=font(FR, 24), fill=SOFT)
+    d.text((x, 72), c["title"], font=fit(d, c["title"], FK, 1088, [66, 58, 50, 44]), fill=INK)
+    base = 238
+    lead = "行き先の"
+    d.text((x, base), lead, font=font(FK, 40), fill=INK, anchor="ls")
+    nx = x + d.textlength(lead, font=font(FK, 40)) + 12
+    d.text((nx, base + 4), c["top_share"], font=font(FK, 112), fill=SHU, anchor="ls")
+    nx += d.textlength(c["top_share"], font=font(FK, 112)) + 6
+    d.text((nx, base), "%", font=font(FK, 52), fill=SHU, anchor="ls")
+    nx += d.textlength("%", font=font(FK, 52)) + 10
+    d.text((nx, base), f"は、{c['top_label']}。", font=font(FK, 40), fill=INK, anchor="ls")
+    # 図: 紙の枠の中に、左のラベル・帯・右のラベル
+    top, bottom, label_w = 268, 560, 318
+    d.rectangle([x, top, W - x, bottom], fill=PAPER, outline=INK, width=2)
+    items = lambda rows: [dict(label=label, href=None, value=value, kind=kind) for label, value, kind in rows]
+    # 文字の大きさ・帯の太さ・項目のあいだを、項目が多いほど詰める。枠に収まる最初の組み合わせを使う
+    room = bottom - top - 24
+    for size, px, gap in (
+        (21, 170, 6),
+        (19, 170, 5),
+        (17, 170, 5),
+        (15, 170, 4),
+        (15, 130, 3),
+        (14, 90, 2),
+        (13, 60, 2),
+    ):
+        layout = bi.flow_layout(
+            items(c["flow"]["left"]),
+            items(c["flow"]["right"]),
+            px=px,
+            gap=gap,
+            pad=0,
+            line=size + 6,
+            label_em=(label_w - 14) / size,
+        )
+        if layout["height"] <= room:
+            break
+    assert layout["height"] <= room, (c["id"], c["title"], layout["height"])
+    oy = top + (bottom - top - layout["height"]) / 2
+    xl, xr, xc = x + 16 + label_w, W - x - 16 - label_w, W / 2
+    fr, fb = font(FR, size), font(FB, size)
+    for side, x_edge, anchor in ((layout["left"], xl, "r"), (layout["right"], xr, "l")):
+        for it in side:
+            d.polygon(
+                [(px, py + oy) for px, py in ribbon(x_edge, xc, it["a0"], it["a1"], it["c0"], it["c1"])],
+                fill=BAND[it["kind"]],
+            )
+            d.rectangle([x_edge - 2, it["a0"] + oy, x_edge + 2, it["a1"] + oy], fill=INK)
+            # ラベル: 名前と金額(金額は太字)。1行に入らなければ、名前の下に金額
+            name, amount = it["label"], it["amount"]
+            wn, wa = d.textlength(name, font=fr), d.textlength(amount, font=fb)
+            tx = x_edge - 12 if anchor == "r" else x_edge + 12
+            cy = it["y"] + oy
+            if wn + 8 + wa <= label_w - 14:
+                if anchor == "r":
+                    d.text((tx, cy), amount, font=fb, fill=INK, anchor="rm")
+                    d.text((tx - wa - 8, cy), name, font=fr, fill=INK, anchor="rm")
+                else:
+                    d.text((tx, cy), name, font=fr, fill=INK, anchor="lm")
+                    d.text((tx + wn + 8, cy), amount, font=fb, fill=INK, anchor="lm")
+            else:
+                lines = wrap(d, name, fr, label_w - 14)
+                step = size + 5
+                y0 = cy - step * len(lines) / 2
+                for i, ln in enumerate(lines + [amount]):
+                    d.text(
+                        (tx, y0 + i * step),
+                        ln,
+                        font=fb if i == len(lines) else fr,
+                        fill=INK,
+                        anchor=anchor + "m",
+                    )
+    d.rectangle([xc - 7, layout["center"][0] + oy, xc + 7, layout["center"][1] + oy], fill=INK)
+    d.text((x, 578), "Keizai Atlas", font=font(FB, 26), fill=INK)
+    d.text((238, 584), NOTE, font=font(FR, 18), fill=SOFT)
+    return im
+
+
 def kasegi_grid(d, tiles, ox, oy, tw, th, gap, detail):
     """稼ぎ頭マップのタイルを描く。detail=True は県名・産業名・割合、False は県名だけ(小さい画像用)。"""
     for t in tiles:
@@ -256,8 +321,10 @@ if __name__ == "__main__":
     (S / "og").mkdir(exist_ok=True)
     q = lambda im: im.quantize(64, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE)
     q(top()).save(S / "og.png", optimize=True)
+    import build_industry as bi  # 出どころと行き先の図の並べ方は、ページと同じ関数で作る
+
     for c in cards:
-        q(card(c)).save(S / "og" / f"{c['id']}.png", optimize=True)
+        q(industry_card(bi, c)).save(S / "og" / f"{c['id']}.png", optimize=True)
     import build_pref as bp  # 県の形・稼ぎ頭・帯の値は、ページと同じ関数で作る
 
     D = json.loads((R / "data/pref_37.json").read_text(encoding="utf-8"))

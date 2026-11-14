@@ -1,26 +1,69 @@
 {# SVGグラフ。座標は Python(build_industry.py / build_pref.py)で計算し、ここでは並べるだけ #}
 
-{# 行き先の構成の横積み棒。segments=棒、legend=凡例 #}
-{% macro stacked_bar(segments, legend) %}
-<svg viewBox="0 0 640 70" width="100%" role="img" aria-label="行き先の構成" style="font-size:11px">
-{% for s in segments %}
-<rect x="{{ s.x }}" y="6" width="{{ s.width }}" height="26" fill="{{ s.color }}"/>
-{% if s.label_x %}<text x="{{ s.label_x }}" y="23" text-anchor="middle" fill="#0b1120" font-weight="700">{{ s.pct }}%</text>{% endif %}
-{% endfor %}
-{% for item in legend %}
-<rect x="{{ item.x }}" y="{{ item.y }}" width="9" height="9" fill="{{ item.color }}"/>
-<text x="{{ item.text_x }}" y="{{ item.text_y }}" fill="currentColor">{{ item.label }} {{ item.pct }}%</text>
-{% endfor %}
-</svg>
+{# 出どころと行き先の図。f=build_industry.py の flow_data、unit=「産業」「部門」 #}
+{# 帯(svg)は横に伸び縮みし、ラベルはHTML(折り返せる・相手の産業へのリンクにできる)。見た目は src/input.css の .ioflow #}
+{# 色: 産業どうしの取引=墨、付加価値と家計・投資・政府=黄土、海外(輸入・輸出)=青 #}
+{% macro flow_side(items, side, label) %}
+<ul class="ioflow-{{ side }}" aria-label="{{ label }}">
+  {% for n in items %}
+  <li style="top:{{ n.y }}px">{% if n.href %}<a href="{{ n.href }}">{{ n.label|esc }}</a>{% else %}{{ n.label|esc }}{% endif %} <b>{{ n.amount }}</b></li>
+  {% endfor %}
+</ul>
 {% endmacro %}
 
-{# 規模の推移の縦棒。chart={width, height, color, bars:[{x, y, width, height, text_x, value_y, value, label_y, label}]} #}
+{% macro flow_figure(f, name, unit) %}
+<figure class="ioflow">
+  <div class="ioflow-head" aria-hidden="true"><span>出どころ</span><span></span><span>行き先</span></div>
+  <div class="ioflow-body" style="height:{{ f.height }}px">
+    {{ flow_side(f.left, "l", name|esc ~ "の出どころ") }}
+    <svg viewBox="0 0 100 {{ f.height }}" height="{{ f.height }}" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+      {% for r in f.ribbons %}
+      <path class="ioflow-{{ r.kind }}" d="{{ r.d }}"/>
+      {% endfor %}
+      {% for b in f.bars %}
+      <line class="ioflow-bar" x1="{{ b.x }}" y1="{{ b.y1 }}" x2="{{ b.x }}" y2="{{ b.y2 }}"/>
+      {% endfor %}
+      <line class="ioflow-mid" x1="50" y1="{{ f.center.y1 }}" x2="50" y2="{{ f.center.y2 }}"/>
+    </svg>
+    {{ flow_side(f.right, "r", name|esc ~ "の行き先") }}
+  </div>
+  <figcaption>
+    <p class="ioflow-key"><span><i class="ioflow-ind"></i>産業どうしの取引</span><span><i class="ioflow-fin"></i>付加価値と、家計・投資・政府</span><span><i class="ioflow-sea"></i>海外（輸入・輸出）</span></p>
+    <p>帯の太さは金額（2020年）。左が{{ name|esc }}の出どころ（ほかの産業からの仕入れ、この{{ unit }}が加えた付加価値、輸入品）、右が行き先です。左右の合計はどちらも{{ f.total }}。
+    {% if f.government %}「政府」には、公的な保険からの給付（医療・介護など）と公共投資を含みます。{% endif %}
+    {% if f.released %}「在庫の取り崩し・くずの回収」は、表でマイナスの需要として記録されている分です。{% endif %}</p>
+  </figcaption>
+</figure>
+{% endmacro %}
+
+{# ものさし(全産業の中での位置)。rows=build_industry.py の ruler_rows。細い線=全産業のそれぞれ、朱の線=この産業 #}
+{% macro ruler_list(rows) %}
+<dl class="rul">
+  {% for r in rows %}
+  <div class="rul-row">
+    <dt>{{ r.label }}</dt>
+    <dd class="rul-v">{{ r.value }}</dd>
+    <dd class="rul-g" aria-hidden="true">
+      <svg viewBox="0 0 300 16" height="16" preserveAspectRatio="none" focusable="false">
+        <path class="rul-all" d="{{ r.ticks }}"/>
+        {% if r.zero %}<path class="rul-zero" d="M{{ r.zero }} 0V16"/>{% endif %}
+        <path class="rul-own" d="M{{ r.x }} 0V16"/>
+      </svg>
+      <span class="rul-ax">{% for a in r.axis %}<span class="rul-{{ a.edge }}" style="left:{{ a.pos }}%">{{ a.text }}</span>{% endfor %}</span>
+    </dd>
+    <dd class="rul-r">{{ r.rank }}</dd>
+  </div>
+  {% endfor %}
+</dl>
+{% endmacro %}
+
+{# 規模の推移の縦棒。chart={width, height, label_y, bars:[{x, y, width, height, text_x, value_y, value, label}]}。いちばん新しい年だけ濃い墨 #}
 {% macro column_chart(chart) %}
-<svg viewBox="0 0 {{ chart.width }} {{ chart.height }}" width="100%" style="max-width:360px;font-size:11px" role="img" aria-label="実質産出額の推移">
+<svg viewBox="0 0 {{ chart.width }} {{ chart.height }}" width="100%" style="max-width:320px;font-size:11px" role="img" aria-label="実質産出額の推移">
 {% for b in chart.bars %}
-<rect x="{{ b.x }}" y="{{ b.y }}" width="{{ b.width }}" height="{{ b.height }}" fill="{{ chart.color }}" rx="2"/>
+<rect class="k-col{% if loop.last %} k-col-now{% endif %}" x="{{ b.x }}" y="{{ b.y }}" width="{{ b.width }}" height="{{ b.height }}"/>
 <text x="{{ b.text_x }}" y="{{ b.value_y }}" text-anchor="middle" fill="currentColor">{{ b.value }}</text>
-<text x="{{ b.text_x }}" y="{{ chart.label_y }}" text-anchor="middle" fill="currentColor" opacity=".7">{{ b.label }}</text>
+<text x="{{ b.text_x }}" y="{{ chart.label_y }}" text-anchor="middle" fill="currentColor" opacity=".8">{{ b.label }}</text>
 {% endfor %}
 </svg>
 {% endmacro %}

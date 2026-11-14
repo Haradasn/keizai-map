@@ -30,6 +30,7 @@ a.card:hover, a.card:focus-visible { border-color: oklch(var(--bc)); }
 .k-bar { fill: oklch(var(--p)); }
 .table :where(thead th) { font-weight: 700; color: oklch(var(--bc)); border-bottom: 1px solid oklch(var(--bc)); }
 .table :where(td) { font-variant-numeric: tabular-nums; }
+.table td.text-right { white-space: nowrap; } /* 数字の列は途中で折り返さない(「5,200億円」が2行にならないように) */
 .table tbody tr:hover { background: oklch(var(--a) / 0.08); }
 [data-theme="night"] .alert-warning { background: transparent; border: 1px solid oklch(var(--wa)); color: oklch(var(--bc)); }
 [data-theme="nord"] .alert-warning { background: transparent; border: 1px solid #8a5a0b; color: oklch(var(--bc)); }
@@ -56,9 +57,9 @@ a.card:hover, a.card:focus-visible { border-color: oklch(var(--bc)); }
   .pf-labs { display: block; }
 }
 
-/* 稼ぎ頭(県ページの冒頭の一文、稼ぎ頭マップ) */
-.pf-kasegi, .ks-lead { font-family: var(--k-display); font-size: 1.25rem; font-weight: 700; line-height: 1.5; }
-.pf-x { font-size: 1.7em; line-height: 1; color: oklch(var(--a)); margin: 0 0.08em; font-variant-numeric: tabular-nums; }
+/* 冒頭の一文(県ページ・稼ぎ頭マップの稼ぎ頭、産業ページのいちばん大きい行き先)。数字は朱 */
+.pf-kasegi, .ks-lead, .ind-lead { font-family: var(--k-display); font-size: 1.25rem; font-weight: 700; line-height: 1.5; }
+.pf-x, .ind-lead b { font-size: 1.7em; line-height: 1; color: oklch(var(--a)); margin: 0 0.08em; font-variant-numeric: tabular-nums; }
 .pf-act { display: flex; flex-wrap: wrap; gap: 0.4rem 1.25rem; font-size: 0.875rem; font-weight: 700; }
 .pf-act a { text-decoration: underline; text-underline-offset: 4px; text-decoration-color: oklch(var(--a)); text-decoration-thickness: 2px; }
 .ks-h1 { font-size: clamp(2rem, 8vw, 2.75rem); line-height: 1.15; }
@@ -79,3 +80,81 @@ a.card:hover, a.card:focus-visible { border-color: oklch(var(--bc)); }
 a.ks-tile:hover, a.ks-tile:focus-visible { border-color: oklch(var(--bc)); }
 .ks-none { background: transparent; border-style: dashed; color: oklch(var(--bc) / 0.75); }
 .ks-none .ks-v { font-family: inherit; font-size: 0.68rem; font-weight: 400; }
+
+/* ===== 産業・部門ページ ===== */
+/* 名前は1行に収まる大きさにする(--n は名前の字数) */
+.ind-h1 { font-size: clamp(1.5rem, min(8.2vw, calc((100vw - 2rem) / var(--n, 8))), 3.25rem); line-height: 1.15; }
+.ind-lead { font-size: clamp(1.25rem, 3vw, 1.5rem); }
+.ind-lead span { display: inline-block; } /* 行き先の名前の途中では折り返さない */
+/* 出どころと行き先の図(templates/_charts.html.j2 の flow_figure)。紙の地に墨の罫線。
+   帯の色: 産業どうしの取引=墨、付加価値と家計・投資・政府=黄土、海外(輸入・輸出)=青。
+   ラベルの欄の幅は、座標を作るときの見積もり(build_industry.py の flow_layout の label_em)より狭くしない */
+.ioflow { background: oklch(var(--b1)); border: 1px solid oklch(var(--bc)); padding: 0.9rem 0.75rem 0.75rem; }
+.ioflow-head, .ioflow-body { display: grid; grid-template-columns: minmax(0, 1fr) 4.75rem minmax(0, 1fr); }
+.ioflow-head { padding-bottom: 0.45rem; margin-bottom: 0.6rem; border-bottom: 1px solid oklch(var(--bc) / 0.2); font-family: var(--k-display); font-size: 0.95rem; font-weight: 700; }
+.ioflow-head span:first-child { padding-right: 0.5rem; text-align: right; }
+.ioflow-head span:last-child { padding-left: 0.5rem; }
+.ioflow-body ul { position: relative; font-size: 0.6875rem; line-height: 15px; }
+.ioflow-body li { position: absolute; left: 0; right: 0; transform: translateY(-50%); }
+.ioflow-l li { padding-right: 0.5rem; text-align: right; }
+.ioflow-r li { padding-left: 0.5rem; }
+.ioflow-body li b { white-space: nowrap; font-family: var(--k-display); font-weight: 600; }
+.ioflow-body li a { text-decoration-line: underline; text-underline-offset: 3px; text-decoration-color: oklch(var(--bc) / 0.45); }
+.ioflow-body li a:hover, .ioflow-body li a:focus-visible { text-decoration-color: oklch(var(--a)); }
+.ioflow svg { display: block; width: 100%; overflow: visible; }
+.ioflow-ind { fill: oklch(var(--bc) / 0.3); background: oklch(var(--bc) / 0.3); }
+.ioflow-fin { fill: oklch(var(--s) / 0.55); background: oklch(var(--s) / 0.55); }
+.ioflow-sea { fill: oklch(var(--p) / 0.55); background: oklch(var(--p) / 0.55); }
+.ioflow-etc { fill: oklch(var(--bc) / 0.14); }
+.ioflow-bar { stroke: oklch(var(--bc)); stroke-width: 3; vector-effect: non-scaling-stroke; }
+.ioflow-mid { stroke: oklch(var(--bc)); stroke-width: 12; vector-effect: non-scaling-stroke; }
+.ioflow figcaption { margin-top: 0.75rem; padding-top: 0.55rem; border-top: 1px solid oklch(var(--bc) / 0.2); font-size: 0.75rem; line-height: 1.6; color: oklch(var(--bc) / 0.8); }
+.ioflow-key { display: flex; flex-wrap: wrap; gap: 0.1rem 1rem; margin-bottom: 0.3rem; color: oklch(var(--bc)); }
+.ioflow-key i { display: inline-block; width: 0.7rem; height: 0.7rem; margin-right: 0.35rem; vertical-align: -0.05rem; }
+@media (min-width: 640px) {
+  .ioflow { padding: 1.1rem 1.25rem 1rem; }
+  .ioflow-head, .ioflow-body { grid-template-columns: minmax(11rem, 1fr) minmax(6rem, 24rem) minmax(11rem, 1fr); }
+  .ioflow-body ul { font-size: 0.8125rem; }
+}
+/* ごく狭い画面(幅320pxなど)では、ラベルの字を小さくして、欄の幅(字数)を保つ */
+@media (max-width: 350px) {
+  .ioflow { padding-left: 0.5rem; padding-right: 0.5rem; }
+  .ioflow-body ul { font-size: 0.625rem; }
+}
+/* 仕入れ先と販売先の表を左右に並べる枠。狭い画面で表が枠を押し広げないよう、枠の中身は縮められるようにし、見出しは折り返す */
+.ind-pair > * { min-width: 0; }
+.ind-pair .table :where(thead) { white-space: normal; }
+/* 産業一覧: 部門の名前の横に、行き先の内訳の帯(色は上の図と同じ)。狭い画面では名前の下 */
+.ix-row { display: grid; gap: 0.2rem 1rem; padding: 0.45rem 0 0.45rem 0.5rem; border-bottom: 1px solid oklch(var(--bc) / 0.15); }
+.ix-strip { display: flex; height: 0.55rem; align-self: center; }
+.ix-strip i { display: block; height: 100%; }
+.ix-kids { padding-left: 1rem; }
+@media (min-width: 640px) {
+  .ix-row { grid-template-columns: minmax(0, 1fr) 14rem; }
+  .ix-kids { grid-column: 1 / -1; }
+}
+/* ものさし(全産業の中での位置。templates/_charts.html.j2 の ruler_list)。細い線=全産業のそれぞれ、朱の線=この産業 */
+.rul { border-top: 1px solid oklch(var(--bc)); }
+.rul-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; gap: 0.2rem 1rem; padding: 0.65rem 0.1rem 0.5rem; border-bottom: 1px solid oklch(var(--bc) / 0.2); }
+.rul-row dt { font-size: 0.875rem; font-weight: 700; }
+.rul-v { font-family: var(--k-display); font-size: 1.35rem; font-weight: 600; line-height: 1.2; font-variant-numeric: tabular-nums; text-align: right; }
+.rul-g { grid-column: 1 / -1; }
+.rul-g svg { display: block; width: 100%; overflow: visible; border-bottom: 1px solid oklch(var(--bc) / 0.5); }
+.rul-all { stroke: oklch(var(--bc) / 0.4); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.rul-zero { stroke: oklch(var(--bc)); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.rul-own { stroke: oklch(var(--a)); stroke-width: 3; vector-effect: non-scaling-stroke; }
+.rul-ax { position: relative; display: block; height: 1.15rem; font-size: 0.68rem; color: oklch(var(--bc) / 0.75); }
+.rul-ax span { position: absolute; top: 0.15rem; white-space: nowrap; transform: translateX(-50%); }
+.rul-ax .rul-start { transform: none; }
+.rul-ax .rul-end { transform: translateX(-100%); }
+.rul-r { grid-column: 1 / -1; font-size: 0.75rem; color: oklch(var(--bc) / 0.8); }
+@media (min-width: 768px) {
+  .rul-row { grid-template-columns: 11.5rem 6.5rem minmax(0, 1fr) 8.5rem; align-items: center; column-gap: 1.25rem; }
+  .rul-g, .rul-r { grid-column: auto; }
+  .rul-r { text-align: right; }
+}
+/* 規模の推移の縦棒(いちばん新しい年だけ濃い墨)と、その横の説明 */
+.k-col { fill: oklch(var(--bc) / 0.3); }
+.k-col-now { fill: oklch(var(--bc)); }
+.ind-trend { display: grid; gap: 0.5rem 2rem; align-items: end; }
+@media (min-width: 640px) { .ind-trend { grid-template-columns: 20rem minmax(0, 1fr); } }

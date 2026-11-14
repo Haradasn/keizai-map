@@ -75,6 +75,9 @@ def test_index_finding_links_hit_existing_anchors():
 def test_no_unrendered_placeholders():
     for name in PAGES:
         assert "{{" not in (S / f"{name}.html").read_text(encoding="utf-8"), name
+    # ひな形のコメント {# #} が本文に漏れていないこと(コメントを複数行にすると、2行目以降が出力されてしまう)
+    for f in S.rglob("*.html"):
+        assert "#}" not in f.read_text(encoding="utf-8"), f
 
 
 # ---- 個別産業ページ
@@ -96,6 +99,45 @@ def test_industry_pages_complete_and_valid():
         assert f'/industry/{f.stem}"' in h  # canonical
         for href in re.findall(r'href="(industry/[\w]+\.html)"', h):
             assert (S / href).exists(), (f.name, href)
+
+
+def test_industry_pages_face():
+    """産業・部門ページの冒頭: いちばん大きい行き先の一文と、出どころ・行き先の図が全ページにある。
+    一文の割合は、ここで基本表(data/nodes.csv)から計算し直した値と一致する。"""
+    import csv
+
+    table = {}
+    with open(R / "data/nodes.csv", encoding="utf-8-sig") as fh:
+        for row in csv.DictReader(fh):
+            if row["level"] in ("108", "37"):
+                table[row["code"]] = row
+    assert len(table) == 145
+
+    def num(row, *columns):
+        return sum(float(row.get(c) or 0) for c in columns)
+
+    for f in _industry_files():
+        h = f.read_text(encoding="utf-8")
+        row = table[f.stem]
+        # 行き先の分類(マイナスの需要=在庫の取り崩しなどは、行き先に数えない)
+        parts = {
+            "産業の材料・サービス": num(row, "intermediate_sales"),
+            "家計": max(0, num(row, "fd_民間消費", "fd_家計外消費")),
+            "民間の投資": max(0, num(row, "fd_民間固定資本形成", "fd_在庫純増")),
+            "政府": max(0, num(row, "fd_政府消費", "fd_政府消費(社会資本等減耗分)", "fd_公的固定資本形成")),
+            "輸出": num(row, "fd_輸出"),
+        }
+        label, value = max(parts.items(), key=lambda kv: kv[1])
+        want = f"行き先の{value / sum(parts.values()) * 100:.0f}%は、{label}。"
+        lead = re.search(r'<p class="ind-lead">(.*?)</p>', h, re.S).group(1)
+        assert re.sub(r"<[^>]+>|\s+", "", lead) == want, (f.name, lead, want)
+        # 図: 出どころ・行き先のラベルと帯が同じ数だけあり、相手の産業へのリンクは実在するページ
+        figure = h[h.index('<figure class="ioflow">') : h.index("</figure>")]
+        labels = len(re.findall(r"<li[\s>]", figure))
+        ribbons = len(re.findall(r'<path\s+class="ioflow-', figure))
+        assert labels == ribbons and labels >= 3, (f.name, labels, ribbons)
+        assert 'class="ioflow-l"' in figure and 'class="ioflow-r"' in figure
+        assert '<dl class="rul">' in h, f.name  # ものさし(全産業の中での位置)
 
 
 def test_industries_index_links_all():

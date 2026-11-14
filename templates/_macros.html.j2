@@ -31,7 +31,7 @@
 <div class="card bg-base-100 border border-base-300"><div class="card-body p-3">{{ caller() }}</div></div>
 {% endmacro %}
 
-{# 表。heads=見出し、rows=行(各セルは文字列、またはリンクの {href, text})。2列目以降は右寄せ #}
+{# 表。heads=見出し、rows=行(各セルは文字列、またはリンクの {href, text})。2列目以降は右寄せ(数字は途中で折り返さない。src/input.css) #}
 {% macro data_table(heads, rows) %}
 <div class="overflow-x-auto"><table class="table table-sm">
 <thead><tr>

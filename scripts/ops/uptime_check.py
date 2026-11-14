@@ -17,6 +17,8 @@ PAGES = [
     ("/explorer", "産業マップ"),
     ("/prefecture-map", "pm-map"),
     ("/industries", "産業一覧"),
+    ("/industry/351", "ioflow"),  # 産業ページ(出どころ・行き先の図があること)
+    ("/industry/35", "で稼ぐ県"),  # 部門ページ(その部門が稼ぎ頭の県)
     ("/latest", "最新動向"),
     ("/kasegi-map", "稼ぎ頭マップ"),
     ("/kanban-map", "稼ぎ頭マップ"),  # 古い URL。worker/index.js の MOVED で /kasegi-map へ転送される
