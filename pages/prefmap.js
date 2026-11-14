@@ -1,5 +1,6 @@
 /* 県別の立体地図(MapLibre GL JS)。/prefecture-map とトップページで共通。データは pref-map-data.js の window.PREF_MAP。
-   使い方: <div id="pm-map" data-prefmap="page|hero"> と <select id="pm-ind">。hero はトップ用(ゆっくり回転・押し出しアニメ・操作は協調ジェスチャー)。
+   使い方: <div id="pm-map" data-prefmap="page|hero"> と <select id="pm-ind">。hero はトップ用(最初に柱が伸びる・操作は協調ジェスチャー)。
+   動くのは柱の高さと色だけ(=データ)。産業や県を切り替えると、前の高さから次の高さへ伸び縮みする。カメラは勝手に動かさない。
    hero では、外から root に CustomEvent "pm:set"({k: 産業コード, id: 県のJISコード})を送ると表示を切り替え、県をクリックすると "pm:pick"({id})を出す(pages/home.js)。
    色は地図帳の標高の段彩(緑→黄→黄土→茶)。選んだ県だけ墨(暗いテーマでは白)。 */
 (function () {
@@ -44,7 +45,7 @@
     TH = {
       bg: m,
       dark: dark,
-      off: css(dark ? mix(m, [255, 255, 255], 0.07) : mix(m, [0, 0, 0], 0.07)),
+      off: dark ? mix(m, [255, 255, 255], 0.07) : mix(m, [0, 0, 0], 0.07),
       pick: dark ? [245, 248, 249] : [20, 35, 46],
     };
     return TH;
@@ -59,7 +60,7 @@
   function ramp(t) {
     t = Math.max(0, Math.min(1, t)) * (STOPS.length - 1);
     var i = Math.min(STOPS.length - 2, Math.floor(t));
-    return css(mix(STOPS[i], STOPS[i + 1], t - i));
+    return mix(STOPS[i], STOPS[i + 1], t - i);
   }
   function col(lq) {
     return ramp((lq - 0.5) / 3.5);
@@ -83,14 +84,46 @@
     });
     return out;
   }
+  /** 柱の高さ(メートル)。産出額の平方根に比例(いちばん大きい県が 262km) @param {number} v 産出額 @param {number} mx その産業でいちばん大きい県の産出額 */
+  function height(v, mx) {
+    return Math.sqrt(v / mx) * 260000 + 2000;
+  }
   var map = null,
     geo = null,
-    grow = HERO && !reduce ? 0 : 1,
-    picked = /** @type {string | null} */ (null), // hero で選んだ県(朱で塗る)
-    stop = false, // hero のゆっくりした回転を止める
-    CEN = /** @type {Record<string, number[]>} */ ({});
-  function render() {
-    if (!geo) return;
+    flat = HERO && !reduce, // hero は、地図ができるまで柱を伸ばさずに待ち、できたら伸ばす
+    picked = /** @type {string | null} */ (null), // hero で選んだ県(墨で塗る。暗いテーマでは白)
+    NOW = /** @type {Record<string, {h: number, c: number[]}>} */ ({}), // 県ごとの、いま描いている高さと色
+    run = 0; // 高さを変えていく動きの番号(次の切り替えが始まったら、前の動きはやめる)
+  /** 県ごとの高さと色を、いまの値から to へ変える。ms を渡すと、その時間をかけて伸び縮みさせる
+   * @param {Record<string, {h: number, c: number[]}>} to @param {number} [ms] */
+  function tween(to, ms) {
+    var from = NOW,
+      my = ++run,
+      t0 = /** @type {number | null} */ (null);
+    var put = function (e) {
+      var now = /** @type {Record<string, {h: number, c: number[]}>} */ ({});
+      geo.features.forEach(function (f) {
+        var id = f.properties.id,
+          b = to[id],
+          a = from[id] || b;
+        now[id] = { h: a.h + (b.h - a.h) * e, c: mix(a.c, b.c, e) };
+        f.properties.h = now[id].h;
+        f.properties.c = css(now[id].c);
+      });
+      NOW = now;
+      if (map && map.getSource && map.getSource("pref")) map.getSource("pref").setData(geo);
+    };
+    if (!ms || reduce) return put(1);
+    (function step(ts) {
+      if (my !== run) return;
+      if (t0 === null) t0 = ts;
+      var t = Math.min(1, (ts - t0) / ms);
+      put(1 - Math.pow(1 - t, 3));
+      if (t < 1) requestAnimationFrame(step);
+    })(performance.now());
+  }
+  /** @param {number} [ms] 柱の高さと色を変えるのにかける時間(ミリ秒)。省くとすぐに切り替える */
+  function render(ms) {
     var k = sel.value,
       V = values(k),
       mx = 0,
@@ -101,20 +134,29 @@
       if (V[i].v > mx) mx = V[i].v;
       if (V[i].va < vmin) vmin = V[i].va;
       if (V[i].va > vmax) vmax = V[i].va;
+      if (V[i].v != null) rows.push(V[i]);
     });
-    geo.features.forEach(function (f) {
-      var d = V[f.properties.id],
-        has = d && d.v != null;
-      f.properties.h = has ? Math.sqrt(d.v / mx) * 260000 * grow + 2000 : 600;
-      f.properties.c = has
-        ? k === "all"
-          ? ramp((d.va - vmin) / (vmax - vmin || 1))
-          : col(d.lq == null ? 0.5 : d.lq)
-        : theme().off;
-      if (picked !== null && String(f.properties.id) === picked) f.properties.c = css(theme().pick);
-      if (d && has) rows.push(d);
-    });
-    if (map && map.getSource && map.getSource("pref")) map.getSource("pref").setData(geo);
+    // 地図(境界データを読み込めたとき)。下の一覧や説明は、地図がなくても出す
+    if (geo) {
+      var to = /** @type {Record<string, {h: number, c: number[]}>} */ ({});
+      geo.features.forEach(function (f) {
+        var id = f.properties.id,
+          d = V[id],
+          has = d && d.v != null;
+        to[id] = {
+          h: has ? (flat ? 2000 : height(d.v, mx)) : 600,
+          c:
+            picked !== null && String(id) === picked
+              ? theme().pick
+              : has
+                ? k === "all"
+                  ? ramp((d.va - vmin) / (vmax - vmin || 1))
+                  : col(d.lq == null ? 0.5 : d.lq)
+                : theme().off,
+        };
+      });
+      tween(to, ms);
+    }
     rows.sort(function (a, b) {
       return b.v - a.v;
     });
@@ -213,7 +255,19 @@
     var s = document.createElement("script");
     s.src = "vendor/maplibre-gl.js";
     s.onload = cb;
+    s.onerror = nomap;
     document.head.appendChild(s);
+  }
+  /** 立体地図を出せないとき(WebGL が使えない、地図の部品を読み込めない) */
+  function nomap() {
+    if (!HERO)
+      box.innerHTML =
+        '<p class="p-6 text-sm">この環境では3D地図を表示できません。下の一覧をご覧ください。</p>';
+    else {
+      // トップ: 地図の枠と凡例ごと隠す(問いと答えの文はそのまま使える)
+      var hp = root.closest(".hp");
+      if (hp) hp.classList.add("hp-nomap");
+    }
   }
   function rgb() {
     var cv = document.createElement("canvas");
@@ -224,12 +278,88 @@
     var p = cx.getImageData(0, 0, 1, 1).data;
     return "rgb(" + p[0] + "," + p[1] + "," + p[2] + ")";
   } // oklch等はMapLibreが読めない
-  function heroZoom() {
-    var w = box.clientWidth || 360,
-      h = box.clientHeight || 270,
-      ppd = Math.min(w / (w < 520 ? 20.5 : 23), h / 14); // 狭い画面では少し寄る
-    return Math.max(3, Math.min(5, Math.log((ppd * 360) / 512) / Math.LN2));
-  } // 枠に日本(はめ込み含む)が収まるズーム
+  // トップ: 日本(はめ込みを含む)が、柱の上の端まで枠に収まるように、向き・ズーム・中心を決める。
+  // 傾けた地図では、緯度・経度の範囲だけからは決められないので、県の輪郭の点を画面に投影して大きさを測る。
+  // 柱は真上ではなく、カメラの真下の点(画面の下の外)から遠ざかる向きに伸びて見える。端の県の柱は外側へ傾くので、
+  // 柱の上の端も計算して、枠からはみ出さないようにする。高さは、その県の柱がいちばん高くなるとき(tallest)で見積もる。
+  // 産業を切り替えるたびに合わせ直すと地図が動いてしまうので、最初に1回だけ、どの産業でも収まる位置に決める。
+  // 枠が横長か縦長かで収まりのよい向きが違うので、いくつかの向きを試して、いちばん大きく表示できるものを選ぶ。
+  var PTS = /** @type {number[][]} */ ([]), // [経度, 緯度, 柱の高さ(メートル)]
+    moved = false; // 人が地図を動かしたあとは、勝手に合わせ直さない
+  /** 県ごとに、柱がいちばん高くなるときの高さ(メートル)。トップで出しうる産業(どこかの県の上位に入る産業と、すべての産業の合計)で調べる */
+  function tallest() {
+    var ks = /** @type {Record<string, number>} */ ({ all: 1 }),
+      out = /** @type {Record<string, number>} */ ({});
+    ks[sel.value] = 1;
+    Object.keys(P).forEach(function (id) {
+      (P[id].x || []).forEach(function (r) {
+        if (r[1]) ks[r[1]] = 1;
+      });
+    });
+    Object.keys(ks).forEach(function (k) {
+      var V = values(k),
+        mx = 0;
+      Object.keys(V).forEach(function (i) {
+        if (V[i].v > mx) mx = V[i].v;
+      });
+      Object.keys(V).forEach(function (i) {
+        if (V[i].v != null) out[i] = Math.max(out[i] || 0, height(V[i].v, mx));
+      });
+    });
+    return out;
+  }
+  function fitHero() {
+    if (!map || !PTS.length) return;
+    var W = box.clientWidth,
+      H = box.clientHeight;
+    if (W < 50 || H < 50) return;
+    var top = 14,
+      side = 14,
+      bottom = 30; // 下は、出典の文字の分
+    // カメラ: 画面の中心を向いた透視投影。f は焦点距離(ピクセル)、(W/2, ny) はカメラの真下の点が見える位置
+    var rad = Math.PI / 180,
+      fov = (map.getVerticalFieldOfView ? map.getVerticalFieldOfView() : 36.87) * rad,
+      f = H / 2 / Math.tan(fov / 2),
+      tan = Math.tan(map.getPitch() * rad),
+      cos = Math.cos(map.getPitch() * rad),
+      ny = H / 2 + f * tan;
+    /** いまの向きのまま、輪郭と柱が枠に収まるズームと中心に合わせる(数回くり返して収束させる) */
+    var once = function () {
+      for (var n = 0; n < 5; n++) {
+        // 1メートルが画面の何ピクセルか(MapLibre は、高さを地図の中心の緯度の縮尺で描く)
+        var ppm = (512 * Math.pow(2, map.getZoom())) / (40075016.686 * Math.cos(map.getCenter().lat * rad)),
+          x0 = 1e9,
+          x1 = -1e9,
+          y0 = 1e9,
+          y1 = -1e9;
+        for (var i = 0; i < PTS.length; i++) {
+          var p = map.project([PTS[i][0], PTS[i][1]]),
+            gz = (f * f) / (f - (H / 2 - p.y) * tan), // 地面の点の、カメラからの奥行き
+            k = gz / (gz - PTS[i][2] * ppm * cos), // 柱の上の端は、カメラの真下の点から見て k 倍の位置に見える
+            tx = W / 2 + (p.x - W / 2) * k,
+            ty = ny + (p.y - ny) * k;
+          x0 = Math.min(x0, p.x, tx);
+          x1 = Math.max(x1, p.x, tx);
+          y0 = Math.min(y0, p.y, ty);
+          y1 = Math.max(y1, p.y, ty);
+        }
+        var s = Math.min((W - side * 2) / (x1 - x0), (H - top - bottom) / (y1 - y0));
+        map.jumpTo({
+          // いまの中心を、輪郭の中心と(余白を引いた)枠の中心のずれの分だけ動かす
+          center: map.unproject([(x0 + x1) / 2, H / 2 + ((y0 + y1) / 2 - (top + (H - top - bottom) / 2))]),
+          zoom: Math.max(2.5, Math.min(7, map.getZoom() + Math.log(s) / Math.LN2)),
+        });
+      }
+      return { z: map.getZoom(), c: map.getCenter() };
+    };
+    var best = /** @type {{b: number, z: number, c: any} | null} */ (null);
+    [-20, -12, -4, 4, 12, 20].forEach(function (b) {
+      map.jumpTo({ bearing: b });
+      var r = once();
+      if (!best || r.z > best.z + 0.01) best = { b: b, z: r.z, c: r.c };
+    });
+    if (best) map.jumpTo({ bearing: best.b, zoom: best.z, center: best.c });
+  }
   function init() {
     var small = window.innerWidth < 640;
     map = new maplibregl.Map({
@@ -240,17 +370,37 @@
         layers: [{ id: "bg", type: "background", paint: { "background-color": rgb() } }],
         light: { anchor: "viewport", color: "#ffffff", intensity: 0.35, position: [1.5, 200, 35] },
       },
-      center: HERO ? [136.9, 36.7] : [137.5, 37.2],
-      zoom: HERO ? heroZoom() : small ? 3.6 : 4.6,
+      center: HERO ? [138.6, 37.6] : [137.5, 37.2],
+      zoom: HERO ? 4 : small ? 3.6 : 4.6,
       pitch: HERO ? 52 : 45,
       bearing: -12,
       minZoom: 2.5,
       maxZoom: 8,
       cooperativeGestures: HERO,
-      attributionControl: { compact: true, customAttribution: "境界: 地球地図日本(国土地理院)" },
+      // トップは、右下にはめ込み(沖縄・奄美)があるので、出典を左下に、文字だけで出す(見た目は pages/index.html)
+      attributionControl: HERO
+        ? false
+        : { compact: true, customAttribution: "境界: 地球地図日本(国土地理院)" },
     });
+    if (HERO) {
+      map.addControl(
+        new maplibregl.AttributionControl({
+          compact: false,
+          customAttribution: "境界: 地球地図日本(国土地理院)",
+        }),
+        "bottom-left"
+      );
+      fitHero();
+      map.on("resize", function () {
+        if (!moved) fitHero();
+      });
+      ["dragstart", "zoomstart", "rotatestart", "pitchstart"].forEach(function (ev) {
+        map.on(ev, function (e) {
+          if (e.originalEvent) moved = true; // 人の操作で始まったものだけ
+        });
+      });
+    }
     if (!HERO) map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), "top-right");
-    if (HERO) map.setPadding({ top: 8, left: 4, right: 4, bottom: 18 });
     map.on("load", function () {
       map.addSource("pref", { type: "geojson", data: geo });
       if (FRAME) {
@@ -297,7 +447,13 @@
                 : "産出額 " +
                   V.v.toFixed(2) +
                   "兆円" +
-                  (V.lq != null ? "<br>特化係数 " + V.lq.toFixed(2) : ""))
+                  (sel.value === "all"
+                    ? "<br>付加価値率 " + (V.va * 100).toFixed(1) + "%"
+                    : V.lq == null
+                      ? ""
+                      : HERO
+                        ? "<br>全国平均の " + V.lq.toFixed(1) + "倍の集中度"
+                        : "<br>特化係数 " + V.lq.toFixed(2)))
           )
           .addTo(map);
       });
@@ -312,50 +468,15 @@
         if (HERO) root.dispatchEvent(new CustomEvent("pm:pick", { detail: { id: String(id) } }));
         else location.href = "prefecture/" + V.slug + ".html";
       });
-      render();
-      if (HERO && !reduce) {
-        // 押し出し(1.2秒)のあと、ゆっくり回転。触れたら止める
-        var t0 = null,
-          spin = false;
-        (function rise(ts) {
-          if (t0 === null) t0 = ts;
-          var t = Math.min(1, (ts - t0) / 1200);
-          grow = 1 - Math.pow(1 - t, 3);
-          render();
-          if (t < 1) requestAnimationFrame(rise);
-          else spin = true;
-        })(performance.now());
-        var b0 = -12,
-          last = /** @type {number | null} */ (null);
-        ["mousedown", "touchstart", "wheel", "keydown"].forEach(function (ev) {
-          box.addEventListener(
-            ev,
-            function () {
-              stop = true;
-            },
-            { passive: true }
-          );
-        });
-        document.addEventListener("visibilitychange", function () {
-          last = null;
-        });
-        (function turn(ts) {
-          if (stop) return;
-          if (spin && !document.hidden) {
-            if (last !== null) {
-              b0 += (ts - last) * 0.004;
-              map.setBearing(-12 + Math.sin(b0 / 12) * 14);
-            }
-            last = ts;
-          }
-          requestAnimationFrame(turn);
-        })(0);
-      }
+      // 地図ができたら、柱を伸ばす(トップ。1.2秒)
+      flat = false;
+      render(HERO && !reduce ? 1200 : 0);
     });
   }
-  // トップでは、沖縄県と鹿児島県の奄美などの島々を、四国の南の海上に寄せて表示する(はめ込み)。地図ページは実際の位置のまま
-  var DX = 8.6,
-    DY = 3.3,
+  // トップでは、沖縄県と鹿児島県の奄美などの島々を、関東の東の海上に寄せて表示する(はめ込み)。地図ページは実際の位置のまま。
+  // 本土の東西・南北の範囲の中に収まる位置なので、地図全体を大きく表示できる
+  var DX = 17.2,
+    DY = 5.9,
     FRAME = null;
   function inset(g) {
     var bb = [999, 999, -999, -999];
@@ -387,6 +508,8 @@
       x1 = bb[2] + 0.35,
       y0 = bb[1] - 0.35,
       y1 = bb[3] + 0.35; // はめ込みの枠
+    // 枠の四隅も、地図を枠に合わせるための点に入れる
+    PTS.push([x0, y0, 0], [x1, y0, 0], [x1, y1, 0], [x0, y1, 0]);
     FRAME = {
       type: "FeatureCollection",
       features: [
@@ -414,54 +537,35 @@
       })
       .then(function (g) {
         if (HERO) inset(g);
+        var hm = HERO ? tallest() : {};
         g.features.forEach(function (f) {
-          // 県のおおよその中心(いちばん点の多い多角形の外周の平均)
-          var best = /** @type {number[][]} */ ([]);
+          // 枠に合わせるための点(輪郭の点を3つおきに。柱がいちばん高くなるときの高さを添える)
+          var h = hm[f.properties.id] || 600;
           f.geometry.coordinates.forEach(function (poly) {
-            if (poly[0].length > best.length) best = poly[0];
+            for (var i = 0; i < poly[0].length; i += 3) PTS.push([poly[0][i][0], poly[0][i][1], h]);
           });
-          var x = 0,
-            y = 0;
-          best.forEach(function (c) {
-            x += c[0];
-            y += c[1];
-          });
-          CEN[String(f.properties.id)] = [x / best.length, y / best.length];
         });
         geo = g;
         render();
-        if (!ok()) {
-          if (!HERO)
-            box.innerHTML =
-              '<p class="p-6 text-sm">この環境では3D地図を表示できません。下の一覧をご覧ください。</p>';
-          else {
-            // トップ: 地図を描けない端末では、地図の枠と凡例ごと隠す(問いと答えの文はそのまま使える)
-            var hp = root.closest(".hp");
-            if (hp) hp.classList.add("hp-nomap");
-          }
-          return;
-        }
+        if (!ok()) return nomap();
         loadLib(init);
-      });
+      })
+      .catch(nomap);
   }
-  sel.addEventListener("change", render);
+  sel.addEventListener("change", function () {
+    render(450);
+  });
+  render(); // 一覧と説明は、地図の読み込みを待たずに出す
   root.addEventListener("pm:set", function (ev) {
     var d = /** @type {CustomEvent} */ (ev).detail || {};
     if (d.k) sel.value = d.k;
     if ("id" in d) picked = d.id;
-    render();
-    if (d.user) {
-      // 人が選んだときだけ、回転を止めて、選んだ県のほうへ少し寄る
-      stop = true;
-      var c = picked !== null ? CEN[picked] : null;
-      if (map && c && !reduce)
-        map.easeTo({ center: [136.9 + (c[0] - 136.9) * 0.3, 36.7 + (c[1] - 36.7) * 0.3], duration: 700 });
-    }
+    render(d.user ? 450 : 0); // 人が選んだときは、柱が前の高さから伸び縮みする
   });
   document.querySelectorAll(".pm-chip").forEach(function (b) {
     b.addEventListener("click", function () {
       sel.value = b.getAttribute("data-k");
-      render();
+      render(450);
     });
   });
   var fl = document.getElementById("pm-flat"),
