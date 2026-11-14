@@ -89,7 +89,7 @@
     </header>
     <main class="flex-1">
       <style>
-        /* 冒頭: 左に問いと答え(紙)、右に海と立体地図。地図の色は標高の段彩、選んだ県は朱 */
+        /* 冒頭: 左に問いと答え(紙)、右に海と立体地図。地図の色は標高の段彩、選んだ県は墨(暗いテーマでは白) */
         .hp {
           display: grid;
           border-bottom: 1px solid oklch(var(--bc));
@@ -119,13 +119,19 @@
           border-color: oklch(var(--bc));
           font-weight: 700;
         }
-        #hp-out {
+        /* 答えの文は、県を選ぶ欄のすぐ下に出す(狭い画面でも、選んだ結果が地図の上に見える)。
+           上位の一覧とリンクは、狭い画面では地図の下、広い画面では同じ左の列に続く */
+        #hp-fact {
           padding-top: 1.25rem;
-          min-height: 17rem;
+          min-height: 8rem;
+        }
+        #hp-out {
+          min-height: 13rem;
         }
         .hp-fact {
           font-family: var(--k-display);
-          font-size: 1.5rem;
+          /* 1行目(県名+「が県外・海外に売る額の」で最大15字)が、狭い画面でも1行に収まる大きさ */
+          font-size: clamp(1.15rem, 5.6vw, 1.5rem);
           font-weight: 700;
           line-height: 1.45;
         }
@@ -142,8 +148,7 @@
           color: oklch(var(--bc) / 0.8);
         }
         .hp-tops {
-          margin-top: 1.1rem;
-          border-top: 1px solid oklch(var(--bc));
+          padding-top: 0.35rem;
         }
         .hp-tops button {
           display: grid;
@@ -199,30 +204,59 @@
           line-height: 1.6;
           color: oklch(var(--bc) / 0.75);
         }
+        .hp-hint {
+          margin-top: 0.5rem;
+          font-size: 0.75rem;
+          color: oklch(var(--bc) / 0.75);
+        }
+        .hp-nomap .hp-hint {
+          display: none;
+        }
         .hp-map {
-          position: relative;
-          height: 46svh;
-          min-height: 300px;
           border-top: 1px solid oklch(var(--bc));
           border-bottom: 1px solid oklch(var(--bc));
         }
-        .hp-map > #pm-map {
+        .hp-stick {
+          position: relative;
+        }
+        .hp-mapbox {
+          position: relative;
+          height: 46svh;
+          min-height: 300px;
+        }
+        .hp-mapbox > #pm-map {
           position: absolute;
           inset: 0;
         }
-        /* 凡例。色の帯は prefmap.js の STOPS と同じ色・同じ等間隔(左端=0.5倍、右端=4倍) */
-        .hp-legend {
+        /* 地図の部品を読み込んでいるあいだの表示。地図ができたら(MapLibre が枠に maplibregl-map を付ける)消える */
+        #pm-map:not(.maplibregl-map)::before {
+          content: "地図を読み込んでいます…";
           position: absolute;
-          left: 0.5rem;
-          top: 0.5rem;
-          z-index: 2;
-          width: 12.5rem;
-          padding: 0.5rem 0.6rem 0.45rem;
+          inset: 0;
+          display: grid;
+          place-items: center;
+          font-size: 0.8rem;
+          color: oklch(var(--bc) / 0.75);
+        }
+        /* 出典(地図の左下)。地図帳の図と同じく、小さな文字だけにする */
+        .hp-mapbox .maplibregl-ctrl-bottom-left .maplibregl-ctrl-attrib {
+          margin: 0 0 0.4rem 1rem;
+          padding: 0;
+          background: none;
+          font-size: 0.68rem;
+          color: oklch(var(--bc) / 0.75);
+        }
+        /* 凡例。色の帯は prefmap.js の STOPS と同じ色・同じ等間隔(左端=0.5倍、右端=4倍)。
+           狭い画面では地図の下に置く(地図にかぶせると、北海道や九州が隠れるため) */
+        .hp-legend {
+          padding: 0.55rem 1rem 0.5rem;
           background: oklch(var(--b1));
-          border: 1px solid oklch(var(--bc));
-          font-size: 0.7rem;
+          border-top: 1px solid oklch(var(--bc));
+          font-size: 0.72rem;
           line-height: 1.5;
-          pointer-events: none;
+        }
+        .hp-legend .hp-ramp {
+          max-width: 16rem;
         }
         .hp-legend dt {
           font-weight: 700;
@@ -270,6 +304,16 @@
           vertical-align: -0.05rem;
           background: oklch(var(--bc));
         }
+        .hp-key-na {
+          background: oklch(var(--bc) / 0.1);
+          outline: 1px solid oklch(var(--bc) / 0.35);
+          outline-offset: -1px;
+        }
+        .hp-legend dd + dd.hp-keys {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0 1rem;
+        }
         @media (min-width: 1024px) {
           .hp {
             grid-template-columns: minmax(24rem, 32rem) 1fr;
@@ -289,17 +333,38 @@
             padding-top: 3rem;
             padding-bottom: 0;
           }
+          .hp-tops {
+            margin-top: 1.1rem;
+            padding-top: 0;
+            border-top: 1px solid oklch(var(--bc));
+          }
           .hp-map {
             grid-column: 2;
             grid-row: 1 / 3;
-            height: auto;
             border: 0;
           }
+          /* 地図の枠は画面に収まる高さにして、上に留める(左の列が画面より長くても、地図の全体が見える。
+             答えの文の長さで枠の高さが変わらないので、県を選んでも地図の位置が動かない) */
+          .hp-stick {
+            position: sticky;
+            top: 3.3rem;
+            height: min(calc(100svh - 3.3rem), 860px);
+          }
+          .hp-mapbox {
+            position: absolute;
+            inset: 0;
+            height: auto;
+            min-height: 0;
+          }
           .hp-legend {
+            position: absolute;
             left: 1rem;
             top: 1rem;
-            width: 13.5rem;
-            font-size: 0.72rem;
+            z-index: 2;
+            width: 14.5rem;
+            padding: 0.5rem 0.6rem 0.45rem;
+            border: 1px solid oklch(var(--bc));
+            pointer-events: none;
           }
         }
         /* 立体地図を描けない端末(WebGL なし): 地図の枠を隠し、問いと答えだけにする */
@@ -429,34 +494,8 @@
             ><span>県を選ぶ</span
             ><select id="hp-pref" class="select select-bordered select-sm"></select
           ></label>
-        </div>
-        <div class="hp-map">
-          <div
-            id="pm-map"
-            data-prefmap="hero"
-            data-k="35"
-            role="region"
-            aria-label="都道府県を、選んだ産業の産出額の高さで表した日本の立体地図"
-          ></div>
-          <dl class="hp-legend" id="hp-legend">
-            <dt>高さ</dt>
-            <dd id="hp-legend-h">
-              選んだ産業の<a
-                class="underline decoration-dotted underline-offset-4 hover:text-primary"
-                href="glossary.html#sanshutsu"
-                >産出額</a
-              >
-            </dd>
-            <dt>色</dt>
-            <dd id="hp-legend-c">全国平均と比べた集中度</dd>
-            <dd class="hp-ramp" aria-hidden="true">
-              <span class="avg">全国平均</span><span class="hi">4倍〜</span>
-            </dd>
-            <dd><i class="hp-key" aria-hidden="true"></i>選んだ県</dd>
-          </dl>
-        </div>
-        <div class="hp-res">
-          <div id="hp-out" aria-live="polite">
+          <p class="hp-hint">地図の県を押しても選べます。</p>
+          <div id="hp-fact" aria-live="polite">
             <p class="hp-sub">
               県を選ぶと、その県が県外・海外にいちばん売っている産業が分かります。<a
                 class="link"
@@ -465,6 +504,43 @@
               >からも読めます。
             </p>
           </div>
+        </div>
+        <div class="hp-map">
+          <div class="hp-stick">
+            <div class="hp-mapbox">
+              <div
+                id="pm-map"
+                data-prefmap="hero"
+                data-k="35"
+                role="region"
+                aria-label="都道府県を、選んだ産業の産出額の高さで表した日本の立体地図"
+              ></div>
+            </div>
+            <dl class="hp-legend" id="hp-legend">
+              <dt>高さ</dt>
+              <dd id="hp-legend-h">
+                選んだ産業の<a
+                  class="underline decoration-dotted underline-offset-4 hover:text-primary"
+                  href="glossary.html#sanshutsu"
+                  >産出額</a
+                >
+              </dd>
+              <dt>色</dt>
+              <dd id="hp-legend-c">全国平均と比べた集中度</dd>
+              <dd class="hp-ramp" aria-hidden="true">
+                <span class="avg">全国平均</span><span class="hi">4倍〜</span>
+              </dd>
+              <dd class="hp-keys">
+                <span><i class="hp-key" aria-hidden="true"></i>選んだ県</span
+                ><span id="hp-legend-na" hidden
+                  ><i class="hp-key hp-key-na" aria-hidden="true"></i>部門をまとめて公表している県</span
+                >
+              </dd>
+            </dl>
+          </div>
+        </div>
+        <div class="hp-res">
+          <div id="hp-out"></div>
           <p class="hp-note">
             県外・海外への販売額（移輸出額）が大きい産業を、上から並べています。各都道府県が公表した2020年の産業連関表を、筆者が同じ37部門にそろえて集計したものです（<span
               id="hp-count"

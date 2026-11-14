@@ -34,6 +34,11 @@ a.card:hover, a.card:focus-visible { border-color: oklch(var(--bc)); }
 [data-theme="night"] .alert-warning { background: transparent; border: 1px solid oklch(var(--wa)); color: oklch(var(--bc)); }
 [data-theme="nord"] .alert-warning { background: transparent; border: 1px solid #8a5a0b; color: oklch(var(--bc)); }
 
+/* 立体地図の吹き出し(MapLibre)。紙の地に墨の罫線。影・角丸・三角のしっぽは使わない。
+   地図のCSS(vendor/maplibre-gl.css)は後から読み込まれるので、クラスを重ねて優先させる */
+.maplibregl-map .maplibregl-popup-content { padding: 0.35rem 0.6rem; background: oklch(var(--b1)); color: oklch(var(--bc)); border: 1px solid oklch(var(--bc)); border-radius: 0; box-shadow: none; font-size: 0.75rem; line-height: 1.55; }
+.maplibregl-map .maplibregl-popup-tip { display: none; }
+
 /* 県ページの冒頭: 県の形(海の上の紙の切り抜き)と、産業の構成の帯(上=県、下=全国) */
 .pf-head { display: grid; gap: 1rem; align-items: center; }
 .pf-shape { width: 7.5rem; height: 7.5rem; }

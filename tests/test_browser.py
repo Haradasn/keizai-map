@@ -149,15 +149,28 @@ def test_index_prefecture_picker(browser, base):
     assert pg.evaluate("document.documentElement.scrollWidth") <= 392 and not errs, errs
     assert "何で稼いでいる" in pg.inner_text("h1")
     assert pg.locator("#hp-pref option").count() >= 40
-    assert "%" in pg.inner_text("#hp-out .hp-fact")  # 最初の例も県別データから計算
+    assert "%" in pg.inner_text("#hp-fact .hp-fact")  # 最初の例も県別データから計算
     pg.select_option("#hp-pref", "13")
-    assert "東京都" in pg.inner_text("#hp-out .hp-fact")
+    assert "東京都" in pg.inner_text("#hp-fact .hp-fact")
     assert "prefecture/tokyo.html" in pg.get_attribute("#hp-out .hp-go a", "href")
     second = pg.locator(".hp-tops button").nth(1)
     name = second.locator(".hp-tn").inner_text()
     second.click()
-    assert name in pg.inner_text("#hp-out .hp-fact") and not errs, errs
+    assert name in pg.inner_text("#hp-fact .hp-fact") and not errs, errs
     assert pg.locator(".hp-tops button[aria-pressed=true] .hp-tn").inner_text() == name
+    # 一覧を作り直しても、押したボタンにフォーカスが残る(キーボードで続けて選べる)
+    assert pg.evaluate("document.activeElement.getAttribute('aria-pressed')") == "true"
+    # 狭い画面: 答えの文は地図の上、凡例は地図の下(地図にかぶせない)
+    box = lambda s: pg.locator(s).bounding_box()
+    fact, mp, lg = box("#hp-fact"), box(".hp-mapbox"), box("#hp-legend")
+    assert fact["y"] + fact["height"] <= mp["y"] + 1, (fact, mp)
+    assert lg["y"] >= mp["y"] + mp["height"] - 1, (lg, mp)
+    # 灰色の県の説明は、その産業を単独の部門として公表していない県があるときだけ出す
+    pg.select_option("#hp-pref", "17")  # 石川県(稼ぎ頭は生産用機械。岩手県と大分県は部門をまとめて公表)
+    assert "生産用機械" in pg.inner_text("#hp-fact .hp-fact")
+    assert pg.locator("#hp-legend-na").is_visible()
+    pg.select_option("#hp-pref", "23")  # 愛知県(輸送機械は、どの県も単独の部門)
+    assert not pg.locator("#hp-legend-na").is_visible() and not errs, errs
     pg.close()
 
 
@@ -168,9 +181,14 @@ def test_index_pref_link(browser, base):
     pg.on("pageerror", lambda e: errs.append(str(e)))
     pg.goto(f"{base}/index.html?pref=tokyo", wait_until="load")
     pg.wait_for_timeout(1500)
-    assert "東京都" in pg.inner_text("#hp-out .hp-fact") and not errs, errs
+    assert "東京都" in pg.inner_text("#hp-fact .hp-fact") and not errs, errs
     share = pg.get_attribute("#hp-out .hp-go a[target=_blank]", "href")
     assert "twitter.com/intent/tweet" in share and "prefecture%2Ftokyo" in share, share
+    # 広い画面: 地図の枠は画面に収まる高さで、県を選び直しても(答えの文の長さが変わっても)大きさが変わらない
+    h0 = pg.locator(".hp-mapbox").bounding_box()["height"]
+    pg.select_option("#hp-pref", "23")
+    h1 = pg.locator(".hp-mapbox").bounding_box()["height"]
+    assert h0 == h1 and h0 <= 800 - 52, (h0, h1)
     pg.close()
 
 

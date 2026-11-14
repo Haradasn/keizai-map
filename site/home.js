@@ -17,8 +17,9 @@
   var D = window.PREF_MAP,
     root = document.getElementById("pm-map"),
     sel = /** @type {HTMLSelectElement | null} */ (document.getElementById("hp-pref")),
-    out = document.getElementById("hp-out");
-  if (D && root && sel && out) {
+    fact = document.getElementById("hp-fact"), // 答えの文(県を選ぶ欄のすぐ下)
+    out = document.getElementById("hp-out"); // 上位の産業の一覧とリンク
+  if (D && root && sel && fact && out) {
     var P = D.prefs;
     /** 割合を%の数字に(整数) @param {number} v */
     var pc = function (v) {
@@ -38,7 +39,7 @@
       if (r[3] != null) sub.push("全国平均と比べた集中度は" + r[3].toFixed(1) + "倍です。");
       if (r[4]) sub.push(r[4]);
       if (!code) sub.push("全国の分布を出せない部門のため、地図はすべての産業の合計です。");
-      out.innerHTML =
+      fact.innerHTML =
         '<p class="hp-fact"><span class="hp-pn">' +
         esc(p.n) +
         '</span>が県外・海外に売る額の<br><b class="hp-x">' +
@@ -46,7 +47,8 @@
         "</b>%は、" +
         esc(r[0]) +
         "。</p>" +
-        (sub.length ? '<p class="hp-sub">' + esc(sub.join("")) + "</p>" : "") +
+        (sub.length ? '<p class="hp-sub">' + esc(sub.join("")) + "</p>" : "");
+      out.innerHTML =
         '<ul class="hp-tops" aria-label="' +
         esc(p.n) +
         'が県外・海外に多く売っている産業">' +
@@ -91,6 +93,14 @@
       if (lg) lg.classList.toggle("is-all", !code);
       if (lh) lh.textContent = code ? r[0] + "の産出額" : "すべての産業の産出額";
       if (lc) lc.textContent = code ? "全国平均と比べた集中度" : "付加価値率（茶に近いほど高い）";
+      // この産業を単独の部門として公表していない県(地図では灰色)があるときだけ、凡例に灰色の説明を出す
+      var na = document.getElementById("hp-legend-na");
+      if (na)
+        na.hidden =
+          !code ||
+          !Object.keys(P).some(function (q) {
+            return !P[q].s[code];
+          });
       sel.value = id;
       root.dispatchEvent(new CustomEvent("pm:set", { detail: { k: code || "all", id: id, user: !!user } }));
       if (user)
@@ -115,7 +125,12 @@
     });
     out.addEventListener("click", function (ev) {
       var b = /** @type {HTMLElement} */ (ev.target).closest("button[data-i]");
-      if (b) show(cur.id, Number(b.getAttribute("data-i")), true);
+      if (!b) return;
+      var n = b.getAttribute("data-i");
+      show(cur.id, Number(n), true);
+      // 一覧を作り直すので、押したボタンにフォーカスを戻す(キーボードで続けて選べるように)
+      var nb = /** @type {HTMLElement | null} */ (out.querySelector('button[data-i="' + n + '"]'));
+      if (nb) nb.focus();
     });
     root.addEventListener("pm:pick", function (ev) {
       show(/** @type {CustomEvent} */ (ev).detail.id, 0, true);
