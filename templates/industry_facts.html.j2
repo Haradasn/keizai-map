@@ -1,4 +1,8 @@
-{# 108産業ページの冒頭の要約文(meta description の元にもなる) #}
-{{ name }}は、{{ sector_name|esc }}部門に含まれる産業です。2020年の産出額は{{ output }}兆円（国内の産出額全体の{{ share }}%）、
-{% if growth %}2015年から2020年の実質成長は年{{ growth }}%{% else %}2011年・2015年に対応する産業がなく、成長率は算出していません{% endif %}
-でした。主な販売先は{{ sell_names|map("esc")|join("・") }}、主な仕入れ先は{{ buy_names|map("esc")|join("・") }}です。
+{# 108産業ページの要約文(meta description の元にもなる) #}
+{{ name|esc }}は、{{ sector_name|esc }}部門に含まれる産業です。2020年の産出額は{{ output }}兆円（国内の産出額全体の{{ share }}%）。
+{% if growth %}2015年から2020年の実質成長は年{{ growth }}%でした。{% else %}2011年・2015年に対応する産業がないため、成長率は算出していません。{% endif %}
+行き先でいちばん大きいのは{{ top_label }}（{{ top_share }}%）です。
+{% if buy_names %}主な仕入れ先は{{ buy_names|map("esc")|join("・") }}{% endif %}
+{% if buy_names and sell_names %}、{% endif %}
+{% if sell_names %}主な販売先は{{ sell_names|map("esc")|join("・") }}{% endif %}
+{% if buy_names or sell_names %}です。{% endif %}

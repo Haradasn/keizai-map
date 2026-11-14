@@ -1,17 +1,20 @@
-{# 産業一覧ページの本文。groups=[{color, name, sectors:[{id, name, output, industries:[{href, text}]}]}] #}
+{# 産業一覧ページの本文。groups=[{color, name, sectors:[{id, name, output, strip, strip_label, industries:[{href, text}]}]}] #}
+{# 部門ごとの帯は、行き先の内訳(部門ページの図の右側と同じ分類・同じ色)。見た目は src/input.css の .ix-*。コメントは1行ずつ閉じる(_tpl.py が行末に空のコメントを入れるため) #}
 <main class="flex-1 w-full max-w-4xl mx-auto px-4 py-10 space-y-6">
 <header class="space-y-3">
   <h1 class="text-3xl font-bold">産業一覧</h1>
   <p class="text-base-content/80">日本の産業を、8つの大分類・37の部門・108の産業に分けて、それぞれの規模と取引先を見られます。名前をクリックすると、その産業のページに移ります。数字は2020年の産業連関表です。</p>
+  <p class="ioflow-key text-sm">部門の横の帯は、行き先の内訳：<span><i class="ioflow-ind"></i>産業の材料・サービス</span><span><i class="ioflow-fin"></i>家計・投資・政府</span><span><i class="ioflow-sea"></i>輸出</span></p>
 </header>
 {% for group in groups %}
 <section class="space-y-2">
   <h2 class="text-xl font-bold flex items-center gap-2"><i style="display:inline-block;width:12px;height:12px;border-radius:50%;background:{{ group.color }}"></i>{{ group.name|esc }}</h2>
   {% for sector in group.sectors %}
-  <div class="pl-2">
-    <p><a class="link link-primary font-bold" href="industry/{{ sector.id }}.html">{{ sector.name|esc }}</a>
+  <div class="ix-row">
+    <p class="ix-name"><a class="link link-primary font-bold" href="industry/{{ sector.id }}.html">{{ sector.name|esc }}</a>
 | <span class="text-xs text-base-content/70">{{ sector.output }}兆円</span></p>
-    <p class="text-sm pl-4 text-base-content/80">
+    <span class="ix-strip" role="img" aria-label="{{ sector.strip_label }}">{% for part in sector.strip %}<i class="ioflow-{{ part.kind }}" style="width:{{ part.width }}%"></i>{% endfor %}</span>
+    <p class="ix-kids text-sm text-base-content/80">
       {% for item in sector.industries %}<a class="link" href="{{ item.href }}">{{ item.text|esc }}</a>{{ "、" if not loop.last else "" }}{% endfor %}
     </p>
   </div>

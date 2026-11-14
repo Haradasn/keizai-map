@@ -1,3 +1,7 @@
-{# 37部門ページの冒頭の要約文(呼び出し側で esc する) #}
-{{ name }}は、日本の産業を37に分けた部門の1つで、2020年の産出額は{{ output }}兆円、2011年から2020年の実質成長は年{{ growth }}%でした。
-付加価値率は{{ value_added }}%、輸出向けは{{ export }}%、家計消費向けは{{ consumption }}%、輸入依存度は{{ import_dependence }}%です。
+{# 37部門ページの要約文(呼び出し側で esc する) #}
+{{ name }}は、日本の産業を37に分けた部門の1つです。2020年の産出額は{{ output }}兆円、2011年から2020年の実質成長は年{{ growth }}%でした。
+行き先でいちばん大きいのは{{ top_label }}（{{ top_share }}%）です。
+{% if buy_names %}主な仕入れ先は{{ buy_names|join("・") }}{% endif %}
+{% if buy_names and sell_names %}、{% endif %}
+{% if sell_names %}主な販売先は{{ sell_names|join("・") }}{% endif %}
+{% if buy_names or sell_names %}です。{% endif %}

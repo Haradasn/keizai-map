@@ -6,7 +6,7 @@
     <title>公務の産業規模・取引先・成長率（37部門）｜Keizai Atlas</title>
     <meta
       name="description"
-      content="公務（37部門の1つ）の2020年の産出額は42.6兆円。主な販売先・仕入れ先、含まれる産業、取引の背景（仮説）。"
+      content="公務（37部門の1つ）の2020年の産出額は42.6兆円。行き先の95%は政府。主な仕入れ先・販売先、含まれる産業、この部門が稼ぎ頭の県、取引の背景（仮説）。"
     />
     <link rel="canonical" href="https://keizai-atlas.com/industry/61" />
     <meta property="og:type" content="website" />
@@ -14,7 +14,7 @@
     <meta property="og:title" content="公務の産業規模・取引先・成長率（37部門）｜Keizai Atlas" />
     <meta
       property="og:description"
-      content="公務（37部門の1つ）の2020年の産出額は42.6兆円。主な販売先・仕入れ先、含まれる産業、取引の背景（仮説）。"
+      content="公務（37部門の1つ）の2020年の産出額は42.6兆円。行き先の95%は政府。主な仕入れ先・販売先、含まれる産業、この部門が稼ぎ頭の県、取引の背景（仮説）。"
     />
     <meta property="og:url" content="https://keizai-atlas.com/industry/61" />
     <meta property="og:image" content="https://keizai-atlas.com/og/61.png" />
@@ -85,7 +85,7 @@
         >
       </nav>
     </header>
-    <main class="flex-1 w-full max-w-4xl mx-auto px-4 py-10 space-y-8">
+    <main class="flex-1 w-full max-w-4xl mx-auto px-4 py-8 space-y-10">
       <nav aria-label="パンくずリスト" class="text-sm breadcrumbs">
         <ul>
           <li><a href="industries.html">産業一覧</a></li>
@@ -94,33 +94,157 @@
         </ul>
       </nav>
       <header class="space-y-3">
-        <h1 class="text-3xl font-bold">公務（37部門）の取引先・規模・成長</h1>
-        <p class="text-base-content/80">
-          公務は、日本の産業を37に分けた部門の1つで、2020年の産出額は42.6兆円、2011年から2020年の実質成長は年+0.8%でした。付加価値率は70%、輸出向けは0%、家計消費向けは3%、輸入依存度は-0%です。
-        </p>
+        <h1 class="ind-h1" style="--n:2">公務</h1>
+        <p class="ind-lead">行き先の<b>95</b>%は、<span>政府。</span></p>
+        <p class="text-sm text-base-content/80">国内生産 42.6兆円の内訳です。</p>
       </header>
-      <section class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div class="card k-stat bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-1">
-            <span class="text-xs text-base-content/70">産出額（2020年）</span><b class="k-num">42.6兆円</b>
-          </div>
+      <figure class="ioflow">
+        <div class="ioflow-head" aria-hidden="true">
+          <span>出どころ</span><span></span><span>行き先</span>
         </div>
-        <div class="card k-stat bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-1">
-            <span class="text-xs text-base-content/70">実質成長（2011→20年）</span
-            ><b class="k-num">+0.8%/年</b>
-          </div>
+        <div class="ioflow-body" style="height:290px">
+          <ul class="ioflow-l" aria-label="公務の出どころ">
+            <li style="top:27.5px"><a href="industry/66.html">対事業所サービス</a> <b>3.9兆円</b></li>
+            <li style="top:59.0px"><a href="industry/57.html">運輸・郵便</a> <b>1.4兆円</b></li>
+            <li style="top:93.5px">その他の仕入れ <b>7.4兆円</b></li>
+            <li style="top:199.1px">付加価値 <b>29.8兆円</b></li>
+          </ul>
+          <svg
+            viewBox="0 0 100 290"
+            height="290"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path class="ioflow-ind" d="M0 16.9C25 16.9 25 30.1 50 30.1L50 51.2C25 51.2 25 38.1 0 38.1Z" />
+            <path class="ioflow-ind" d="M0 55.1C25 55.1 25 51.2 50 51.2L50 59.0C25 59.0 25 62.9 0 62.9Z" />
+            <path class="ioflow-ind" d="M0 73.5C25 73.5 25 59.0 50 59.0L50 99.0C25 99.0 25 113.6 0 113.6Z" />
+            <path
+              class="ioflow-fin"
+              d="M0 118.6C25 118.6 25 99.0 50 99.0L50 260.1C25 260.1 25 279.6 0 279.6Z"
+            />
+            <path
+              class="ioflow-ind"
+              d="M100 18.9C75 18.9 75 30.1 50 30.1L50 34.3C75 34.3 75 23.1 100 23.1Z"
+            />
+            <path
+              class="ioflow-fin"
+              d="M100 49.2C75 49.2 75 34.3 50 34.3L50 40.9C75 40.9 75 55.8 100 55.8Z"
+            />
+            <path
+              class="ioflow-fin"
+              d="M100 67.0C75 67.0 75 40.9 50 40.9L50 260.1C75 260.1 75 286.1 100 286.1Z"
+            />
+            <line class="ioflow-bar" x1="0" y1="16.9" x2="0" y2="38.1" />
+            <line class="ioflow-bar" x1="0" y1="55.1" x2="0" y2="62.9" />
+            <line class="ioflow-bar" x1="0" y1="73.5" x2="0" y2="113.6" />
+            <line class="ioflow-bar" x1="0" y1="118.6" x2="0" y2="279.6" />
+            <line class="ioflow-bar" x1="100" y1="18.9" x2="100" y2="23.1" />
+            <line class="ioflow-bar" x1="100" y1="49.2" x2="100" y2="55.8" />
+            <line class="ioflow-bar" x1="100" y1="67.0" x2="100" y2="286.1" />
+            <line class="ioflow-mid" x1="50" y1="30.1" x2="50" y2="260.1" />
+          </svg>
+          <ul class="ioflow-r" aria-label="公務の行き先">
+            <li style="top:21.0px">その他の産業 <b>7,900億円</b></li>
+            <li style="top:52.5px">家計 <b>1.2兆円</b></li>
+            <li style="top:176.6px">政府 <b>40.6兆円</b></li>
+          </ul>
         </div>
-        <div class="card k-stat bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-1">
-            <span class="text-xs text-base-content/70">付加価値率</span><b class="k-num">70%</b>
+        <figcaption>
+          <p class="ioflow-key">
+            <span><i class="ioflow-ind"></i>産業どうしの取引</span
+            ><span><i class="ioflow-fin"></i>付加価値と、家計・投資・政府</span
+            ><span><i class="ioflow-sea"></i>海外（輸入・輸出）</span>
+          </p>
+          <p>
+            帯の太さは金額（2020年）。左が公務の出どころ（ほかの産業からの仕入れ、この部門が加えた付加価値、輸入品）、右が行き先です。左右の合計はどちらも42.6兆円。「政府」には、公的な保険からの給付（医療・介護など）と公共投資を含みます。
+          </p>
+        </figcaption>
+      </figure>
+      <p class="text-base-content/80">
+        公務は、日本の産業を37に分けた部門の1つです。2020年の産出額は42.6兆円、2011年から2020年の実質成長は年+0.8%でした。行き先でいちばん大きいのは政府（95%）です。主な仕入れ先は対事業所サービス・運輸・郵便・情報通信、主な販売先は分類不明です。
+      </p>
+      <section class="space-y-2">
+        <h2 class="text-xl font-bold">37部門の中での位置</h2>
+        <p class="text-sm text-base-content/70">
+          細い線が37部門のそれぞれ、朱の線が公務です。順位は、値の大きい順。
+        </p>
+        <dl class="rul">
+          <div class="rul-row">
+            <dt>規模（産出額）</dt>
+            <dd class="rul-v">42.6兆円</dd>
+            <dd class="rul-g" aria-hidden="true">
+              <svg viewBox="0 0 300 16" height="16" preserveAspectRatio="none" focusable="false">
+                <path
+                  class="rul-all"
+                  d="M70 5V16M117 5V16M146 5V16M166 5V16M168 5V16M176 5V16M178 5V16M182 5V16M189 5V16M191 5V16M194 5V16M202 5V16M206 5V16M208 5V16M209 5V16M211 5V16M212 5V16M214 5V16M219 5V16M222 5V16M232 5V16M237 5V16M245 5V16M256 5V16M258 5V16M260 5V16M263 5V16M266 5V16M267 5V16M270 5V16M281 5V16M284 5V16M286 5V16M293 5V16M296 5V16M297 5V16"
+                />
+                <path class="rul-own" d="M263.0 0V16" /></svg
+              ><span class="rul-ax"
+                ><span class="rul-start" style="left:0.0%">0.1兆円</span
+                ><span class="rul-mid" style="left:33.3%">1兆円</span
+                ><span class="rul-mid" style="left:66.7%">10兆円</span
+                ><span class="rul-end" style="left:100.0%">100兆円</span></span
+              >
+            </dd>
+            <dd class="rul-r">37部門中 10位</dd>
           </div>
-        </div>
-        <div class="card k-stat bg-base-100 border border-base-300">
-          <div class="card-body p-4 gap-1">
-            <span class="text-xs text-base-content/70">輸入依存度</span><b class="k-num">-0%</b>
+          <div class="rul-row">
+            <dt>実質成長（2011→20年）</dt>
+            <dd class="rul-v">年+0.8%</dd>
+            <dd class="rul-g" aria-hidden="true">
+              <svg viewBox="0 0 300 16" height="16" preserveAspectRatio="none" focusable="false">
+                <path
+                  class="rul-all"
+                  d="M24 5V16M51 5V16M75 5V16M81 5V16M93 5V16M105 5V16M123 5V16M126 5V16M129 5V16M147 5V16M156 5V16M159 5V16M165 5V16M171 5V16M174 5V16M180 5V16M186 5V16M189 5V16M195 5V16M198 5V16M210 5V16M213 5V16M264 5V16M270 5V16"
+                />
+                <path class="rul-zero" d="M150 0V16" />
+                <path class="rul-own" d="M174.0 0V16" /></svg
+              ><span class="rul-ax"
+                ><span class="rul-start" style="left:0.0%">−5%</span
+                ><span class="rul-mid" style="left:50.0%">0</span
+                ><span class="rul-end" style="left:100.0%">+5%</span></span
+              >
+            </dd>
+            <dd class="rul-r">37部門中 12位</dd>
           </div>
-        </div>
+          <div class="rul-row">
+            <dt>付加価値率</dt>
+            <dd class="rul-v">70%</dd>
+            <dd class="rul-g" aria-hidden="true">
+              <svg viewBox="0 0 300 16" height="16" preserveAspectRatio="none" focusable="false">
+                <path
+                  class="rul-all"
+                  d="M0 5V16M61 5V16M68 5V16M80 5V16M96 5V16M104 5V16M105 5V16M106 5V16M111 5V16M119 5V16M121 5V16M127 5V16M130 5V16M136 5V16M138 5V16M140 5V16M142 5V16M147 5V16M148 5V16M150 5V16M157 5V16M161 5V16M163 5V16M175 5V16M176 5V16M183 5V16M190 5V16M194 5V16M206 5V16M207 5V16M210 5V16M241 5V16"
+                />
+                <path class="rul-own" d="M210.0 0V16" /></svg
+              ><span class="rul-ax"
+                ><span class="rul-start" style="left:0.0%">0%</span
+                ><span class="rul-mid" style="left:50.0%">50%</span
+                ><span class="rul-end" style="left:100.0%">100%</span></span
+              >
+            </dd>
+            <dd class="rul-r">37部門中 2位</dd>
+          </div>
+          <div class="rul-row">
+            <dt>輸入依存度</dt>
+            <dd class="rul-v">-0%</dd>
+            <dd class="rul-g" aria-hidden="true">
+              <svg viewBox="0 0 300 16" height="16" preserveAspectRatio="none" focusable="false">
+                <path
+                  class="rul-all"
+                  d="M0 5V16M3 5V16M6 5V16M13 5V16M14 5V16M17 5V16M20 5V16M27 5V16M28 5V16M33 5V16M43 5V16M47 5V16M48 5V16M49 5V16M51 5V16M73 5V16M80 5V16M81 5V16M91 5V16M106 5V16M113 5V16M124 5V16M196 5V16M197 5V16M290 5V16"
+                />
+                <path class="rul-own" d="M-0.0 0V16" /></svg
+              ><span class="rul-ax"
+                ><span class="rul-start" style="left:0.0%">0%</span
+                ><span class="rul-mid" style="left:50.0%">50%</span
+                ><span class="rul-end" style="left:100.0%">100%</span></span
+              >
+            </dd>
+            <dd class="rul-r">37部門中 35位</dd>
+          </div>
+        </dl>
       </section>
       <section class="space-y-2">
         <h2 class="text-xl font-bold">含まれる産業（108産業）</h2>
@@ -129,86 +253,111 @@
             <thead>
               <tr>
                 <th>産業</th>
-                <th class="text-right">産出額（兆円）</th>
+                <th class="text-right">産出額</th>
                 <th class="text-right">実質成長（2015→20年/年）</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td><a class="link link-primary" href="industry/611.html">公務</a></td>
-                <td class="text-right">42.63</td>
+                <td class="text-right">42.6兆円</td>
                 <td class="text-right">+1.1%</td>
               </tr>
             </tbody>
           </table>
         </div>
       </section>
+      <div class="ind-pair grid gap-10 md:grid-cols-2">
+        <section class="space-y-2">
+          <h2 class="text-xl font-bold">主な仕入れ先</h2>
+          <div class="overflow-x-auto">
+            <table class="table table-sm">
+              <thead>
+                <tr>
+                  <th>仕入れ先の部門</th>
+                  <th class="text-right">金額</th>
+                  <th class="text-right">費用に占める割合</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><a class="link link-primary" href="industry/66.html">対事業所サービス</a></td>
+                  <td class="text-right">3.9兆円</td>
+                  <td class="text-right">9.2%</td>
+                </tr>
+                <tr>
+                  <td><a class="link link-primary" href="industry/57.html">運輸・郵便</a></td>
+                  <td class="text-right">1.4兆円</td>
+                  <td class="text-right">3.4%</td>
+                </tr>
+                <tr>
+                  <td><a class="link link-primary" href="industry/59.html">情報通信</a></td>
+                  <td class="text-right">1.3兆円</td>
+                  <td class="text-right">2.9%</td>
+                </tr>
+                <tr>
+                  <td><a class="link link-primary" href="industry/48.html">廃棄物処理</a></td>
+                  <td class="text-right">1.2兆円</td>
+                  <td class="text-right">2.9%</td>
+                </tr>
+                <tr>
+                  <td><a class="link link-primary" href="industry/53.html">金融・保険</a></td>
+                  <td class="text-right">7,700億円</td>
+                  <td class="text-right">1.8%</td>
+                </tr>
+                <tr>
+                  <td><a class="link link-primary" href="industry/46.html">電気・ガス・熱供給</a></td>
+                  <td class="text-right">4,600億円</td>
+                  <td class="text-right">1.1%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+        <section class="space-y-2">
+          <h2 class="text-xl font-bold">主な販売先</h2>
+          <div class="overflow-x-auto">
+            <table class="table table-sm">
+              <thead>
+                <tr>
+                  <th>販売先の部門</th>
+                  <th class="text-right">金額</th>
+                  <th class="text-right">行き先に占める割合</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><a class="link link-primary" href="industry/69.html">分類不明</a></td>
+                  <td class="text-right">7,900億円</td>
+                  <td class="text-right">1.8%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
       <section class="space-y-2">
-        <h2 class="text-xl font-bold">主な販売先</h2>
-        <div class="overflow-x-auto">
-          <table class="table table-sm">
-            <thead>
-              <tr>
-                <th>販売先の部門</th>
-                <th class="text-right">金額（兆円）</th>
-                <th class="text-right">売上に占める割合</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><a class="link link-primary" href="industry/69.html">分類不明</a></td>
-                <td class="text-right">0.8</td>
-                <td class="text-right">1.9%</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-      <section class="space-y-2">
-        <h2 class="text-xl font-bold">主な仕入れ先</h2>
-        <div class="overflow-x-auto">
-          <table class="table table-sm">
-            <thead>
-              <tr>
-                <th>仕入れ先の部門</th>
-                <th class="text-right">金額（兆円）</th>
-                <th class="text-right">費用に占める割合</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><a class="link link-primary" href="industry/66.html">対事業所サービス</a></td>
-                <td class="text-right">3.9</td>
-                <td class="text-right">9.2%</td>
-              </tr>
-              <tr>
-                <td><a class="link link-primary" href="industry/57.html">運輸・郵便</a></td>
-                <td class="text-right">1.4</td>
-                <td class="text-right">3.4%</td>
-              </tr>
-              <tr>
-                <td><a class="link link-primary" href="industry/59.html">情報通信</a></td>
-                <td class="text-right">1.2</td>
-                <td class="text-right">2.9%</td>
-              </tr>
-              <tr>
-                <td><a class="link link-primary" href="industry/48.html">廃棄物処理</a></td>
-                <td class="text-right">1.2</td>
-                <td class="text-right">2.9%</td>
-              </tr>
-              <tr>
-                <td><a class="link link-primary" href="industry/53.html">金融・保険</a></td>
-                <td class="text-right">0.8</td>
-                <td class="text-right">1.8%</td>
-              </tr>
-              <tr>
-                <td><a class="link link-primary" href="industry/46.html">電気・ガス・熱供給</a></td>
-                <td class="text-right">0.5</td>
-                <td class="text-right">1.1%</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <h2 class="text-xl font-bold">公務が集中している県</h2>
+        <p class="text-sm">
+          全国平均と比べて集中している県は、<a class="link link-primary" href="prefecture/aomori.html"
+            >青森県</a
+          >（2.1倍）、<a class="link link-primary" href="prefecture/hokkaido.html">北海道</a>（1.8倍）、<a
+            class="link link-primary"
+            href="prefecture/tottori.html"
+            >鳥取県</a
+          >（1.7倍）、<a class="link link-primary" href="prefecture/miyazaki.html">宮崎県</a>（1.5倍）、<a
+            class="link link-primary"
+            href="prefecture/kagoshima.html"
+            >鹿児島県</a
+          >（1.5倍）です。かっこ内は、産出額に占める割合が全国平均の何倍か。
+        </p>
+        <p class="text-xs text-base-content/70">
+          各都道府県が公表した2020年の産業連関表を、筆者が同じ37部門にそろえて集計（43都道府県）。<a
+            class="link"
+            href="prefecture-map.html?k=61"
+            >県別の分布を立体地図で見る</a
+          >
+        </p>
       </section>
       <section class="space-y-2">
         <h2 class="text-xl font-bold">取引のストーリー（筆者の仮説）</h2>
@@ -250,9 +399,11 @@
           </div>
         </div>
       </section>
-      <p class="text-sm"><a class="btn btn-sm btn-outline" href="explorer.html">産業マップで見る →</a></p>
+      <p class="text-sm">
+        <a class="btn btn-sm btn-outline" href="explorer.html?sel=61">産業マップで公務の取引を見る</a>
+      </p>
       <p class="text-xs text-base-content/70">
-        出典：総務省ほか「産業連関表」（2011・2015・2020年）、経済産業省「延長産業連関表」を筆者が集計。政府が作成したものではありません。<a
+        出典：総務省ほか「産業連関表」（2011・2015・2020年）、経済産業省「延長産業連関表」を筆者が集計。産出額と取引は2020年の基本表、成長率は3時点で部門の範囲をそろえた接続産業連関表によるため、範囲が少し違う部門があります（運輸・郵便の成長率は自家輸送を含まない、など）。図の「その他の仕入れ」と「家計」には、企業の交際費・福利厚生費など（家計外消費支出）を含めています。政府が作成したものではありません。<a
           class="link"
           href="about.html"
           >方法と出典</a

@@ -139,6 +139,54 @@ def test_prefecture_3d_map(browser, base):
     pg.close()
 
 
+def test_industry_flow_figure(browser, base):
+    """産業・部門ページの出どころ・行き先の図: ラベルどうしが重ならず、ページが横にはみ出さない(狭い画面と広い画面)。
+    ラベルの位置は、ビルド時に行数を見積もって決めているので、項目の多いページで確かめる。"""
+    overlaps = """() => {
+      const out = [];
+      for (const sel of [".ioflow-l li", ".ioflow-r li"]) {
+        const rs = [...document.querySelectorAll(sel)]
+          .map((e) => e.getBoundingClientRect())
+          .sort((a, b) => a.top - b.top);
+        for (let i = 1; i < rs.length; i++) if (rs[i].top < rs[i - 1].bottom - 0.5) out.push([sel, i]);
+      }
+      return out;
+    }"""
+    for width in (360, 1280):
+        pg = browser.new_page(viewport={"width": width, "height": 900})
+        errs = []
+        pg.on("pageerror", lambda e: errs.append(str(e)))
+        for path in (
+            "industry/251",
+            "industry/595",
+            "industry/261",
+            "industry/28",
+            "industry/351",
+            "industry/66",
+        ):
+            pg.goto(f"{base}/{path}.html", wait_until="load")
+            assert pg.locator(".ioflow-l li").count() >= 1 and pg.locator(".ioflow-r li").count() >= 1, path
+            assert pg.evaluate(overlaps) == [], (width, path)
+            assert pg.evaluate("document.documentElement.scrollWidth") <= width + 2, (width, path)
+        assert errs == []
+        pg.close()
+
+
+def test_sector_page_links_to_prefectures(browser, base):
+    """部門ページ: その部門が稼ぎ頭の県へのリンクがあり、立体地図をその産業を選んだ状態で開ける。"""
+    pg = browser.new_page(viewport={"width": 1280, "height": 900})
+    errs = []
+    pg.on("pageerror", lambda e: errs.append(str(e)))
+    pg.goto(f"{base}/industry/35.html", wait_until="load")
+    assert pg.locator('a[href="prefecture/aichi.html"]').count() >= 1  # 輸送機械が稼ぎ頭の県
+    pg.click('a[href="prefecture-map.html?k=35"]')
+    pg.wait_for_load_state("load")
+    pg.wait_for_timeout(500)
+    assert pg.input_value("#pm-ind") == "35" and "輸送機械" in pg.inner_text("#pm-list caption")
+    assert errs == []
+    pg.close()
+
+
 def test_index_prefecture_picker(browser, base):
     """トップ: 県を選ぶと、県外・海外にいちばん売っている産業の文と、上位の産業が出る。"""
     pg = browser.new_page(viewport={"width": 390, "height": 900})
