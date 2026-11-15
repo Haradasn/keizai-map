@@ -14,6 +14,7 @@ UA = "keizai-atlas-uptime-check"
 # (パス, 本文に含まれるべき文字列)
 PAGES = [
     ("/", "Keizai Atlas"),
+    ("/", "hp-fact"),  # トップの冒頭(答えの文の欄)
     ("/explorer", "産業マップ"),
     ("/prefecture-map", "pm-map"),
     ("/industries", "産業一覧"),

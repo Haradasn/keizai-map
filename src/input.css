@@ -35,6 +35,10 @@ a.card:hover, a.card:focus-visible { border-color: oklch(var(--bc)); }
 [data-theme="night"] .alert-warning { background: transparent; border: 1px solid oklch(var(--wa)); color: oklch(var(--bc)); }
 [data-theme="nord"] .alert-warning { background: transparent; border: 1px solid #8a5a0b; color: oklch(var(--bc)); }
 
+/* 立体地図: 柱が描かれるまでの表示。地図の部品(約800KB)を読み込んで県の形を描き終えると、prefmap.js が pm-ready を付けて消える。
+   MapLibre は先に海の色だけを塗るので、文字は地図の上に重ねる(下に置くと、柱が出る前に隠れてしまう) */
+[data-prefmap="page"] { position: relative; }
+[data-prefmap]:not(.pm-ready)::before { content: "地図を読み込んでいます…"; position: absolute; inset: 0; z-index: 1; display: grid; place-items: center; font-size: 0.8rem; color: oklch(var(--bc) / 0.75); pointer-events: none; }
 /* 立体地図の吹き出し(MapLibre)。紙の地に墨の罫線。影・角丸・三角のしっぽは使わない。
    地図のCSS(vendor/maplibre-gl.css)は後から読み込まれるので、クラスを重ねて優先させる */
 .maplibregl-map .maplibregl-popup-content { padding: 0.35rem 0.6rem; background: oklch(var(--b1)); color: oklch(var(--bc)); border: 1px solid oklch(var(--bc)); border-radius: 0; box-shadow: none; font-size: 0.75rem; line-height: 1.55; }

@@ -1,7 +1,8 @@
-"""SNS共有用の画像(OGP, 1200x630)を生成する。data/ogp_cards.json(build_siteが出力)から site/og/<id>.png と site/og.png を作る。
+"""SNS共有用の画像(OGP, 1200x630)を生成する。site/og.png(トップなど)、site/og/<コード>.png(産業。data/ogp_cards.json から)、
+site/og/pref-<slug>.png(県)、稼ぎ頭マップの画像を作る。色はどれも昼の地図帳(海・紙・墨・朱)。
 日本語フォント(Noto Sans CJK)が必要なため、CIでは実行せず、手元で実行して生成物をコミットする。 実行: python3 scripts/build/build_ogp.py"""
 
-import json, pathlib
+import json, math, pathlib
 from PIL import Image, ImageDraw, ImageFont
 
 R = pathlib.Path(__file__).resolve().parents[2]
@@ -16,9 +17,6 @@ def font(path, sz):
 
 
 W, H = 1200, 630
-BG = (13, 31, 45)  # 夜の海図の海の色(pages/palette.json の theme.night.bg)
-FG = (226, 232, 240)
-MUT = (148, 163, 184)
 
 
 def hexrgb(h):
@@ -44,28 +42,6 @@ def wrap(d, text, f, maxw):
         else:
             cur += ch
     return lines + [cur]
-
-
-def top():
-    im = Image.new("RGB", (W, H), BG)
-    d = ImageDraw.Draw(im)
-    d.rectangle([0, 0, 18, H], fill=(255, 115, 85))
-    d.text((74, 96), "Keizai Atlas｜経済の地図帳", font=font(FR, 30), fill=MUT)
-    d.text((70, 170), "あなたの県は、", font=font(FB, 92), fill=FG)
-    d.text((70, 290), "何で稼いでいる？", font=font(FB, 92), fill=FG)
-    x = 74
-    for lab in ("つながり", "産業", "地域", "変化と世界"):
-        w = d.textlength(lab, font=font(FR, 28)) + 44
-        d.rounded_rectangle([x, 452, x + w, 506], radius=27, outline=MUT, width=2)
-        d.text((x + 22, 479), lab, font=font(FR, 28), fill=FG, anchor="lm")
-        x += w + 18
-    d.text(
-        (74, 560),
-        "産業連関表などの公的統計を、趣味で集計して眺めています｜keizai-atlas.com",
-        font=font(FR, 24),
-        fill=MUT,
-    )
-    return im
 
 
 # ---------- 県ごとの共有画像と、稼ぎ頭マップ(昼の地図帳の色: 海・紙・墨・朱)
@@ -245,6 +221,63 @@ def industry_card(bi, c):
     return im
 
 
+def top(bp, D):
+    """サイト全体の共有画像(トップページなど): 問いと、稼ぎ頭の産業の大分類で塗った日本地図。
+
+    色は稼ぎ頭マップのタイルと同じ(build_pref.kasegi_tiles)。表を載せられていない県は白。"""
+    im = Image.new("RGB", (W, H), SEA)
+    d = ImageDraw.Draw(im)
+    tiles = {t["name"]: t for t in bp.kasegi_tiles(D)}
+    geo = json.loads((S / "vendor/japan-pref.json").read_text(encoding="utf-8"))
+    # 地図: 緯度37.5度で横を縮めた単純な投影。沖縄県と奄美などは、トップの立体地図(pages/prefmap.js)と同じく、
+    # 関東の東の海上に寄せて枠で囲む
+    dx, dy = 17.2, 5.9
+    k = math.cos(math.radians(37.5))
+    lon0, lon1, lat1 = 128.6, 149.0, 45.8
+    sc = min(540 / ((lon1 - lon0) * k), 524 / (lat1 - 29.6))
+    ox, oy = 1164 - (lon1 - lon0) * k * sc, 30
+    box = [1e9, 1e9, -1e9, -1e9]
+    for f in geo["features"]:
+        t = tiles.get(f["properties"]["name"])
+        fill = hexrgb(t["color"]) if t and t["data"] else PAPER
+        g = f["geometry"]
+        for poly in g["coordinates"] if g["type"] == "MultiPolygon" else [g["coordinates"]]:
+            ring = poly[0]
+            south = sum(c[1] for c in ring) / len(ring) < 29.5
+            moved = f["properties"]["id"] == 47 or (f["properties"]["id"] == 46 and south)
+            pts = [
+                (ox + (lon + dx * moved - lon0) * k * sc, oy + (lat1 - lat - dy * moved) * sc)
+                for lon, lat in ring
+            ]
+            if moved:
+                for px, py in pts:
+                    box = [min(box[0], px), min(box[1], py), max(box[2], px), max(box[3], py)]
+            d.polygon(pts, fill=fill, outline=INK)
+    d.rectangle([box[0] - 12, box[1] - 12, box[2] + 12, box[3] + 12], outline=blend(INK, SEA, 0.45), width=1)
+    x = 56
+    d.text((x, 38), "Keizai Atlas｜経済の地図帳", font=font(FR, 26), fill=SOFT)
+    d.text((x, 82), "あなたの県は、", font=font(FK, 74), fill=INK)
+    d.text((x, 172), "何で稼いでいる？", font=font(FK, 74), fill=INK)
+    n = sum(1 for t in tiles.values() if t["data"])
+    d.text((x, 280), "県外・海外にいちばん売っている産業を、", font=font(FR, 23), fill=INK)
+    d.text((x, 312), f"{n}都道府県の産業連関表で調べました", font=font(FR, 23), fill=INK)
+    # 凡例: 地図に出ている色だけ(稼ぎ頭の産業の大分類)。白は、表を載せられていない県
+    F = bp._face_sources()
+    used = {t["color"] for t in tiles.values() if t["data"]}
+    items = [(hexrgb(c), g) for g, c in zip(F["names"], F["colors"]) if c in used]
+    items += [(hexrgb(c), "分類なし（東京都の本社）") for c in sorted(used - set(F["colors"]))]
+    if len(tiles) > n:
+        items.append((PAPER, f"未掲載（{len(tiles) - n}県）"))
+    y = 362
+    d.text((x, y), "色は、稼ぎ頭の産業の大分類", font=font(FR, 19), fill=SOFT)
+    for i, (c, g) in enumerate(items):
+        yy = y + 32 + i * 26
+        d.rectangle([x, yy + 4, x + 16, yy + 20], fill=c, outline=INK if c == PAPER else None)
+        d.text((x + 26, yy), g, font=font(FR, 19), fill=INK)
+    d.text((x, 592), NOTE, font=font(FR, 17), fill=SOFT)
+    return im
+
+
 def kasegi_grid(d, tiles, ox, oy, tw, th, gap, detail):
     """稼ぎ頭マップのタイルを描く。detail=True は県名・産業名・割合、False は県名だけ(小さい画像用)。"""
     for t in tiles:
@@ -320,7 +353,6 @@ if __name__ == "__main__":
     cards = json.loads((R / "data/ogp_cards.json").read_text(encoding="utf-8"))
     (S / "og").mkdir(exist_ok=True)
     q = lambda im: im.quantize(64, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE)
-    q(top()).save(S / "og.png", optimize=True)
     import build_industry as bi  # 出どころと行き先の図の並べ方は、ページと同じ関数で作る
 
     for c in cards:
@@ -328,6 +360,7 @@ if __name__ == "__main__":
     import build_pref as bp  # 県の形・稼ぎ頭・帯の値は、ページと同じ関数で作る
 
     D = json.loads((R / "data/pref_37.json").read_text(encoding="utf-8"))
+    q(top(bp, D)).save(S / "og.png", optimize=True)
     for slug, p in D.items():
         q(pref_card(bp, slug, p)).save(S / "og" / f"pref-{slug}.png", optimize=True)
     big, og = kasegi_images(bp, D)
