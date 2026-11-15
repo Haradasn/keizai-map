@@ -196,6 +196,7 @@ def test_index_prefecture_picker(browser, base):
     pg.wait_for_timeout(2500)
     assert pg.evaluate("document.documentElement.scrollWidth") <= 392 and not errs, errs
     assert "何で稼いでいる" in pg.inner_text("h1")
+    pg.wait_for_selector("#pm-map.pm-ready", timeout=15000)  # 県の形を描き終えると、読み込み中の表示が消える
     assert pg.locator("#hp-pref option").count() >= 40
     assert "%" in pg.inner_text("#hp-fact .hp-fact")  # 最初の例も県別データから計算
     pg.select_option("#hp-pref", "13")

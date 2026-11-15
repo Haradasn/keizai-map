@@ -60,6 +60,7 @@ A11Y_PAGES = [
     "prefecture/tokyo",
     "industries",
     "industry/66",
+    "industry/351",
     "fx",
     "latest",
     "similarity",

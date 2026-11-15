@@ -265,6 +265,7 @@
   }
   /** 立体地図を出せないとき(WebGL が使えない、地図の部品を読み込めない) */
   function nomap() {
+    root.classList.add("pm-ready"); // 読み込み中の表示を消す
     if (!HERO)
       box.innerHTML =
         '<p class="p-6 text-sm">この環境では3D地図を表示できません。下の一覧をご覧ください。</p>';
@@ -472,6 +473,17 @@
         if (!V) return;
         if (HERO) root.dispatchEvent(new CustomEvent("pm:pick", { detail: { id: String(id) } }));
         else location.href = "prefecture/" + V.slug + ".html";
+      });
+      // 県の形を描けるようになったら、読み込み中の表示(src/input.css)を消す。念のため、描画が落ち着いたときにも消す
+      var ready = function () {
+        if (map.isSourceLoaded("pref")) {
+          root.classList.add("pm-ready");
+          map.off("sourcedata", ready);
+        }
+      };
+      map.on("sourcedata", ready);
+      map.once("idle", function () {
+        root.classList.add("pm-ready");
       });
       // 地図ができたら、柱を伸ばす(トップ。1.2秒)
       flat = false;
